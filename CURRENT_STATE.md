@@ -10,34 +10,21 @@
 
 # Recovered position
 
-The Ptah concept and full replacement architecture have been accepted in principle.
+Ptah is an independent, open-source, online-first concurrent digital world built around persistent Workspaces, Objects, Activities, Facilities, Nodes, Sessions and Artifacts.
 
-Ptah is:
+It is intended to support files, repositories, terminals, browsers, containers, applications, firmware, devices, media, documents, storage, transfer, rendering and recovery.
 
-- independent and open source;
-- online first;
-- a concurrent digital world rather than a reasoning system;
-- built around persistent workspaces, objects, activities, facilities, nodes, sessions, and artifacts;
-- capable of files, repositories, terminals, browsers, containers, applications, firmware, devices, media, documents, storage, transfer, rendering, and recovery;
-- intended to reuse and improve proven internal and external machinery instead of rebuilding everything blindly.
+Ptah is the world where work occurs; the human or compatible caller supplies intent and reasoning.
 
 The complete roadmap is stored in `MASTER_ROADMAP.md`.
 
 ---
 
-# Active work
-
-## Phase 0A — Donor recovery and requirement closure
-
-Current objective:
-
-> Close every Ptah requirement through the best compatible donor composition, native Ptah boundary, exit strategy and proof plan before selecting implementation dependencies or writing runtime code.
-
-## Mandatory recovery method
+# Mandatory requirement-closure method
 
 A subsystem is not complete because one repository was selected.
 
-Every requirement must combine:
+Every Ptah requirement must combine:
 
 1. internal THETECHGUY foundation and real operating requirements;
 2. primary capability donor;
@@ -49,58 +36,116 @@ Every requirement must combine:
 
 Canonical decision: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
-## Work package 01 — boundary pass completed
+Research and decisions must be saved as meaningful inspection units finish.
 
-OpenClaw and Daytona were inspected side by side at source level.
+---
 
-Saved evidence:
+# Work package status
+
+## WP01 — OpenClaw and Daytona boundary pass
+
+**Status:** COMPLETED AND SAVED
+
+Established:
+
+- Ptah owns separate Node Protocol and Workspace Provider contracts.
+- A Node is a capability host; it is not a Workspace.
+- Workspace, Activity, Object, Session and Node remain different records and lifecycles.
+- Large terminal, object, display and media streams remain separate from the JSON control envelope.
+- OpenClaw is a Node/gateway protocol donor, not Ptah Core.
+- Daytona is a workspace-lifecycle architecture donor, not an adopted foundation.
+
+Saved:
 
 - `donors/OPENCLAW.md`
 - `donors/DAYTONA.md`
 - `decisions/ADR-0001-NODE-WORKSPACE-BOUNDARY.md`
-- `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`
-- populated first rows in `REQUIREMENT_CLOSURE_MATRIX.md`
+- `work-packages/PHASE-0A-WP01-OPENCLAW-DAYTONA.md`
 
-Accepted boundary findings:
+## WP02A — Workspace and execution donor composition
 
-1. OpenClaw is the first primary architecture donor for Ptah Node Protocol patterns, not a direct Ptah Core dependency.
-2. Daytona is a useful historical donor for workspace lifecycle, runners and snapshots, but is not an adopted foundation because its public codebase is unmaintained and AGPL-3.0.
-3. Ptah owns its Node Protocol and Workspace Provider contracts.
-4. A node is a physical or virtual capability host.
-5. A workspace provider is one facility available through a node.
-6. Node, Workspace, Activity, Object and Session remain separate records and lifecycles.
-7. Large object, terminal, display and media streams must be separate from the JSON control envelope.
+**Status:** FIRST-PASS DONOR COMPOSITION COMPLETED AND SAVED
 
-These findings establish the boundary only. They do not close the full runtime subsystem.
+Inspected:
 
-## Runtime donor cluster still open
+- Coder;
+- E2B;
+- E2B Desktop;
+- Development Containers Specification;
+- Dev Container CLI;
+- DevPod;
+- containerd and OCI Runtime/Image/Distribution specifications;
+- OpenHands transition repository, Software Agent SDK and Agent Canvas.
 
-The OpenClaw–Daytona combination must be completed by inspecting what each lacks:
+Saved:
 
-- Coder, E2B and Dev Containers for persistent and portable workspace patterns;
-- containerd and OCI specifications for the owned execution foundation;
-- OpenHands for agent/computer workspace interaction and event trajectories;
-- Temporal for durable activities, history, retries and recovery;
-- NATS and JetStream for live event transport and intermittent node communication;
-- OpenTelemetry for end-to-end correlation and resource observability;
-- internal THETECHGUY process, terminal, worker, relay and recovery patterns.
+- `donors/CODER.md`
+- `donors/E2B.md`
+- `donors/E2B-DESKTOP.md`
+- `donors/DEV-CONTAINERS-SPEC.md`
+- `donors/DEV-CONTAINERS-CLI.md`
+- `donors/DEVPOD.md`
+- `donors/CONTAINERD-OCI.md`
+- `donors/OPENHANDS.md`
+- `work-packages/PHASE-0A-WP02A-WORKSPACE-EXECUTION-COMPOSITION.md`
 
-Only after this cluster is inspected can `CORE-001`, `CORE-002`, `CORE-005`, `RELAY-001`, `RELAY-002`, `EXEC-001`, `EXEC-002` and `OBS-001` move toward design closure.
+Provisional architecture direction:
 
-## Current donor pool
+1. Ptah owns the provider-neutral Workspace Provider contract.
+2. Native local-process and OCI providers are the first owned implementations.
+3. OCI standards are foundational for container compatibility.
+4. Dev Container definitions are a supported import/compatibility format, not Ptah's universal schema.
+5. Coder, E2B and DevPod remain optional provider or protocol-compatibility paths.
+6. Graphical Application/Display sessions are distinct activities and may use several backends.
+7. OpenHands and similar systems are callers or workloads, not Ptah's identity.
+8. Provider limitations such as pause, fork, checkpoint, migration and multi-stream display are explicit capabilities.
+9. Ptah Object, Activity, Workspace and Session identity must survive provider replacement.
 
-The active pool includes:
+The full composition is recorded in the WP02A work-package file.
 
-- internal THETECHGUY repositories and unfinished work;
-- OpenClaw organisation projects;
-- Daytona, E2B, Coder, OpenHands and Dev Containers;
-- Temporal and NATS;
-- containerd, OCI, BuildKit and Dagger;
-- OpenTelemetry;
-- Witness, in-toto, Cosign and ORAS;
-- Playwright, Playwright MCP, Browser-Use and TurboWebFetch;
-- STF, adbkit, Appium, scrcpy, Android platform tools and TouchPilot;
-- decomposition, media, document, executable, firmware, filesystem, knowledge, security and documentation donors listed in `DONOR_RECOVERY.md`.
+---
+
+# Active inspection unit
+
+## WP02B — Activities, events, recovery and observability
+
+Inspect as one complementary group:
+
+1. Temporal server and the most suitable SDK/runtime boundary;
+2. NATS Server, JetStream and appropriate clients;
+3. OpenTelemetry Collector and specifications;
+4. internal THETECHGUY worker, relay, terminal, logging and recovery patterns.
+
+Resolve:
+
+- public Node Protocol versus internal event fabric;
+- live events versus durable workflow history;
+- retries, cancellation, timers and checkpoints;
+- worker leases, crash recovery and activity resumption;
+- event ordering, sequence, replay, retention and backpressure;
+- trace, log, metric and resource correlation across control plane, Node, provider, Activity, Object and Artifact;
+- direct adoption versus replaceable compatibility contracts.
+
+Required saved output:
+
+- donor records for each inspected source;
+- a composite runtime closure record;
+- Relay / Durable Activity / Observability boundary ADR;
+- Requirement Closure Matrix updates for `CORE-002`, `RELAY-001`, `RELAY-002`, `OBS-001` and related runtime rows;
+- `PROGRESS.md` and this file updated after each meaningful unit.
+
+---
+
+# Requirements moving toward design closure
+
+- `CORE-001 Persistent workspace model` — composite candidate selected; internal recovery and conformance proof remain.
+- `CORE-005 Node Protocol` — boundary selected; full event/recovery cluster remains.
+- `EXEC-001 Terminal and process supervision` — donor composition selected; native implementation and durable recovery remain.
+- `EXEC-002 OCI/container Workspace Provider` — OCI machinery and completion donors selected; provider contract and proof remain.
+- `APP-002 Linux graphical application runtime` — first donor patterns selected; alternate display gateways and concurrency proof remain.
+- `SESSION-001 Checkpoint/resume` — lifecycle donors selected; durable workflow, storage and sync work remain.
+
+No runtime requirement is yet fully closed for build.
 
 ---
 
@@ -108,125 +153,55 @@ The active pool includes:
 
 ## `ptah-roadmap-`
 
-Owns:
-
-- master roadmap;
-- current state;
-- tickable progress;
-- donor research;
-- requirement closure;
-- private decisions;
-- sequencing;
-- chat recovery memory;
-- future local/OS integration notes.
+Owns the private master roadmap, donor research, requirement closure, decisions, sequencing, progress ledger, chat recovery memory and future OS-integration notes.
 
 ## `Ptah-space`
 
-Owns:
+Owns public implementation, public-safe contracts and architecture required by contributors, tests, schemas, source, releases and earned public progress.
 
-- public implementation;
-- public-safe architecture and contracts needed by contributors;
-- the build slice currently being implemented;
-- tests, schemas, source, releases, and earned public progress.
-
-The full private roadmap must not be copied into the public Ptah repository.
+The complete private roadmap and private consumer relationships must not be copied into `Ptah-space`.
 
 ---
 
 # No-build boundary
 
-No Ptah runtime implementation is currently approved.
-
 Allowed now:
 
-- donor recovery;
-- canonical URL and upstream verification;
+- donor and internal-work recovery;
+- source-level inspection and canonical pinning;
 - licence review;
-- exact source-tree inspection;
-- requirement closure matrix;
-- internal existing-work recovery;
-- donor composition and gap analysis;
-- donor adoption, wrap, adaptation and rejection decisions;
-- schema and proof planning after Phase 0A review.
+- composite donor and gap analysis;
+- requirement closure;
+- architecture decisions;
+- proof and schema planning after Phase 0A review.
 
 Not allowed yet:
 
-- choosing dependencies from README claims alone;
 - declaring a subsystem complete from one donor;
+- selecting dependencies from README claims alone;
 - copying donor code;
-- building a large UI;
-- starting the runtime because a donor looks promising;
-- replacing existing internal systems without evidence;
-- exposing private consumers in the public repository.
+- beginning the runtime or large UI;
+- replacing internal systems without evidence;
+- exposing private consumers in public Ptah.
 
 ---
 
-# Immediate next actions
-
-## Work package 02 — Complete the core runtime donor cluster
-
-Inspect in coordinated groups rather than isolated winners.
-
-### Workspace and execution completion
-
-1. Coder
-2. E2B and E2B Desktop
-3. Dev Container specification and a provider implementation
-4. containerd and OCI runtime/image specifications
-5. OpenHands workspace/runtime boundaries
-
-Resolve what OpenClaw and Daytona do not fully cover:
-
-- owned local execution;
-- persistent human-and-system workspaces;
-- provider portability;
-- process, filesystem, PTY and port contracts;
-- snapshots and recovery without vendor lock-in;
-- container/runtime separation;
-- platform and capability conformance.
-
-### Activities, events and recovery completion
-
-6. Temporal and the most suitable Ptah SDK candidate
-7. NATS Server, JetStream and likely Rust/TypeScript/Go clients
-8. OpenTelemetry Collector and specification
-
-Resolve:
-
-- public Node Protocol versus internal event fabric;
-- live events versus durable workflow history;
-- retries, cancellation, timers and checkpoints;
-- event sequence, replay and backpressure;
-- worker leases, crash recovery and activity resumption;
-- trace and metric correlation across control plane, node, provider and artifact.
-
-### Required saved output
-
-9. Create donor records for every inspected repository.
-10. Record each donor's strengths and missing capabilities.
-11. Update the runtime requirement rows with primary and completion donor sets.
-12. Create the Relay / Durable Activity boundary ADR.
-13. Amend ADR-0001 if the full donor cluster changes its provider or protocol boundary.
-14. Update `PROGRESS.md` and this file after each meaningful inspection unit.
-
----
-
-# Completion evidence for Phase 0A
+# Phase 0A completion gate
 
 Phase 0A can move to review only when:
 
 - every v1 requirement has a recorded composite closure path;
-- each selected donor has a pinned version and licence decision;
+- selected donors have canonical URLs, pinned versions and licence decisions;
 - exact files/components studied are recorded;
 - primary-donor gaps and completion donors are explicit;
-- limitations and non-inheritance boundaries are explicit;
-- internal overlap is identified;
+- internal overlap and intentional constraints are recovered;
 - native Ptah gaps are isolated;
 - every selected foundation has an exit strategy;
-- no selected foundation depends on an unresolved or abandoned source without a replacement path.
+- validation activities prove the assembled subsystem;
+- no unresolved or abandoned source is critical without a replacement path.
 
 ---
 
 # Chat continuation instruction
 
-A future chat must read this file first, then `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md`, `MEMORY_PROTOCOL.md`, `DONOR_RECOVERY.md`, the donor records, and accepted ADRs before proposing next work.
+A future chat must read this file first, followed by `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md`, `MEMORY_PROTOCOL.md`, `DONOR_RECOVERY.md`, `REQUIREMENT_CLOSURE_MATRIX.md`, relevant donor records, work-package records and accepted ADRs before proposing or performing the next work.
