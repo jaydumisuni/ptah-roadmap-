@@ -38,24 +38,13 @@ Established separate Node Protocol and Workspace Provider contracts, distinct No
 
 Inspected OpenClaw, Daytona, Coder, E2B/Desktop, Dev Containers/CLI, DevPod, containerd/OCI and OpenHands.
 
-Direction:
-
-- Ptah owns the provider-neutral Workspace Provider contract.
-- Native local-process and OCI providers are first owned implementations.
-- Dev Containers is a compatibility format, not Ptah's universal schema.
-- External workspace systems remain optional adapters/exit paths.
+Ptah owns the provider-neutral Workspace Provider contract. Native local-process and OCI providers are first owned implementations. Dev Containers is a compatibility format, while external workspace systems remain optional adapters/exit paths.
 
 ## WP02B — Activities, events, recovery and observability
 
 Inspected Temporal, NATS/JetStream and OpenTelemetry.
 
-Direction:
-
-- Ptah owns the Activity contract and Activity Ledger.
-- Temporal is the primary durable-orchestration backend candidate.
-- NATS/JetStream is the primary live/replayable internal Event Fabric candidate.
-- OpenTelemetry/OTLP is the telemetry standard and Collector pipeline candidate.
-- PTY, Object, display and media bytes remain separate streams.
+Ptah owns the Activity Ledger; Temporal is the durable-orchestration candidate; NATS/JetStream is the live/replayable Event Fabric candidate; OpenTelemetry/OTLP is the telemetry standard; large PTY/Object/display/media data uses separate streams.
 
 ## WP02C — Internal core-runtime recovery
 
@@ -63,82 +52,106 @@ Inspected Hunter AgentOps, Foreman, Sergeant, TechGuy Relay, Software Builder, C
 
 Core-runtime requirements are closed for Phase 0B contract design, not build.
 
-Key additions:
-
-- operation, attempt, nonce, Node epoch and producer identity are distinct;
-- Activity state, Event, telemetry, Receipt, Artifact proof, review and authoritative result are distinct;
-- stale, uncorrelated, unauthenticated and UNKNOWN evidence never passes;
-- idempotency, outbox attempts, retry/dead states and stale-lease recovery are first-class;
-- source/local synchronization is status-first and never silently overwrites divergence;
-- optional Facility failure may degrade one capability without stopping unrelated safe work.
+Key additions include separate operation/attempt/nonce/Node epoch/producer identities, separate Activity/Event/telemetry/Receipt/proof/review/authoritative-result states, stale-proof rejection, idempotent outbox attempts and safe status-first synchronization.
 
 ## WP03 — Build, Artifact and provenance composition
 
 Inspected Software Builder, BuildKit, Dagger, ORAS, Witness, in-toto, Sigstore/Cosign/Rekor/Fulcio and Syft.
 
-Closed for Phase 0B design:
-
-- Build Recipe and backend compilation;
-- low-level BuildKit graph/cache/worker direction;
-- Dagger typed recipe/module direction;
-- Artifact/Object relationships and ORAS transport;
-- SBOM, attestation, signature, trust and reproduction records;
-- distinction among planning, build, hash verification, SBOM, attestation, signature, review, reproduction and release acceptance.
+Closed for Phase 0B design: Build Recipes, backend compilation, low-level graph/cache/worker direction, typed modules, Artifact relationships, SBOMs, attestations, signatures, trust and reproduction levels.
 
 Saved ADR-0005 and WP03 record.
 
 ## WP04 — Storage, transfer, synchronization and backup composition
 
+Inspected internal Lumi/Hunter storage work plus aria2, tus/tusd, rclone, Syncthing, restic, JuiceFS and SeaweedFS.
+
+Closed for Phase 0B design:
+
+- hot local Workspace storage classes;
+- local CAS + SQLite/shared SQL + R2/S3 direction;
+- immutable Object/location identity;
+- mutable revision/conflict model;
+- resumable uploads and downloads;
+- cloud and Node transport;
+- encrypted backup/restore;
+- Drive export/recovery;
+- explicit parking of distributed shared filesystems until measured Phase 12 need.
+
+Saved ADR-0006 and WP04 record.
+
+## WP05 — Universal Object and decomposition composition
+
 **Status:** COMPLETE; closed for Phase 0B contract design, not build.
 
 Inspected and saved:
 
-- internal Lumi Download Manager;
-- internal Hunter storage authority and safe-sync patterns;
-- aria2;
-- tus/tusd;
-- rclone;
-- Syncthing;
-- restic;
-- JuiceFS and SeaweedFS as later shared-filesystem candidates.
+### Internal
+
+- App Recover;
+- APK Extractor;
+- TTG Creative Studio;
+- TTG Document Generator Templates.
+
+### External/upstream
+
+- libarchive;
+- Apache Tika;
+- Unstructured;
+- LIEF;
+- Binwalk v3;
+- JADX;
+- Apktool;
+- libvips;
+- FFmpeg/ffprobe;
+- Tree-sitter.
 
 Accepted direction:
 
-1. Hot Workspace bytes, immutable Objects, mutable revisions, Artifacts, caches, provider volumes/snapshots, partial landing data, sync replicas, backups and exports remain separate classes.
-2. Local SSD/NVMe is the default active Workspace storage.
-3. Initial Storage Fabric is local CAS + local SQLite/shared SQL + R2/S3-compatible Object storage.
-4. Object identity is content-based and independent of provider path/tag/location.
-5. Mutable data uses revisions; concurrent offline changes create preserved conflicts rather than silent last-write-wins.
-6. Transfer completion and Object verification/finalization are separate.
-7. aria2 is the primary segmented/multi-source download backend candidate.
-8. tus/tusd is the primary resumable-upload candidate.
-9. rclone is the primary cloud/provider transport candidate.
-10. Syncthing is an optional direct Node-sync backend; Ptah retains revision/conflict authority.
-11. restic is the primary encrypted backup/restore candidate.
-12. Google Drive is export/recovery, not active Build/database/container storage.
-13. JuiceFS and SeaweedFS are evaluated and parked until measured distributed shared-storage need.
-14. Synchronization is not backup; cache is not truth; provider snapshots are not backups.
+1. Immutable original Object bytes and identity remain preserved.
+2. Filename, extension, MIME, parser output and caller labels are claims/attributes rather than identity.
+3. Multiple detector claims and conflicts remain retained; route selection is separate.
+4. Unknown, ambiguous, polyglot, encrypted, malformed, truncated, unsupported and opaque are valid states.
+5. Decomposition is progressive: registration, detection, inventory, decomposition, enrichment, transform, rebuild and verification.
+6. Child Objects, semantic elements, Views, previews, transforms, rebuild projects and rebuilt outputs have distinct relationships.
+7. Decompiled/generated source declares its origin and never masquerades as original source.
+8. Recursive extraction inherits hard depth, bytes, child-count, expansion, time, memory and disk budgets.
+9. Native parsers run in bounded providers, not the control plane.
+10. Partial valid children survive timeout, crash, cancellation or budget exhaustion.
+11. Competing parser/OCR/decompiler views remain separately addressable.
+12. Rebuilt outputs receive new Object identity and explicit signature/trust consequences.
+13. Internal products remain specialist callers/products over neutral Ptah Domain Packs.
 
 Saved:
 
-- `internal/LUMI-DM.md`
-- `internal/STORAGE-AUTHORITY.md`
-- `donors/ARIA2.md`
-- `donors/TUSD.md`
-- `donors/RCLONE.md`
-- `donors/SYNCTHING.md`
-- `donors/RESTIC.md`
-- `donors/FUTURE-SHARED-FILESYSTEMS.md`
-- `decisions/ADR-0006-STORAGE-TRANSFER-SYNC-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP04-STORAGE-TRANSFER-SYNC-BACKUP.md`
+- `internal/APP-RECOVER.md`
+- `internal/APK-EXTRACTOR.md`
+- `internal/CREATIVE-STUDIO.md`
+- `internal/DOCUMENT-GENERATOR.md`
+- `donors/LIBARCHIVE.md`
+- `donors/APACHE-TIKA.md`
+- `donors/UNSTRUCTURED.md`
+- `donors/LIEF.md`
+- `donors/BINWALK.md`
+- `donors/JADX.md`
+- `donors/APKTOOL.md`
+- `donors/LIBVIPS.md`
+- `donors/FFMPEG-FFPROBE.md`
+- `donors/TREE-SITTER.md`
+- `decisions/ADR-0007-OBJECT-GRAPH-DECOMPOSITION-DERIVATIVE-BOUNDARY.md`
+- `work-packages/PHASE-0A-WP05-UNIVERSAL-OBJECT-DECOMPOSITION.md`
 
 Closed for Phase 0B design:
 
-- `STORE-001` through `STORE-005`;
-- `XFER-001` through `XFER-003`;
-- `SYNC-001`;
-- remaining storage/sync portions of `SESSION-001` and `OFFLINE-001`;
-- Object-location portions of `CORE-003`.
+- `CORE-003`;
+- Domain Pack portions of `CORE-004`;
+- `DECOMP-001` and `DECOMP-002`;
+- `DOC-001`;
+- `MEDIA-001`;
+- `IMAGE-001`;
+- `BIN-001`;
+- `APP-001`;
+- source-structure portions of search/editor requirements.
 
 This does not approve runtime dependencies or implementation.
 
@@ -146,47 +159,45 @@ This does not approve runtime dependencies or implementation.
 
 # Active inspection unit
 
-## WP05 — Universal Object and decomposition composition
+## WP06 — Firmware, disks and filesystems composition
 
 Inspect as one complementary group:
 
-1. internal App Recover;
-2. internal APK Extractor;
-3. internal Creative Studio/media asset handling;
-4. internal Document Generator/rendering;
-5. libarchive;
-6. Apache Tika;
-7. Unstructured;
-8. LIEF;
-9. Binwalk;
-10. JADX;
-11. Apktool;
-12. libvips;
-13. FFmpeg/ffprobe;
-14. source-code structure donors such as Tree-sitter only where needed.
+1. internal Apple firmware/tool work;
+2. blacktop/ipsw and Apple metadata sources;
+3. internal MediaTek/META engines and MTKClient;
+4. internal Qualcomm/DIAG/Firehose engines and EDL donors;
+5. internal Unisoc/SPD/PAC/FDL engines and donors;
+6. internal Android OTA Manager;
+7. Android payload, sparse-image and dynamic-partition tooling;
+8. GPT/MBR and filesystem parsers;
+9. libguestfs and related mounting/extraction machinery;
+10. Binwalk/LIEF/libarchive reuse from WP05;
+11. other vendor/embedded firmware coverage;
+12. P5C format recovery from a verified sample/tool, or explicit unresolved/parked status.
 
 Resolve:
 
-- true-type detection and confidence;
-- immutable originals versus child Objects and derivatives;
-- recursive decomposition and extraction budgets;
-- archive/package/document/media/executable/application domain packs;
-- progressive levels from immediate registration to deep decomposition;
-- safe mounting/opening and generated previews;
-- source/renderer/tool/version identity;
-- comparison and rebuild proof levels;
-- child/parent/subject/derived-from relationships;
-- handling of malformed, encrypted, unsupported or intentionally opaque content;
-- streaming decomposition before complete materialization where safe;
-- concurrency without blocking unrelated Activities;
-- which internal product code remains private and which neutral adapters may be public.
+- disk/image/partition/filesystem Object relationships;
+- firmware package, manifest, partition image, region, file and metadata relationships;
+- static decomposition versus mounted/opened views;
+- read-only safe defaults and isolated mount helpers;
+- sparse/compressed/encrypted image handling;
+- payload/dynamic-partition reconstruction;
+- vendor download/restore metadata and cryptographic verification;
+- comparison and rebuild levels;
+- exact device profile/SoC/platform compatibility claims;
+- backup/read-before-write and operation receipts;
+- strict separation between firmware analysis and destructive device flashing;
+- unsupported/proprietary format and missing-key states;
+- private product/engine code versus neutral public Domain Pack adapters.
 
 Required saved output:
 
-- donor/internal records after each inspection;
-- Object/Domain Pack composition record;
-- Object Graph / Decomposition / Derivative boundary ADR;
-- Requirement Closure Matrix updates for `CORE-003`, `DECOMP-001`, `DECOMP-002`, `DOC-001`, `MEDIA-001`, `IMAGE-001`, `BIN-001`, `APP-001` and Domain Pack portions of `CORE-004`;
+- internal/donor records after each inspection unit;
+- Firmware/Disk/Filesystem composition record;
+- Disk Image / Firmware Package / Device Operation boundary ADR;
+- Requirement Closure Matrix updates for `FW-001` through `FW-006`, `FS-001`, firmware portions of `CORE-003`/`CORE-004`, `DEVICE-001` boundaries and `SESSION-001` snapshot/image relationships;
 - `PROGRESS.md` and this file updated continuously.
 
 ---
@@ -199,6 +210,7 @@ Required saved output:
 - ADR-0004 — Operation Identity, Receipts and Proof Levels
 - ADR-0005 — Build Recipe, Artifact and Provenance Boundary
 - ADR-0006 — Storage Classes, Object Transfer, Synchronization and Backup Boundary
+- ADR-0007 — Object Graph, Decomposition, Views and Derivatives Boundary
 
 ---
 
