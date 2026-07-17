@@ -23,6 +23,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0003 Activity / Event / Observability boundary.
 - [x] ADR-0004 Operation Identity / Receipts / Proof Levels.
 - [x] ADR-0005 Build Recipe / Artifact / Provenance boundary.
+- [x] ADR-0006 Storage / Transfer / Sync / Backup boundary.
 - [-] Normalize full donor register and all internal overlap.
 - [-] Save after every meaningful inspection unit.
 
@@ -51,20 +52,40 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0005.
 - [x] Build/Artifact/Provenance Phase 0B design closure.
 
-## Active WP04 — Storage, transfer, synchronization and backup
+## WP04 — Storage, transfer, synchronization and backup
 
-- [-] Recover internal Download Manager/Lumi implementation.
-- [ ] aria2.
-- [ ] tus/tusd.
-- [ ] rclone.
-- [ ] Syncthing.
-- [ ] restic.
-- [ ] Hunter R2/D1/local/Drive storage comparison.
-- [ ] Local content-addressed storage and metadata catalogue direction.
-- [ ] Online/local Object revision and conflict model.
-- [ ] Future shared-filesystem decision: adopt, defer or park.
-- [ ] Composite Storage/Transfer/Sync work-package record.
-- [ ] Storage Classes / Transfer / Sync ADR.
+- [x] Recover internal Download Manager/Lumi implementation.
+- [x] aria2.
+- [x] tus/tusd.
+- [x] rclone.
+- [x] Syncthing.
+- [x] restic.
+- [x] Hunter R2/D1/local/Drive storage comparison.
+- [x] Local content-addressed storage and metadata catalogue direction.
+- [x] Online/local Object revision and conflict model.
+- [x] Future shared-filesystem decision: JuiceFS/SeaweedFS evaluated and parked.
+- [x] Composite Storage/Transfer/Sync work-package record.
+- [x] ADR-0006.
+- [x] Storage/Transfer/Sync/Backup Phase 0B design closure.
+
+## Active WP05 — Universal Object and decomposition composition
+
+- [-] Recover internal App Recover.
+- [ ] Recover internal APK Extractor.
+- [ ] Recover internal Creative Studio/media asset handling.
+- [ ] Recover internal Document Generator/rendering.
+- [ ] libarchive.
+- [ ] Apache Tika.
+- [ ] Unstructured.
+- [ ] LIEF.
+- [ ] Binwalk.
+- [ ] JADX.
+- [ ] Apktool.
+- [ ] libvips.
+- [ ] FFmpeg/ffprobe.
+- [ ] Tree-sitter/source structure only where needed.
+- [ ] Composite Object/Decomposition work-package record.
+- [ ] Object Graph / Decomposition / Derivative ADR.
 
 ## Remaining donor groups
 
@@ -74,7 +95,6 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Theia/OpenVSCode and remote-display gateway.
 - [ ] Playwright, Playwright MCP, Browser-Use and TurboWebFetch.
 - [ ] STF, adbkit, Appium, scrcpy, TouchPilot and internal device engines.
-- [ ] Tika, Unstructured, libarchive, LIEF, Binwalk, JADX, Apktool, libvips and FFmpeg.
 - [ ] Apple, MTK, Qualcomm, Unisoc, Android OTA, disk/filesystem and vendor firmware donors.
 - [ ] RAGFlow, LlamaIndex, Dify, search and data donors.
 - [ ] SparkDistill, ClaimBound, ReproZip, GUAC and security workloads.
@@ -86,12 +106,13 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Core Workspace/Node/Activity/Event/Observability donor composition.
 - [x] Core-runtime internal comparison and Phase 0B design closure.
 - [x] Build/Artifact/Provenance composition and Phase 0B design closure.
+- [x] Storage/Transfer/Sync/Backup composition and Phase 0B design closure.
 - [-] Map all remaining requirements to internal foundations.
 - [-] Map primary and completion donors.
 - [-] Record native Ptah layers, licences and exit strategies.
 - [-] Record complete validation sets.
-- [-] Close transfer/storage/sync cluster.
-- [ ] Close decomposition/firmware/device/browser/UI/search/security clusters.
+- [-] Close universal Object/decomposition cluster.
+- [ ] Close firmware/device/browser/UI/search/security clusters.
 - [ ] Review and freeze Phase 0A.
 
 ---
@@ -109,6 +130,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Build Recipe and backend compilation schema.
 - [ ] Cache identity/reproducibility schema.
 - [ ] Object, relationship, Artifact and storage-location schemas.
+- [ ] Object detection, decomposition, view and derivative schemas.
 - [ ] SBOM, attestation, signature and verification schemas.
 - [ ] Session, snapshot, credential, sync and conflict schemas.
 - [ ] Large-stream reference contracts.
