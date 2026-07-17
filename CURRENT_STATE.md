@@ -20,17 +20,9 @@ The complete roadmap is stored in `MASTER_ROADMAP.md`.
 
 # Mandatory closure method
 
-Every requirement combines:
+Every requirement combines internal foundation, primary capability donor, completion donors, mature machinery, native Ptah contracts, an exit path and proof. One repository never closes a subsystem by itself.
 
-1. internal THETECHGUY foundation and intentional constraints;
-2. primary capability donor;
-3. completion donors;
-4. mature upstream machinery and standards;
-5. native Ptah contracts and integration;
-6. fallback or exit path;
-7. proof of the complete assembled subsystem.
-
-One repository never closes a subsystem by itself. Research and decisions are committed after every meaningful inspection unit.
+Research and decisions are committed after every meaningful inspection unit.
 
 Canonical method: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
@@ -67,67 +59,86 @@ Direction:
 
 ## WP02C — Internal core-runtime recovery
 
-Inspected and saved Hunter AgentOps, Foreman, Sergeant, TechGuy Relay, Software Builder, CodeOps, MIBU and Hunter runtime/sync/outbox implementations.
+Inspected Hunter AgentOps, Foreman, Sergeant, TechGuy Relay, Software Builder, CodeOps, MIBU and Hunter runtime/sync/outbox implementations.
 
 Core-runtime requirements are closed for Phase 0B contract design, not build.
 
-Key accepted additions:
+Key additions:
 
-- operation/attempt/nonce/Node epoch/producer identity are distinct;
+- operation, attempt, nonce, Node epoch and producer identity are distinct;
 - Activity state, Event, telemetry, Receipt, Artifact proof, review and authoritative result are distinct;
-- stale/uncorrelated/unauthenticated/UNKNOWN evidence never passes;
+- stale, uncorrelated, unauthenticated and UNKNOWN evidence never passes;
 - idempotency, outbox attempts, retry/dead states and stale-lease recovery are first-class;
 - source/local synchronization is status-first and never silently overwrites divergence;
 - optional Facility failure may degrade one capability without stopping unrelated safe work.
 
-Saved ADRs through ADR-0004.
-
 ## WP03 — Build, Artifact and provenance composition
+
+Inspected Software Builder, BuildKit, Dagger, ORAS, Witness, in-toto, Sigstore/Cosign/Rekor/Fulcio and Syft.
+
+Closed for Phase 0B design:
+
+- Build Recipe and backend compilation;
+- low-level BuildKit graph/cache/worker direction;
+- Dagger typed recipe/module direction;
+- Artifact/Object relationships and ORAS transport;
+- SBOM, attestation, signature, trust and reproduction records;
+- distinction among planning, build, hash verification, SBOM, attestation, signature, review, reproduction and release acceptance.
+
+Saved ADR-0005 and WP03 record.
+
+## WP04 — Storage, transfer, synchronization and backup composition
 
 **Status:** COMPLETE; closed for Phase 0B contract design, not build.
 
 Inspected and saved:
 
-- internal Software Builder;
-- BuildKit;
-- Dagger;
-- ORAS;
-- Witness;
-- in-toto;
-- Cosign, Rekor, Fulcio and sigstore-go;
-- Syft.
+- internal Lumi Download Manager;
+- internal Hunter storage authority and safe-sync patterns;
+- aria2;
+- tus/tusd;
+- rclone;
+- Syncthing;
+- restic;
+- JuiceFS and SeaweedFS as later shared-filesystem candidates.
 
 Accepted direction:
 
-1. Ptah owns Build Recipe, Build Activity Graph, Object/Artifact Graph and Provenance/Verification Graph contracts.
-2. BuildKit is the primary low-level graph/cache/worker candidate for suitable OCI builds.
-3. Dagger is the primary typed recipe/module donor and optional backend.
-4. Software Builder contributes scanner/readiness/shared-environment and private release requirements, not the complete engine.
-5. ORAS is an Artifact transport/referrer backend, not universal Object storage.
-6. Syft inventories packages/files and emits SBOMs with explicit coverage limits.
-7. Witness/in-toto provide attestor and planned supply-chain interoperability.
-8. Sigstore provides digest signing, identity, trusted roots, offline bundles and transparency evidence.
-9. Cache is derived reusable state, not independent reproduction.
-10. Build, hash verification, SBOM, attestation, signature, review, reproduction and release acceptance remain separate levels.
+1. Hot Workspace bytes, immutable Objects, mutable revisions, Artifacts, caches, provider volumes/snapshots, partial landing data, sync replicas, backups and exports remain separate classes.
+2. Local SSD/NVMe is the default active Workspace storage.
+3. Initial Storage Fabric is local CAS + local SQLite/shared SQL + R2/S3-compatible Object storage.
+4. Object identity is content-based and independent of provider path/tag/location.
+5. Mutable data uses revisions; concurrent offline changes create preserved conflicts rather than silent last-write-wins.
+6. Transfer completion and Object verification/finalization are separate.
+7. aria2 is the primary segmented/multi-source download backend candidate.
+8. tus/tusd is the primary resumable-upload candidate.
+9. rclone is the primary cloud/provider transport candidate.
+10. Syncthing is an optional direct Node-sync backend; Ptah retains revision/conflict authority.
+11. restic is the primary encrypted backup/restore candidate.
+12. Google Drive is export/recovery, not active Build/database/container storage.
+13. JuiceFS and SeaweedFS are evaluated and parked until measured distributed shared-storage need.
+14. Synchronization is not backup; cache is not truth; provider snapshots are not backups.
 
 Saved:
 
-- `donors/BUILDKIT.md`
-- `donors/DAGGER.md`
-- `donors/ORAS.md`
-- `donors/WITNESS.md`
-- `donors/IN-TOTO.md`
-- `donors/SIGSTORE-COSIGN-REKOR-FULCIO.md`
-- `donors/SYFT.md`
-- `decisions/ADR-0005-BUILD-ARTIFACT-PROVENANCE-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP03-BUILD-ARTIFACT-PROVENANCE.md`
+- `internal/LUMI-DM.md`
+- `internal/STORAGE-AUTHORITY.md`
+- `donors/ARIA2.md`
+- `donors/TUSD.md`
+- `donors/RCLONE.md`
+- `donors/SYNCTHING.md`
+- `donors/RESTIC.md`
+- `donors/FUTURE-SHARED-FILESYSTEMS.md`
+- `decisions/ADR-0006-STORAGE-TRANSFER-SYNC-BOUNDARY.md`
+- `work-packages/PHASE-0A-WP04-STORAGE-TRANSFER-SYNC-BACKUP.md`
 
-Requirements moved to Phase 0B design closure:
+Closed for Phase 0B design:
 
-- `EXEC-003`;
-- Build-side `STORE-002` and `STORE-004` foundations;
-- `PROV-001`;
-- Build-related portions of `CORE-003`, `PLUGIN-001` and `OBS-001`.
+- `STORE-001` through `STORE-005`;
+- `XFER-001` through `XFER-003`;
+- `SYNC-001`;
+- remaining storage/sync portions of `SESSION-001` and `OFFLINE-001`;
+- Object-location portions of `CORE-003`.
 
 This does not approve runtime dependencies or implementation.
 
@@ -135,41 +146,47 @@ This does not approve runtime dependencies or implementation.
 
 # Active inspection unit
 
-## WP04 — Storage, transfer, synchronization and backup composition
+## WP05 — Universal Object and decomposition composition
 
 Inspect as one complementary group:
 
-1. internal Download Manager/Lumi implementation;
-2. aria2;
-3. tus/tusd;
-4. rclone;
-5. Syncthing;
-6. restic;
-7. current Hunter R2/D1/local/Drive storage patterns;
-8. local content-addressed storage and metadata-catalogue options;
-9. optional future shared-filesystem donors only where they close an actual requirement.
+1. internal App Recover;
+2. internal APK Extractor;
+3. internal Creative Studio/media asset handling;
+4. internal Document Generator/rendering;
+5. libarchive;
+6. Apache Tika;
+7. Unstructured;
+8. LIEF;
+9. Binwalk;
+10. JADX;
+11. Apktool;
+12. libvips;
+13. FFmpeg/ffprobe;
+14. source-code structure donors such as Tree-sitter only where needed.
 
 Resolve:
 
-- hot active Workspace bytes versus durable Objects/Artifacts;
-- resumable upload and download protocols;
-- segmented/multi-source download and partial-file recovery;
-- cloud/Object-store and Node-to-Node transport;
-- streaming hashes, deduplication and content-addressed identity;
-- backup, retention, encryption and restore;
-- online/local authority, Object revisions and explicit conflicts;
-- direct sync versus archive/export;
-- storage-location health and repair;
-- Drive as export/recovery rather than live Build filesystem;
-- whether future JuiceFS/SeaweedFS-like shared layers are needed or parked;
-- backend replacement and offline behavior.
+- true-type detection and confidence;
+- immutable originals versus child Objects and derivatives;
+- recursive decomposition and extraction budgets;
+- archive/package/document/media/executable/application domain packs;
+- progressive levels from immediate registration to deep decomposition;
+- safe mounting/opening and generated previews;
+- source/renderer/tool/version identity;
+- comparison and rebuild proof levels;
+- child/parent/subject/derived-from relationships;
+- handling of malformed, encrypted, unsupported or intentionally opaque content;
+- streaming decomposition before complete materialization where safe;
+- concurrency without blocking unrelated Activities;
+- which internal product code remains private and which neutral adapters may be public.
 
 Required saved output:
 
 - donor/internal records after each inspection;
-- composite Storage/Transfer/Sync work-package record;
-- Storage Classes / Object Transfer / Sync boundary ADR;
-- Requirement Closure Matrix updates for `STORE-001` through `STORE-005`, `XFER-001` through `XFER-003`, `SYNC-001`, remaining `SESSION-001`, `OFFLINE-001` and Object-storage portions of `CORE-003`;
+- Object/Domain Pack composition record;
+- Object Graph / Decomposition / Derivative boundary ADR;
+- Requirement Closure Matrix updates for `CORE-003`, `DECOMP-001`, `DECOMP-002`, `DOC-001`, `MEDIA-001`, `IMAGE-001`, `BIN-001`, `APP-001` and Domain Pack portions of `CORE-004`;
 - `PROGRESS.md` and this file updated continuously.
 
 ---
@@ -181,6 +198,7 @@ Required saved output:
 - ADR-0003 — Activity, Event and Observability Boundary
 - ADR-0004 — Operation Identity, Receipts and Proof Levels
 - ADR-0005 — Build Recipe, Artifact and Provenance Boundary
+- ADR-0006 — Storage Classes, Object Transfer, Synchronization and Backup Boundary
 
 ---
 
