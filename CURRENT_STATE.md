@@ -20,7 +20,7 @@ The complete roadmap is stored in `MASTER_ROADMAP.md`.
 
 # Mandatory closure method
 
-Every requirement must combine:
+Every requirement combines:
 
 1. internal THETECHGUY foundation and intentional constraints;
 2. primary capability donor;
@@ -30,159 +30,146 @@ Every requirement must combine:
 6. fallback or exit path;
 7. proof of the complete assembled subsystem.
 
-One repository never closes a subsystem by itself.
+One repository never closes a subsystem by itself. Research and decisions are committed after every meaningful inspection unit.
 
 Canonical method: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
-Research, corrections and decisions are saved after meaningful inspection units.
-
 ---
 
-# Completed and saved work packages
+# Completed and saved core-runtime work
 
 ## WP01 — Node and Workspace boundary
 
-OpenClaw and Daytona established the first boundary:
-
-- Node Protocol and Workspace Provider are separate contracts.
-- Node, Workspace, Activity, Object and Session have separate identities and lifecycles.
-- Large PTY, Object, display and media streams remain outside ordinary JSON control messages.
-
-Saved evidence:
-
-- `donors/OPENCLAW.md`
-- `donors/DAYTONA.md`
-- `decisions/ADR-0001-NODE-WORKSPACE-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP01-OPENCLAW-DAYTONA.md`
+Established separate Node Protocol and Workspace Provider contracts, distinct Node/Workspace/Activity/Object/Session identities and separate large-data streams.
 
 ## WP02A — Workspace and execution composition
 
-Inspected and saved:
+Inspected and saved OpenClaw, Daytona, Coder, E2B/Desktop, Dev Containers/CLI, DevPod, containerd/OCI and OpenHands.
 
-- Coder;
-- E2B and E2B Desktop;
-- Development Containers Specification and CLI;
-- DevPod;
-- containerd and OCI Runtime/Image/Distribution specifications;
-- OpenHands runtime family.
-
-Accepted provisional direction:
+Direction:
 
 - Ptah owns the provider-neutral Workspace Provider contract.
-- Native local-process and OCI providers are the first owned implementations.
-- Dev Containers is a compatibility/import standard, not Ptah's universal schema.
-- Coder, E2B and DevPod are optional provider/compatibility paths.
-- OpenHands is a caller/workload and interaction donor, not Ptah's identity.
-- Provider limitations are explicit capabilities.
-- Ptah identity survives provider replacement.
-
-Saved evidence:
-
-- `donors/CODER.md`
-- `donors/E2B.md`
-- `donors/E2B-DESKTOP.md`
-- `donors/DEV-CONTAINERS-SPEC.md`
-- `donors/DEV-CONTAINERS-CLI.md`
-- `donors/DEVPOD.md`
-- `donors/CONTAINERD-OCI.md`
-- `donors/OPENHANDS.md`
-- `work-packages/PHASE-0A-WP02A-WORKSPACE-EXECUTION-COMPOSITION.md`
+- Native local-process and OCI providers are first owned implementations.
+- Dev Containers is a compatibility format, not Ptah's universal schema.
+- External workspace systems remain optional adapters/exit paths.
 
 ## WP02B — Activities, events, recovery and observability
 
-**External donor composition complete and saved.**
+Inspected and saved Temporal, NATS/JetStream and OpenTelemetry.
 
-Inspected:
+Direction:
 
-- Temporal Server;
-- Temporal Rust/Core SDK;
-- NATS Server and JetStream;
-- Rust `async-nats` client;
-- OpenTelemetry Collector, Collector Contrib and specification.
+- Ptah owns the Activity contract and Activity Ledger.
+- Temporal is the primary durable-orchestration backend candidate.
+- NATS/JetStream is the primary live/replayable internal Event Fabric candidate.
+- OpenTelemetry/OTLP is the telemetry standard and Collector pipeline candidate.
+- PTY, Object, display and media bytes remain separate streams.
 
-Accepted boundary:
+## WP02C — Internal core-runtime recovery
 
-1. Ptah owns a neutral Activity contract and Activity Ledger.
-2. Temporal is the primary durable-orchestration backend candidate.
-3. NATS is the primary low-latency internal Event Fabric candidate.
-4. JetStream is the primary bounded replayable-event candidate.
-5. OpenTelemetry/OTLP is the observability standard and Collector pipeline candidate.
-6. None of those systems replaces Ptah's Object, Artifact, Activity or Session truth.
-7. PTY, Object/file, display and media bytes use dedicated streams.
-8. Side effects require operation IDs, idempotency keys, retry classes and durable receipts.
-9. Disconnected Nodes require a Ptah-owned local journal/outbox and reconciliation model.
-10. Proof-critical receipts are durable and unsampled even when ordinary telemetry is sampled.
+**Status:** FIRST-PASS COMPLETE; core runtime closed for Phase 0B contract design, not build.
 
-Saved evidence:
+Internal sources inspected and saved:
 
-- `donors/TEMPORAL.md`
-- `donors/NATS-JETSTREAM.md`
-- `donors/OPENTELEMETRY.md`
-- `decisions/ADR-0003-ACTIVITY-EVENT-OBSERVABILITY-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP02B-ACTIVITY-EVENT-OBSERVABILITY.md`
+- Hunter AgentOps;
+- Hunter Foreman;
+- Sergeant;
+- TechGuy Relay;
+- THETECHGUY Software Builder;
+- Hunter CodeOps;
+- MIBU;
+- Hunter source/local sync, background tasks, persistent Workflows, local file/process bridge and Events V3 D1 outbox.
+
+Key internal improvements added to Ptah design:
+
+1. Orchestrator, specialist executor, evidence producer and reviewer retain separate ownership.
+2. Operation, attempt, nonce, Node epoch, producer identity/version and idempotency are distinct.
+3. Result, Event, telemetry, Receipt, Object/Artifact proof, review verdict and authoritative external outcome are separate.
+4. Command accepted, process/interface launched, runtime ready, operation armed, completed, output created, read-back verified, independently reviewed and authoritative result are separate proof levels.
+5. Stale, uncorrelated, unauthenticated, incompatible or UNKNOWN evidence never becomes PASS.
+6. D1 outbox patterns contribute unique idempotency, claim, attempt history, retry/dead states, partial delivery and stale-lock recovery.
+7. Source/local synchronization is status-first, explicit and fast-forward-only; divergence is never silently overwritten.
+8. Workspace-relative paths, dry-run/apply, before-mutation backups and secret-aware file boundaries are retained.
+9. Shared toolchains/caches and heavy background-work requirements are retained, while the current Builder is not treated as a completed engine.
+10. Optional Facility failure may degrade one capability without stopping unrelated safe work.
+
+Saved:
+
+- `internal/HUNTER-AGENTOPS.md`
+- `internal/HUNTER-FOREMAN.md`
+- `internal/SERGEANT.md`
+- `internal/TECHGUY-RELAY.md`
+- `internal/SOFTWARE-BUILDER.md`
+- `internal/HUNTER-CODEOPS.md`
+- `internal/MIBU.md`
+- `internal/HUNTER-RUNTIME-SYNC.md`
+- `decisions/ADR-0004-OPERATION-RECEIPTS-PROOF-LEVELS.md`
+- `work-packages/PHASE-0A-WP02C-INTERNAL-CORE-RUNTIME-RECOVERY.md`
+
+Core-runtime requirements now closed for Phase 0B contract design:
+
+- `CORE-001`
+- `CORE-002`
+- `CORE-004`
+- `CORE-005`
+- `RELAY-001`
+- `RELAY-002`
+- `EXEC-001`
+- `EXEC-002`
+- core `SESSION-001`
+- `OBS-001`
+- `OFFLINE-001`
+
+This is design closure only. No runtime dependency or implementation is approved until Phase 0B schemas/proofs and Phase 0C slice approval.
 
 ---
 
 # Active inspection unit
 
-## WP02C — Internal core-runtime recovery
+## WP03 — Deterministic build, Artifact and provenance composition
 
-The external core-runtime composition is not enough. Before design closure, recover internal implementations and intentional behavior from:
+Inspect as one complementary group:
 
-- Hunter/AgentOps operation and job records;
-- Hunter Foreman process/task state;
-- Sergeant evidence, receipts and proof storage;
-- TechGuy Relay registration, heartbeat and expiry experiments;
-- Software Builder and other background workers;
-- Hunter online/local synchronization and failure-continuation rules;
-- existing terminal, process and browser bridges;
-- MIBU correlation nonces, stale-result rejection and device evidence;
-- relevant CodeOps bridge and artifact contracts.
+1. BuildKit;
+2. Dagger;
+3. internal Software Builder comparison;
+4. ORAS and OCI Artifact/referrer relationships;
+5. Witness;
+6. in-toto and its specifications;
+7. Cosign, Rekor, Fulcio and Sigstore;
+8. Syft/SBOM machinery where needed for build outputs.
 
-For each internal source, record:
+Resolve:
 
-- what genuinely exists;
-- exact files/components inspected;
-- what is intentional versus incomplete;
-- capability stronger than or missing from the external composition;
-- what remains private;
-- extract, wrap, adapt, rebuild or reject classification;
-- proof already available and proof still needed.
+- typed recipes versus low-level build graphs;
+- local, CI and remote worker portability;
+- caching and cache identity;
+- secret inputs and exclusion from outputs/logs;
+- exact source, environment, tool and image identity;
+- Artifact/Object relationship and storage format;
+- build receipts, SBOMs and attestations;
+- signing and transparency records;
+- reproduction versus ordinary build success;
+- how private signing/provider adapters remain outside public Ptah;
+- exit strategies if any build/provenance service changes.
 
 Required saved output:
 
-1. internal donor/recovery records;
-2. comparison against WP02A/WP02B external composition;
-3. updates to `CORE-001`, `CORE-002`, `CORE-004`, `CORE-005`, `RELAY-001`, `RELAY-002`, `EXEC-001`, `EXEC-002`, `SESSION-001`, `OBS-001`, `DIST-001` and `OFFLINE-001`;
-4. amendments to ADR-0001 or ADR-0003 where internal evidence proves a stronger intentional design;
-5. a core-runtime closure verdict for Phase 0B contract design.
+- donor records after each source-level inspection;
+- internal Builder comparison against BuildKit/Dagger;
+- composite Build/Artifact/Provenance work-package record;
+- Build Recipe / Artifact / Attestation boundary ADR;
+- Requirement Closure Matrix updates for `EXEC-003`, `STORE-002`, `STORE-004`, `PROV-001`, `PLUGIN-001` where relevant;
+- `PROGRESS.md` and this file updated continuously.
 
 ---
 
-# Requirements moving toward design closure
+# Accepted decisions
 
-- `CORE-001 Persistent Workspace model` — external composite selected; internal recovery and provider conformance remain.
-- `CORE-002 Concurrent Activity runtime` — Temporal/NATS/OTel composition selected; internal worker evidence and proof remain.
-- `CORE-004 Facility/plugin host` — external tool/plugin patterns identified; internal engine boundaries remain.
-- `CORE-005 Node Protocol` — boundary selected; internal relay/device evidence remains.
-- `RELAY-001 Live events` — NATS/JetStream candidate selected; schema and internal reconciliation remain.
-- `RELAY-002 Durable recovery` — Temporal candidate selected; internal retry/receipt semantics remain.
-- `EXEC-001 Terminal/process supervision` — donor composition selected; internal process implementations remain.
-- `EXEC-002 OCI provider` — containerd/OCI machinery selected; native provider contract and internal Docker work remain.
-- `SESSION-001 Session Vault` — lifecycle and durable orchestration donors selected; internal recovery/sync evidence remains.
-- `OBS-001 Observability` — OpenTelemetry selected; internal proof and semantic conventions remain.
-
-No runtime requirement is yet approved for build.
-
----
-
-# Accepted repository boundary
-
-`ptah-roadmap-` owns the private roadmap, donor research, requirement closure, decisions, sequencing, progress and chat recovery.
-
-`Ptah-space` owns public implementation, public-safe contracts, source, tests, releases and earned progress.
-
-The complete private roadmap and private consumer relationships must not be copied into the public repository.
+- ADR-0001 — Node Protocol and Workspace Provider Boundary
+- ADR-0002 — Composite Donor Closure Method
+- ADR-0003 — Activity, Event and Observability Boundary
+- ADR-0004 — Operation Identity, Receipts and Proof Levels
 
 ---
 
@@ -190,19 +177,17 @@ The complete private roadmap and private consumer relationships must not be copi
 
 Allowed now:
 
-- donor and internal-work recovery;
-- source-level inspection and pinning;
-- licence review;
-- composite gap analysis;
-- requirement closure and ADRs;
-- proof/schema planning after Phase 0A review.
+- donor/internal-work recovery;
+- source inspection, canonical pins and licence review;
+- composite requirement closure;
+- ADRs, schemas and proof planning after Phase 0A review.
 
 Not allowed yet:
 
-- declaring closure from one donor;
-- selecting dependencies from README claims alone;
 - copying donor code;
+- declaring closure from one donor;
 - beginning runtime or large UI implementation;
+- selecting dependencies from README claims alone;
 - replacing internal work without evidence;
 - exposing private consumers publicly.
 
@@ -210,10 +195,10 @@ Not allowed yet:
 
 # Phase 0A completion gate
 
-Phase 0A moves to review only when every v1 requirement has a composite closure path, internal overlap, exact pins and licences, native gap, exit strategy and proof plan, or is explicitly parked/rejected with a replacement.
+Every v1 requirement must have a composite closure path, internal overlap, canonical pins/licences, native gap, exit strategy and validation plan, or be explicitly parked/rejected with a replacement.
 
 ---
 
 # Chat continuation instruction
 
-Read this file first, followed by `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md`, `MEMORY_PROTOCOL.md`, `DONOR_RECOVERY.md`, `REQUIREMENT_CLOSURE_MATRIX.md`, relevant donor records, work-package records and accepted ADRs before proposing or performing further work.
+Read this file first, followed by `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md`, `MEMORY_PROTOCOL.md`, `DONOR_RECOVERY.md`, `REQUIREMENT_CLOSURE_MATRIX.md`, relevant donor/internal records, work packages and ADRs before proposing or performing further work.
