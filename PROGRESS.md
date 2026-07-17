@@ -28,6 +28,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0008 Disk Image / Firmware Package / Physical Operation boundary.
 - [x] ADR-0009 Device Session / Display / Input / Semantic UI boundary.
 - [x] ADR-0010 Application Provider / Window / Display boundary.
+- [x] ADR-0011 Browser Profile / Context / Page / Evidence boundary.
 - [-] Normalize remaining donor register and unresolved profiles.
 - [-] Save after every meaningful inspection unit.
 
@@ -99,8 +100,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] TouchPilot canonical repository and implementation.
 - [x] official Android ADB/Fastboot boundary.
 - [x] AndroidX UI Automator boundary.
-- [x] ADR-0009.
-- [x] WP07A record.
+- [x] ADR-0009 and WP07A.
 - [x] Android Device Runtime Phase 0B design closure.
 
 ### WP07B — Desktop and Apple Application Runtime
@@ -114,39 +114,56 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Peekaboo macOS.
 - [x] Appium XCUITest and IDB.
 - [x] Apple Xcode/Simulator/XCTest/Virtualization foundation.
-- [x] ADR-0010.
-- [x] WP07B record.
+- [x] ADR-0010 and WP07B.
 - [x] Device/Application Runtime Phase 0B design closure.
 
-## Active WP08 — Browser and live research
+### WP08 — Browser and Live Research
 
-- [-] Playwright core.
-- [ ] Playwright Python/Java/.NET bindings where contract differences matter.
-- [ ] Playwright MCP.
-- [ ] Browser-Use.
-- [ ] Resolve and inspect TurboWebFetch canonical repository.
-- [ ] Recover internal browser/download/research bridges.
-- [ ] Persistent browser profile and authenticated-context model.
-- [ ] Browser process pooling and Workspace isolation.
-- [ ] Page/tab, frame, popup and download lifecycle.
-- [ ] screenshot, video, trace, console and network evidence.
-- [ ] rendered extraction and source-provenance model.
-- [ ] browser crash/restart and stale-page rejection.
-- [ ] composite WP08 record.
-- [ ] Browser Profile / Context / Page / Evidence ADR.
-- [ ] Browser/Live Research Phase 0B design closure.
+- [x] Playwright core and cross-browser foundation.
+- [x] Playwright MCP.
+- [x] Browser-Use.
+- [x] TurboWebFetch canonical URL and source inspection.
+- [x] internal browser/download/research requirements and implementation gap.
+- [x] persistent Profile and authenticated Context model.
+- [x] browser process pooling and Workspace isolation direction.
+- [x] Page/Frame/Popup/Download lifecycle.
+- [x] screenshot, PDF, video, trace, console, network and HAR evidence.
+- [x] rendered extraction, source and citation model.
+- [x] browser crash/restart and stale-page rejection.
+- [x] ADR-0011 and WP08.
+- [x] Browser/Live Research Phase 0B design closure.
+
+## Active WP09 — Human Workspace Shell and Operator Interface
+
+- [-] Eclipse Theia.
+- [ ] OpenVSCode Server.
+- [ ] code-server compatibility path.
+- [ ] xterm.js terminal surface.
+- [ ] Monaco/editor integration where required.
+- [ ] multi-panel/dock/layout donor decision.
+- [ ] recover internal Hunter/Foreman/Sergeant/device/tool/website UI patterns.
+- [ ] Ptah Home and Workspace switcher.
+- [ ] Object/file/tree/search/preview views.
+- [ ] multi-terminal, Browser, Device and Application panels.
+- [ ] Activity Centre, evidence and proof views.
+- [ ] human/automation focus and control handoff.
+- [ ] responsive desktop/mobile/browser layout.
+- [ ] accessibility, keyboard and reduced-motion requirements.
+- [ ] honest planned/configured/connected/running/verified labels.
+- [ ] composite WP09 record.
+- [ ] Workspace Shell / Panel / Human Control ADR.
+- [ ] Human Workspace/UI Phase 0B design closure.
 
 ## Remaining donor groups
 
-- [ ] Relevant remaining OpenClaw organisation projects.
-- [ ] Moby/Docker CLI detailed operator boundary.
+- [ ] Remaining OpenClaw organisation projects where requirements remain.
+- [ ] Moby/Docker CLI operator boundary.
 - [ ] gVisor, Kata, Firecracker, youki and crun.
-- [ ] Theia/OpenVSCode and Human Workspace shell.
-- [ ] Linux AT-SPI semantic automation completion.
+- [ ] Linux AT-SPI semantic completion.
 - [ ] RAGFlow, LlamaIndex, Dify, Polars and data/search donors.
 - [ ] MiniRouter/Ray/Celery/Huey scheduling completion.
 - [ ] SparkDistill, ClaimBound, ReproZip, GUAC and security workloads.
-- [ ] research/documentation donor sources and unresolved profiles.
+- [ ] research/documentation sources and unresolved profiles.
 
 ## Requirement closure
 
@@ -157,8 +174,8 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Object/Decomposition closure.
 - [x] Firmware/Disk/Filesystem closure.
 - [x] Device/Application Runtime closure.
-- [-] Browser/Live Research closure.
-- [ ] Human Workspace/UI closure.
+- [x] Browser/Live Research closure.
+- [-] Human Workspace/UI closure.
 - [ ] Knowledge/Data/Search/Plugin closure.
 - [ ] Isolation/Distributed placement completion.
 - [ ] Security/reproduction workload closure.
@@ -173,7 +190,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Node identity, epoch and capability schemas.
 - [ ] Workspace Provider and conformance schemas.
 - [ ] Activity Ledger, Event and local-journal schemas.
-- [ ] Operation receipt, proof level and authority schemas.
+- [ ] operation receipt, proof level and authority schemas.
 - [ ] Facility and Domain Pack schemas.
 - [ ] Build Recipe, cache, Artifact and provenance schemas.
 - [ ] Object, detection, relationship, View and derivative schemas.
@@ -183,6 +200,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Application Object, Provider, Installation, Session, Process and Window schemas.
 - [ ] Display Gateway, stream and semantic Screen Context schemas.
 - [ ] Browser Profile, Process, Context, Page and evidence schemas.
+- [ ] Workspace Shell, panel, layout, focus and human-control schemas.
 - [ ] Session, checkpoint, credential and privacy schemas.
 - [ ] telemetry conventions and resource accounting.
 - [ ] versioning, migrations, golden corpus and failure proofs.
