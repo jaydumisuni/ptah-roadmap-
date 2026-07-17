@@ -24,6 +24,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0004 Operation Identity / Receipts / Proof Levels.
 - [x] ADR-0005 Build Recipe / Artifact / Provenance boundary.
 - [x] ADR-0006 Storage / Transfer / Sync / Backup boundary.
+- [x] ADR-0007 Object Graph / Decomposition / Derivative boundary.
 - [-] Normalize full donor register and all internal overlap.
 - [-] Save after every meaningful inspection unit.
 
@@ -68,24 +69,44 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0006.
 - [x] Storage/Transfer/Sync/Backup Phase 0B design closure.
 
-## Active WP05 — Universal Object and decomposition composition
+## WP05 — Universal Object and decomposition composition
 
-- [-] Recover internal App Recover.
-- [ ] Recover internal APK Extractor.
-- [ ] Recover internal Creative Studio/media asset handling.
-- [ ] Recover internal Document Generator/rendering.
-- [ ] libarchive.
-- [ ] Apache Tika.
-- [ ] Unstructured.
-- [ ] LIEF.
-- [ ] Binwalk.
-- [ ] JADX.
-- [ ] Apktool.
-- [ ] libvips.
-- [ ] FFmpeg/ffprobe.
-- [ ] Tree-sitter/source structure only where needed.
-- [ ] Composite Object/Decomposition work-package record.
-- [ ] Object Graph / Decomposition / Derivative ADR.
+- [x] Internal App Recover.
+- [x] Internal APK Extractor.
+- [x] Internal Creative Studio/media asset handling.
+- [x] Internal Document Generator/rendering.
+- [x] libarchive.
+- [x] Apache Tika.
+- [x] Unstructured.
+- [x] LIEF.
+- [x] Binwalk.
+- [x] JADX.
+- [x] Apktool.
+- [x] libvips.
+- [x] FFmpeg/ffprobe.
+- [x] Tree-sitter/source structure evaluation.
+- [x] Composite Object/Decomposition work-package record.
+- [x] ADR-0007.
+- [x] Universal Object/Decomposition Phase 0B design closure.
+
+## Active WP06 — Firmware, disks and filesystems
+
+- [-] Recover internal Apple firmware/tool work.
+- [ ] blacktop/ipsw and Apple metadata sources.
+- [ ] Recover internal MediaTek/META engines.
+- [ ] MTKClient.
+- [ ] Recover internal Qualcomm/DIAG/Firehose engines.
+- [ ] Qualcomm EDL/Firehose donors.
+- [ ] Recover internal Unisoc/SPD/PAC/FDL engines.
+- [ ] Unisoc PAC/FDL completion donors.
+- [ ] Recover internal Android OTA Manager.
+- [ ] Android payload/dynamic-partition/sparse-image tools.
+- [ ] GPT/MBR and filesystem parsers.
+- [ ] libguestfs and mount/extraction machinery.
+- [ ] Other vendor/embedded firmware coverage.
+- [?] P5C format recovery from verified sample/tool or explicit park.
+- [ ] Composite Firmware/Disk/Filesystem record.
+- [ ] Disk Image / Firmware Package / Device Operation ADR.
 
 ## Remaining donor groups
 
@@ -95,7 +116,6 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Theia/OpenVSCode and remote-display gateway.
 - [ ] Playwright, Playwright MCP, Browser-Use and TurboWebFetch.
 - [ ] STF, adbkit, Appium, scrcpy, TouchPilot and internal device engines.
-- [ ] Apple, MTK, Qualcomm, Unisoc, Android OTA, disk/filesystem and vendor firmware donors.
 - [ ] RAGFlow, LlamaIndex, Dify, search and data donors.
 - [ ] SparkDistill, ClaimBound, ReproZip, GUAC and security workloads.
 - [ ] Research/documentation donor sources and unresolved profiles.
@@ -107,12 +127,13 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Core-runtime internal comparison and Phase 0B design closure.
 - [x] Build/Artifact/Provenance composition and Phase 0B design closure.
 - [x] Storage/Transfer/Sync/Backup composition and Phase 0B design closure.
+- [x] Universal Object/Decomposition composition and Phase 0B design closure.
 - [-] Map all remaining requirements to internal foundations.
 - [-] Map primary and completion donors.
 - [-] Record native Ptah layers, licences and exit strategies.
 - [-] Record complete validation sets.
-- [-] Close universal Object/decomposition cluster.
-- [ ] Close firmware/device/browser/UI/search/security clusters.
+- [-] Close firmware/disk/filesystem cluster.
+- [ ] Close device/browser/UI/search/security clusters.
 - [ ] Review and freeze Phase 0A.
 
 ---
