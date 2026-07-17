@@ -290,3 +290,30 @@ Transfer completion and Object verification are separate. Synchronization transp
 Object identity is content-based and independent of provider path, tag or storage location. Backups and destructive retention/prune operations require explicit recipes and receipts.
 
 Full decision: `decisions/ADR-0006-STORAGE-TRANSFER-SYNC-BOUNDARY.md`.
+
+---
+
+## D-022 — Object identity, detector claims, decomposition views and rebuilds remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns an immutable Object Graph and versioned Domain Pack contract.
+
+- original Object bytes and identity remain preserved;
+- filename, extension, MIME, parser output and caller labels are claims or attributes rather than identity;
+- multiple detector claims and conflicts remain retained while route selection is a separate decision;
+- unknown, ambiguous, polyglot, encrypted, malformed, truncated, unsupported and opaque are valid states;
+- decomposition progresses through registration, detection, inventory, child extraction, enrichment, transform, rebuild and verification;
+- child Objects, semantic elements, views, previews, transformed derivatives, rebuild projects and rebuilt outputs have distinct relationships;
+- source-like results declare original, embedded, decoded, disassembled, smali, decompiled, generated-skeleton or human-edited origin;
+- recursive decomposition inherits hard resource and extraction-safety budgets;
+- native parsers run in bounded providers rather than the control plane;
+- partial valid children remain after timeout, crash, cancellation or budget exhaustion;
+- competing parser/decompiler/OCR views remain separately addressable;
+- rebuilt output receives a new Object identity and explicit signature/trust consequences.
+
+libarchive, Tika, Unstructured, LIEF, Binwalk, JADX, Apktool, libvips, FFmpeg/ffprobe and Tree-sitter are selected as replaceable Domain Pack machinery. Internal App Recover, APK Extractor, Creative Studio and Document Generator remain specialist products and requirement donors over neutral Ptah contracts.
+
+Parser success, extracted text, decoded resources, decompiled source, previews, rebuilt outputs and reviews never become universal Object truth automatically.
+
+Full decision: `decisions/ADR-0007-OBJECT-GRAPH-DECOMPOSITION-DERIVATIVE-BOUNDARY.md`.
