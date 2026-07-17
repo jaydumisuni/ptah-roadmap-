@@ -23,11 +23,14 @@ Status key:
 - [x] Save current-state and chat-recovery rules.
 - [x] Save tickable progress ledger.
 - [-] Save and normalize the donor recovery register.
+- [x] Create donor-record directory and first source-level donor records.
+- [x] Accept Node Protocol / Workspace Provider boundary decision.
 
 ## Foundation-grade donors
 
-- [ ] OpenClaw core and relevant organisation repositories.
-- [ ] Daytona.
+- [x] OpenClaw core first-pass inspection, pin, licence, source evidence, limits and Ptah boundary.
+- [ ] Relevant OpenClaw organisation repositories.
+- [x] Daytona first-pass inspection, last public release pin, maintenance notice, licence and Ptah boundary.
 - [ ] Temporal and selected SDK.
 - [ ] NATS Server, JetStream, and selected clients.
 - [ ] containerd and OCI specifications.
@@ -154,13 +157,14 @@ Status key:
 
 ## Requirement closure
 
-- [ ] Create complete Ptah v1 requirement list.
-- [ ] Map each requirement to internal evidence.
-- [ ] Map each requirement to primary donor.
-- [ ] Map each requirement to secondary/exit donor.
-- [ ] Record native Ptah code still required.
-- [ ] Record licence compatibility.
-- [ ] Record proof activity for each adopted subsystem.
+- [x] Create complete Ptah v1 requirement list.
+- [-] Map each requirement to internal evidence.
+- [-] Map each requirement to primary donor.
+- [-] Map each requirement to secondary/exit donor.
+- [-] Record native Ptah code still required.
+- [-] Record licence compatibility.
+- [-] Record proof activity for each adopted subsystem.
+- [x] Record first candidate closure paths for Node Protocol, workspace providers, terminals and OCI environments.
 - [ ] Review and freeze Phase 0A.
 
 ---
