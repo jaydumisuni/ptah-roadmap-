@@ -164,13 +164,13 @@ Full decision: `decisions/ADR-0008-DISK-FIRMWARE-DEVICE-OPERATION-BOUNDARY.md`.
 Ptah owns stable Device identity, interface connection epochs, Provider worker generation, scoped lease/fencing, Device Session and Application Session.
 
 - ADB/Fastboot/USB paths, serials, Appium sessions, scrcpy processes and accessibility elements are backend aliases.
-- inventory, shell, files, packages, logs, display, audio, input, clipboard, semantic UI, policy/admin and firmware are independently authorized capabilities;
-- scrcpy is the primary modern Android video/audio/control candidate;
-- AndroidX UI Automator is the official semantic foundation;
-- Appium/UIAutomator2 and TouchPilot are complementary adapters;
-- stale interface/context results are rejected;
-- input acknowledgement, application launch and stream start do not prove intended state;
-- cleanup is a verified Activity and failure quarantines the Device.
+- Inventory, shell, files, packages, logs, display, audio, input, clipboard, semantic UI, policy/admin and firmware are independently authorized capabilities.
+- scrcpy is the primary modern Android video/audio/control candidate.
+- AndroidX UI Automator is the official semantic foundation.
+- Appium/UIAutomator2 and TouchPilot are complementary adapters.
+- Stale interface/context results are rejected.
+- Input acknowledgement, application launch and stream start do not prove intended state.
+- Cleanup is a verified Activity and failure quarantines the Device.
 
 Full decision: `decisions/ADR-0009-DEVICE-SESSION-DISPLAY-INPUT-SEMANTIC-UI-BOUNDARY.md`.
 
@@ -180,17 +180,39 @@ Full decision: `decisions/ADR-0009-DEVICE-SESSION-DISPLAY-INPUT-SEMANTIC-UI-BOUN
 
 Ptah owns Application Object, Provider, Installation, Session, Process, Window, Display Gateway, Semantic Context and checkpoint identities.
 
-- Xpra is the primary individual Linux application/window display candidate;
-- Guacamole is the primary cross-protocol browser remote-desktop gateway;
-- noVNC/websockify is the lightweight VNC fallback;
-- QEMU/libvirt is the primary Windows VM Provider candidate;
-- FreeRDP supplies RDP protocol machinery;
-- FlaUI is the primary direct Windows semantic donor and NovaWindows the modern W3C candidate; WinAppDriver remains legacy compatibility;
-- Peekaboo is the primary macOS visual/accessibility candidate without its agent identity;
-- Appium XCUITest and IDB supply Apple semantic/device-lab adapters;
-- Apple Xcode, Simulator, XCTest and Virtualization remain proprietary platform foundations;
-- package install, process launch, first window, first frame, semantic readiness and expected state are distinct proof levels;
-- display reconnect is not application recovery;
-- display, input, clipboard, files, audio, printing, device redirection and recording are independently scoped.
+- Xpra is the primary individual Linux application/window display candidate.
+- Guacamole is the primary cross-protocol browser remote-desktop gateway.
+- noVNC/websockify is the lightweight VNC fallback.
+- QEMU/libvirt is the primary Windows VM Provider candidate.
+- FreeRDP supplies RDP protocol machinery.
+- FlaUI is the primary direct Windows semantic donor and NovaWindows the modern W3C candidate; WinAppDriver remains legacy compatibility.
+- Peekaboo is the primary macOS visual/accessibility candidate without its agent identity.
+- Appium XCUITest and IDB supply Apple semantic/device-lab adapters.
+- Apple Xcode, Simulator, XCTest and Virtualization remain proprietary platform foundations.
+- Package install, process launch, first window, first frame, semantic readiness and expected state are distinct proof levels.
+- Display reconnect is not application recovery.
+- Display, input, clipboard, files, audio, printing, device redirection and recording are independently scoped.
 
 Full decision: `decisions/ADR-0010-APPLICATION-PROVIDER-WINDOW-DISPLAY-BOUNDARY.md`.
+
+## D-026 — Browser Profile, Process, Context, Page and evidence remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns Browser Provider, Binary, Profile, Process, Context, Page/Tab, Frame, Popup, Download, Browser View, Evidence and Live Research Result identities.
+
+- Playwright is the primary Browser Facility foundation.
+- Mutable Browser Profiles require exclusive lease, encryption and scoped ownership.
+- Supervised browser Processes may host isolated ephemeral Contexts only after conformance proves no cross-Workspace state leakage.
+- Profile cloning excludes transient locks/journals and creates a new identity/provenance chain.
+- Browser process or navigation generation changes invalidate stale Page, Frame and locator references.
+- Source response, raw HTML, rendered DOM, accessibility, visible text, screenshot, PDF, video, trace, console, network and HAR are separate Views/Artifacts.
+- Browser downloads enter the Transfer/Object pipeline.
+- TurboWebFetch is adapted as rendered batch retrieval over pooled Contexts rather than one process per request.
+- Playwright MCP is an optional external adapter.
+- Browser-Use may run as a caller/workload; its reasoning, prompts, memory and model-provider identity stay outside Ptah Core.
+- Live Research Results remain source-linked claims for external callers; Ptah does not decide the conclusion.
+- Authentication, MFA, passkey, CAPTCHA, restricted access and human completion are explicit states.
+- Browser crash recovery never blindly replays non-idempotent actions.
+
+Full decision: `decisions/ADR-0011-BROWSER-PROFILE-CONTEXT-PAGE-EVIDENCE-BOUNDARY.md`.
