@@ -32,172 +32,172 @@ Canonical method: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
 ## WP01 — Node and Workspace boundary
 
-Established separate Node Protocol and Workspace Provider contracts, distinct Node/Workspace/Activity/Object/Session identities and separate large-data streams.
+Separate Node Protocol and Workspace Provider contracts; distinct Node, Workspace, Activity, Object and Session identity; large streams separated from control events.
 
-## WP02A — Workspace and execution composition
+## WP02A–WP02C — Core runtime composition
 
-Inspected OpenClaw, Daytona, Coder, E2B/Desktop, Dev Containers/CLI, DevPod, containerd/OCI and OpenHands.
+Workspace/execution donors, Temporal, NATS/JetStream, OpenTelemetry and internal AgentOps/Foreman/Sergeant/Relay/CodeOps/MIBU/Hunter runtime evidence were inspected.
 
-Ptah owns the provider-neutral Workspace Provider contract. Native local-process and OCI providers are first owned implementations. Dev Containers is a compatibility format, while external workspace systems remain optional adapters/exit paths.
+Closed for Phase 0B design:
 
-## WP02B — Activities, events, recovery and observability
-
-Inspected Temporal, NATS/JetStream and OpenTelemetry.
-
-Ptah owns the Activity Ledger; Temporal is the durable-orchestration candidate; NATS/JetStream is the live/replayable Event Fabric candidate; OpenTelemetry/OTLP is the telemetry standard; large PTY/Object/display/media data uses separate streams.
-
-## WP02C — Internal core-runtime recovery
-
-Inspected Hunter AgentOps, Foreman, Sergeant, TechGuy Relay, Software Builder, CodeOps, MIBU and Hunter runtime/sync/outbox implementations.
-
-Core-runtime requirements are closed for Phase 0B contract design, not build.
-
-Key additions include separate operation/attempt/nonce/Node epoch/producer identities, separate Activity/Event/telemetry/Receipt/proof/review/authoritative-result states, stale-proof rejection, idempotent outbox attempts and safe status-first synchronization.
+- provider-neutral Workspaces;
+- durable concurrent Activities;
+- live/replayable Events;
+- Facility manifests;
+- Node Protocol;
+- receipts, proof levels and stale-result rejection;
+- terminal/process and OCI-provider foundations;
+- observability and intermittent-Node journal boundaries.
 
 ## WP03 — Build, Artifact and provenance composition
 
-Inspected Software Builder, BuildKit, Dagger, ORAS, Witness, in-toto, Sigstore/Cosign/Rekor/Fulcio and Syft.
+BuildKit, Dagger, ORAS, Witness, in-toto, Sigstore/Cosign/Rekor/Fulcio, Syft and the internal Software Builder were inspected.
 
-Closed for Phase 0B design: Build Recipes, backend compilation, low-level graph/cache/worker direction, typed modules, Artifact relationships, SBOMs, attestations, signatures, trust and reproduction levels.
+Closed for Phase 0B design:
 
-Saved ADR-0005 and WP03 record.
+- Build Recipes and backend compilation;
+- cache and reproducibility identity;
+- Artifact relationships;
+- SBOM, attestation, signature, trust, review and independent-reproduction levels.
 
 ## WP04 — Storage, transfer, synchronization and backup composition
 
-Inspected internal Lumi/Hunter storage work plus aria2, tus/tusd, rclone, Syncthing, restic, JuiceFS and SeaweedFS.
+Lumi, aria2, tus/tusd, rclone, Syncthing, restic and internal storage-authority rules were inspected.
 
 Closed for Phase 0B design:
 
-- hot local Workspace storage classes;
-- local CAS + SQLite/shared SQL + R2/S3 direction;
-- immutable Object/location identity;
-- mutable revision/conflict model;
-- resumable uploads and downloads;
-- cloud and Node transport;
+- hot local Workspace storage;
+- local CAS + SQLite/shared SQL + R2/S3 storage direction;
+- immutable Objects and mutable revisions/conflicts;
+- resumable upload/download and cloud/Node transport;
 - encrypted backup/restore;
 - Drive export/recovery;
-- explicit parking of distributed shared filesystems until measured Phase 12 need.
-
-Saved ADR-0006 and WP04 record.
+- explicit parking of distributed shared filesystems until measured need.
 
 ## WP05 — Universal Object and decomposition composition
 
-**Status:** COMPLETE; closed for Phase 0B contract design, not build.
-
-Inspected and saved:
-
-### Internal
-
-- App Recover;
-- APK Extractor;
-- TTG Creative Studio;
-- TTG Document Generator Templates.
-
-### External/upstream
-
-- libarchive;
-- Apache Tika;
-- Unstructured;
-- LIEF;
-- Binwalk v3;
-- JADX;
-- Apktool;
-- libvips;
-- FFmpeg/ffprobe;
-- Tree-sitter.
-
-Accepted direction:
-
-1. Immutable original Object bytes and identity remain preserved.
-2. Filename, extension, MIME, parser output and caller labels are claims/attributes rather than identity.
-3. Multiple detector claims and conflicts remain retained; route selection is separate.
-4. Unknown, ambiguous, polyglot, encrypted, malformed, truncated, unsupported and opaque are valid states.
-5. Decomposition is progressive: registration, detection, inventory, decomposition, enrichment, transform, rebuild and verification.
-6. Child Objects, semantic elements, Views, previews, transforms, rebuild projects and rebuilt outputs have distinct relationships.
-7. Decompiled/generated source declares its origin and never masquerades as original source.
-8. Recursive extraction inherits hard depth, bytes, child-count, expansion, time, memory and disk budgets.
-9. Native parsers run in bounded providers, not the control plane.
-10. Partial valid children survive timeout, crash, cancellation or budget exhaustion.
-11. Competing parser/OCR/decompiler views remain separately addressable.
-12. Rebuilt outputs receive new Object identity and explicit signature/trust consequences.
-13. Internal products remain specialist callers/products over neutral Ptah Domain Packs.
-
-Saved:
-
-- `internal/APP-RECOVER.md`
-- `internal/APK-EXTRACTOR.md`
-- `internal/CREATIVE-STUDIO.md`
-- `internal/DOCUMENT-GENERATOR.md`
-- `donors/LIBARCHIVE.md`
-- `donors/APACHE-TIKA.md`
-- `donors/UNSTRUCTURED.md`
-- `donors/LIEF.md`
-- `donors/BINWALK.md`
-- `donors/JADX.md`
-- `donors/APKTOOL.md`
-- `donors/LIBVIPS.md`
-- `donors/FFMPEG-FFPROBE.md`
-- `donors/TREE-SITTER.md`
-- `decisions/ADR-0007-OBJECT-GRAPH-DECOMPOSITION-DERIVATIVE-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP05-UNIVERSAL-OBJECT-DECOMPOSITION.md`
+App Recover, APK Extractor, Creative Studio, Document Generator, libarchive, Tika, Unstructured, LIEF, Binwalk, JADX, Apktool, libvips, FFmpeg/ffprobe and Tree-sitter were inspected.
 
 Closed for Phase 0B design:
 
-- `CORE-003`;
-- Domain Pack portions of `CORE-004`;
-- `DECOMP-001` and `DECOMP-002`;
-- `DOC-001`;
-- `MEDIA-001`;
-- `IMAGE-001`;
-- `BIN-001`;
-- `APP-001`;
-- source-structure portions of search/editor requirements.
+- immutable Object graph;
+- plural detector claims and progressive decomposition;
+- bounded recursive extraction;
+- document, image, media, binary, Android application and source-structure Domain Packs;
+- Views, previews, transforms, rebuilds and explicit source-like origin classes.
 
-This does not approve runtime dependencies or implementation.
+## WP06 — Firmware, disks and filesystems composition
+
+**Status:** COMPLETE; closed for Phase 0B contract design, not build.
+
+### Internal sources saved
+
+- Apple tool/ramdisk/compatibility foundations;
+- MediaTek read-only META handoff;
+- Android updater-package control utility;
+- Android driver repository gap;
+- private Device Manager firmware-engine source recovery gap.
+
+### External/upstream sources saved
+
+- blacktop/ipsw;
+- MTKClient;
+- Qualcomm EDL/Sahara/Firehose;
+- Unisoc PAC/BootROM/FDL composition;
+- AOSP OTA payload, sparse, dynamic partition and AVB sources;
+- payload-dumper-go;
+- Samsung Heimdall/Odin/PIT;
+- libguestfs;
+- util-linux libfdisk;
+- SRLabs generic firmware extractor;
+- Binwalk/LIEF/libarchive reuse.
+
+### Accepted direction
+
+1. Firmware Package, Disk/Image, Manifest Graph, Device Profile, Compatibility Result, Static Activity and Physical Device Activity are separate contracts.
+2. Filename, product name, chipset family, partition name and USB VID/PID are insufficient compatibility evidence.
+3. Static firmware/package/disk analysis works without a connected device.
+4. USB presence, protocol handshake, loader/programmer stage, configured service session, read, write acknowledgement and read-back verification are separate proof levels.
+5. Read-only and mutation capabilities are independently declared and authorized.
+6. Loader/programmer/FDL/DA/preloader/ramdisk assets are immutable Objects with exact source, digest, licence and target compatibility.
+7. Physical mutation requires reviewed compatibility, immutable backup and post-operation read-back where possible.
+8. Transport loss cannot trigger blind replay of non-idempotent physical operations.
+9. Encrypted/signed originals remain preserved; decrypted/patched/rebuilt outputs receive new identity and trust state.
+10. Untrusted filesystems use an isolated appliance rather than direct host-kernel mounts.
+11. Vendor GPL/proprietary backends remain separate replaceable Facilities.
+12. Generic firmware extraction does not imply vendor-aware flashing.
+13. `.P5C` remains explicitly parked until a verified sample/spec/tool exists.
+14. Exact private Device Manager Qualcomm/Unisoc source remains preserved for a later local-tree recovery pass and is not credited without inspection.
+
+### Saved records
+
+- `internal/APPLE-TOOL-FOUNDATIONS.md`
+- `internal/MTK-META-FOUNDATIONS.md`
+- `internal/ANDROID-OTA-CONTROL.md`
+- `internal/ANDROID-DRIVER-REPOSITORIES.md`
+- `internal/DEVICE-MANAGER-FIRMWARE-ENGINE-RECOVERY-GAP.md`
+- `donors/BLACKTOP-IPSW.md`
+- `donors/MTKCLIENT.md`
+- `donors/QUALCOMM-EDL.md`
+- `donors/UNISOC-PAC-FDL.md`
+- `donors/ANDROID-OTA-IMAGE-FOUNDATIONS.md`
+- `donors/SAMSUNG-HEIMDALL.md`
+- `donors/LIBGUESTFS.md`
+- `donors/LIBFDISK.md`
+- `donors/OTHER-FIRMWARE-COVERAGE.md`
+- `donors/P5C-STATUS.md`
+- `decisions/ADR-0008-DISK-FIRMWARE-DEVICE-OPERATION-BOUNDARY.md`
+- `work-packages/PHASE-0A-WP06-FIRMWARE-DISK-FILESYSTEM.md`
+
+### Requirements closed for Phase 0B design
+
+- `FW-001` through `FW-006`;
+- `FS-001`;
+- firmware/package/image portions of `CORE-003`, `CORE-004` and `SESSION-001`;
+- firmware-side physical-operation boundary of `DEVICE-001`.
+
+This does not approve runtime dependencies, driver bundles, loaders, device writes or implementation.
 
 ---
 
 # Active inspection unit
 
-## WP06 — Firmware, disks and filesystems composition
+## WP07 — Device and application runtime composition
 
 Inspect as one complementary group:
 
-1. internal Apple firmware/tool work;
-2. blacktop/ipsw and Apple metadata sources;
-3. internal MediaTek/META engines and MTKClient;
-4. internal Qualcomm/DIAG/Firehose engines and EDL donors;
-5. internal Unisoc/SPD/PAC/FDL engines and donors;
-6. internal Android OTA Manager;
-7. Android payload, sparse-image and dynamic-partition tooling;
-8. GPT/MBR and filesystem parsers;
-9. libguestfs and related mounting/extraction machinery;
-10. Binwalk/LIEF/libarchive reuse from WP05;
-11. other vendor/embedded firmware coverage;
-12. P5C format recovery from a verified sample/tool, or explicit unresolved/parked status.
+1. recover exact internal Device Manager/MIBU/ADB/Fastboot/MTP/USB runtime evidence available through discoverable repositories;
+2. DeviceFarmer STF, adbkit, minicap and minitouch;
+3. Appium and the UIAutomator2 driver;
+4. scrcpy;
+5. TouchPilot upstream/fork relationship;
+6. Android platform-tools and package/file/process/screen/input boundaries;
+7. Linux graphical application runtime completion and remote-display gateways;
+8. Windows application/VM/runtime and remote-display boundaries;
+9. macOS/iOS application runtime, Xcode/Appium/Peekaboo-like boundaries;
+10. physical device lease, multi-device inventory, session reconnect, recording and semantic UI proof.
 
 Resolve:
 
-- disk/image/partition/filesystem Object relationships;
-- firmware package, manifest, partition image, region, file and metadata relationships;
-- static decomposition versus mounted/opened views;
-- read-only safe defaults and isolated mount helpers;
-- sparse/compressed/encrypted image handling;
-- payload/dynamic-partition reconstruction;
-- vendor download/restore metadata and cryptographic verification;
-- comparison and rebuild levels;
-- exact device profile/SoC/platform compatibility claims;
-- backup/read-before-write and operation receipts;
-- strict separation between firmware analysis and destructive device flashing;
-- unsupported/proprietary format and missing-key states;
-- private product/engine code versus neutral public Domain Pack adapters.
+- stable Device identity versus USB/ADB/transport identity;
+- device inventory, exact selection and lease ownership;
+- ADB, Fastboot, MTP, shell/process, package and file Facilities;
+- screen/video stream, screenshots, input and semantic UI as separate capabilities;
+- installed-package/application/session Object relationships;
+- runtime proof versus command/launch proof;
+- multiple simultaneous devices and applications;
+- physical device, emulator, VM and remote application-provider distinctions;
+- reconnect and stale-session rejection;
+- sensitive screen/input/device-data handling;
+- static firmware analysis versus physical runtime/control separation from ADR-0008;
+- product-specific automation versus neutral public Ptah contracts.
 
 Required saved output:
 
-- internal/donor records after each inspection unit;
-- Firmware/Disk/Filesystem composition record;
-- Disk Image / Firmware Package / Device Operation boundary ADR;
-- Requirement Closure Matrix updates for `FW-001` through `FW-006`, `FS-001`, firmware portions of `CORE-003`/`CORE-004`, `DEVICE-001` boundaries and `SESSION-001` snapshot/image relationships;
+- donor/internal records after each inspection unit;
+- Device/Application Runtime composition record;
+- Device Session / Display / Input / Semantic UI boundary ADR;
+- Requirement Closure Matrix updates for `DEVICE-001`, `DEVICE-002`, `APP-002`, `APP-003`, `APP-004`, application portions of `SESSION-001`, `UI-001`/`UI-002` and related Node/Activity rows;
 - `PROGRESS.md` and this file updated continuously.
 
 ---
@@ -211,6 +211,7 @@ Required saved output:
 - ADR-0005 — Build Recipe, Artifact and Provenance Boundary
 - ADR-0006 — Storage Classes, Object Transfer, Synchronization and Backup Boundary
 - ADR-0007 — Object Graph, Decomposition, Views and Derivatives Boundary
+- ADR-0008 — Disk Images, Firmware Packages and Physical Device Operations Boundary
 
 ---
 
