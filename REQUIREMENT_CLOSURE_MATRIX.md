@@ -1,7 +1,7 @@
 # Ptah Requirement Closure Matrix
 
 **Phase:** 0A  
-**Status:** POPULATING — CORE RUNTIME AND BUILD/PROVENANCE CLOSED FOR DESIGN
+**Status:** POPULATING — CORE RUNTIME, BUILD/PROVENANCE AND STORAGE/TRANSFER CLOSED FOR DESIGN
 
 This file maps each Ptah requirement to internal evidence, a composite donor set, mature machinery, native Ptah ownership, licence/exit decisions and proof.
 
@@ -35,89 +35,89 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 | RELAY-002 | Durable Activity recovery | Activity Ledger/checkpoints/receipts | Temporal, SQL, provider snapshots, Hunter Workflow/outbox and MIBU proof | retry classes, idempotency, compensation, leases/fencing and backend portability | WP02B/WP02C |
 | EXEC-001 | Terminal/process supervision | Process/PTY Facility | OS APIs, OpenClaw detach/replay, Coder agent, E2B/OpenHands, internal subprocess/worker patterns | stream identity, process lifecycle, cancellation, resource accounting and recovery | WP02A/WP02C |
 | EXEC-002 | OCI/container Workspace Provider | OCI Provider | containerd/OCI, Daytona lifecycle, Dev Containers/CLI, DevPod, E2B/Coder, internal shared-cache rules | lifecycle mapping, ports, storage, restart reconciliation and capability limits | WP02A/WP02C |
-| SESSION-001 core | Checkpoint/archive/resume relationship | Session manifest | Workspace donors, containerd, Temporal, Hunter checkpoints/retry-of/resume-of, CodeOps backups, MIBU late status | references to provider snapshots, Objects, Activities, apps/terminals and compatibility | WP02C; storage/sync remains WP04 |
+| EXEC-003 | Reproducible Build graph | Build Recipe and backend compilation | BuildKit, Dagger, internal Software Builder, containerd/OCI | recipes, step mapping, cache identity, secret refs, native backend support | WP03, ADR-0005 |
+| SESSION-001 | Checkpoint/archive/export/import/resume | Session manifest | Workspace donors, Temporal, provider snapshots, Hunter checkpoints, WP04 Objects/revisions/backups/exports | compatibility, storage locations, revisions, backup/export and provider references | WP02C/WP04, ADR-0003/0006 |
 | OBS-001 | Logs/metrics/traces/resource accounting | OTel semantic conventions and receipt links | OTel/Collector, internal health/audit/proof/outbox attempts | correlation, redaction, buffering, resource accounting and proof classes | WP02B/WP02C |
-| OFFLINE-001 core | Intermittent Node journal/reconciliation | local Node journal/outbox | NATS/JetStream, Activity Ledger, Hunter safe sync/outbox, MIBU late result | authority, acknowledgements, revision/conflict records and Object links | ADR-0003/0004; transport/sync remains WP04 |
-| EXEC-003 | Reproducible Build graph | Build Recipe and backend compilation record | BuildKit, Dagger, internal Software Builder, containerd/OCI | recipes, step mapping, cache identity, secret refs, native backend support | WP03, ADR-0005 |
+| OFFLINE-001 | Intermittent Node journal and reconciliation | local Node journal/outbox | NATS/JetStream, Activity Ledger, Hunter safe sync/outbox, MIBU late result, WP04 revision/transfer model | authority, acknowledgements, revisions/conflicts, Object repair and reconnect | ADR-0003/0004/0006 |
 | PROV-001 | Provenance/signing/proof bundles | Provenance/Verification graph | Witness, in-toto, Sigstore/Cosign/Fulcio/Rekor, ORAS, Syft, internal receipts | SBOM, attestation, signature, trust, policy, review and reproduction records | WP03, ADR-0005 |
+| STORE-001 | Hot local Workspace storage | Storage Class/Volume contract | local SSD/NVMe, Linux filesystems, provider volumes, containerd snapshots, Builder/Hunter rules | active/cache/temp/project/volume classes, pressure and health | WP04, ADR-0006 |
+| STORE-002 | Durable Object/Artifact storage | Object/Location catalogue | local CAS, R2/S3, ORAS/OCI, Drive export, Hunter R2 lifecycle | location health, replication, retention, repair and backend replacement | WP03/WP04, ADR-0005/0006 |
+| STORE-003 | Metadata catalogue | local SQLite/shared SQL schemas | SQLite direction, PostgreSQL/D1-compatible shared SQL, Hunter idempotency/outbox evidence | migrations, transactions, projections, local journal and conflict records | WP04, ADR-0006 |
+| STORE-004 | Hashing and deduplication | qualified digest/Object identity | streaming hashes, OCI descriptors, aria2 pieces, tus landing, restic/Syncthing block evidence | digest algorithms, chunks, partial validation, dedupe and repair | WP03/WP04, ADR-0005/0006 |
+| STORE-005 | Drive export and recovery | Export/Import Facility | rclone/Drive adapter and Ptah export manifest | readable bundles, verification and explicit non-live-filesystem rule | WP04, ADR-0006 |
+| XFER-001 | Resumable uploads | Upload/Transfer Facility | tus/tusd, Object landing/finalization and local/S3-compatible stores | offsets, locks, hashes, finalization, cleanup and Object registration | WP04, ADR-0006 |
+| XFER-002 | Fast resumable downloads | Download/Transfer Facility | Lumi DM, aria2, yt-dlp/libtorrent/FFmpeg adapters | segmented/multi-source, source validators, restart, progress and verification | WP04, ADR-0006 |
+| XFER-003 | Cloud and Node transport | Object Transfer Facility | rclone, Syncthing, dedicated Ptah streams | source/destination locations, scoped credentials, direct replication and receipts | WP04, ADR-0006 |
+| SYNC-001 | Online/local synchronization and conflicts | Revision/Conflict contract | Hunter safe sync, Syncthing vectors, rclone transport, Object digests | parents, tombstones, divergence, merge/resolution and authority | WP04, ADR-0006 |
 
-## Build-side closure notes
+## Closed foundation notes
 
-- `STORE-002` has a closed **Artifact storage/backend abstraction direction**, but general Object retention/backup remains WP04.
-- `STORE-004` has a closed **immutable digest/cache/proof direction**, but upload/download hashing, chunking and repair remain WP04.
-- `CORE-003` has closed Build Artifact relationship requirements, but the universal Object graph still requires decomposition/storage donor groups.
-- `PLUGIN-001` has closed Build module/adapter requirements, but general discovery/install/upgrade remains later.
+- `CORE-003` now has closed storage-location, digest and Build Artifact relationship foundations, but universal detection/decomposition and child/derivative relationships remain WP05.
+- `PLUGIN-001` has closed Build-module and Facility-manifest foundations, while general discovery/install/upgrade remains later.
+- `DIST-001` has protocol, events and Object-transfer foundations, but scheduler, secure networking and placement policy remain open.
+- JuiceFS and SeaweedFS are `PARKED` until measured Phase 12 shared-POSIX requirements justify them.
 
 ---
 
-# Active WP04 — Storage, transfer, synchronization and backup
+# Active WP05 — Universal Object and decomposition composition
 
-## STORE-001 — Hot local Workspace storage
+## CORE-003 — Universal Object graph and catalogue
 
-**Status:** INSPECTING DONORS
+**Status:** RECOVERING INTERNAL WORK / INSPECTING DONORS
 
-- Internal foundation: Software Builder clean-Project/shared-cache rules; Hunter rooted local files and explicit authority domains.
-- Current direction: Linux filesystem/volumes, containerd snapshots and native storage classes.
-- Native gap: active/project/cache/temp/volume classes, mount references, pressure/health and cache truth rules.
-- Proof: concurrent I/O, restart persistence, pressure handling and no object-store-as-live-build-filesystem behavior.
+- Closed foundations: content identity, storage locations, revisions, Artifacts, Activities and provenance.
+- Internal recovery: App Recover, APK Extractor, Creative Studio and Document Generator.
+- External donor direction: libarchive, Tika, Unstructured, LIEF, Binwalk, JADX, Apktool, libvips, FFmpeg/ffprobe and source-structure donors where required.
+- Native gap: type claims/confidence, parent/child/contains/derived-from/view relationships, progressive depth, extraction budgets, malformed/encrypted/opaque states and derivative identity.
 
-## STORE-002 — Durable Object/Artifact storage
-
-**Status:** COMPOSITE CANDIDATE — WP04 COMPLETION REQUIRED
-
-- Closed Build direction: Ptah Object/Artifact catalogue with local/R2-S3/OCI/Drive locations; ORAS for suitable OCI Artifacts.
-- Internal evidence: Hunter D1-authoritative metadata and temporary R2 lifecycle.
-- Open: retention, multipart/resumable transfer, replication, health/repair, backup and general non-Build Objects.
-- Exit: no storage backend is canonical identity.
-
-## STORE-003 — Metadata catalogue
-
-**Status:** COMPOSITE CANDIDATE
-
-- Direction: SQLite local, shared SQL and versioned migrations.
-- Internal evidence: Hunter D1 idempotency/outbox/attempt schema; local JSON limitations.
-- Open: transactional Object/relationship/revision graph, local journal, synchronization and conflict projections.
-
-## STORE-004 — Content hashing and deduplication
-
-**Status:** COMPOSITE CANDIDATE — WP04 COMPLETION REQUIRED
-
-- Closed Build direction: immutable content digests, cache records, ORAS/OCI descriptor identity and checksum proof.
-- Open: streaming hash during intake, chunk identity, partial verification, cross-location dedupe and integrity repair.
-
-## STORE-005 — Drive export and recovery
+## DECOMP-001 — True-type detection
 
 **Status:** INSPECTING DONORS
 
-- Direction: rclone/Drive adapter plus Session export manifest.
-- Rule: Drive is readable export/recovery, never the active Build/DB/container filesystem.
+- Direction: signature/magic/container/parser claims with evidence and confidence rather than extension-only classification.
+- Required: conflicting detector claims, encrypted/unsupported states and exact detector/version receipts.
 
-## XFER-001 — Resumable uploads
+## DECOMP-002 — Recursive archive and container decomposition
 
 **Status:** INSPECTING DONORS
 
-- Direction: tus/tusd or compatible resumable protocol plus Object registration, hash and storage-location receipts.
+- Direction: libarchive plus format-specific Domain Packs and native recursion/budget controls.
+- Required: depth, child-count, byte-expansion, path, symlink and time/resource limits.
 
-## XFER-002 — Fast resumable downloads
+## DOC-001 — Document structure, render and proof
 
 **Status:** RECOVERING INTERNAL WORK
 
-- Direction: internal Download Manager/Lumi plus aria2 and native queue/Object landing.
-- Required: segmented/multi-source, partial-file preservation, checksums, browser handoff, background progress and restart recovery.
+- Direction: internal Document Generator plus Tika/Unstructured and format-specific renderers.
+- Required: structured text/metadata, page/section/table/image Objects, previews and renderer receipts.
 
-## XFER-003 — Cloud and Node transport
+## MEDIA-001 — Video/audio decomposition and transforms
 
-**Status:** INSPECTING DONORS
+**Status:** RECOVERING INTERNAL WORK
 
-- Direction: rclone, Syncthing and dedicated Node/Object streams.
-- Native gap: Object-aware transfer, dedupe, authority/revision identity and conflict-safe reconciliation.
+- Direction: Creative Studio plus FFmpeg/ffprobe.
+- Required: streams/tracks/chapters/frames/thumbnails/waveforms, codec/container evidence and transform receipts.
 
-## SYNC-001 — Online/local synchronization and conflicts
+## IMAGE-001 — Image decomposition and processing
 
-**Status:** INSPECTING DONORS
+**Status:** RECOVERING INTERNAL WORK
 
-- Internal evidence: Hunter status-first fast-forward source sync, local/online authority separation and D1 outbox.
-- Direction: content-addressed immutable Objects plus explicit mutable revisions/conflicts; Syncthing/rclone are transports, not merge authority.
+- Direction: Creative Studio plus libvips and metadata/color-profile donors as needed.
+- Required: originals, derivatives, regions/pages/frames, dimensions, color/EXIF claims and bounded transforms.
+
+## BIN-001 — Executable/binary decomposition
+
+**Status:** RECOVERING INTERNAL WORK
+
+- Direction: App Recover plus LIEF/Binwalk and platform-specific packs.
+- Required: headers, sections, imports/exports, resources, signatures, embedded files and safe static-only defaults.
+
+## APP-001 — APK/AAB/DEX decomposition
+
+**Status:** RECOVERING INTERNAL WORK
+
+- Direction: APK Extractor plus JADX/Apktool and Android signing/manifest/resource tooling.
+- Required: package/manifest/components/resources/DEX/native libs/signatures, source/resource derivatives and rebuild distinction.
 
 ---
 
@@ -125,19 +125,11 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 
 | ID | Requirement | Status | Current direction |
 |---|---|---|---|
-| CORE-003 | Universal Object graph/catalogue | RECOVERING INTERNAL WORK | App Recover, APK Extractor, Creative Studio, Tika/libarchive/LIEF, storage WP04 and native relationships |
 | GIT-001 | Mirrors/worktrees/refs | OPEN | Git plus internal ecosystem and Workspace patterns |
 | EXEC-004 | Stronger isolation | OPEN | gVisor, Kata, Firecracker and alternate OCI runtimes |
 | BROWSE-001 | Persistent interactive browser | OPEN | Playwright/Chromium, Browser-Use and TurboWebFetch |
 | BROWSE-002 | Rendered extraction/research | OPEN | TurboWebFetch + Playwright + source provenance |
 | BROWSE-003 | Browser evidence | OPEN | screenshots, recordings, traces, console/network Artifacts |
-| DECOMP-001 | True-type detection | OPEN | Tika, magic/signatures and confidence routing |
-| DECOMP-002 | Recursive archive decomposition | OPEN | libarchive + extraction budgets + Object graph |
-| DOC-001 | Document structure/render/proof | OPEN | internal generator, Tika/Unstructured and renderers |
-| MEDIA-001 | Video/audio | OPEN | Creative Studio + FFmpeg |
-| IMAGE-001 | Image processing | OPEN | Creative Studio + libvips |
-| BIN-001 | Executable decomposition | OPEN | App Recover + LIEF |
-| APP-001 | APK/AAB/DEX decomposition | OPEN | APK Extractor + JADX/Apktool |
 | FW-001 | Apple firmware | OPEN | internal Apple work + blacktop/ipsw |
 | FW-002 | MediaTek firmware | RECOVERING INTERNAL WORK | internal MTK/META + MTKClient |
 | FW-003 | Unisoc firmware | RECOVERING INTERNAL WORK | internal SPD/Unisoc + PAC/FDL donors |
@@ -156,14 +148,14 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 | DATA-001 | Structured data/database pack | OPEN | Polars/SQL + native data Objects/Activities |
 | PLUGIN-001 | General plugin lifecycle | OPEN | OpenClaw/ClawHub, MCP and OCI registries |
 | SEC-001 | Security workload/evidence | OPEN | Strix, Semgrep, ZAP, Trivy, Syft and Grype |
-| DIST-001 | Multi-Node placement/transfer | COMPOSITE CANDIDATE | core protocol/events closed; scheduler, secure networking and Object transport open |
+| DIST-001 | Multi-Node placement/transfer | COMPOSITE CANDIDATE | core protocol/events/Object transport closed; scheduler and secure networking open |
 
 ---
 
 # Current conclusion
 
-Core runtime and Build/Artifact/Provenance are closed for **Phase 0B contract design**, not implementation.
+Core runtime, Build/Artifact/Provenance and Storage/Transfer/Sync/Backup are closed for **Phase 0B contract design**, not implementation.
 
-Active Phase 0A group: Storage, Transfer, Synchronization and Backup (`WP04`) as recorded in `CURRENT_STATE.md`.
+Active Phase 0A group: Universal Object and Decomposition (`WP05`) as recorded in `CURRENT_STATE.md`.
 
 Phase 0A cannot close until every v1 requirement is `CLOSED FOR DESIGN`, explicitly `PARKED`, or a `REJECTED PATH` with a replacement.
