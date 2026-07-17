@@ -1,6 +1,6 @@
 # Ptah Current State
 
-**Last updated:** 2026-07-17  
+**Last updated:** 2026-07-18  
 **Overall status:** ACTIVE PLANNING  
 **Current phase:** Phase 0A — Internal and external donor recovery  
 **Runtime implementation:** NOT STARTED  
@@ -10,9 +10,9 @@
 
 # Recovered position
 
-Ptah is an independent, open-source, online-first concurrent digital world built around persistent Workspaces, Objects, Activities, Facilities, Nodes, Devices, Applications, Browsers, Sessions and Artifacts.
+Ptah is an independent, open-source, online-first concurrent digital world built around persistent Workspaces, Objects, Activities, Facilities, Nodes, Devices, Applications, Browsers, Sessions, Panels and Artifacts.
 
-Ptah supplies the working world. Humans and compatible systems supply intent, reasoning, restrictions and acceptance criteria.
+Ptah supplies the working world. Humans and compatible systems supply intent, reasoning, policy, restrictions and acceptance criteria.
 
 The complete roadmap is stored in `MASTER_ROADMAP.md`.
 
@@ -36,235 +36,194 @@ Canonical method: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
 ---
 
-# Completed Phase 0A work packages
+# Phase 0A work packages closed for Phase 0B contract design
 
-## WP01 — Node and Workspace boundary
+## WP01–WP02 — Core runtime
 
 Closed:
 
 - Node Protocol versus Workspace Provider;
-- separate Node, Workspace, Activity, Object and Session identities;
-- large-stream separation.
-
-## WP02A–WP02C — Core runtime
-
-Closed for Phase 0B design:
-
-- provider-neutral Workspaces;
-- durable concurrent Activities;
-- live/replayable Events;
-- Node Protocol and Facility manifests;
+- persistent Workspaces and concurrent Activities;
+- Facility manifests and polyglot adapters;
 - terminal/process and OCI-provider foundations;
-- observability and local reconnect journal;
+- durable orchestration, live Events and observability;
+- local journal/reconnect;
 - operation/attempt/nonce/receipt/proof-level boundaries.
 
-Primary external machinery: OpenClaw, Daytona, Coder, E2B, Dev Containers, DevPod, containerd/OCI, OpenHands, Temporal, NATS/JetStream and OpenTelemetry.
-
-Internal completion evidence: AgentOps, Foreman, Sergeant, Relay, CodeOps, MIBU and Hunter runtime/outbox/sync.
+Primary machinery: OpenClaw, Daytona, Coder, E2B, Dev Containers, DevPod, containerd/OCI, OpenHands, Temporal, NATS/JetStream and OpenTelemetry, completed by internal AgentOps, Sergeant, Relay, CodeOps, MIBU and Hunter runtime evidence.
 
 ## WP03 — Build, Artifact and provenance
 
-Closed for Phase 0B design:
+Closed:
 
 - Build Recipe and backend compilation;
-- BuildKit low-level graph/cache/worker direction;
-- Dagger typed recipes/modules;
-- ORAS Artifact relationships;
-- Syft SBOMs;
-- Witness/in-toto attestations;
-- Sigstore signing/trust;
-- independent reproduction and acceptance levels.
+- BuildKit and Dagger roles;
+- Artifact relationships and ORAS transport;
+- SBOM, attestation, signature, trust, review and independent-reproduction levels.
 
 ## WP04 — Storage, transfer, synchronization and backup
 
-Closed for Phase 0B design:
+Closed:
 
 - hot local Workspace storage;
-- local CAS + SQLite/shared SQL + R2/S3 direction;
+- local CAS plus local/shared SQL and R2/S3 direction;
 - immutable Objects and mutable revisions/conflicts;
 - resumable upload/download;
-- cloud and Node transfer;
+- cloud/Node transfer;
 - encrypted backup/restore;
 - Drive export/recovery;
-- JuiceFS/SeaweedFS parked until measured distributed need.
-
-Primary machinery: Lumi, aria2, tusd, rclone, Syncthing and restic.
+- distributed shared filesystems parked pending measured need.
 
 ## WP05 — Universal Object and decomposition
 
-Closed for Phase 0B design:
+Closed:
 
 - immutable Object graph and plural detector claims;
 - progressive bounded decomposition;
 - child, View, preview, transform, decompilation and rebuild relationships;
-- document, archive, image, media, binary, Android package and source-structure Domain Packs.
+- document, archive, image, media, binary, Android application and source-structure Domain Packs.
 
 ## WP06 — Firmware, disks and filesystems
 
-Closed for Phase 0B design:
+Closed:
 
-- Apple IPSW/BuildManifest analysis;
-- MediaTek META/BROM/Preloader/DA separation;
+- Apple IPSW/BuildManifest;
+- MediaTek META/BROM/Preloader/DA;
 - Qualcomm Sahara/Firehose;
 - Unisoc PAC/FDL;
-- Android OTA payload/sparse/dynamic-partition/AVB;
+- Android OTA/sparse/dynamic-partition/AVB;
 - Samsung and generic vendor routing;
 - GPT/MBR and isolated filesystem inspection;
 - static analysis versus physical mutation;
-- exact compatibility, immutable backup and read-back proof;
-- `.P5C` parked pending verified sample/spec/tool.
+- exact compatibility, immutable backup and read-back proof.
 
-## WP07A — Android Device Runtime
+`.P5C` remains parked until a lawful verified sample, specification or parser exists.
 
-Closed for Phase 0B design:
+## WP07 — Device and Application Runtime
 
-- stable Device identity and interface connection epochs;
-- Device Provider, worker generation, lease/fencing and Device Session;
-- independently scoped inventory, shell, file, package, log, display, audio, input, clipboard, semantic UI, policy/admin and firmware capabilities;
-- scrcpy modern display/audio/control;
-- AndroidX UI Automator official semantics;
-- Appium/UIAutomator2 and TouchPilot adapters;
-- privacy, stale-result rejection and verified cleanup/quarantine.
+Closed:
 
-Saved:
-
-- `decisions/ADR-0009-DEVICE-SESSION-DISPLAY-INPUT-SEMANTIC-UI-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP07A-ANDROID-DEVICE-RUNTIME.md`
-
-## WP07B — Desktop and Apple Application Runtime
-
-Closed for Phase 0B design:
-
-- Application Object, Provider, Installation, Session, Process, Window, Display Gateway and Semantic Context separation;
-- Xpra Linux individual-window display;
-- Guacamole and noVNC browser remote-desktop paths;
-- QEMU/libvirt Windows VM Provider;
-- FreeRDP RDP machinery;
-- FlaUI direct Windows semantics and NovaWindows W3C compatibility;
-- Peekaboo macOS visual/accessibility adapter;
-- Appium XCUITest and IDB Apple adapters;
-- Apple Xcode/Simulator/XCTest/Virtualization platform dependency boundary;
-- explicit application proof and checkpoint levels.
+- stable Device identity, interface epochs, Provider workers and lease/fencing;
+- Android ADB/Fastboot, files, packages, logs, display/audio/input and semantic UI;
+- Device and Application Sessions;
+- Linux graphical applications and remote display;
+- Windows native/VM applications, RDP and semantic automation;
+- macOS native/VM applications and visual/accessibility automation;
+- iOS Simulator/physical-device providers and XCUITest/IDB;
+- platform-specific checkpoint and proof classes.
 
 Known retained gap: dedicated Linux AT-SPI semantic automation requires a later completion pass.
 
-Saved:
-
-- `decisions/ADR-0010-APPLICATION-PROVIDER-WINDOW-DISPLAY-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP07B-DESKTOP-APPLE-APPLICATION-RUNTIME.md`
-
 ## WP08 — Browser and Live Research
+
+Closed:
+
+- Browser Provider, Binary, Profile, Process, Context, Page, Frame, Popup and Download identities;
+- Playwright foundation;
+- Browser-Use profile/session/recovery patterns without its agent identity;
+- TurboWebFetch rendered batch retrieval adapted over pooled Contexts;
+- MCP/SDK/UI adapter separation;
+- source, DOM, accessibility, pixels, screenshot, video, trace, console and network evidence;
+- source/citation records and explicit authentication/challenge/human-completion states.
+
+## WP09 — Human Workspace Shell and Operator Interface
 
 **Status:** COMPLETE; closed for Phase 0B contract design, not build.
 
 Inspected and saved:
 
-- Playwright;
-- Playwright MCP;
-- Browser-Use;
-- TurboWebFetch;
-- internal Lumi/Hunter browser, Transfer, secret, degradation and receipt requirements.
-
-TurboWebFetch is resolved to:
-
-- `https://github.com/aza-ali/turbowebfetch`
-- pinned commit `fa18a9f9db1e1640ff6111176ec49aa88ea211f4`
-- package `1.1.0`
-- MIT licence.
+- Eclipse Theia;
+- OpenVSCode Server;
+- code-server;
+- xterm.js;
+- Dockview;
+- internal Hunter, Sergeant, MIBU, Device Manager and website UI patterns.
 
 Accepted direction:
 
-1. Browser Provider, Binary, Profile, Process, Context, Page, Frame, Popup, Download and Evidence remain separate.
-2. Playwright is the primary Browser Facility foundation.
-3. Mutable Profiles require exclusive lease, encryption and scoped ownership.
-4. Browser Processes may host isolated ephemeral Contexts only after conformance proves no cross-Workspace leakage.
-5. Profile clones exclude transient locks/journals and create new identity/provenance.
-6. Existing personal-browser attachment requires explicit consent.
-7. Navigation/process generations invalidate stale Page, Frame and locator references.
-8. Source response, raw HTML, rendered DOM, accessibility, visible text, screenshot, PDF, video, trace, console, network and HAR remain separate Views/Artifacts.
-9. Browser downloads enter the Transfer/Object pipeline.
-10. TurboWebFetch becomes rendered batch retrieval over supervised pooled Contexts rather than process-per-fetch.
-11. Playwright MCP is an optional external adapter.
-12. Browser-Use may run as a caller/workload; its agent/reasoning identity stays outside Ptah Core.
-13. Live Research Results are source-linked claims for external callers; Ptah does not decide conclusions.
-14. Authentication, MFA, passkeys, CAPTCHA, restricted access and human completion are explicit states.
-15. Browser crash recovery preserves safe evidence/partial results and never blindly replays non-idempotent actions.
+1. Ptah owns Shell Client, Shell Session, Panel Type/Instance, Layout Profile/Revision and control ownership.
+2. Eclipse Theia is the primary full desktop/workbench foundation, not Ptah Core or the phone shell.
+3. Dockview is the lighter responsive/wide-screen layout candidate.
+4. Phone presentation uses one primary panel, compact switching, drawers and Activity status rather than arbitrary docking.
+5. OpenVSCode Server and code-server are optional coding Applications/Providers.
+6. xterm.js is the browser terminal renderer over Ptah PTY Sessions.
+7. Panel/layout restoration never implies runtime recovery.
+8. Activity Centre and Evidence Explorer project live Activities, Receipts, Artifacts, disagreements and limitations.
+9. Settings remains separate from live operational control.
+10. Human and automation control uses scoped leases, fencing and receipted takeover/return.
+11. UI contributions call scoped Ptah Facilities rather than accessing host resources directly.
+12. Accessibility, keyboard, touch, safe-area, reduced-motion and low-resource behavior are first-class.
+13. Specialist UIs remain products/clients.
+14. Hunter Foreman is excluded from active shell composition unless explicitly reintroduced.
 
 Saved:
 
-- `donors/PLAYWRIGHT.md`
-- `donors/PLAYWRIGHT-MCP.md`
-- `donors/BROWSER-USE.md`
-- `donors/TURBOWEBFETCH.md`
-- `internal/BROWSER-LIVE-RESEARCH-FOUNDATIONS.md`
-- `decisions/ADR-0011-BROWSER-PROFILE-CONTEXT-PAGE-EVIDENCE-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP08-BROWSER-LIVE-RESEARCH.md`
+- `donors/ECLIPSE-THEIA.md`
+- `donors/OPENVSCODE-CODE-SERVER.md`
+- `donors/XTERMJS.md`
+- `donors/DOCKVIEW.md`
+- `internal/UI-FOUNDATIONS.md`
+- `decisions/ADR-0012-HUMAN-WORKSPACE-SHELL-PANEL-CONTROL-BOUNDARY.md`
+- `work-packages/PHASE-0A-WP09-HUMAN-WORKSPACE-SHELL.md`
 
 Closed for Phase 0B design:
 
-- `BROWSE-001`, `BROWSE-002` and `BROWSE-003`;
-- Browser/Profile/Context/Page extensions to `SESSION-001`;
-- browser-panel/download extensions to `UI-001`, `UI-002` and `XFER-002`;
-- browser evidence extensions to `OBS-001` and `PROV-001`.
+- `UI-001` Human Workspace shell;
+- `UI-002` Activity Centre/evidence/review;
+- Human Workspace portions of `SESSION-001`;
+- shell contribution portions of `CORE-004`;
+- human projections of `OBS-001`, `PROV-001` and runtime control leases.
 
-No Browser runtime dependency or implementation is approved yet.
+No shell framework or UI implementation is approved yet.
 
 ---
 
 # Active inspection unit
 
-## WP09 — Human Workspace Shell and Operator Interface Composition
+## WP10 — Knowledge, Data, Search and Plugin Composition
 
 Inspect as one complementary group:
 
-1. Eclipse Theia;
-2. OpenVSCode Server;
-3. code-server as an optional compatibility path;
-4. xterm.js and terminal-panel patterns;
-5. Monaco/editor integration where not already inherited through Theia/VS Code;
-6. Golden Layout or equivalent multi-panel layout machinery only if needed;
-7. internal Hunter, Foreman, Sergeant, website, Device Manager, MIBU and THETECHGUY Tool interfaces;
-8. public documentation/UI patterns only after runtime requirements are placed.
+1. RAGFlow;
+2. LlamaIndex;
+3. Dify;
+4. Polars;
+5. Deno;
+6. Model Context Protocol specification and official server examples;
+7. OpenClaw/ClawHub plugin discovery and lifecycle patterns where requirements remain;
+8. internal Hunter knowledge, memory, learning, search and provider bridges;
+9. exact unresolved MiniRouter/Hermes relationships only where they overlap this subsystem.
 
 Resolve:
 
-- Ptah Home and Workspace switcher;
-- Object/file/tree/search/preview views;
-- many simultaneous terminals, browsers, Devices and Applications;
-- Activity Centre and evidence/proof views;
-- Window/panel/tab/dock identities and saved layouts;
-- direct human and automation coexistence;
-- handoff and ownership of focused input/control;
-- responsive desktop/mobile/browser layouts;
-- reconnect and degraded-capability presentation;
-- honest planned/configured/connected/running/verified labels;
-- private/public UI boundaries;
-- accessibility, keyboard navigation and reduced-motion behavior;
-- plugin contribution points without making an IDE framework Ptah Core.
+- Knowledge Source, Corpus, Document and Chunk identities;
+- source-grounded indexing and citations;
+- ingestion, parsing, embedding and index revisions;
+- permissions, deletion, freshness and re-indexing;
+- search across Objects, Activities, Artifacts, Workspaces and external sources;
+- structured data/table/database Activities;
+- Polars/SQL execution and result Artifacts;
+- recipe, service, tool and plugin manifests;
+- MCP as one external adapter rather than Ptah's internal model;
+- Deno/other sandboxed lightweight tool execution;
+- provider-neutral model and data interfaces;
+- plugin install, pin, health, upgrade, rollback and removal;
+- public/private plugin registries and contribution boundaries;
+- external reasoning/caller ownership without embedding a council into Ptah.
 
 Required saved output:
 
-- internal and external donor records;
-- Human Workspace Shell composition record;
-- Workspace Shell / Panel / Human-Control boundary ADR;
-- Requirement Closure Matrix updates for `UI-001`, `UI-002`, Human Workspace portions of `SESSION-001`, `CORE-004`, `OBS-001`, Device/Application/Browser panels and direct-human proof;
+- internal and external donor records after each inspection unit;
+- Knowledge/Data/Search/Plugin composition record;
+- Knowledge Source / Index / Query / Plugin boundary ADR;
+- Requirement Closure Matrix updates for `SEARCH-001`, `DATA-001`, `PLUGIN-001` and related extensions;
 - continuous `PROGRESS.md` and Current State updates.
 
 ---
 
 # Accepted decisions
 
-- ADR-0001 — Node Protocol and Workspace Provider Boundary
-- ADR-0002 — Composite Donor Closure Method
-- ADR-0003 — Activity, Event and Observability Boundary
-- ADR-0004 — Operation Identity, Receipts and Proof Levels
-- ADR-0005 — Build Recipe, Artifact and Provenance Boundary
-- ADR-0006 — Storage, Transfer, Synchronization and Backup Boundary
-- ADR-0007 — Object Graph, Decomposition, Views and Derivatives Boundary
-- ADR-0008 — Disk Images, Firmware Packages and Physical Operations Boundary
-- ADR-0009 — Device Session, Display, Input and Semantic UI Boundary
-- ADR-0010 — Application Provider, Window and Display Boundary
-- ADR-0011 — Browser Profile, Context, Page and Evidence Boundary
+ADR-0001 through ADR-0012 are accepted and indexed in `DECISIONS.md`.
 
 ---
 
