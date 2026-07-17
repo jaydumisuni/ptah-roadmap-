@@ -155,14 +155,7 @@ Negative, blocked, and partial outcomes remain recorded as evidence.
 
 A useful idea is preserved, but it is not automatically active work.
 
-Before implementation it must be:
-
-- placed in the roadmap;
-- assigned to a phase;
-- checked against existing work;
-- dependency-ordered;
-- selected in `CURRENT_STATE.md`;
-- approved for build.
+Before implementation it must be placed, assigned to a phase, checked against existing work, dependency-ordered, selected in `CURRENT_STATE.md`, and approved for build.
 
 ---
 
@@ -209,18 +202,29 @@ A future local operating environment may package Ptah, but the distribution, boo
 
 No Ptah subsystem is completed by choosing one repository.
 
-Every requirement must be closed through a composite set containing:
+Every requirement must be closed through internal foundation, primary capability donor, completion donors, mature machinery, native Ptah layer, fallback/exit and proof.
 
-1. internal foundation;
-2. primary capability donor;
-3. completion donors covering what the primary donor lacks;
-4. mature upstream machinery and standards;
-5. the native Ptah contract and integration gap;
-6. a fallback or exit donor;
-7. a proof plan for the assembled result.
-
-OpenClaw and Daytona are the first example: OpenClaw contributes node/gateway strengths and Daytona contributes workspace lifecycle strengths, while other donors and native Ptah work must close their remaining gaps.
-
-Research, decisions, unresolved gaps and progress must be saved continuously after each meaningful inspection unit.
+Research, decisions, unresolved gaps and progress are saved continuously.
 
 Full decision: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
+
+---
+
+## D-018 — Activity, event and observability guarantees remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns a neutral Activity contract and Activity Ledger.
+
+- Temporal is the primary durable-orchestration backend candidate.
+- NATS is the primary low-latency internal Event Fabric candidate.
+- JetStream is the primary bounded replayable-event candidate.
+- OpenTelemetry is the telemetry specification and Collector pipeline candidate.
+- Dedicated transports carry PTY, Object/file, display and media streams.
+- Ptah-owned receipts provide durable proof of side effects and produced Artifacts.
+
+No workflow engine, message broker, telemetry backend or stream is universal Ptah truth.
+
+Side effects require stable operation IDs, idempotency keys, explicit retry classes and durable receipts. Disconnected Nodes keep a Ptah-owned local journal/outbox and reconcile by identity and sequence.
+
+Full decision: `decisions/ADR-0003-ACTIVITY-EVENT-OBSERVABILITY-BOUNDARY.md`.
