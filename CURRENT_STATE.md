@@ -1,6 +1,6 @@
 # Ptah Current State
 
-**Last updated:** 2026-07-16  
+**Last updated:** 2026-07-17  
 **Overall status:** ACTIVE PLANNING  
 **Current phase:** Phase 0A — Internal and external donor recovery  
 **Runtime implementation:** NOT STARTED  
@@ -33,7 +33,30 @@ Current objective:
 
 > Produce the Ptah Requirement Closure Matrix and complete donor records before selecting implementation dependencies or writing runtime code.
 
-Current donor pool includes:
+## Work package 01 — completed
+
+OpenClaw and Daytona were inspected side by side at source level.
+
+Saved evidence:
+
+- `donors/OPENCLAW.md`
+- `donors/DAYTONA.md`
+- `decisions/ADR-0001-NODE-WORKSPACE-BOUNDARY.md`
+- populated first rows in `REQUIREMENT_CLOSURE_MATRIX.md`
+
+Accepted findings:
+
+1. OpenClaw is the primary architecture donor for Ptah Node Protocol patterns, not a direct Ptah Core dependency.
+2. Daytona is a useful historical architecture donor for workspace lifecycle, runners and snapshots, but is not an adopted foundation because its public codebase is unmaintained and AGPL-3.0.
+3. Ptah owns its Node Protocol and Workspace Provider contracts.
+4. A node is a physical or virtual capability host.
+5. A workspace provider is one facility available through a node.
+6. Node, Workspace, Activity, Object and Session remain separate records and lifecycles.
+7. Large object, terminal, display and media streams must be separate from the JSON control envelope.
+
+## Current donor pool
+
+The active pool includes:
 
 - internal THETECHGUY repositories and unfinished work;
 - OpenClaw organisation projects;
@@ -105,13 +128,28 @@ Not allowed yet:
 
 # Immediate next actions
 
-1. Populate `DONOR_RECOVERY.md` with canonical upstream and fork relationships.
-2. Inspect foundation-grade donors in the approved order.
-3. Inspect internal repositories against the same requirements.
-4. Build the Requirement Closure Matrix.
-5. Identify primary, secondary, and exit-strategy donors for every v1 subsystem.
-6. Submit Phase 0A findings for review.
-7. Only after approval, begin Phase 0B contract and schema design.
+## Work package 02 — Durable activities and live event fabric
+
+Inspect side by side:
+
+1. Temporal and the most suitable Ptah SDK candidate.
+2. NATS Server, JetStream and likely Rust/TypeScript/Go clients.
+
+Resolve:
+
+- public control protocol versus internal event bus;
+- live events versus durable workflow history;
+- retry, cancellation, timer and checkpoint semantics;
+- event sequence, replay and backpressure;
+- worker leases, crash recovery and activity resumption;
+- whether Ptah v1 should adopt these directly, wrap them, or preserve replaceable compatibility contracts.
+
+Then:
+
+3. Save donor records.
+4. Create the Relay / Durable Activity boundary decision.
+5. Update `REQUIREMENT_CLOSURE_MATRIX.md` for `CORE-002`, `RELAY-001` and `RELAY-002`.
+6. Update `PROGRESS.md` and this file.
 
 ---
 
@@ -131,4 +169,4 @@ Phase 0A can move to review only when:
 
 # Chat continuation instruction
 
-A future chat must read this file first, then `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md`, `MEMORY_PROTOCOL.md`, and `DONOR_RECOVERY.md` before proposing next work.
+A future chat must read this file first, then `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md`, `MEMORY_PROTOCOL.md`, `DONOR_RECOVERY.md`, the donor records, and accepted ADRs before proposing next work.
