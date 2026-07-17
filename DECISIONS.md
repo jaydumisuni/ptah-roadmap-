@@ -317,3 +317,28 @@ libarchive, Tika, Unstructured, LIEF, Binwalk, JADX, Apktool, libvips, FFmpeg/ff
 Parser success, extracted text, decoded resources, decompiled source, previews, rebuilt outputs and reviews never become universal Object truth automatically.
 
 Full decision: `decisions/ADR-0007-OBJECT-GRAPH-DECOMPOSITION-DERIVATIVE-BOUNDARY.md`.
+
+---
+
+## D-023 — Firmware packages, disk images and physical device operations remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns separate Firmware Package, Disk/Image, Manifest Graph, Device Profile, Compatibility Result, Static Activity, Physical Device Activity and Operation Receipt contracts.
+
+- package filenames, marketing models, chipset families, partition names and USB VID/PID values are insufficient compatibility evidence;
+- static package/image analysis works without a connected device;
+- USB detection, protocol handshake, loader/programmer stage, configured service session, read, write acknowledgement and read-back verification are separate proof levels;
+- read-only inventory/backup capabilities and write/erase/reset/unlock/payload capabilities are separately declared and authorized;
+- loaders, programmers, FDLs, Download Agents, preloaders and ramdisks are immutable Objects with exact source, digest, licence and target compatibility;
+- physical mutation requires a reviewed Compatibility Result, immutable backup/checkpoint and post-operation read-back where technically possible;
+- transport loss cannot trigger blind retry of non-idempotent physical operations;
+- encrypted/signed originals remain preserved while decrypted, patched or rebuilt outputs receive new Object identity and trust state;
+- untrusted filesystems are inspected in isolated appliances rather than mounted directly by the Ptah host kernel;
+- vendor GPL/proprietary backends remain separate replaceable Facilities;
+- generic firmware decomposition does not imply vendor-aware flashing support;
+- `.P5C` remains parked until a verified sample/spec/tool establishes its format.
+
+blacktop/ipsw, the internal MTK META path, MTKClient, Qualcomm EDL, Unisoc PAC/FDL donors, AOSP OTA/sparse/liblp/AVB machinery, Heimdall, libfdisk, libguestfs and generic firmware extractors remain behind neutral Ptah contracts.
+
+Full decision: `decisions/ADR-0008-DISK-FIRMWARE-DEVICE-OPERATION-BOUNDARY.md`.
