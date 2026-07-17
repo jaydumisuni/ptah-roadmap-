@@ -1,7 +1,7 @@
 # Donor Record — Daytona
 
 **Phase:** 0A  
-**Status:** FIRST-PASS COMPLETE  
+**Status:** FIRST-PASS COMPLETE — COMPOSITE CLOSURE PENDING  
 **Inspected:** 2026-07-17
 
 ## Identity
@@ -76,6 +76,21 @@ Ptah needs a provider-neutral contract that supports:
 - connection to the Ptah Node Protocol;
 - cross-provider validation tests and an exit strategy.
 
+## Missing capabilities requiring completion donors
+
+Daytona does not complete Ptah's Workspace Provider or owned execution foundation. The composite closure still requires:
+
+- Coder for persistent human workspaces, templates, tunnelling and governance comparisons;
+- E2B and E2B Desktop for agent-facing sandbox and graphical desktop contracts;
+- Dev Containers for portable environment descriptions;
+- containerd and OCI for owned container lifecycle, image and snapshot machinery;
+- OpenHands for repository, terminal, browser and event-driven computer interaction patterns;
+- OpenClaw for node identity, capability publication, reconnect and gateway control patterns;
+- Temporal and NATS for durable activities and live events outside the provider lifecycle;
+- native Ptah local-process, OCI and remote-host providers with conformance tests.
+
+Daytona is therefore an architecture-history donor inside a larger workspace donor composition, not a foundation to copy or depend upon.
+
 ## Integration decision
 
 **STUDY ONLY — architecture and protocol patterns.**
@@ -84,8 +99,10 @@ Daytona is a strong historical donor for `CORE-001` and `EXEC-002`, but it is no
 
 ## Primary implementation direction
 
-Ptah will own the Workspace Provider contract. The first implementation should use native Ptah code over local Linux and OCI/container machinery. Coder, E2B, Dev Containers and other providers remain comparison and exit donors.
+Ptah will own the Workspace Provider contract. The first implementation should use native Ptah code over local Linux and OCI/container machinery. Coder, E2B, Dev Containers and other providers remain completion and exit donors.
 
 ## Validation required
 
 Create one provider conformance suite covering create, start, stop, pause when supported, resume, snapshot, archive, restore, fork when supported, resize, destroy, terminal, process, files, ports and status. Prove two independent workspaces can run concurrently without Ptah depending on Daytona schemas.
+
+The assembled workspace subsystem must also be validated against `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md` before the requirement is closed for design.
