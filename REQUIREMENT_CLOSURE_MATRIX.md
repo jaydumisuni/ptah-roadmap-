@@ -1,7 +1,7 @@
 # Ptah Requirement Closure Matrix
 
 **Phase:** 0A  
-**Status:** POPULATING — CORE RUNTIME, BUILD/PROVENANCE AND STORAGE/TRANSFER CLOSED FOR DESIGN
+**Status:** POPULATING — CORE RUNTIME, BUILD/PROVENANCE, STORAGE/TRANSFER AND OBJECT/DECOMPOSITION CLOSED FOR DESIGN
 
 This file maps each Ptah requirement to internal evidence, a composite donor set, mature machinery, native Ptah ownership, licence/exit decisions and proof.
 
@@ -29,7 +29,8 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 |---|---|---|---|---|---|
 | CORE-001 | Persistent Workspace model | Workspace Provider contract | Daytona, Coder, E2B, Dev Containers/CLI, DevPod, local Linux, containerd/OCI, Hunter local boundaries | lifecycle, capabilities, provider conformance, identity separation | WP02A/WP02C, ADR-0001 |
 | CORE-002 | Concurrent Activity runtime | Activity contract and Ledger | Temporal, NATS/JetStream, OTel, internal AgentOps/Foreman/Hunter workers/outbox/MIBU | states, leases/fencing, retries, cancellation, checkpoints, receipts, backend migration | WP02B/WP02C, ADR-0003/0004 |
-| CORE-004 | Facility/plugin host foundation | Facility Manifest/host/invocation | OpenClaw plugins, OpenHands tools, MCP, Sergeant manifests, CodeOps routes, AgentOps packets | capability/version/status/resources/permissions/health/pin/upgrade/rollback | WP02C |
+| CORE-003 | Universal Object graph/catalogue | Object, Claim, Relationship and View contracts | internal App Recover/APK Extractor/Creative Studio/Document Generator; libarchive, Tika, Unstructured, LIEF, Binwalk, JADX, Apktool, libvips, FFmpeg and Tree-sitter | immutable identity, claims/conflicts, relationships, Views, derivatives, progressive depth and partial coverage | WP05, ADR-0007 |
+| CORE-004 | Facility/Domain Pack host foundation | Facility Manifest and Domain Pack contract | OpenClaw plugins, OpenHands tools, MCP, Sergeant/CodeOps manifests plus WP05 parser/renderer packs | capability/version/status/resources/permissions/health, operations and proof outputs | WP02C/WP05, ADR-0007 |
 | CORE-005 | Node Protocol/capabilities | Node Protocol | OpenClaw, Coder/DevPod agents, NATS, OTel, TechGuy Relay lessons, MIBU epochs/correlation | cryptographic identity, epoch, replay, capabilities, pairing and streams | ADR-0001/0003/0004 |
 | RELAY-001 | Live Event transport | Event envelope/Fabric adapter | NATS Core, JetStream, OTel, Foreman bridge, Hunter outbox, MIBU stale rejection | sequence/cursor, retention, duplicate handling, backpressure and local outbox | WP02B/WP02C |
 | RELAY-002 | Durable Activity recovery | Activity Ledger/checkpoints/receipts | Temporal, SQL, provider snapshots, Hunter Workflow/outbox and MIBU proof | retry classes, idempotency, compensation, leases/fencing and backend portability | WP02B/WP02C |
@@ -49,75 +50,87 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 | XFER-002 | Fast resumable downloads | Download/Transfer Facility | Lumi DM, aria2, yt-dlp/libtorrent/FFmpeg adapters | segmented/multi-source, source validators, restart, progress and verification | WP04, ADR-0006 |
 | XFER-003 | Cloud and Node transport | Object Transfer Facility | rclone, Syncthing, dedicated Ptah streams | source/destination locations, scoped credentials, direct replication and receipts | WP04, ADR-0006 |
 | SYNC-001 | Online/local synchronization and conflicts | Revision/Conflict contract | Hunter safe sync, Syncthing vectors, rclone transport, Object digests | parents, tombstones, divergence, merge/resolution and authority | WP04, ADR-0006 |
+| DECOMP-001 | True-type detection | Detector Claim and routing contract | Tika, libarchive, LIEF, Binwalk, ffprobe, libvips/image loaders, Android parsers and internal App Recover evidence | plural claims, evidence classes, confidence/calibration, conflict and unknown/encrypted/malformed states | WP05, ADR-0007 |
+| DECOMP-002 | Recursive archive/container decomposition | bounded Archive/Container Domain Pack | libarchive, Binwalk, Tika embedded resources and internal recovery tools | streaming children, recursive budgets, path/link safety, dedupe, partial states and rebuild comparison | WP05, ADR-0007 |
+| DOC-001 | Document structure/render/proof | Document Domain Pack | internal Document Generator, Tika, Unstructured, browser/PDF renderers and private template packs | payload/model/template/HTML/PDF/page/element relationships, truth references, privacy and visual proof | WP05, ADR-0007 |
+| MEDIA-001 | Video/audio decomposition/transforms | Media Domain Pack | Creative Studio, ffprobe/FFmpeg and Object-backed Assets | containers, streams/tracks/chapters/frames/subtitles, transforms, A/V proof and build features | WP05, ADR-0007 |
+| IMAGE-001 | Image decomposition/processing | Image Domain Pack | Creative Studio, libvips and specialist loader packs | dimensions/pages/frames/bands, EXIF/ICC/HDR, bounded transforms, previews and visual equivalence | WP05, ADR-0007 |
+| BIN-001 | Executable/binary decomposition | Binary Domain Pack | App Recover, LIEF, Binwalk and platform signature/debug tools | formats/slices/sections/imports/resources/signatures/embedded regions, static-only default and mutation proof | WP05, ADR-0007 |
+| APP-001 | APK/AAB/DEX decomposition | Android Application Domain Pack | internal APK Extractor, raw package view, Apktool, JADX, LIEF and later signing/bundle tools | package sets, manifest/components/resources/DEX/native/signing, view origins, rebuild/sign/install separation | WP05, ADR-0007 |
 
 ## Closed foundation notes
 
-- `CORE-003` now has closed storage-location, digest and Build Artifact relationship foundations, but universal detection/decomposition and child/derivative relationships remain WP05.
-- `PLUGIN-001` has closed Build-module and Facility-manifest foundations, while general discovery/install/upgrade remains later.
+- `PLUGIN-001` has closed Facility-manifest, Domain Pack and Build-module foundations, while general discovery/install/upgrade remains later.
 - `DIST-001` has protocol, events and Object-transfer foundations, but scheduler, secure networking and placement policy remain open.
 - JuiceFS and SeaweedFS are `PARKED` until measured Phase 12 shared-POSIX requirements justify them.
+- Source Structure is closed as an optional Tree-sitter-backed View contract, while compiler/LSP/search integration remains later.
+- Firmware, disk and filesystem packs reuse the WP05 Object/Claim/Relationship/Budget contracts and are now the active closure group.
 
 ---
 
-# Active WP05 — Universal Object and decomposition composition
+# Active WP06 — Firmware, disks and filesystems composition
 
-## CORE-003 — Universal Object graph and catalogue
+## FW-001 — Apple firmware
 
 **Status:** RECOVERING INTERNAL WORK / INSPECTING DONORS
 
-- Closed foundations: content identity, storage locations, revisions, Artifacts, Activities and provenance.
-- Internal recovery: App Recover, APK Extractor, Creative Studio and Document Generator.
-- External donor direction: libarchive, Tika, Unstructured, LIEF, Binwalk, JADX, Apktool, libvips, FFmpeg/ffprobe and source-structure donors where required.
-- Native gap: type claims/confidence, parent/child/contains/derived-from/view relationships, progressive depth, extraction budgets, malformed/encrypted/opaque states and derivative identity.
+- Internal recovery: Apple/iPhone firmware, restore and download-manager work.
+- External direction: blacktop/ipsw and authoritative Apple metadata/catalogue sources.
+- Native gap: product/build/board/device compatibility, IPSW/OTA manifests, component/partition/file relationships, encryption/key states, signatures and restore-versus-analysis separation.
 
-## DECOMP-001 — True-type detection
+## FW-002 — MediaTek firmware
+
+**Status:** RECOVERING INTERNAL WORK / INSPECTING DONORS
+
+- Internal recovery: MTK/META, TSM DLL, Boot META, read-info/NVRAM/proinfo/nvdata and device profiles.
+- External direction: MTKClient and specialist scatter/preloader/partition parsers.
+- Native gap: scatter/package/partition/region relationships, SoC/profile compatibility, read-before-write receipts, backup/restore and META/BROM/Preloader capability separation.
+
+## FW-003 — Unisoc firmware
+
+**Status:** RECOVERING INTERNAL WORK / INSPECTING DONORS
+
+- Internal recovery: SPD/Unisoc engine and PAC/FDL requirements.
+- External direction: verified PAC/FDL parsers and service/download donors.
+- Native gap: PAC manifest/partition/FDL/SoC relationships, checksum/compression/encryption states and safe static extraction.
+
+## FW-004 — Qualcomm firmware
+
+**Status:** RECOVERING INTERNAL WORK / INSPECTING DONORS
+
+- Internal recovery: Qualcomm/DIAG, Firehose and XML flow work.
+- External direction: EDL/Firehose programmers, rawprogram/patch XML and Sahara/Firehose donors.
+- Native gap: programmer/device compatibility, GPT/LUN/partition relationships, read/write/erase operation classes and signed programmer provenance.
+
+## FW-005 — Android OTA, sparse and dynamic partitions
+
+**Status:** RECOVERING INTERNAL WORK / INSPECTING DONORS
+
+- Internal recovery: Android OTA Manager and device-update workflows.
+- External direction: update payload, sparse image, super/dynamic partition, vbmeta/AVB and platform tooling.
+- Native gap: payload operation graph, source/target build compatibility, partition reconstruction, sparse/raw views, AVB verification and apply-versus-analysis separation.
+
+## FW-006 — Other vendor/embedded firmware
 
 **Status:** INSPECTING DONORS
 
-- Direction: signature/magic/container/parser claims with evidence and confidence rather than extension-only classification.
-- Required: conflicting detector claims, encrypted/unsupported states and exact detector/version receipts.
+- Foundation: Binwalk, LIEF, libarchive and generic firmware Object relationships from WP05.
+- Open: Samsung/Odin, Huawei/Honor, ZTE, embedded/router/UEFI and other vendor pack coverage.
+- `P5C`: unresolved until a verified sample/tool establishes the format; otherwise explicitly park with recovery criteria.
 
-## DECOMP-002 — Recursive archive and container decomposition
+## FS-001 — Disks, partitions, images and filesystems
 
 **Status:** INSPECTING DONORS
 
-- Direction: libarchive plus format-specific Domain Packs and native recursion/budget controls.
-- Required: depth, child-count, byte-expansion, path, symlink and time/resource limits.
+- Direction: GPT/MBR parsers, sparse/raw/qcow/vmdk/vhd images, libguestfs and filesystem-specific read-only adapters.
+- Native gap: disk→partition→filesystem→file relationships, snapshots/overlays, read-only mounting, encrypted/locked states, journal consistency and rebuild/compare proof.
 
-## DOC-001 — Document structure, render and proof
+## DEVICE-001 firmware boundary — Device inventory and firmware operations
 
-**Status:** RECOVERING INTERNAL WORK
+**Status:** COMPOSITE CANDIDATE — WP06 DEVICE-OPERATION BOUNDARY REQUIRED
 
-- Direction: internal Document Generator plus Tika/Unstructured and format-specific renderers.
-- Required: structured text/metadata, page/section/table/image Objects, previews and renderer receipts.
-
-## MEDIA-001 — Video/audio decomposition and transforms
-
-**Status:** RECOVERING INTERNAL WORK
-
-- Direction: Creative Studio plus FFmpeg/ffprobe.
-- Required: streams/tracks/chapters/frames/thumbnails/waveforms, codec/container evidence and transform receipts.
-
-## IMAGE-001 — Image decomposition and processing
-
-**Status:** RECOVERING INTERNAL WORK
-
-- Direction: Creative Studio plus libvips and metadata/color-profile donors as needed.
-- Required: originals, derivatives, regions/pages/frames, dimensions, color/EXIF claims and bounded transforms.
-
-## BIN-001 — Executable/binary decomposition
-
-**Status:** RECOVERING INTERNAL WORK
-
-- Direction: App Recover plus LIEF/Binwalk and platform-specific packs.
-- Required: headers, sections, imports/exports, resources, signatures, embedded files and safe static-only defaults.
-
-## APP-001 — APK/AAB/DEX decomposition
-
-**Status:** RECOVERING INTERNAL WORK
-
-- Direction: APK Extractor plus JADX/Apktool and Android signing/manifest/resource tooling.
-- Required: package/manifest/components/resources/DEX/native libs/signatures, source/resource derivatives and rebuild distinction.
+- Existing foundation: MIBU proof levels, nonces/stale rejection, internal ADB/META/DIAG/USB work and Node/Activity/Receipt contracts.
+- WP06 must separate static package/image analysis from physical read/write/flash/erase/reset operations and require exact device/profile/programmer compatibility plus backup/read-back proof.
 
 ---
 
@@ -130,14 +143,7 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 | BROWSE-001 | Persistent interactive browser | OPEN | Playwright/Chromium, Browser-Use and TurboWebFetch |
 | BROWSE-002 | Rendered extraction/research | OPEN | TurboWebFetch + Playwright + source provenance |
 | BROWSE-003 | Browser evidence | OPEN | screenshots, recordings, traces, console/network Artifacts |
-| FW-001 | Apple firmware | OPEN | internal Apple work + blacktop/ipsw |
-| FW-002 | MediaTek firmware | RECOVERING INTERNAL WORK | internal MTK/META + MTKClient |
-| FW-003 | Unisoc firmware | RECOVERING INTERNAL WORK | internal SPD/Unisoc + PAC/FDL donors |
-| FW-004 | Qualcomm firmware | RECOVERING INTERNAL WORK | internal Qualcomm + EDL/Firehose/XML/LIEF |
-| FW-005 | Android OTA/dynamic partitions | RECOVERING INTERNAL WORK | internal OTA + payload/platform tools |
-| FW-006 | Other vendor/embedded firmware | OPEN | Binwalk and vendor Domain Packs |
-| FS-001 | Disks, partitions, images/filesystems | OPEN | libguestfs and platform tools |
-| DEVICE-001 | Android inventory/ADB | COMPOSITE CANDIDATE | Device Manager/MIBU/ADB + STF/adbkit/Appium; exact donor pass pending |
+| DEVICE-001 runtime | Android inventory/ADB | COMPOSITE CANDIDATE | Device Manager/MIBU/ADB + STF/adbkit/Appium; exact donor pass pending |
 | DEVICE-002 | Android screen/input/semantic UI | OPEN | TouchPilot/STF/Appium/scrcpy/UIAutomator |
 | APP-002 | Linux graphical/native app | INSPECTING DONORS | E2B Desktop + remote display/native Linux |
 | APP-003 | Windows EXE/MSI runtime | OPEN | Windows Node/VM + remote display |
@@ -154,8 +160,8 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 
 # Current conclusion
 
-Core runtime, Build/Artifact/Provenance and Storage/Transfer/Sync/Backup are closed for **Phase 0B contract design**, not implementation.
+Core runtime, Build/Artifact/Provenance, Storage/Transfer/Sync/Backup and Universal Object/Decomposition are closed for **Phase 0B contract design**, not implementation.
 
-Active Phase 0A group: Universal Object and Decomposition (`WP05`) as recorded in `CURRENT_STATE.md`.
+Active Phase 0A group: Firmware, Disks and Filesystems (`WP06`) as recorded in `CURRENT_STATE.md`.
 
 Phase 0A cannot close until every v1 requirement is `CLOSED FOR DESIGN`, explicitly `PARKED`, or a `REJECTED PATH` with a replacement.
