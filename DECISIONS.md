@@ -266,3 +266,27 @@ Cache is reusable derived state, not source truth or independent reproduction. M
 Build planning, execution, Artifact hash verification, SBOM generation, attestation, signature verification, review, independent reproduction and release acceptance are distinct levels. A stronger level is never inferred automatically.
 
 Full decision: `decisions/ADR-0005-BUILD-ARTIFACT-PROVENANCE-BOUNDARY.md`.
+
+---
+
+## D-021 — Storage, transfer, synchronization and backup guarantees remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns a backend-neutral Storage Fabric with explicit classes for hot Workspace bytes, immutable Objects, mutable revisions, Artifacts, caches, provider volumes/snapshots, partial landing data, sync replicas, encrypted backups and exports.
+
+- local SSD/NVMe is the default active Workspace storage;
+- local content-addressed storage plus SQLite/shared SQL and R2/S3-compatible Object storage is the initial storage direction;
+- aria2 is the primary segmented/multi-source download backend candidate;
+- tus/tusd is the primary resumable-upload candidate;
+- rclone is the primary broad cloud/provider transport adapter;
+- Syncthing is an optional direct Node-sync backend and version-vector donor;
+- restic is the primary encrypted backup/restore candidate;
+- Google Drive remains export/recovery, not a live Build/database/container filesystem;
+- JuiceFS and SeaweedFS are evaluated and parked until measured distributed shared-storage need.
+
+Transfer completion and Object verification are separate. Synchronization transports revisions but does not decide conflict authority. Concurrent mutable changes produce preserved divergent revisions rather than silent last-write-wins. Synchronization is not backup, provider snapshots are not backups, caches are not truth and cloud mounts are not local active storage.
+
+Object identity is content-based and independent of provider path, tag or storage location. Backups and destructive retention/prune operations require explicit recipes and receipts.
+
+Full decision: `decisions/ADR-0006-STORAGE-TRANSFER-SYNC-BOUNDARY.md`.
