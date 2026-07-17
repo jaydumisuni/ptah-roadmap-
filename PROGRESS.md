@@ -16,169 +16,128 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 ## Repository and method control
 
 - [x] Private roadmap repository and public/private separation.
-- [x] Master roadmap, Current State, progress and chat-recovery rules.
+- [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] ADR-0001 Node Protocol / Workspace Provider boundary.
-- [x] ADR-0002 Composite Donor Closure method.
-- [x] ADR-0003 Activity / Event / Observability boundary.
-- [x] ADR-0004 Operation Identity / Receipts / Proof Levels.
-- [x] ADR-0005 Build Recipe / Artifact / Provenance boundary.
-- [x] ADR-0006 Storage / Transfer / Sync / Backup boundary.
-- [x] ADR-0007 Object Graph / Decomposition / Derivative boundary.
-- [x] ADR-0008 Disk Image / Firmware Package / Physical Operation boundary.
-- [x] ADR-0009 Device Session / Display / Input / Semantic UI boundary.
-- [x] ADR-0010 Application Provider / Window / Display boundary.
-- [x] ADR-0011 Browser Profile / Context / Page / Evidence boundary.
+- [x] ADR-0001 through ADR-0012 accepted and indexed.
 - [-] Normalize remaining donor register and unresolved profiles.
 - [-] Save after every meaningful inspection unit.
 
-## Completed requirement clusters
+## Completed clusters
 
 ### WP01–WP02 — Core runtime
 
 - [x] Node/Workspace boundary.
 - [x] Workspace/provider execution composition.
 - [x] Activities, Events, recovery and observability.
-- [x] Internal AgentOps/Foreman/Sergeant/Relay/CodeOps/MIBU/Hunter recovery.
-- [x] Core-runtime Phase 0B design closure.
+- [x] Internal runtime/evidence comparison.
+- [x] Phase 0B design closure.
 
 ### WP03 — Build, Artifact and provenance
 
-- [x] Software Builder comparison.
-- [x] BuildKit and Dagger.
-- [x] ORAS/OCI relationships.
-- [x] Witness/in-toto.
-- [x] Sigstore/Cosign/Rekor/Fulcio.
-- [x] Syft/SBOM.
-- [x] WP03 and ADR-0005.
+- [x] BuildKit/Dagger and internal Builder comparison.
+- [x] ORAS, SBOM, attestation, signing and reproduction boundaries.
+- [x] ADR-0005 and WP03.
 - [x] Phase 0B design closure.
 
 ### WP04 — Storage, transfer, synchronization and backup
 
-- [x] Lumi/Download Manager recovery.
-- [x] aria2 and tus/tusd.
-- [x] rclone and Syncthing.
-- [x] restic.
-- [x] local CAS/catalogue direction.
-- [x] revision/conflict model.
-- [x] JuiceFS/SeaweedFS evaluated and parked.
-- [x] WP04 and ADR-0006.
+- [x] Lumi, aria2, tusd, rclone, Syncthing and restic.
+- [x] local CAS/catalogue and revision/conflict direction.
+- [x] distributed shared filesystems evaluated and parked.
+- [x] ADR-0006 and WP04.
 - [x] Phase 0B design closure.
 
 ### WP05 — Universal Object and decomposition
 
-- [x] App Recover, APK Extractor, Creative Studio and Document Generator.
-- [x] libarchive, Tika and Unstructured.
-- [x] LIEF and Binwalk.
-- [x] JADX and Apktool.
-- [x] libvips and FFmpeg/ffprobe.
-- [x] Tree-sitter/source-structure evaluation.
-- [x] WP05 and ADR-0007.
+- [x] internal recovery/decomposition products.
+- [x] archive/document/binary/Android/image/media/source donors.
+- [x] ADR-0007 and WP05.
 - [x] Phase 0B design closure.
 
 ### WP06 — Firmware, disks and filesystems
 
-- [x] Apple firmware/tool recovery and blacktop/ipsw.
-- [x] MTK META and MTKClient.
-- [x] Qualcomm EDL/Firehose.
-- [x] Unisoc PAC/FDL.
-- [x] Android OTA/payload/sparse/dynamic partition/AVB.
-- [x] libguestfs and libfdisk.
-- [x] Samsung and generic vendor coverage.
+- [x] Apple, MTK, Qualcomm, Unisoc, Android OTA and Samsung composition.
+- [x] libguestfs/libfdisk and isolated disk/filesystem boundary.
 - [x] P5C parked with reopening criteria.
-- [x] internal monorepo source-recovery gaps recorded.
-- [x] WP06 and ADR-0008.
+- [x] ADR-0008 and WP06.
 - [x] Phase 0B design closure.
 
-### WP07A — Android Device Runtime
+### WP07 — Device and Application Runtime
 
-- [x] THETECHGUY Device Manager and MIBU runtime recovery.
-- [x] DeviceFarmer STF and adbkit.
-- [x] minicap and minitouch.
-- [x] scrcpy.
-- [x] Appium and UIAutomator2.
-- [x] TouchPilot canonical repository and implementation.
-- [x] official Android ADB/Fastboot boundary.
-- [x] AndroidX UI Automator boundary.
-- [x] ADR-0009 and WP07A.
-- [x] Android Device Runtime Phase 0B design closure.
-
-### WP07B — Desktop and Apple Application Runtime
-
-- [x] Xpra/Xpra HTML5.
-- [x] Apache Guacamole.
-- [x] noVNC/websockify.
-- [x] QEMU/libvirt.
-- [x] FreeRDP.
-- [x] FlaUI, NovaWindows and legacy WinAppDriver boundary.
-- [x] Peekaboo macOS.
-- [x] Appium XCUITest and IDB.
-- [x] Apple Xcode/Simulator/XCTest/Virtualization foundation.
-- [x] ADR-0010 and WP07B.
-- [x] Device/Application Runtime Phase 0B design closure.
+- [x] Android Device Provider, ADB/Fastboot, display/input and semantic UI.
+- [x] Linux, Windows, macOS and iOS Application Providers.
+- [x] remote display, VM, Window and Application Session boundaries.
+- [x] ADR-0009, ADR-0010, WP07A and WP07B.
+- [x] Phase 0B design closure.
 
 ### WP08 — Browser and Live Research
 
-- [x] Playwright core and cross-browser foundation.
-- [x] Playwright MCP.
-- [x] Browser-Use.
-- [x] TurboWebFetch canonical URL and source inspection.
-- [x] internal browser/download/research requirements and implementation gap.
-- [x] persistent Profile and authenticated Context model.
-- [x] browser process pooling and Workspace isolation direction.
-- [x] Page/Frame/Popup/Download lifecycle.
-- [x] screenshot, PDF, video, trace, console, network and HAR evidence.
-- [x] rendered extraction, source and citation model.
-- [x] browser crash/restart and stale-page rejection.
+- [x] Playwright, Playwright MCP, Browser-Use and TurboWebFetch.
+- [x] Profile/Process/Context/Page/Download/Evidence model.
+- [x] source/citation and challenge/human-completion model.
 - [x] ADR-0011 and WP08.
-- [x] Browser/Live Research Phase 0B design closure.
+- [x] Phase 0B design closure.
 
-## Active WP09 — Human Workspace Shell and Operator Interface
+### WP09 — Human Workspace Shell and Operator Interface
 
-- [-] Eclipse Theia.
-- [ ] OpenVSCode Server.
-- [ ] code-server compatibility path.
-- [ ] xterm.js terminal surface.
-- [ ] Monaco/editor integration where required.
-- [ ] multi-panel/dock/layout donor decision.
-- [ ] recover internal Hunter/Foreman/Sergeant/device/tool/website UI patterns.
-- [ ] Ptah Home and Workspace switcher.
-- [ ] Object/file/tree/search/preview views.
-- [ ] multi-terminal, Browser, Device and Application panels.
-- [ ] Activity Centre, evidence and proof views.
-- [ ] human/automation focus and control handoff.
-- [ ] responsive desktop/mobile/browser layout.
-- [ ] accessibility, keyboard and reduced-motion requirements.
-- [ ] honest planned/configured/connected/running/verified labels.
-- [ ] composite WP09 record.
-- [ ] Workspace Shell / Panel / Human Control ADR.
-- [ ] Human Workspace/UI Phase 0B design closure.
+- [x] Eclipse Theia.
+- [x] OpenVSCode Server and code-server compatibility paths.
+- [x] xterm.js terminal renderer.
+- [x] Dockview responsive layout candidate.
+- [x] internal Hunter/Sergeant/MIBU/Device Manager/website UI patterns.
+- [x] Ptah Home, Workspace switcher and Panel contract direction.
+- [x] multi-terminal, Browser, Device and Application panel direction.
+- [x] Activity Centre and Evidence Explorer.
+- [x] human/automation focus and fenced control handoff.
+- [x] responsive desktop/tablet/phone layout direction.
+- [x] accessibility, keyboard, touch and reduced-motion requirements.
+- [x] honest lifecycle/proof labels.
+- [x] ADR-0012 and WP09.
+- [x] Human Workspace/UI Phase 0B design closure.
+
+## Active WP10 — Knowledge, Data, Search and Plugin Composition
+
+- [-] Recover internal Hunter knowledge/memory/learning/search foundations.
+- [ ] RAGFlow.
+- [ ] LlamaIndex.
+- [ ] Dify.
+- [ ] Polars.
+- [ ] Deno.
+- [ ] MCP specification and official server examples.
+- [ ] OpenClaw/ClawHub plugin discovery/lifecycle patterns.
+- [ ] Knowledge Source/Corpus/Document/Chunk model.
+- [ ] ingestion, index revision, freshness and deletion model.
+- [ ] source-grounded query/citation model.
+- [ ] search across Objects, Activities, Artifacts and Workspaces.
+- [ ] structured data/table/database Activities.
+- [ ] recipe/service/tool/plugin manifest completion.
+- [ ] plugin install, pin, health, upgrade, rollback and removal.
+- [ ] model/data provider-neutral interfaces.
+- [ ] composite WP10 record.
+- [ ] Knowledge Source / Index / Query / Plugin ADR.
+- [ ] Knowledge/Data/Search/Plugin Phase 0B design closure.
 
 ## Remaining donor groups
 
-- [ ] Remaining OpenClaw organisation projects where requirements remain.
-- [ ] Moby/Docker CLI operator boundary.
-- [ ] gVisor, Kata, Firecracker, youki and crun.
+- [ ] Strong isolation: gVisor, Kata, Firecracker, youki and crun.
+- [ ] Distributed placement/scheduling: MiniRouter, Ray and relevant completion donors.
 - [ ] Linux AT-SPI semantic completion.
-- [ ] RAGFlow, LlamaIndex, Dify, Polars and data/search donors.
-- [ ] MiniRouter/Ray/Celery/Huey scheduling completion.
-- [ ] SparkDistill, ClaimBound, ReproZip, GUAC and security workloads.
+- [ ] Reproduction/security workloads and scanners.
 - [ ] research/documentation sources and unresolved profiles.
 
 ## Requirement closure
 
-- [x] Complete v1 requirement list.
-- [x] Core runtime closure.
-- [x] Build/Artifact/Provenance closure.
-- [x] Storage/Transfer/Sync/Backup closure.
-- [x] Object/Decomposition closure.
-- [x] Firmware/Disk/Filesystem closure.
-- [x] Device/Application Runtime closure.
-- [x] Browser/Live Research closure.
-- [-] Human Workspace/UI closure.
-- [ ] Knowledge/Data/Search/Plugin closure.
-- [ ] Isolation/Distributed placement completion.
-- [ ] Security/reproduction workload closure.
+- [x] Core runtime.
+- [x] Build/Artifact/Provenance.
+- [x] Storage/Transfer/Sync/Backup.
+- [x] Object/Decomposition.
+- [x] Firmware/Disk/Filesystem.
+- [x] Device/Application Runtime.
+- [x] Browser/Live Research.
+- [x] Human Workspace/UI.
+- [-] Knowledge/Data/Search/Plugin.
+- [ ] Isolation/Distributed placement.
+- [ ] Security/reproduction workloads.
 - [ ] Phase 0A review and freeze.
 
 ---
@@ -187,20 +146,15 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 **Status:** NOT STARTED
 
-- [ ] Node identity, epoch and capability schemas.
-- [ ] Workspace Provider and conformance schemas.
-- [ ] Activity Ledger, Event and local-journal schemas.
-- [ ] operation receipt, proof level and authority schemas.
-- [ ] Facility and Domain Pack schemas.
-- [ ] Build Recipe, cache, Artifact and provenance schemas.
-- [ ] Object, detection, relationship, View and derivative schemas.
-- [ ] storage location, revision, conflict, transfer and backup schemas.
-- [ ] firmware, disk/image and physical-operation schemas.
-- [ ] Device identity, interface, lease and Device Session schemas.
-- [ ] Application Object, Provider, Installation, Session, Process and Window schemas.
-- [ ] Display Gateway, stream and semantic Screen Context schemas.
-- [ ] Browser Profile, Process, Context, Page and evidence schemas.
-- [ ] Workspace Shell, panel, layout, focus and human-control schemas.
+- [ ] Node, Workspace, Activity, Event and Facility schemas.
+- [ ] Operation Receipt and proof schemas.
+- [ ] Object, View, storage, revision and transfer schemas.
+- [ ] Build, Artifact and provenance schemas.
+- [ ] firmware, disk and Device schemas.
+- [ ] Application, Window, display and semantic-context schemas.
+- [ ] Browser Profile/Context/Page/evidence schemas.
+- [ ] Shell, Panel, Layout and human-control schemas.
+- [ ] Knowledge Source, Corpus, Index, Query, citation, data and plugin schemas.
 - [ ] Session, checkpoint, credential and privacy schemas.
 - [ ] telemetry conventions and resource accounting.
 - [ ] versioning, migrations, golden corpus and failure proofs.
