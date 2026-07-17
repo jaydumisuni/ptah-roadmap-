@@ -228,3 +228,19 @@ No workflow engine, message broker, telemetry backend or stream is universal Pta
 Side effects require stable operation IDs, idempotency keys, explicit retry classes and durable receipts. Disconnected Nodes keep a Ptah-owned local journal/outbox and reconcile by identity and sequence.
 
 Full decision: `decisions/ADR-0003-ACTIVITY-EVENT-OBSERVABILITY-BOUNDARY.md`.
+
+---
+
+## D-019 — Operation state, evidence and authority levels remain separate
+
+**Status:** ACCEPTED
+
+Ptah distinguishes Activity state, operation identity, events, telemetry, durable receipts, Object/Artifact proof, reviewer verdicts and authoritative external results.
+
+Every asynchronous or side-effecting operation is correlated through stable Activity/operation/attempt identities, idempotency where applicable, nonce, Node connection epoch, producer identity and version.
+
+Command acceptance, process or interface launch, runtime readiness, operation completion, output creation, read-back verification, independent review and authoritative external result are separate proof levels. A weaker level is never promoted automatically into a stronger one.
+
+Receipts are append-only and reference large evidence through Objects/Artifacts. Reviews are bound to exact checkpoints/content hashes. Stale, uncorrelated, unauthenticated, UNKNOWN or incompatible evidence never becomes PASS.
+
+Full decision: `decisions/ADR-0004-OPERATION-RECEIPTS-PROOF-LEVELS.md`.
