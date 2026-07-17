@@ -17,56 +17,58 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 - [x] Private roadmap repository and public/private separation.
 - [x] Master roadmap, Current State, progress and chat-recovery rules.
-- [x] Requirement Closure Matrix and donor-record structure.
+- [x] Requirement Closure Matrix and donor/internal-record structure.
 - [x] ADR-0001 Node Protocol / Workspace Provider boundary.
 - [x] ADR-0002 Composite Donor Closure method.
 - [x] ADR-0003 Activity / Event / Observability boundary.
-- [-] Normalize full donor register and internal overlap.
+- [x] ADR-0004 Operation Identity / Receipts / Proof Levels.
+- [-] Normalize full donor register and all internal overlap.
 - [-] Save after every meaningful inspection unit.
 
-## Core runtime external donor cluster
+## Core-runtime requirement cluster
 
-### Boundary and workspace/execution
+### External composition
 
-- [x] OpenClaw.
-- [x] Daytona.
-- [x] Coder.
-- [x] E2B.
-- [x] E2B Desktop.
-- [x] Development Containers Specification.
-- [x] Dev Container CLI.
-- [x] DevPod.
-- [x] containerd and OCI Runtime/Image/Distribution specifications.
+- [x] OpenClaw and Daytona boundary pass.
+- [x] Coder, E2B/Desktop, Dev Containers/CLI and DevPod.
+- [x] containerd and OCI specifications.
 - [x] OpenHands runtime family.
-- [x] WP02A composition record.
-
-### Activities, events, recovery and observability
-
-- [x] Temporal Server and Rust/Core SDK boundary.
-- [x] NATS Server, JetStream and `async-nats` boundary.
+- [x] Temporal Server and Rust/Core SDK.
+- [x] NATS Server, JetStream and `async-nats`.
 - [x] OpenTelemetry Collector, Contrib and specification.
-- [x] WP02B composition record.
-- [x] Activity Ledger versus Temporal/NATS/OTel boundary recorded.
+- [x] WP02A and WP02B composition records.
 
-### Internal core-runtime recovery
+### Internal recovery
 
-- [-] Hunter/AgentOps operation and job records.
-- [ ] Hunter Foreman process/task state.
-- [ ] Sergeant evidence and receipts.
-- [ ] TechGuy Relay registration/heartbeat lessons.
-- [ ] Software Builder/background workers.
-- [ ] Hunter online/local sync and failure-continuation rules.
-- [ ] Existing terminal, process and browser bridges.
-- [ ] MIBU correlation/stale-result/device-evidence patterns.
-- [ ] CodeOps bridge and Artifact contracts.
-- [ ] Compare internal evidence against WP02A/WP02B.
-- [ ] Core-runtime Phase 0B closure verdict.
+- [x] Hunter AgentOps operation/evidence ownership.
+- [x] Hunter Foreman task, bridge, health and proof patterns.
+- [x] Sergeant mission, Facility-manifest and grounded-evidence patterns.
+- [x] TechGuy Relay registration/heartbeat/TTL experiment and limits.
+- [x] Software Builder shared-environment, scanner/planner and worker requirements.
+- [x] Hunter CodeOps routing, credential, edit, backup and review-loop patterns.
+- [x] MIBU nonce, proof-protocol, stale-result and device-state patterns.
+- [x] Hunter source/local sync, Task Runner, persistent Workflow Manager, local file/process bridge and D1 outbox.
+- [x] Compare internal evidence against WP02A/WP02B.
+- [x] Save WP02C internal core-runtime closure record.
+- [x] Core-runtime Phase 0B design-closure verdict.
+
+## Active WP03 — Build, Artifact and provenance composition
+
+- [-] BuildKit.
+- [ ] Dagger.
+- [x] Internal Software Builder first-pass recovery.
+- [ ] ORAS and OCI Artifact/referrer relationships.
+- [ ] Witness.
+- [ ] in-toto and specifications.
+- [ ] Cosign, Rekor, Fulcio and Sigstore.
+- [ ] Syft/SBOM machinery where required.
+- [ ] Composite Build/Artifact/Provenance work-package record.
+- [ ] Build Recipe / Artifact / Attestation ADR.
 
 ## Remaining donor groups
 
-- [ ] OpenClaw organisation projects.
-- [ ] BuildKit, Dagger, Moby/Docker boundaries.
-- [ ] Witness, in-toto, Cosign/Sigstore and ORAS.
+- [ ] Relevant OpenClaw organisation projects.
+- [ ] Moby/Docker CLI detailed boundary.
 - [ ] gVisor, Kata, Firecracker, youki and crun.
 - [ ] Theia/OpenVSCode and remote-display gateway.
 - [ ] Playwright, Playwright MCP, Browser-Use and TurboWebFetch.
@@ -81,13 +83,15 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 ## Requirement closure
 
 - [x] Complete v1 requirement list.
-- [x] First Node/Workspace boundary.
-- [x] Workspace/execution external composition.
-- [x] Activity/event/observability external composition.
-- [-] Map every requirement to internal foundation.
+- [x] Core Workspace/Node/Activity/Event/Observability donor composition.
+- [x] Core-runtime internal comparison and Phase 0B design closure.
+- [-] Map all remaining requirements to internal foundations.
 - [-] Map primary and completion donors.
-- [-] Record native Ptah layer, licences and exit strategies.
-- [-] Record complete validation set.
+- [-] Record native Ptah layers, licences and exit strategies.
+- [-] Record complete validation sets.
+- [ ] Close build/provenance cluster.
+- [ ] Close transfer/storage cluster.
+- [ ] Close decomposition/firmware/device/browser/UI/search/security clusters.
 - [ ] Review and freeze Phase 0A.
 
 ---
@@ -96,13 +100,17 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 **Status:** NOT STARTED
 
-- [ ] Object, relationship, Workspace and Activity schemas.
-- [ ] Artifact, Node, Facility and plugin schemas.
+- [ ] Node identity, epoch and capability schema.
+- [ ] Workspace Provider contract and conformance schema.
+- [ ] Activity Ledger, retries, dependency and backend-reference schema.
+- [ ] Event envelope, retention, replay and local-journal contracts.
+- [ ] Operation receipt, proof level and authority schema.
+- [ ] Facility manifest/invocation/result schema.
+- [ ] Object, relationship, Artifact and provenance schemas.
 - [ ] Session, snapshot, credential, sync and conflict schemas.
-- [ ] Event envelope, large-stream and receipt contracts.
-- [ ] Workspace Provider and Facility Adapter contracts.
-- [ ] Telemetry semantic conventions and provenance schemas.
-- [ ] Firmware schema and Domain Pack contract.
+- [ ] Large-stream reference contracts.
+- [ ] Telemetry semantic conventions and resource accounting.
+- [ ] Firmware/Domain Pack schemas.
 - [ ] Versioning, migrations, golden corpus and failure proofs.
 - [ ] Review and freeze.
 
@@ -137,7 +145,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 # Phase 5 — Git, containers, environments and builds
 
 - [ ] Git mirrors/worktrees, local and OCI providers, Dev Containers and BuildKit.
-- [ ] Parallel reproducible build proof.
+- [ ] Typed recipes, shared caches, provenance and parallel reproducible build proof.
 
 # Phase 6 — Browser and live web
 
