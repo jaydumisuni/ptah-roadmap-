@@ -22,48 +22,49 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0002 Composite Donor Closure method.
 - [x] ADR-0003 Activity / Event / Observability boundary.
 - [x] ADR-0004 Operation Identity / Receipts / Proof Levels.
+- [x] ADR-0005 Build Recipe / Artifact / Provenance boundary.
 - [-] Normalize full donor register and all internal overlap.
 - [-] Save after every meaningful inspection unit.
 
-## Core-runtime requirement cluster
-
-### External composition
+## Core-runtime cluster
 
 - [x] OpenClaw and Daytona boundary pass.
 - [x] Coder, E2B/Desktop, Dev Containers/CLI and DevPod.
 - [x] containerd and OCI specifications.
 - [x] OpenHands runtime family.
-- [x] Temporal Server and Rust/Core SDK.
-- [x] NATS Server, JetStream and `async-nats`.
-- [x] OpenTelemetry Collector, Contrib and specification.
-- [x] WP02A and WP02B composition records.
+- [x] Temporal, NATS/JetStream and OpenTelemetry.
+- [x] Hunter AgentOps, Foreman, Sergeant, Relay, Software Builder, CodeOps, MIBU and Hunter runtime/sync/outbox.
+- [x] WP02A, WP02B and WP02C records.
+- [x] Core-runtime Phase 0B design closure.
 
-### Internal recovery
+## WP03 — Build, Artifact and provenance composition
 
-- [x] Hunter AgentOps operation/evidence ownership.
-- [x] Hunter Foreman task, bridge, health and proof patterns.
-- [x] Sergeant mission, Facility-manifest and grounded-evidence patterns.
-- [x] TechGuy Relay registration/heartbeat/TTL experiment and limits.
-- [x] Software Builder shared-environment, scanner/planner and worker requirements.
-- [x] Hunter CodeOps routing, credential, edit, backup and review-loop patterns.
-- [x] MIBU nonce, proof-protocol, stale-result and device-state patterns.
-- [x] Hunter source/local sync, Task Runner, persistent Workflow Manager, local file/process bridge and D1 outbox.
-- [x] Compare internal evidence against WP02A/WP02B.
-- [x] Save WP02C internal core-runtime closure record.
-- [x] Core-runtime Phase 0B design-closure verdict.
+- [x] Internal Software Builder comparison.
+- [x] BuildKit.
+- [x] Dagger.
+- [x] ORAS and OCI Artifact/referrer relationships.
+- [x] Witness.
+- [x] in-toto.
+- [x] Cosign, Rekor, Fulcio and sigstore-go.
+- [x] Syft/SBOM machinery.
+- [x] Composite WP03 record.
+- [x] ADR-0005.
+- [x] Build/Artifact/Provenance Phase 0B design closure.
 
-## Active WP03 — Build, Artifact and provenance composition
+## Active WP04 — Storage, transfer, synchronization and backup
 
-- [-] BuildKit.
-- [ ] Dagger.
-- [x] Internal Software Builder first-pass recovery.
-- [ ] ORAS and OCI Artifact/referrer relationships.
-- [ ] Witness.
-- [ ] in-toto and specifications.
-- [ ] Cosign, Rekor, Fulcio and Sigstore.
-- [ ] Syft/SBOM machinery where required.
-- [ ] Composite Build/Artifact/Provenance work-package record.
-- [ ] Build Recipe / Artifact / Attestation ADR.
+- [-] Recover internal Download Manager/Lumi implementation.
+- [ ] aria2.
+- [ ] tus/tusd.
+- [ ] rclone.
+- [ ] Syncthing.
+- [ ] restic.
+- [ ] Hunter R2/D1/local/Drive storage comparison.
+- [ ] Local content-addressed storage and metadata catalogue direction.
+- [ ] Online/local Object revision and conflict model.
+- [ ] Future shared-filesystem decision: adopt, defer or park.
+- [ ] Composite Storage/Transfer/Sync work-package record.
+- [ ] Storage Classes / Transfer / Sync ADR.
 
 ## Remaining donor groups
 
@@ -72,7 +73,6 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] gVisor, Kata, Firecracker, youki and crun.
 - [ ] Theia/OpenVSCode and remote-display gateway.
 - [ ] Playwright, Playwright MCP, Browser-Use and TurboWebFetch.
-- [ ] aria2, tusd, rclone, Syncthing, restic and internal Download Manager.
 - [ ] STF, adbkit, Appium, scrcpy, TouchPilot and internal device engines.
 - [ ] Tika, Unstructured, libarchive, LIEF, Binwalk, JADX, Apktool, libvips and FFmpeg.
 - [ ] Apple, MTK, Qualcomm, Unisoc, Android OTA, disk/filesystem and vendor firmware donors.
@@ -85,12 +85,12 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Complete v1 requirement list.
 - [x] Core Workspace/Node/Activity/Event/Observability donor composition.
 - [x] Core-runtime internal comparison and Phase 0B design closure.
+- [x] Build/Artifact/Provenance composition and Phase 0B design closure.
 - [-] Map all remaining requirements to internal foundations.
 - [-] Map primary and completion donors.
 - [-] Record native Ptah layers, licences and exit strategies.
 - [-] Record complete validation sets.
-- [ ] Close build/provenance cluster.
-- [ ] Close transfer/storage cluster.
+- [-] Close transfer/storage/sync cluster.
 - [ ] Close decomposition/firmware/device/browser/UI/search/security clusters.
 - [ ] Review and freeze Phase 0A.
 
@@ -106,7 +106,10 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Event envelope, retention, replay and local-journal contracts.
 - [ ] Operation receipt, proof level and authority schema.
 - [ ] Facility manifest/invocation/result schema.
-- [ ] Object, relationship, Artifact and provenance schemas.
+- [ ] Build Recipe and backend compilation schema.
+- [ ] Cache identity/reproducibility schema.
+- [ ] Object, relationship, Artifact and storage-location schemas.
+- [ ] SBOM, attestation, signature and verification schemas.
 - [ ] Session, snapshot, credential, sync and conflict schemas.
 - [ ] Large-stream reference contracts.
 - [ ] Telemetry semantic conventions and resource accounting.
@@ -144,8 +147,8 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 # Phase 5 — Git, containers, environments and builds
 
-- [ ] Git mirrors/worktrees, local and OCI providers, Dev Containers and BuildKit.
-- [ ] Typed recipes, shared caches, provenance and parallel reproducible build proof.
+- [ ] Git mirrors/worktrees, local and OCI providers and Dev Containers.
+- [ ] BuildKit/Dagger recipes, shared caches and parallel reproducible Build proof.
 
 # Phase 6 — Browser and live web
 
@@ -170,7 +173,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 # Phase 11 — Provenance and security evidence
 
-- [ ] Receipts, SBOMs, attestations, signing, replay and security workloads.
+- [ ] Runtime receipts, replay, security workloads and independent verification proof.
 
 # Phase 12 — Distributed Ptah
 
