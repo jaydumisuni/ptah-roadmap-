@@ -244,3 +244,25 @@ Command acceptance, process or interface launch, runtime readiness, operation co
 Receipts are append-only and reference large evidence through Objects/Artifacts. Reviews are bound to exact checkpoints/content hashes. Stale, uncorrelated, unauthenticated, UNKNOWN or incompatible evidence never becomes PASS.
 
 Full decision: `decisions/ADR-0004-OPERATION-RECEIPTS-PROOF-LEVELS.md`.
+
+---
+
+## D-020 — Build, Artifact and provenance guarantees remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns separate but linked Build Recipe, Build Activity Graph, Object/Artifact Graph and Provenance/Verification Graph contracts.
+
+- BuildKit is the primary low-level graph/cache/worker candidate for suitable OCI builds.
+- Dagger is the primary typed recipe/module donor and optional execution backend.
+- The internal Software Builder contributes source detection, readiness, target planning, shared-machinery and private release requirements, not the complete engine.
+- ORAS/OCI is an Artifact transport and relationship backend.
+- Syft is the primary SBOM/package-inventory candidate.
+- Witness and in-toto provide attestor, materials/products and supply-chain verification compatibility.
+- Cosign/Sigstore/Fulcio/Rekor provide digest signing, signer identity, trust roots, offline bundles and transparency evidence.
+
+Cache is reusable derived state, not source truth or independent reproduction. Mutable tags do not define Artifact identity. Secrets remain opaque references and must not enter logs, caches, SBOMs, attestations or public recipes.
+
+Build planning, execution, Artifact hash verification, SBOM generation, attestation, signature verification, review, independent reproduction and release acceptance are distinct levels. A stronger level is never inferred automatically.
+
+Full decision: `decisions/ADR-0005-BUILD-ARTIFACT-PROVENANCE-BOUNDARY.md`.
