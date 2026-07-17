@@ -36,7 +36,7 @@ Canonical method: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
 ---
 
-# Completed and saved core-runtime work
+# Completed and saved work packages
 
 ## WP01 — Node and Workspace boundary
 
@@ -44,7 +44,7 @@ Established separate Node Protocol and Workspace Provider contracts, distinct No
 
 ## WP02A — Workspace and execution composition
 
-Inspected and saved OpenClaw, Daytona, Coder, E2B/Desktop, Dev Containers/CLI, DevPod, containerd/OCI and OpenHands.
+Inspected OpenClaw, Daytona, Coder, E2B/Desktop, Dev Containers/CLI, DevPod, containerd/OCI and OpenHands.
 
 Direction:
 
@@ -55,7 +55,7 @@ Direction:
 
 ## WP02B — Activities, events, recovery and observability
 
-Inspected and saved Temporal, NATS/JetStream and OpenTelemetry.
+Inspected Temporal, NATS/JetStream and OpenTelemetry.
 
 Direction:
 
@@ -67,99 +67,109 @@ Direction:
 
 ## WP02C — Internal core-runtime recovery
 
-**Status:** FIRST-PASS COMPLETE; core runtime closed for Phase 0B contract design, not build.
+Inspected and saved Hunter AgentOps, Foreman, Sergeant, TechGuy Relay, Software Builder, CodeOps, MIBU and Hunter runtime/sync/outbox implementations.
 
-Internal sources inspected and saved:
+Core-runtime requirements are closed for Phase 0B contract design, not build.
 
-- Hunter AgentOps;
-- Hunter Foreman;
-- Sergeant;
-- TechGuy Relay;
-- THETECHGUY Software Builder;
-- Hunter CodeOps;
-- MIBU;
-- Hunter source/local sync, background tasks, persistent Workflows, local file/process bridge and Events V3 D1 outbox.
+Key accepted additions:
 
-Key internal improvements added to Ptah design:
+- operation/attempt/nonce/Node epoch/producer identity are distinct;
+- Activity state, Event, telemetry, Receipt, Artifact proof, review and authoritative result are distinct;
+- stale/uncorrelated/unauthenticated/UNKNOWN evidence never passes;
+- idempotency, outbox attempts, retry/dead states and stale-lease recovery are first-class;
+- source/local synchronization is status-first and never silently overwrites divergence;
+- optional Facility failure may degrade one capability without stopping unrelated safe work.
 
-1. Orchestrator, specialist executor, evidence producer and reviewer retain separate ownership.
-2. Operation, attempt, nonce, Node epoch, producer identity/version and idempotency are distinct.
-3. Result, Event, telemetry, Receipt, Object/Artifact proof, review verdict and authoritative external outcome are separate.
-4. Command accepted, process/interface launched, runtime ready, operation armed, completed, output created, read-back verified, independently reviewed and authoritative result are separate proof levels.
-5. Stale, uncorrelated, unauthenticated, incompatible or UNKNOWN evidence never becomes PASS.
-6. D1 outbox patterns contribute unique idempotency, claim, attempt history, retry/dead states, partial delivery and stale-lock recovery.
-7. Source/local synchronization is status-first, explicit and fast-forward-only; divergence is never silently overwritten.
-8. Workspace-relative paths, dry-run/apply, before-mutation backups and secret-aware file boundaries are retained.
-9. Shared toolchains/caches and heavy background-work requirements are retained, while the current Builder is not treated as a completed engine.
-10. Optional Facility failure may degrade one capability without stopping unrelated safe work.
+Saved ADRs through ADR-0004.
+
+## WP03 — Build, Artifact and provenance composition
+
+**Status:** COMPLETE; closed for Phase 0B contract design, not build.
+
+Inspected and saved:
+
+- internal Software Builder;
+- BuildKit;
+- Dagger;
+- ORAS;
+- Witness;
+- in-toto;
+- Cosign, Rekor, Fulcio and sigstore-go;
+- Syft.
+
+Accepted direction:
+
+1. Ptah owns Build Recipe, Build Activity Graph, Object/Artifact Graph and Provenance/Verification Graph contracts.
+2. BuildKit is the primary low-level graph/cache/worker candidate for suitable OCI builds.
+3. Dagger is the primary typed recipe/module donor and optional backend.
+4. Software Builder contributes scanner/readiness/shared-environment and private release requirements, not the complete engine.
+5. ORAS is an Artifact transport/referrer backend, not universal Object storage.
+6. Syft inventories packages/files and emits SBOMs with explicit coverage limits.
+7. Witness/in-toto provide attestor and planned supply-chain interoperability.
+8. Sigstore provides digest signing, identity, trusted roots, offline bundles and transparency evidence.
+9. Cache is derived reusable state, not independent reproduction.
+10. Build, hash verification, SBOM, attestation, signature, review, reproduction and release acceptance remain separate levels.
 
 Saved:
 
-- `internal/HUNTER-AGENTOPS.md`
-- `internal/HUNTER-FOREMAN.md`
-- `internal/SERGEANT.md`
-- `internal/TECHGUY-RELAY.md`
-- `internal/SOFTWARE-BUILDER.md`
-- `internal/HUNTER-CODEOPS.md`
-- `internal/MIBU.md`
-- `internal/HUNTER-RUNTIME-SYNC.md`
-- `decisions/ADR-0004-OPERATION-RECEIPTS-PROOF-LEVELS.md`
-- `work-packages/PHASE-0A-WP02C-INTERNAL-CORE-RUNTIME-RECOVERY.md`
+- `donors/BUILDKIT.md`
+- `donors/DAGGER.md`
+- `donors/ORAS.md`
+- `donors/WITNESS.md`
+- `donors/IN-TOTO.md`
+- `donors/SIGSTORE-COSIGN-REKOR-FULCIO.md`
+- `donors/SYFT.md`
+- `decisions/ADR-0005-BUILD-ARTIFACT-PROVENANCE-BOUNDARY.md`
+- `work-packages/PHASE-0A-WP03-BUILD-ARTIFACT-PROVENANCE.md`
 
-Core-runtime requirements now closed for Phase 0B contract design:
+Requirements moved to Phase 0B design closure:
 
-- `CORE-001`
-- `CORE-002`
-- `CORE-004`
-- `CORE-005`
-- `RELAY-001`
-- `RELAY-002`
-- `EXEC-001`
-- `EXEC-002`
-- core `SESSION-001`
-- `OBS-001`
-- `OFFLINE-001`
+- `EXEC-003`;
+- Build-side `STORE-002` and `STORE-004` foundations;
+- `PROV-001`;
+- Build-related portions of `CORE-003`, `PLUGIN-001` and `OBS-001`.
 
-This is design closure only. No runtime dependency or implementation is approved until Phase 0B schemas/proofs and Phase 0C slice approval.
+This does not approve runtime dependencies or implementation.
 
 ---
 
 # Active inspection unit
 
-## WP03 — Deterministic build, Artifact and provenance composition
+## WP04 — Storage, transfer, synchronization and backup composition
 
 Inspect as one complementary group:
 
-1. BuildKit;
-2. Dagger;
-3. internal Software Builder comparison;
-4. ORAS and OCI Artifact/referrer relationships;
-5. Witness;
-6. in-toto and its specifications;
-7. Cosign, Rekor, Fulcio and Sigstore;
-8. Syft/SBOM machinery where needed for build outputs.
+1. internal Download Manager/Lumi implementation;
+2. aria2;
+3. tus/tusd;
+4. rclone;
+5. Syncthing;
+6. restic;
+7. current Hunter R2/D1/local/Drive storage patterns;
+8. local content-addressed storage and metadata-catalogue options;
+9. optional future shared-filesystem donors only where they close an actual requirement.
 
 Resolve:
 
-- typed recipes versus low-level build graphs;
-- local, CI and remote worker portability;
-- caching and cache identity;
-- secret inputs and exclusion from outputs/logs;
-- exact source, environment, tool and image identity;
-- Artifact/Object relationship and storage format;
-- build receipts, SBOMs and attestations;
-- signing and transparency records;
-- reproduction versus ordinary build success;
-- how private signing/provider adapters remain outside public Ptah;
-- exit strategies if any build/provenance service changes.
+- hot active Workspace bytes versus durable Objects/Artifacts;
+- resumable upload and download protocols;
+- segmented/multi-source download and partial-file recovery;
+- cloud/Object-store and Node-to-Node transport;
+- streaming hashes, deduplication and content-addressed identity;
+- backup, retention, encryption and restore;
+- online/local authority, Object revisions and explicit conflicts;
+- direct sync versus archive/export;
+- storage-location health and repair;
+- Drive as export/recovery rather than live Build filesystem;
+- whether future JuiceFS/SeaweedFS-like shared layers are needed or parked;
+- backend replacement and offline behavior.
 
 Required saved output:
 
-- donor records after each source-level inspection;
-- internal Builder comparison against BuildKit/Dagger;
-- composite Build/Artifact/Provenance work-package record;
-- Build Recipe / Artifact / Attestation boundary ADR;
-- Requirement Closure Matrix updates for `EXEC-003`, `STORE-002`, `STORE-004`, `PROV-001`, `PLUGIN-001` where relevant;
+- donor/internal records after each inspection;
+- composite Storage/Transfer/Sync work-package record;
+- Storage Classes / Object Transfer / Sync boundary ADR;
+- Requirement Closure Matrix updates for `STORE-001` through `STORE-005`, `XFER-001` through `XFER-003`, `SYNC-001`, remaining `SESSION-001`, `OFFLINE-001` and Object-storage portions of `CORE-003`;
 - `PROGRESS.md` and this file updated continuously.
 
 ---
@@ -170,6 +180,7 @@ Required saved output:
 - ADR-0002 — Composite Donor Closure Method
 - ADR-0003 — Activity, Event and Observability Boundary
 - ADR-0004 — Operation Identity, Receipts and Proof Levels
+- ADR-0005 — Build Recipe, Artifact and Provenance Boundary
 
 ---
 
