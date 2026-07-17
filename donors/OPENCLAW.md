@@ -1,7 +1,7 @@
 # Donor Record — OpenClaw
 
 **Phase:** 0A  
-**Status:** FIRST-PASS COMPLETE  
+**Status:** FIRST-PASS COMPLETE — COMPOSITE CLOSURE PENDING  
 **Inspected:** 2026-07-17
 
 ## Identity
@@ -72,11 +72,25 @@ Ptah still needs its own neutral:
 - durable activity integration;
 - multi-language node SDK contract.
 
+## Missing capabilities requiring completion donors
+
+OpenClaw does not close the complete Ptah runtime or Node/Workspace system. The composite closure still requires:
+
+- Daytona, Coder, E2B and Dev Containers for workspace-provider and persistent-environment comparison;
+- containerd and OCI for the owned execution substrate;
+- Temporal for durable activity history, retries, timers and crash recovery;
+- NATS and JetStream for internal live events, replay and intermittent-node communication;
+- OpenTelemetry for cross-component observability and resource correlation;
+- internal THETECHGUY relay, terminal, worker and node evidence;
+- native Ptah contracts joining Node, Workspace, Activity, Object and Session.
+
+OpenClaw is therefore a primary capability donor inside a donor composition, not the complete selected architecture.
+
 ## Integration decision
 
 **ADAPT — protocol study and selective MIT-compatible adaptation.**
 
-OpenClaw is the primary architecture donor for `CORE-005` and part of `RELAY-001`. It is not a direct Ptah Core dependency. No donor code has been copied.
+OpenClaw is the first primary architecture donor for `CORE-005` and part of `RELAY-001`. It is not a direct Ptah Core dependency. No donor code has been copied.
 
 ## Exit strategy
 
@@ -85,3 +99,5 @@ Ptah owns its schemas and wire contract. OpenClaw can later connect through an a
 ## Validation required
 
 Prove challenge/connect negotiation, capability registration and refresh, heartbeat, idempotent invocation, cancellation, reconnect with event replay, and terminal detach/attach. Large bytes must travel outside the JSON control envelope.
+
+The assembled runtime must also be validated against `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md` before the requirement is closed for design.
