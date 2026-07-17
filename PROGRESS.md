@@ -25,6 +25,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0005 Build Recipe / Artifact / Provenance boundary.
 - [x] ADR-0006 Storage / Transfer / Sync / Backup boundary.
 - [x] ADR-0007 Object Graph / Decomposition / Derivative boundary.
+- [x] ADR-0008 Disk Image / Firmware Package / Physical Device Operation boundary.
 - [-] Normalize full donor register and all internal overlap.
 - [-] Save after every meaningful inspection unit.
 
@@ -89,24 +90,43 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0007.
 - [x] Universal Object/Decomposition Phase 0B design closure.
 
-## Active WP06 — Firmware, disks and filesystems
+## WP06 — Firmware, disks and filesystems
 
-- [-] Recover internal Apple firmware/tool work.
-- [ ] blacktop/ipsw and Apple metadata sources.
-- [ ] Recover internal MediaTek/META engines.
-- [ ] MTKClient.
-- [ ] Recover internal Qualcomm/DIAG/Firehose engines.
-- [ ] Qualcomm EDL/Firehose donors.
-- [ ] Recover internal Unisoc/SPD/PAC/FDL engines.
-- [ ] Unisoc PAC/FDL completion donors.
-- [ ] Recover internal Android OTA Manager.
-- [ ] Android payload/dynamic-partition/sparse-image tools.
-- [ ] GPT/MBR and filesystem parsers.
-- [ ] libguestfs and mount/extraction machinery.
-- [ ] Other vendor/embedded firmware coverage.
-- [?] P5C format recovery from verified sample/tool or explicit park.
-- [ ] Composite Firmware/Disk/Filesystem record.
-- [ ] Disk Image / Firmware Package / Device Operation ADR.
+- [x] Recover internal Apple firmware/tool work.
+- [x] blacktop/ipsw and Apple metadata sources.
+- [x] Recover internal MediaTek/META engines.
+- [x] MTKClient.
+- [x] Recover available internal Qualcomm/DIAG/Firehose evidence and record monorepo gap.
+- [x] Qualcomm EDL/Firehose donor composition.
+- [x] Recover available internal Unisoc/SPD/PAC/FDL evidence and record monorepo gap.
+- [x] Unisoc PAC/FDL donor composition.
+- [x] Recover internal Android OTA Manager.
+- [x] Android payload/dynamic-partition/sparse-image foundations.
+- [x] GPT/MBR and filesystem parsers.
+- [x] libguestfs isolation and mount/extraction machinery.
+- [x] Samsung and generic other-vendor/embedded firmware coverage map.
+- [x] P5C explicitly parked pending verified sample/specification/parser.
+- [x] Composite Firmware/Disk/Filesystem record.
+- [x] ADR-0008.
+- [x] Firmware/Disk/Filesystem Phase 0B design closure.
+
+## Active WP07 — Device and application runtime composition
+
+- [-] Recover exact internal Device Manager/MIBU/ADB/Fastboot/MTP/USB runtime evidence.
+- [ ] DeviceFarmer STF.
+- [ ] adbkit.
+- [ ] minicap and minitouch.
+- [ ] Appium core.
+- [ ] Appium UIAutomator2 driver.
+- [ ] scrcpy.
+- [?] TouchPilot canonical upstream/fork relationship and implementation boundary.
+- [ ] Android platform-tools and UIAutomator source boundaries.
+- [ ] Linux graphical/native application runtime completion.
+- [ ] Windows application/VM/runtime and remote-display boundary.
+- [ ] macOS/iOS application runtime and automation boundary.
+- [ ] Composite Device/Application Runtime record.
+- [ ] Device Session / Display / Input / Semantic UI ADR.
+- [ ] Device/Application Runtime Phase 0B design closure.
 
 ## Remaining donor groups
 
@@ -115,7 +135,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] gVisor, Kata, Firecracker, youki and crun.
 - [ ] Theia/OpenVSCode and remote-display gateway.
 - [ ] Playwright, Playwright MCP, Browser-Use and TurboWebFetch.
-- [ ] STF, adbkit, Appium, scrcpy, TouchPilot and internal device engines.
+- [-] STF, adbkit, Appium, scrcpy, TouchPilot and internal device engines.
 - [ ] RAGFlow, LlamaIndex, Dify, search and data donors.
 - [ ] SparkDistill, ClaimBound, ReproZip, GUAC and security workloads.
 - [ ] Research/documentation donor sources and unresolved profiles.
@@ -128,12 +148,13 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Build/Artifact/Provenance composition and Phase 0B design closure.
 - [x] Storage/Transfer/Sync/Backup composition and Phase 0B design closure.
 - [x] Universal Object/Decomposition composition and Phase 0B design closure.
+- [x] Firmware/Disk/Filesystem composition and Phase 0B design closure.
 - [-] Map all remaining requirements to internal foundations.
 - [-] Map primary and completion donors.
 - [-] Record native Ptah layers, licences and exit strategies.
 - [-] Record complete validation sets.
-- [-] Close firmware/disk/filesystem cluster.
-- [ ] Close device/browser/UI/search/security clusters.
+- [-] Close device/application runtime cluster.
+- [ ] Close browser/UI/search/security clusters.
 - [ ] Review and freeze Phase 0A.
 
 ---
@@ -157,6 +178,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Large-stream reference contracts.
 - [ ] Telemetry semantic conventions and resource accounting.
 - [ ] Firmware/Domain Pack schemas.
+- [ ] Device/Application Runtime schemas.
 - [ ] Versioning, migrations, golden corpus and failure proofs.
 - [ ] Review and freeze.
 
