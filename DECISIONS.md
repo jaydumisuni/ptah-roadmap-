@@ -200,3 +200,27 @@ It must not expose private operation chains, private consumers, credentials, pri
 Ptah remains OS-neutral and independently useful.
 
 A future local operating environment may package Ptah, but the distribution, boot, drivers, updates, hardware profiles, and private integrations are decided separately after the online and node services are proven.
+
+---
+
+## D-017 — Composite donor closure
+
+**Status:** ACCEPTED
+
+No Ptah subsystem is completed by choosing one repository.
+
+Every requirement must be closed through a composite set containing:
+
+1. internal foundation;
+2. primary capability donor;
+3. completion donors covering what the primary donor lacks;
+4. mature upstream machinery and standards;
+5. the native Ptah contract and integration gap;
+6. a fallback or exit donor;
+7. a proof plan for the assembled result.
+
+OpenClaw and Daytona are the first example: OpenClaw contributes node/gateway strengths and Daytona contributes workspace lifecycle strengths, while other donors and native Ptah work must close their remaining gaps.
+
+Research, decisions, unresolved gaps and progress must be saved continuously after each meaningful inspection unit.
+
+Full decision: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
