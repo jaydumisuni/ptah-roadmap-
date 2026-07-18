@@ -1,0 +1,37 @@
+{
+  "state_machine_name": "activity.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.activity"],
+  "states": [
+    {"name":"queued","description":"Durable Activity accepted and waiting for eligibility, dependency, scheduling or preparation.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Activity Request was accepted and durable ledger identity exists."]},
+    {"name":"preparing","description":"Placement, leases, inputs, restoration or Provider preparation are in progress.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Required authorization remains valid."]},
+    {"name":"running","description":"The orchestrator is advancing required Operations or at least one required current Operation is executing.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Current execution context is valid or reconciled."]},
+    {"name":"waiting","description":"Durable wait for a structured dependency, timer, human action, capacity, external result or other registered reason.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["A wait reason is recorded."]},
+    {"name":"paused","description":"Pause is acknowledged; no new ordinary work may start until resume or cancellation.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Pause acknowledgement and current checkpoint/limitations are recorded."]},
+    {"name":"resuming","description":"Previously paused work is reacquiring and revalidating execution state.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Resume authority and compatibility are valid."]},
+    {"name":"recovering","description":"Ptah is reconciling uncertain, stale or disconnected state after failure, restart or observation loss.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Recovery reason and reconciliation scope are recorded."]},
+    {"name":"completed","description":"Declared Activity completion condition and required Activity-level results are recorded.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Required Operations reached acceptable terminal proof and result references are retained."]},
+    {"name":"failed","description":"Activity is terminally unsuccessful under the current policy and retained evidence.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Typed failure class and outcome are retained."]},
+    {"name":"cancelled","description":"Cancellation reached the declared cleanup and termination boundary.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Cancellation result and cleanup evidence are retained."]}
+  ],
+  "initial_states": ["queued"],
+  "transitions": [
+    {"transition_name":"accept_request","from_states":[null],"to_state":"queued","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Activity Request is accepted and canonical Activity ID is durably allocated."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"begin_preparation","from_states":["queued","waiting","resuming","recovering"],"to_state":"preparing","transition_class":"normal","authority_classes":["ptah_control_plane","ptah_node","provider"],"side_effecting":false,"required_preconditions":["Dependencies and policy permit preparation."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"begin_running","from_states":["preparing","waiting","resuming","recovering"],"to_state":"running","transition_class":"normal","authority_classes":["ptah_control_plane","ptah_node","provider","facility"],"side_effecting":false,"required_preconditions":["Current Node, Provider, workload generations and leases are valid."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"enter_wait","from_states":["queued","preparing","running","resuming","recovering"],"to_state":"waiting","transition_class":"normal","authority_classes":["ptah_control_plane","ptah_node","provider","facility","authoritative_external_system"],"side_effecting":false,"required_preconditions":["Structured wait reason and wake/reconciliation condition are recorded."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"pause","from_states":["preparing","running","waiting","recovering"],"to_state":"paused","transition_class":"administrative","authority_classes":["caller","workspace_owner","organization_policy","ptah_control_plane","human_operator"],"side_effecting":false,"required_preconditions":["Pause was acknowledged and current safety/checkpoint limitations are recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"start_resume","from_states":["paused"],"to_state":"resuming","transition_class":"normal","authority_classes":["caller","workspace_owner","ptah_control_plane","human_operator"],"side_effecting":false,"required_preconditions":["Resume is authorized and checkpoint/session compatibility is acceptable."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"start_recovery","from_states":["queued","preparing","running","waiting","resuming"],"to_state":"recovering","transition_class":"recovery","authority_classes":["ptah_control_plane","ptah_node","provider"],"side_effecting":false,"required_preconditions":["Projection is stale, execution is uncertain, or a required component restarted/disconnected."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"complete","from_states":["running","recovering"],"to_state":"completed","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Declared completion condition is satisfied; required Operation proof and Activity results are present."],"required_evidence_kinds":["receipt","artifact"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"fail","from_states":["queued","preparing","running","waiting","resuming","recovering"],"to_state":"failed","transition_class":"normal","authority_classes":["ptah_control_plane","organization_policy"],"side_effecting":false,"required_preconditions":["Failure policy declares terminal failure and typed evidence/outcome are present."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"cancel","from_states":["queued","preparing","running","waiting","paused","resuming","recovering"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation Request reached terminal completion and required cleanup evidence exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {
+    "state_mapping_required_for_breaking_change": true,
+    "unmapped_state_behavior": "manual_review",
+    "migration_definition_refs": []
+  },
+  "extensions": {}
+}
