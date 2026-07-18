@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:cancellation-request:0.1.1",
+  "title": "Ptah Cancellation Request",
+  "description": "Corrected candidate: scoped cancellation request with its own versioned lifecycle.",
+  "x-ptah-schema-name": "activity.cancellation-request",
+  "x-ptah-schema-version": "0.1.1",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "subject_ref",
+    "requestor_ref",
+    "authority_refs",
+    "lifecycle",
+    "scope",
+    "cleanup_class",
+    "reason",
+    "requested_at",
+    "supersedes_schema_ref",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.cancellation_request" } } }
+      ]
+    },
+    "subject_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "requestor_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "authority_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "lifecycle": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/stateProjection" },
+        {
+          "properties": {
+            "state_machine_name": { "const": "cancellation_request.lifecycle" },
+            "state_machine_version": { "const": "0.1.0" },
+            "current_state": { "$ref": "urn:ptah:schema:activity:request-definitions:0.1.0#/$defs/cancellationRequestState" }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["activity_and_children", "activity_only", "operation_only", "current_attempt_only"]
+    },
+    "cleanup_class": {
+      "type": "string",
+      "enum": ["best_effort", "required", "rollback_required", "provider_defined", "no_cleanup"]
+    },
+    "reason": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "deadline_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "requested_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "acknowledged_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "completed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "decision_outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "cleanup_result_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "supersedes_schema_ref": {
+      "type": "string",
+      "const": "urn:ptah:schema:activity:cancellation-request:0.1.0"
+    },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "enum": ["acknowledged", "completing", "completed"] } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["acknowledged_at"] }
+    },
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "enum": ["completed", "rejected", "expired"] } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["completed_at", "decision_outcome"] }
+    }
+  ]
+}
