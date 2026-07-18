@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:event:0.1.0",
+  "title": "Ptah Event Envelope",
+  "description": "Typed live or replayable notification envelope. Delivery is not execution proof.",
+  "x-ptah-schema-name": "activity.event",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "event_domain",
+    "event_type",
+    "event_version",
+    "event_class",
+    "source_ref",
+    "subject_ref",
+    "occurred_at",
+    "observed_at",
+    "sequence_scope_ref",
+    "sequence",
+    "retention_class",
+    "payload_class",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "event.event" } } }
+      ]
+    },
+    "event_domain": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)*$" },
+    "event_type": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+    "event_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "event_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/eventClass" },
+    "payload_type_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "source_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "subject_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "workspace_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "attempt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "node_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "node_generation": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "provider_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "provider_generation": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "workload_generation": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "connection_epoch": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "facility_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "object_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "artifact_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "occurred_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "observed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "sequence_scope_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "sequence": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "cursor_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "causation_event_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "correlation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "trace_context": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/traceContext" },
+    "retention_class": {
+      "type": "string",
+      "enum": ["ephemeral", "operational", "historical", "proof_critical"]
+    },
+    "payload_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/eventPayloadClass" },
+    "payload_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "payload_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "inline_payload": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/smallPayload" },
+    "payload_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "stream_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "receipt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "payload_class": { "const": "inline_small" } }, "required": ["payload_class"] },
+      "then": { "required": ["payload_type_ref", "payload_schema_id", "payload_schema_version", "inline_payload"] }
+    },
+    {
+      "if": { "properties": { "payload_class": { "enum": ["object_reference", "artifact_reference"] } }, "required": ["payload_class"] },
+      "then": { "required": ["payload_type_ref", "payload_schema_id", "payload_schema_version", "payload_ref"] }
+    },
+    {
+      "if": { "properties": { "payload_class": { "const": "stream_reference" } }, "required": ["payload_class"] },
+      "then": { "required": ["payload_type_ref", "stream_ref"] }
+    },
+    {
+      "if": { "properties": { "payload_class": { "const": "none" } }, "required": ["payload_class"] },
+      "then": {
+        "not": {
+          "anyOf": [
+            { "required": ["inline_payload"] },
+            { "required": ["payload_ref"] },
+            { "required": ["stream_ref"] }
+          ]
+        }
+      }
+    },
+    {
+      "if": { "properties": { "event_class": { "const": "proof_notification" } }, "required": ["event_class"] },
+      "then": { "required": ["receipt_ref"] }
+    },
+    {
+      "if": { "required": ["operation_ref"] },
+      "then": { "required": ["activity_ref"] }
+    },
+    {
+      "if": { "required": ["attempt_ref"] },
+      "then": { "required": ["activity_ref", "operation_ref"] }
+    }
+  ]
+}
