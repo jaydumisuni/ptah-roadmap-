@@ -11,7 +11,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 # Phase 0A — Donor recovery and requirement closure
 
-**Status:** ACTIVE — ARCHITECTURE SUBSYSTEMS CLOSED; CLEANUP/REVIEW REMAINS
+**Status:** ACTIVE — ARCHITECTURE AND SOURCE CLEANUP CLOSED; CROSS-REQUIREMENT REVIEW ACTIVE
 
 ## Repository and method control
 
@@ -19,8 +19,8 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
 - [x] ADR-0001 through ADR-0016 accepted and indexed.
-- [-] Normalize remaining donor register and unresolved profiles.
-- [-] Save after every meaningful inspection unit.
+- [x] Remaining donor register and unresolved-profile cleanup.
+- [-] Save after every meaningful inspection/review unit.
 
 ## Completed clusters
 
@@ -163,12 +163,28 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] `SEC-001` and `REPRO-001` closed for Phase 0B design.
 - [x] ADR-0016 and security/reproduction composition work package.
 
+### Research, documentation and source cleanup
+
+- [x] `aza-ali/awesome-ai-product-management` verified and classified as optional Research Source.
+- [x] `tmimmanuel` profile classified as discovery lineage only.
+- [x] Chris Ipanaque identity resolved to `chrisipanaque`; representative prototypes parked pending licence/proof.
+- [x] `amertoglu16.github.io` parked with explicit reopening criteria after no source/functionality was recovered.
+- [x] `aza-ali/github-readme-crisp-links` verified and classified as optional README asset generator.
+- [x] MkDocs Material pinned as primary lightweight documentation-site candidate, not selected.
+- [x] Docusaurus pinned as optional richer documentation/project-site alternative.
+- [x] Mermaid pinned as primary text-defined documentation-diagram candidate.
+- [x] catalogue/profile/README claims explicitly prevented from becoming donor proof.
+- [x] public/private documentation build boundary and leakage checks recorded.
+- [x] cleanup work package committed.
+
 ## Active remaining Phase 0A completion
 
 - [x] Linux AT-SPI semantic completion.
 - [x] Reproduction/security workloads and scanners.
-- [-] research/documentation sources and unresolved profiles.
-- [ ] cross-requirement Phase 0A review.
+- [x] research/documentation sources and unresolved profiles.
+- [-] cross-requirement Phase 0A consistency review.
+- [ ] parked/rejected/blocked gap audit.
+- [ ] Phase 0B input and proof-corpus enumeration.
 - [ ] Phase 0A freeze/readiness decision for Phase 0B.
 
 ## Requirement closure
@@ -184,7 +200,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Knowledge/Data/Search/Plugin.
 - [x] Isolation/Distributed placement.
 - [x] Security/reproduction workloads.
-- [ ] Phase 0A review and freeze.
+- [-] Phase 0A review and freeze.
 
 ---
 
