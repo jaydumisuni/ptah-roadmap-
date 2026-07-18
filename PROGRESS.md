@@ -18,7 +18,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Private roadmap repository and public/private separation.
 - [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] ADR-0001 through ADR-0013 accepted and indexed.
+- [x] ADR-0001 through ADR-0014 accepted and indexed.
 - [-] Normalize remaining donor register and unresolved profiles.
 - [-] Save after every meaningful inspection unit.
 
@@ -118,33 +118,35 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0013 and composite WP10 record.
 - [x] Knowledge/Data/Search/Plugin Phase 0B design closure.
 
-## Active WP11 — Strong Isolation and Distributed Placement/Scheduling
+### WP11 — Strong Isolation and Distributed Placement/Scheduling
 
-- [x] gVisor userspace application-kernel/`runsc` isolation donor first pass.
-- [x] Kata Containers VM-backed container/Workspace donor first pass.
-- [x] Firecracker standalone microVM donor first pass.
-- [x] youki baseline Rust OCI runtime donor first pass.
-- [x] crun low-memory OCI runtime/library donor first pass.
-- [x] Ray distributed Task/Actor/placement donor first pass.
-- [-] Recover existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer, lease/fencing and checkpoint foundations.
-- [ ] Recover internal THETECHGUY Node, worker, resource and deployment requirements.
-- [ ] isolation-class and escalation model.
-- [ ] Node/provider capability and resource snapshots.
-- [ ] placement, reservation, lease and fencing model.
-- [ ] secure networking and credential-delivery boundary.
-- [ ] interruption, rescheduling, checkpoint and recovery behavior.
-- [ ] local one-Node fallback versus multi-Node placement.
-- [ ] cost, locality, data-gravity and accelerator-aware scheduling.
+- [x] gVisor userspace application-kernel/`runsc` isolation donor.
+- [x] Kata Containers VM-backed container/Workspace donor.
+- [x] Firecracker standalone microVM donor.
+- [x] youki baseline Rust OCI runtime donor.
+- [x] crun low-memory OCI runtime/library donor.
+- [x] Ray distributed Task/Actor/placement donor.
+- [x] existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer, lease/fencing and checkpoint foundations reused.
+- [x] internal THETECHGUY Node/worker/resource/deployment requirements incorporated through existing recovered architecture and constraints.
+- [x] isolation-class and no-silent-weakening escalation model.
+- [x] Node/provider capability and resource snapshots.
+- [x] placement, candidate explanation, reservation, lease, generation and fencing model.
+- [x] secure networking, Object mount, device and credential-delivery boundary.
+- [x] interruption, rescheduling, checkpoint and recovery behavior.
+- [x] local one-Node versus multi-Node placement contract.
+- [x] cost, locality, data-gravity, failure-domain and accelerator-aware scheduling direction.
 - [x] MiniRouter classified only as a routing/evaluation workload, not Core; source reuse blocked pending licence.
-- [ ] composite WP11 record.
-- [ ] isolation/placement/scheduling ADR.
-- [ ] Isolation/Distributed Placement Phase 0B design closure.
+- [x] composite WP11 record.
+- [x] ADR-0014 isolation/runtime/placement/scheduling boundary.
+- [x] Isolation/Distributed Placement Phase 0B design closure.
 
-## Remaining donor groups
+## Active remaining Phase 0A completion
 
-- [ ] Linux AT-SPI semantic completion.
+- [-] Linux AT-SPI semantic completion.
 - [ ] Reproduction/security workloads and scanners.
 - [ ] research/documentation sources and unresolved profiles.
+- [ ] cross-requirement Phase 0A review.
+- [ ] Phase 0A freeze/readiness decision for Phase 0B.
 
 ## Requirement closure
 
@@ -157,7 +159,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Browser/Live Research.
 - [x] Human Workspace/UI.
 - [x] Knowledge/Data/Search/Plugin.
-- [-] Isolation/Distributed placement.
+- [x] Isolation/Distributed placement.
 - [ ] Security/reproduction workloads.
 - [ ] Phase 0A review and freeze.
 
@@ -177,7 +179,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Shell, Panel, Layout and human-control schemas.
 - [ ] Knowledge Source, Corpus, Index, Query, citation, data and plugin schemas.
 - [ ] Session, checkpoint, credential and privacy schemas.
-- [ ] isolation, placement, scheduler and secure-network schemas.
+- [ ] isolation, placement, reservation, lease, fencing, scheduler and secure-network schemas.
 - [ ] telemetry conventions and resource accounting.
 - [ ] versioning, migrations, golden corpus and failure proofs.
 - [ ] Review and freeze.
