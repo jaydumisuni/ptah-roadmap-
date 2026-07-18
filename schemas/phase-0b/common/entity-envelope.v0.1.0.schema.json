@@ -24,132 +24,62 @@
     "extensions"
   ],
   "properties": {
-    "entity_id": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/uuidv7"
-    },
-    "entity_kind": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/entityKind"
-    },
-    "schema_id": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/schemaId"
-    },
-    "schema_version": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/semver"
-    },
-    "record_revision": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/positiveInteger"
-    },
-    "created_at": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/utcDateTime"
-    },
-    "updated_at": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/utcDateTime"
-    },
-    "workspace_ref": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/entityRef"
-    },
+    "entity_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/uuidv7" },
+    "entity_kind": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityKind" },
+    "schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "record_revision": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger" },
+    "created_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "updated_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "workspace_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
     "global_scope": {
       "type": "string",
-      "enum": [
-        "ptah_global",
-        "organization_global",
-        "public_global"
-      ]
+      "enum": ["ptah_global", "organization_global", "public_global"]
     },
-    "authority_ref": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/entityRef"
-    },
-    "privacy_class": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/privacyClass"
-    },
-    "audience": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/audience"
-    },
+    "authority_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "privacy_class": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/privacyClass" },
+    "audience": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/audience" },
     "named_recipient_refs": {
       "type": "array",
-      "items": {
-        "$ref": "definitions.v0.1.0.schema.json#/$defs/entityRef"
-      },
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
       "uniqueItems": true
     },
-    "redaction_policy": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/redactionAction"
-    },
-    "retention_policy": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/retentionPolicy"
-    },
-    "supersedes_ref": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/entityRef"
-    },
-    "migrated_from_ref": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/entityRef"
-    },
+    "redaction_policy": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/redactionAction" },
+    "retention_policy": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/retentionPolicy" },
+    "supersedes_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "migrated_from_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
     "tombstone": {
       "oneOf": [
-        {
-          "$ref": "definitions.v0.1.0.schema.json#/$defs/tombstone"
-        },
-        {
-          "type": "null"
-        }
+        { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/tombstone" },
+        { "type": "null" }
       ]
     },
-    "extensions": {
-      "$ref": "definitions.v0.1.0.schema.json#/$defs/extensions"
-    }
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
   },
   "allOf": [
     {
       "oneOf": [
         {
-          "required": [
-            "workspace_ref"
-          ],
-          "not": {
-            "required": [
-              "global_scope"
-            ]
-          }
+          "required": ["workspace_ref"],
+          "not": { "required": ["global_scope"] }
         },
         {
-          "required": [
-            "global_scope"
-          ],
-          "not": {
-            "required": [
-              "workspace_ref"
-            ]
-          }
+          "required": ["global_scope"],
+          "not": { "required": ["workspace_ref"] }
         }
       ]
     },
     {
       "if": {
-        "properties": {
-          "audience": {
-            "const": "named_recipients"
-          }
-        },
-        "required": [
-          "audience"
-        ]
+        "properties": { "audience": { "const": "named_recipients" } },
+        "required": ["audience"]
       },
       "then": {
-        "required": [
-          "named_recipient_refs"
-        ],
-        "properties": {
-          "named_recipient_refs": {
-            "minItems": 1
-          }
-        }
+        "required": ["named_recipient_refs"],
+        "properties": { "named_recipient_refs": { "minItems": 1 } }
       },
       "else": {
-        "not": {
-          "required": [
-            "named_recipient_refs"
-          ]
-        }
+        "not": { "required": ["named_recipient_refs"] }
       }
     }
   ]
