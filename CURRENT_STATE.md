@@ -1,9 +1,9 @@
 # Ptah Current State
 
 **Last updated:** 2026-07-18  
-**Overall status:** ACTIVE PLANNING  
-**Current phase:** Phase 0A — Internal and external donor recovery  
-**Active inspection unit:** Reproduction/security workloads and scanners  
+**Overall status:** ACTIVE PLANNING — ARCHITECTURE SUBSYSTEMS CLOSED FOR DESIGN  
+**Current phase:** Phase 0A — donor cleanup and cross-requirement review  
+**Active inspection unit:** Research/documentation sources and unresolved-profile cleanup  
 **Runtime implementation:** NOT STARTED  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
@@ -11,9 +11,9 @@
 
 # Recovered position
 
-Ptah is an independent, open-source, online-first concurrent digital world built around persistent Workspaces, Objects, Activities, Facilities, Nodes, Devices, Applications, Browsers, Sessions, Panels, Knowledge Sources, Datasets, Plugins and Artifacts.
+Ptah is an independent, open-source, online-first concurrent digital world built around persistent Workspaces, Objects, Activities, Facilities, Nodes, Devices, Applications, Browsers, Sessions, Panels, Knowledge Sources, Datasets, Plugins, security Findings and Artifacts.
 
-Ptah supplies the working world. Humans and compatible systems supply intent, reasoning, policy, restrictions and acceptance criteria.
+Ptah supplies the working world. Humans and compatible systems supply intent, reasoning, policy, restrictions, risk acceptance and acceptance criteria.
 
 The complete roadmap is stored in `MASTER_ROADMAP.md`.
 
@@ -35,9 +35,11 @@ One repository never closes a subsystem. Research, corrections and decisions are
 
 Canonical method: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
+Design closure does not authorize implementation.
+
 ---
 
-# Phase 0A work packages closed for Phase 0B contract design
+# Phase 0A architecture subsystems closed for Phase 0B contract design
 
 ## WP01–WP02 — Core runtime
 
@@ -49,7 +51,9 @@ Closed:
 - terminal/process and OCI-provider foundations;
 - durable orchestration, live Events and observability;
 - local journal/reconnect;
-- operation/attempt/nonce/receipt/proof-level boundaries.
+- operation/attempt/nonce/Receipt/proof boundaries.
+
+Evidence: ADR-0001 through ADR-0004 and WP01/WP02 records.
 
 ## WP03 — Build, Artifact and provenance
 
@@ -59,6 +63,8 @@ Closed:
 - BuildKit and Dagger roles;
 - Artifact relationships and ORAS transport;
 - SBOM, attestation, signature, trust, review and independent-reproduction levels.
+
+Evidence: ADR-0005 and WP03.
 
 ## WP04 — Storage, transfer, synchronization and backup
 
@@ -70,6 +76,8 @@ Closed:
 - resumable transfer, sync, backup/restore and Drive recovery;
 - distributed shared filesystems parked pending measured need.
 
+Evidence: ADR-0006 and WP04.
+
 ## WP05 — Universal Object and decomposition
 
 Closed:
@@ -78,6 +86,8 @@ Closed:
 - progressive bounded decomposition;
 - child, View, preview, transform, decompilation and rebuild relationships;
 - document, archive, image, media, binary, Android application and source-structure Domain Packs.
+
+Evidence: ADR-0007 and WP05.
 
 ## WP06 — Firmware, disks and filesystems
 
@@ -90,6 +100,8 @@ Closed:
 
 `.P5C` remains parked until a lawful verified sample, specification or parser exists.
 
+Evidence: ADR-0008 and WP06.
+
 ## WP07 — Device and Application Runtime
 
 Closed:
@@ -99,23 +111,26 @@ Closed:
 - Linux, Windows, macOS and iOS Application Providers/Sessions;
 - remote display, Window, checkpoint and platform proof boundaries;
 - Linux AT-SPI/libatspi semantic tree, query, action, text, selection, value, cache and Event composition;
-- Xorg versus GNOME-Wayland input paths and explicit visual fallback;
-- Semantic Context/Snapshot/Node/Action identities and semantic post-condition proof.
+- X11 versus GNOME-Wayland input paths and explicit visual fallback;
+- Semantic Provider/Snapshot/Target/Selector/Action identities and post-condition proof.
 
-Linux semantic completion record: `donors/AT-SPI.md`.
+Linux semantic rules:
 
-Accepted Linux semantic direction:
+1. AT-SPI/libatspi is the primary Linux semantic Provider foundation.
+2. D-Bus names, object paths, AccessibleIds and child indices remain provider-local observations.
+3. targets are reacquired against current Application, Window and provider generations.
+4. events update/invalidate state but do not replace fresh snapshots/reconciliation.
+5. semantic inspection, semantic mutation, raw input, clipboard and visual automation are separate permissions.
+6. GNOME Ponytail is one GNOME-Wayland input adapter, not universal Wayland support.
+7. command/action protocol success requires semantic and/or visual read-back.
+8. opaque applications degrade explicitly to partial or visual-only behavior.
+9. mutually untrusted Workspaces do not share one privileged accessibility session.
 
-1. AT-SPI/libatspi is the primary Linux semantic UI Provider foundation.
-2. New Ptah provider work uses direct libatspi/GObject-introspection rather than legacy pyatspi.
-3. Dogtail contributes bounded search, retry, stale-node and diagnostic patterns without defining Ptah contracts.
-4. GNOME Ponytail is a GNOME-Wayland input completion adapter, not universal Wayland automation.
-5. D-Bus names, object paths, application IDs, AccessibleIds and child indices remain provider-local aliases.
-6. Accessibility-bus observation and mutation are separately scoped privileged capabilities.
-7. Events update/invalidate projections but never replace a fresh Semantic Snapshot.
-8. semantic action success requires semantic and/or visual post-condition read-back.
-9. opaque applications degrade explicitly to visual/coordinate automation.
-10. password, sensitive text, clipboard and cross-application access require dedicated privacy/permission controls.
+Evidence:
+
+- `donors/AT-SPI.md`
+- `work-packages/PHASE-0A-LINUX-AT-SPI-SEMANTIC-COMPLETION.md`
+- ADR-0009, ADR-0010 and ADR-0015.
 
 ## WP08 — Browser and Live Research
 
@@ -126,6 +141,8 @@ Closed:
 - source, DOM, accessibility, screenshot, video, trace, console and network evidence;
 - source/citation records and explicit authentication/challenge/human-completion states.
 
+Evidence: ADR-0011 and WP08.
+
 ## WP09 — Human Workspace Shell and Operator Interface
 
 Closed:
@@ -135,165 +152,137 @@ Closed:
 - Activity Centre, Evidence Explorer and exact lifecycle/proof labels;
 - desktop/tablet/phone projections, accessibility and human/automation fenced control.
 
-Saved decision: `decisions/ADR-0012-HUMAN-WORKSPACE-SHELL-PANEL-CONTROL-BOUNDARY.md`.
+Evidence: ADR-0012 and WP09.
 
 ## WP10 — Knowledge, Data, Search and Plugin Composition
 
-**Status:** COMPLETE; closed for Phase 0B contract design, not build.
+Closed:
 
-Inspected and saved:
+- Conversation, Knowledge Source, Source Object/View, Corpus, Document Revision, Chunk, Index Revision and caller-owned memory separation;
+- source-grounded Query, Result, ranking explanation and exact Citation;
+- ingestion, freshness, deletion, tombstone, reconciliation and permission boundaries;
+- LlamaIndex modular local direction and optional RAGFlow Facility;
+- Dataset/Table/Schema/Query/Transformation/Result identities behind Polars and DuckDB;
+- Package, Package Release, Installed Plugin, Activation and Registry Entry lifecycle;
+- Deno lightweight runtime and stronger-isolation escalation;
+- MCP as an external adapter, not the internal model;
+- ClawHub/OpenClaw registry/lifecycle patterns;
+- Dify licence restriction and Hermes/OpenClaw/Hunter external-caller boundary;
+- MiniRouter as a future study-only routing/evaluation workload pending licence.
 
-- internal Hunter knowledge, memory, learning, sync, retrieval and provider foundations;
-- RAGFlow and LlamaIndex;
-- Dify;
-- Polars and DuckDB;
-- Deno;
-- MCP specification and official reference servers;
-- ClawHub and OpenClaw plugin lifecycle;
-- Hermes Agent and MiniRouter boundary recovery.
+Evidence:
 
-Accepted direction:
-
-1. Conversation, Knowledge Source, Source Object/View, Corpus, Document Revision, Chunk, Index Revision and caller-owned memory remain separate.
-2. Source Objects and exact revisions are truth; indexes, embeddings, summaries and caches are derived and rebuildable.
-3. Query, Result, ranking explanation and exact Citation remain separate.
-4. Permissions apply during acquisition, retention, embedding, indexing, retrieval, citation, export and deletion.
-5. LlamaIndex is the primary modular local knowledge-foundation candidate; RAGFlow is an optional heavier Knowledge Facility.
-6. Search across Objects, Activities, Artifacts and Workspaces is native Ptah catalogue/index behavior, not only document RAG.
-7. Polars and DuckDB are analytical engines behind Ptah Dataset/Query/Result identities.
-8. Package, Package Release, Installed Plugin, Activation and Registry Entry remain separate.
-9. Registry presence, verification, scans and manifest claims are evidence inputs, not approval or runtime proof.
-10. Deno is the lightweight permission-scoped runtime candidate; native, FFI, untrusted or broad-privilege code escalates to OCI or VM isolation.
-11. MCP is an external Facility adapter protocol, not Ptah's internal Object/Activity model.
-12. Hunter, Hermes, Dify, OpenClaw and future systems remain external callers/Applications that own reasoning, memory and relationship policy.
-13. Dify is study-only or separately licensed because of its modified licence.
-14. MiniRouter remains study-only until its licence is resolved and belongs to later routing/evaluation work.
-
-Saved:
-
-- `internal/HUNTER-KNOWLEDGE-MEMORY-SEARCH.md`
-- `donors/RAGFLOW.md`
-- `donors/LLAMAINDEX.md`
-- `donors/DIFY.md`
-- `donors/POLARS.md`
-- `donors/DUCKDB.md`
-- `donors/DENO.md`
-- `donors/MCP.md`
-- `donors/CLAWHUB.md`
-- `donors/OPENCLAW.md`
-- `donors/HERMES-AGENT.md`
-- `donors/MINIROUTER.md`
-- `decisions/ADR-0013-KNOWLEDGE-DATA-SEARCH-PLUGIN-BOUNDARY.md`
 - `work-packages/PHASE-0A-WP10-KNOWLEDGE-DATA-SEARCH-PLUGIN.md`
+- ADR-0013 and listed donor/internal records.
 
 ## WP11 — Strong Isolation and Distributed Placement/Scheduling
 
+Closed:
+
+- Isolation Class separate from runtime implementation;
+- baseline OCI, gVisor, Kata, Firecracker and full-VM classes;
+- runc, crun and youki as replaceable baseline OCI implementations;
+- no silent weakening of isolation;
+- Node Capability/Resource Snapshots;
+- Placement Request, Candidate/Decision, Reservation, Lease, Generation and Fence;
+- secure network, Object mount, Device and credential grants;
+- interruption, rescheduling, checkpoint, restore and application read-back;
+- one-Node and multi-Node operation under the same identities;
+- Ray as an optional trusted distributed Compute Facility, not the global scheduler or security boundary.
+
+Evidence:
+
+- `work-packages/PHASE-0A-WP11-ISOLATION-DISTRIBUTED-PLACEMENT.md`
+- ADR-0014 and listed donor/internal records.
+
+## Security Assessment and Reproduction Workloads
+
 **Status:** COMPLETE; closed for Phase 0B contract design, not build.
 
 Inspected and saved:
 
-- gVisor;
-- Kata Containers;
-- Firecracker;
-- youki;
-- crun;
-- Ray;
-- existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer, checkpoint and lease/fencing foundations;
-- MiniRouter only as an optional later routing/evaluation workload.
+- ReproZip;
+- ClaimBound;
+- SparkDistill;
+- Syft and Grype;
+- GUAC;
+- Semgrep;
+- Trivy;
+- ZAP;
+- Strix.
 
 Accepted direction:
 
-1. Isolation Class, runtime implementation, placement, reservation, execution generation and proof remain separate.
-2. The closed isolation ladder is host/native trusted → Deno/WASM permission runtime → baseline OCI → gVisor → Kata → Firecracker → full VM.
-3. runc, crun and youki remain replaceable implementations below one OCI Provider contract.
-4. Rootless and memory-safe implementation are useful properties, not stronger isolation classes.
-5. Incompatible work may move to an equal or stronger approved class or be blocked; Ptah never silently falls back to weaker isolation.
-6. Node Capability Snapshots retain current kernel, architecture, virtualization, resources, pressure, providers, devices, checkpoint compatibility and health.
-7. Placement filters hard feasibility before scoring locality, load, cost, accelerator fit, failure domain, checkpoint locality and interruption risk.
-8. Placement Request, Candidate/Decision, Reservation, Lease, Generation and Fence remain separate.
-9. Network, exact Object/View mounts, devices and credentials require explicit workload-generation grants.
-10. Checkpoint production, restore compatibility and application recovery/read-back are separate proof levels.
-11. gVisor is the primary stronger-container candidate.
-12. Kata is the primary VM-backed container/sandbox candidate.
-13. Firecracker is the primary standalone microVM candidate.
-14. Ray is an optional trusted distributed Compute Facility behind Ptah Activities and placement, not the global scheduler or Object truth.
-15. Mutually untrusted Ray workloads use separate isolated clusters.
-16. Local one-Node and multi-Node operation use the same identities and contracts.
-17. Scheduler policy is operational policy; caller reasoning may supply constraints/preferences but does not silently control Node authority.
-18. MiniRouter remains an optional evaluation workload, not a Ptah routing authority.
+1. exact Security Assessment Authorization, Plan, Target Revision, machinery revision and Coverage are mandatory.
+2. static, inventory, vulnerability, configuration, secret, licence, passive, active, exploit and agent-originated observations remain distinct.
+3. raw scanner/workload reports remain immutable restricted Artifacts.
+4. Finding Observation and Correlated Finding remain separate; scanner disagreement is retained.
+5. severity, confidence, exploitability, impact, disposition, remediation priority, release policy and acceptance remain separate.
+6. false-positive, not-affected, accepted-risk and suppression records require authority, reason, scope and optional expiry.
+7. active/fuzz/exploit/agentic work requires exact authorization, strong isolation, network/credential budgets, emergency stop and cleanup/read-back.
+8. scanner/agent fixes remain proposals until correct owner implementation, re-test and independent review.
+9. frozen Protocol Revision, Reproduction Run and bounded claim/Evidence Card remain separate from Result and acceptance.
+10. ReproZip is one environment-capture/replay class, not universal reproduction.
+11. ClaimBound cards are Views, not certification or Activity truth.
+12. SparkDistill is an optional specialist AI-reproduction workload; recipe, dataset, checkpoint, metric claim, attestation and recheck remain separate.
+13. negative, blocked, drift, inconclusive and not-independently-reproduced outcomes remain visible.
+14. no-findings, exit code zero, clean scan, PoC, hash, attestation or replay never becomes broad proof of security or correctness.
 
-Saved:
+Closed requirements:
 
-- `donors/GVISOR.md`
-- `donors/KATA-CONTAINERS.md`
-- `donors/FIRECRACKER.md`
-- `donors/YOUKI.md`
-- `donors/CRUN.md`
-- `donors/RAY.md`
-- `donors/MINIROUTER.md`
-- `decisions/ADR-0014-ISOLATION-RUNTIME-PLACEMENT-SCHEDULING-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP11-ISOLATION-DISTRIBUTED-PLACEMENT.md`
+- `SEC-001`;
+- `REPRO-001`.
 
-Closed for Phase 0B design:
+Evidence:
 
-- `ISOLATION-001`;
-- `DIST-001`;
-- strong-isolation completion portions of runtime/plugin/caller contracts;
-- distributed placement, checkpoint, observability, resource-accounting and proof extensions.
+- `work-packages/PHASE-0A-SECURITY-REPRODUCTION-WORKLOADS.md`
+- `decisions/ADR-0016-SECURITY-FINDING-VALIDATION-REPRODUCTION-BOUNDARY.md`
+- canonical donor records in `donors/`.
 
-No Runtime Provider, scheduler, Ray cluster, network plane, credential broker or isolation implementation is approved yet.
+No scanner, security agent, test target, security gate, evidence-card renderer or reproduction runtime is approved for implementation yet.
 
 ---
 
 # Active inspection unit
 
-## Reproduction/security workloads and scanners
+## Research/documentation sources and unresolved-profile cleanup
 
-Inspect as one complementary group:
+This is a cleanup/classification unit, not a new architecture cluster.
 
-1. ReproZip and reproducible workload capture;
-2. GUAC and security/provenance graph aggregation;
-3. Semgrep and source/static analysis;
-4. Trivy and Artifact/container/filesystem/IaC scanning;
-5. ZAP and dynamic web/API security testing;
-6. Strix and other approved offensive-validation orchestration only within explicit test scopes;
-7. SparkDistill, ClaimBound and any internal/external reproduction or claim-evidence systems already named in the donor plan;
-8. existing Build, SBOM, attestation, Object, Activity, Receipt, isolation and Sergeant review foundations.
+Resolve or explicitly classify:
 
-Resolve:
+1. Awesome AI Product Management catalogue;
+2. `tmimmanuel` profile as discovery lineage only after individual repositories are already assessed;
+3. Chris Ipanaque's correct GitHub identity/repositories;
+4. `amertoglu16.github.io` repository/site and actual functionality;
+5. GitHub README Crisp Links or equivalent documentation tooling;
+6. MkDocs Material, Docusaurus and Mermaid documentation/presentation roles;
+7. any remaining donor-list names, redirects, stale URLs, duplicate records or licence gaps;
+8. remaining public/private donor-register inconsistencies.
 
-- scanner invocation versus Finding, Claim, Evidence and review;
-- source/static, dependency/SBOM, secret, configuration, container, runtime and dynamic-test classes;
-- scanner/tool/database/rule versions and freshness;
-- target Object/Artifact/Workspace revision and test authorization;
-- suppression, exception, accepted-risk and false-positive records;
-- finding deduplication without losing independent detector disagreement;
-- exploitability/impact/confidence versus severity;
-- active security-test network, credential and destructive-action scopes;
-- reproducible environment capture and replay limitations;
-- security result signing, provenance and retention;
-- independent Sergeant/department review and release gates;
-- public/private security evidence boundaries.
+Expected outcomes:
 
-Required outputs:
+- documentation/research source;
+- discovery source only;
+- public presentation tool;
+- already covered;
+- parked with reopening criteria;
+- rejected/no implementation evidence;
+- donor record corrected and pinned.
 
-- donor/composition records for the security/reproduction group;
-- security Finding/Claim/Evidence/reproduction boundary ADR if required;
-- Requirement Closure Matrix updates;
-- progress/current-state synchronization;
-- explicit parked/rejected tools or unsafe paths.
+Do not reopen accepted runtime architecture merely because a catalogue or profile mentions another tool.
 
-After this group:
+After cleanup:
 
-1. research/documentation-source and unresolved-profile cleanup;
-2. cross-requirement Phase 0A review;
+1. cross-requirement consistency review;
+2. parked/rejected/blocked gap review;
 3. Phase 0A freeze/readiness decision for Phase 0B.
 
 ---
 
 # Accepted decisions
 
-ADR-0001 through ADR-0014 are accepted and indexed in `DECISIONS.md`.
+ADR-0001 through ADR-0016 are accepted and indexed in `DECISIONS.md`.
 
 ---
 
@@ -303,15 +292,16 @@ Allowed now:
 
 - donor/internal recovery;
 - source inspection, canonical pins and licence review;
-- composite requirement closure;
+- classification/cleanup and duplicate removal;
+- cross-requirement review;
 - ADR, schema and proof planning after Phase 0A review.
 
 Not allowed yet:
 
 - copying donor code;
-- declaring closure from one donor;
 - beginning runtime or large UI implementation;
-- selecting dependencies from README claims alone;
+- choosing first-slice dependencies before Phase 0C;
+- declaring implementation readiness from design closure;
 - replacing internal work without evidence;
 - exposing private consumers publicly.
 
@@ -319,7 +309,15 @@ Not allowed yet:
 
 # Phase 0A completion gate
 
-Every v1 requirement must have internal overlap, composite donors, canonical pins/licences, native gap, exit strategy and proof plan, or be explicitly parked/rejected with a replacement.
+Every v1 requirement now has composite design closure. Phase 0A still cannot freeze until:
+
+1. remaining research/documentation/profile entries are resolved or parked;
+2. stale URLs, duplicate donor files and licence gaps are identified;
+3. all ADR/work-package/matrix/current-state references agree;
+4. cross-requirement schemas and identities are checked for contradictions;
+5. parked/blocked gaps have explicit reopening criteria;
+6. Phase 0B inputs and proof corpus are enumerated;
+7. the no-build boundary remains explicit.
 
 ---
 
