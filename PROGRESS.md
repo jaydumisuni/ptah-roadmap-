@@ -18,7 +18,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Private roadmap repository and public/private separation.
 - [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] ADR-0001 through ADR-0012 accepted and indexed.
+- [x] ADR-0001 through ADR-0013 accepted and indexed.
 - [-] Normalize remaining donor register and unresolved profiles.
 - [-] Save after every meaningful inspection unit.
 
@@ -86,41 +86,57 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Dockview responsive layout candidate.
 - [x] internal Hunter/Sergeant/MIBU/Device Manager/website UI patterns.
 - [x] Ptah Home, Workspace switcher and Panel contract direction.
-- [x] multi-terminal, Browser, Device and Application panel direction.
-- [x] Activity Centre and Evidence Explorer.
+- [x] Activity Centre, Evidence Explorer and exact lifecycle/proof labels.
 - [x] human/automation focus and fenced control handoff.
-- [x] responsive desktop/tablet/phone layout direction.
-- [x] accessibility, keyboard, touch and reduced-motion requirements.
-- [x] honest lifecycle/proof labels.
+- [x] responsive desktop/tablet/phone and accessibility direction.
 - [x] ADR-0012 and WP09.
 - [x] Human Workspace/UI Phase 0B design closure.
 
-## Active WP10 — Knowledge, Data, Search and Plugin Composition
+### WP10 — Knowledge, Data, Search and Plugin Composition
 
-- [x] Recover internal Hunter knowledge/memory/learning/search/provider foundations.
-- [x] RAGFlow end-to-end ingestion, retrieval, metadata, deletion and backend-semantics donor pass.
-- [-] LlamaIndex.
-- [ ] Dify.
-- [ ] Polars.
-- [ ] Deno.
-- [ ] MCP specification and official server examples.
-- [ ] OpenClaw/ClawHub plugin discovery/lifecycle patterns.
-- [ ] Knowledge Source/Corpus/Document/Chunk model.
-- [ ] ingestion, index revision, freshness and deletion model.
-- [ ] source-grounded query/citation model.
-- [ ] search across Objects, Activities, Artifacts and Workspaces.
-- [ ] structured data/table/database Activities.
-- [ ] recipe/service/tool/plugin manifest completion.
-- [ ] plugin install, pin, health, upgrade, rollback and removal.
-- [ ] model/data provider-neutral interfaces.
-- [ ] composite WP10 record.
-- [ ] Knowledge Source / Index / Query / Plugin ADR.
-- [ ] Knowledge/Data/Search/Plugin Phase 0B design closure.
+- [x] Internal Hunter knowledge/memory/learning/search/provider foundations.
+- [x] RAGFlow end-to-end ingestion/retrieval platform donor.
+- [x] LlamaIndex modular connector/ingestion/retrieval donor.
+- [x] Dify workflow/application/plugin patterns and licence boundary.
+- [x] Polars DataFrame/lazy/streaming analytical engine.
+- [x] DuckDB embedded SQL analytical engine.
+- [x] Deno permission-scoped lightweight tool runtime.
+- [x] MCP specification and official reference-server adapter patterns.
+- [x] OpenClaw/ClawHub registry, manifest and plugin-lifecycle patterns.
+- [x] Hermes Agent classified as optional caller/workload.
+- [x] MiniRouter canonical repository recovered and moved to later routing evaluation; licence unresolved.
+- [x] Knowledge Source/Corpus/Document/Chunk and Index Revision model.
+- [x] ingestion, freshness, deletion, tombstone and reconciliation model.
+- [x] Query/Result/Citation and exact source-grounding boundary.
+- [x] search across Objects, Activities, Artifacts, Workspaces and external sources.
+- [x] Dataset/Table/Schema/Data Query/Transformation/Result direction.
+- [x] Package/Release/Installed Plugin/Activation lifecycle.
+- [x] provider-neutral model/data adapter and external-reasoning boundary.
+- [x] ADR-0013 and composite WP10 record.
+- [x] Knowledge/Data/Search/Plugin Phase 0B design closure.
+
+## Active WP11 — Strong Isolation and Distributed Placement/Scheduling
+
+- [-] gVisor.
+- [ ] Kata Containers.
+- [ ] Firecracker.
+- [ ] youki.
+- [ ] crun.
+- [ ] Ray.
+- [ ] isolation-class and escalation model.
+- [ ] Node/provider capability and resource snapshots.
+- [ ] placement, reservation, lease and fencing model.
+- [ ] secure networking and credential-delivery boundary.
+- [ ] interruption, rescheduling, checkpoint and recovery behavior.
+- [ ] local one-Node fallback versus multi-Node placement.
+- [ ] cost, locality, data-gravity and accelerator-aware scheduling.
+- [ ] MiniRouter only as a routing/evaluation workload, not Core.
+- [ ] composite WP11 record.
+- [ ] isolation/placement/scheduling ADR.
+- [ ] Isolation/Distributed Placement Phase 0B design closure.
 
 ## Remaining donor groups
 
-- [ ] Strong isolation: gVisor, Kata, Firecracker, youki and crun.
-- [ ] Distributed placement/scheduling: MiniRouter, Ray and relevant completion donors.
 - [ ] Linux AT-SPI semantic completion.
 - [ ] Reproduction/security workloads and scanners.
 - [ ] research/documentation sources and unresolved profiles.
@@ -135,8 +151,8 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Device/Application Runtime.
 - [x] Browser/Live Research.
 - [x] Human Workspace/UI.
-- [-] Knowledge/Data/Search/Plugin.
-- [ ] Isolation/Distributed placement.
+- [x] Knowledge/Data/Search/Plugin.
+- [-] Isolation/Distributed placement.
 - [ ] Security/reproduction workloads.
 - [ ] Phase 0A review and freeze.
 
@@ -156,6 +172,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Shell, Panel, Layout and human-control schemas.
 - [ ] Knowledge Source, Corpus, Index, Query, citation, data and plugin schemas.
 - [ ] Session, checkpoint, credential and privacy schemas.
+- [ ] isolation, placement, scheduler and secure-network schemas.
 - [ ] telemetry conventions and resource accounting.
 - [ ] versioning, migrations, golden corpus and failure proofs.
 - [ ] Review and freeze.
