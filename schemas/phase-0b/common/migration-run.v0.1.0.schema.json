@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:common:migration-run:0.1.0",
+  "title": "Ptah Migration Run Record",
+  "description": "Candidate append-only record for one schema/data migration execution.",
+  "x-ptah-schema-name": "common.migration-run",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "migration_run_id",
+    "migration_definition_ref",
+    "activity_ref",
+    "operation_ref",
+    "attempt_ref",
+    "input_ref",
+    "source_schema_id",
+    "source_schema_version",
+    "target_schema_id",
+    "target_schema_version",
+    "source_hash",
+    "migration_status",
+    "field_mapping_report",
+    "loss_or_default_report",
+    "validation_outcome",
+    "receipt_refs",
+    "started_at",
+    "completed_at",
+    "extensions"
+  ],
+  "properties": {
+    "migration_run_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/uuidv7" },
+    "migration_definition_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "attempt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "input_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "output_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "source_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "source_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "target_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "target_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "source_hash": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*:[0-9a-f]+$" },
+    "target_hash": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*:[0-9a-f]+$" },
+    "migration_status": {
+      "type": "string",
+      "enum": ["completed", "partial", "failed", "cancelled", "blocked"]
+    },
+    "field_mapping_report": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_pointer", "target_pointer", "mapping_class"],
+        "properties": {
+          "source_pointer": { "type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$" },
+          "target_pointer": { "type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$" },
+          "mapping_class": {
+            "type": "string",
+            "enum": ["copied", "renamed", "transformed", "split", "merged", "defaulted", "dropped", "unknown_preserved"]
+          },
+          "notes": { "type": "string", "maxLength": 4096 }
+        }
+      }
+    },
+    "loss_or_default_report": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["class", "pointer", "description"],
+        "properties": {
+          "class": { "type": "string", "enum": ["loss", "default", "coercion", "unsupported", "uncertain"] },
+          "pointer": { "type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$" },
+          "description": { "type": "string", "minLength": 1, "maxLength": 4096 },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "validation_outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "supersession_relationship_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "rollback_run_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "started_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "completed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "migration_status": { "const": "completed" } },
+        "required": ["migration_status"]
+      },
+      "then": {
+        "required": ["output_ref", "target_hash", "supersession_relationship_ref"]
+      }
+    }
+  ]
+}
