@@ -18,7 +18,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Private roadmap repository and public/private separation.
 - [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] ADR-0001 through ADR-0017 accepted and indexed.
+- [x] ADR-0001 through ADR-0018 accepted and indexed.
 - [x] Remaining donor register and unresolved-profile cleanup.
 - [x] Cross-requirement identity/authority/state/lifecycle review.
 - [x] Parked/restricted gap audit.
@@ -177,10 +177,39 @@ Evidence:
 
 **Status:** ACTIVE — IMPLEMENTATION STILL NOT AUTHORIZED
 
+## 0B-WP01 — Common identity, versioning and typed families
+
+**Status:** CANDIDATE COMPLETE — downstream use approved; implementation freeze deferred to executable conformance.
+
+- [x] UUIDv7 canonical identity and Alias/public-remapping rules.
+- [x] controlled entity-kind and identity/authority registries.
+- [x] JSON Schema 2020-12 and absolute Ptah schema URNs.
+- [x] local candidate schema catalog.
+- [x] nested common Entity Envelope direction.
+- [x] record revision versus Object Revision/generation/epoch separation.
+- [x] typed Provider/Session/Lease/Event/Revision/Snapshot/etc. families.
+- [x] namespaced/versioned state-machine and transition schemas.
+- [x] migration definition/run and directional compatibility schemas.
+- [x] privacy/audience/redaction/retention and extensions direction.
+- [x] tombstone/supersession/deletion rules.
+- [x] consolidated common safety-net specification.
+- [x] positive/negative candidate fixtures.
+- [x] ADR-0018 accepted.
+
+Evidence:
+
+- `work-packages/PHASE-0B-WP01-COMMON-IDENTITY-VERSIONING-TYPED-FAMILIES.md`
+- `contracts/PHASE-0B-COMMON-CONTRACT-CONVENTIONS.md`
+- `contracts/PHASE-0B-ENTITY-KIND-REGISTRY.md`
+- `contracts/PHASE-0B-IDENTITY-KIND-REGISTRY.md`
+- `schemas/phase-0b/common/`
+- `conformance/PHASE-0B-WP01-COMMON-CONTRACT-SAFETY-NET.md`
+- `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`
+
 ## Ordered work packages
 
-- [-] 0B-WP01 — Common identity, versioning and typed-family conventions.
-- [ ] 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof.
+- [x] 0B-WP01 — Common identity, versioning and typed-family conventions — candidate complete.
+- [-] 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof.
 - [ ] 0B-WP03 — Object, Revision, View, Artifact and storage relationships.
 - [ ] 0B-WP04 — Node, Facility, Provider, capability and health.
 - [ ] 0B-WP05 — Workspace, Session, checkpoint and recovery.
@@ -197,17 +226,17 @@ Evidence:
 
 ## Cross-cutting Phase 0B gates
 
-- [ ] every schema versioned and traceable to ADR/requirement;
-- [ ] state machines/transitions explicit and namespaced;
-- [ ] saved records/sessions have migration paths;
-- [ ] permissions, audience and redaction represented;
-- [ ] Provider/Facility conformance contracts defined;
-- [ ] lawful golden and negative fixtures pinned;
-- [ ] proof plans name exact Receipts/Evidence;
-- [ ] backend replacement testable;
-- [ ] online and later local Nodes use the same contracts;
-- [ ] private consumer knowledge absent from public schemas;
-- [ ] public licence/dependency strategy ready for Phase 0C;
+- [-] every schema versioned and traceable to ADR/requirement — common layer complete; domain schemas pending.
+- [-] state machines/transitions explicit and namespaced — convention/schema complete; domain machines pending.
+- [-] saved records/sessions have migration paths — common migration contract complete; domain migrations pending.
+- [-] permissions, audience and redaction represented — common identity/privacy direction complete; domain mapping pending.
+- [ ] Provider/Facility conformance contracts defined.
+- [-] lawful golden and negative fixtures pinned — common fixtures committed; domain corpus pending.
+- [ ] proof plans name exact Receipts/Evidence.
+- [ ] backend replacement testable.
+- [-] online and later local Nodes use the same contracts — common layer neutral; domain proof pending.
+- [-] private consumer knowledge absent from public schemas — common candidate is neutral; full audit pending.
+- [ ] public licence/dependency strategy ready for Phase 0C.
 - [ ] first vertical slice selectable without identity/proof ambiguity.
 
 ---
