@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:common:state-machine-definition:0.1.0",
+  "title": "Ptah State Machine Definition",
+  "description": "Candidate definition for a namespaced and versioned entity state machine.",
+  "x-ptah-schema-name": "common.state-machine-definition",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "state_machine_name",
+    "state_machine_version",
+    "subject_entity_kinds",
+    "states",
+    "initial_states",
+    "transitions",
+    "unknown_state_policy",
+    "migration_policy",
+    "extensions"
+  ],
+  "properties": {
+    "state_machine_name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$"
+    },
+    "state_machine_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "subject_entity_kinds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityKind" }
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "description", "terminal", "proof_dimension"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "description": { "type": "string", "minLength": 1, "maxLength": 4096 },
+          "terminal": { "type": "boolean" },
+          "proof_dimension": {
+            "type": "string",
+            "enum": [
+              "lifecycle",
+              "connection",
+              "health",
+              "availability",
+              "verification",
+              "review",
+              "acceptance",
+              "reservation",
+              "lease",
+              "finding",
+              "reproduction",
+              "other"
+            ]
+          },
+          "entry_requirements": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "initial_states": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+    },
+    "transitions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "transition_name",
+          "from_states",
+          "to_state",
+          "transition_class",
+          "authority_classes",
+          "side_effecting",
+          "required_preconditions",
+          "required_evidence_kinds",
+          "required_receipt_proof_levels"
+        ],
+        "properties": {
+          "transition_name": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "from_states": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "oneOf": [
+                { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+                { "type": "null" }
+              ]
+            }
+          },
+          "to_state": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "transition_class": {
+            "type": "string",
+            "enum": ["normal", "recovery", "expiry", "cancellation", "administrative", "migration"]
+          },
+          "authority_classes": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "caller",
+                "workspace_owner",
+                "organization_policy",
+                "ptah_control_plane",
+                "ptah_node",
+                "provider",
+                "facility",
+                "operating_system",
+                "physical_device",
+                "external_provider",
+                "human_operator",
+                "independent_reviewer",
+                "authoritative_external_system"
+              ]
+            }
+          },
+          "side_effecting": { "type": "boolean" },
+          "required_preconditions": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "required_evidence_kinds": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/familyKind" }
+          },
+          "required_receipt_proof_levels": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+          },
+          "timeout_seconds": { "type": "integer", "minimum": 0 },
+          "expiry_clock_authority": { "type": "string", "minLength": 1 },
+          "notes": { "type": "string", "maxLength": 4096 }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "transition_class": { "const": "expiry" } }, "required": ["transition_class"] },
+            "then": { "required": ["expiry_clock_authority"] }
+          },
+          {
+            "if": { "properties": { "side_effecting": { "const": true } }, "required": ["side_effecting"] },
+            "then": {
+              "properties": {
+                "required_receipt_proof_levels": { "minItems": 1 }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "unknown_state_policy": {
+      "type": "string",
+      "enum": ["reject", "preserve_read_only", "migration_required"]
+    },
+    "migration_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_mapping_required_for_breaking_change", "unmapped_state_behavior"],
+      "properties": {
+        "state_mapping_required_for_breaking_change": { "type": "boolean" },
+        "unmapped_state_behavior": { "type": "string", "enum": ["reject", "preserve_read_only", "manual_review"] },
+        "migration_definition_refs": {
+          "type": "array",
+          "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
