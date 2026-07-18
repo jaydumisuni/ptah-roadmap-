@@ -1,13 +1,21 @@
 # Ptah Requirement Closure Matrix
 
-**Phase:** 0A  
-**Status:** ALL V1 REQUIREMENTS CLOSED FOR DESIGN — FINAL CONSISTENCY/FREEZE REVIEW ACTIVE
+**Phase:** 0B entry  
+**Status:** ALL V1 REQUIREMENTS CLOSED FOR DESIGN — PHASE 0A FROZEN; PHASE 0B ACTIVE
 
 This file maps Ptah requirements to internal evidence, composite donors, native ownership, exit strategy and proof.
 
 A requirement is never closed by naming one repository. Canonical method: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
 Design closure does **not** authorize implementation. Phase 0B schemas/conformance and Phase 0C slice approval remain mandatory.
+
+Phase 0A frozen checkpoint:
+
+```text
+7d2dffee48f1400ba1cf88823343f09a3895ad33
+```
+
+Freeze/entry decision: `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`.
 
 ---
 
@@ -57,59 +65,72 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 
 ---
 
-# Closed-foundation notes
+# Cross-requirement consistency verdict
 
-- Linux semantic automation is closed through `donors/AT-SPI.md`, the Linux semantic work package and ADR-0015; exact GNOME Ponytail dependency approval remains Phase 0B/0C selection work.
-- JuiceFS/SeaweedFS are parked until measured shared-POSIX need.
-- `.P5C` is parked pending a lawful immutable sample or authoritative format/tool.
-- private device-manager modules that could not be audited remain an internal source-recovery gap with existing public/native fallback contracts.
-- Hunter Foreman is excluded from active shell reuse unless explicitly reintroduced.
-- Dify remains study-only or separately licensed because of its modified licence.
-- MiniRouter remains study-only until a repository licence is resolved and is only a future routing/evaluation workload.
-- Design closure of `ISOLATION-001`/`DIST-001` does not select one production runtime, scheduler or Node topology.
-- Strix remains an authorized high-risk workload, not a production security authority or proof engine.
-- ClaimBound Evidence Cards are presentation Views and SparkDistill is an optional specialist workload; neither replaces Ptah Activities, Claims or review.
-- `chrisipanaque` prototypes remain parked for source reuse pending exact need, compatible licence and independent proof.
-- `amertoglu16.github.io` remains parked because no recoverable implementation source was found.
-- research catalogues, profiles and documentation frameworks do not close runtime requirements or alter this matrix.
+**PASS.** No design-blocking contradiction was found.
 
----
+Frozen normalization rules:
 
-# Research/documentation cleanup — COMPLETE
-
-- `aza-ali/awesome-ai-product-management` is an optional versioned Research Source.
-- `tmimmanuel` is discovery lineage only.
-- Chris/Christiam Ipanaque identity is resolved to `chrisipanaque`; profile claims and prototypes are not architecture evidence.
-- `amertoglu16.github.io` is parked with reopening criteria.
-- Crisp Links is an optional README asset generator.
-- Material for MkDocs is the primary lightweight documentation-site candidate, not selected.
-- Docusaurus is an optional richer documentation/project-site alternative.
-- Mermaid is the primary text-defined documentation-diagram candidate.
-- documentation outputs are derived Artifacts and public builds use allowlisted public source only.
+- Object owns content identity; Artifact owns durable promoted-result role.
+- Activity, Operation and Attempt remain separate.
+- Event, telemetry, Receipt, Evidence, Review and authoritative result remain separate.
+- Observation, Claim, Finding Observation, Correlated Finding and Verdict remain separate but linkable.
+- Recipe, Assessment Plan, Protocol and Run remain separate.
+- Provider, Session, Lease, Event, Revision and Snapshot are typed families.
+- state machines are namespaced/versioned; `completed`, `verified` and `accepted` remain distinct.
+- Node generation, Provider generation, workload generation and connection epoch remain distinct.
+- capability, permission, authorization, placement, reservation and execution authority remain distinct.
+- deletion requires retention, tombstone, supersession and referential-integrity rules.
+- audience/privacy/redaction classes travel with exportable records.
 
 Evidence:
 
-- `donors/RESEARCH-DISCOVERY-SOURCES.md`
-- `donors/DOCUMENTATION-PRESENTATION-TOOLS.md`
-- `work-packages/PHASE-0A-RESEARCH-DOCUMENTATION-SOURCE-CLEANUP.md`
+- `work-packages/PHASE-0A-CROSS-REQUIREMENT-CONSISTENCY-REVIEW.md`
+- `work-packages/PHASE-0B-ENTRY-CONTRACT-PROOF-INPUTS.md`
+- `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`
 
 ---
 
-# Remaining open Phase 0A work
+# Parked and restricted items
 
-| Review unit | Status | Required result |
-|---|---|---|
-| Cross-requirement identity/authority/state/lifecycle consistency | ACTIVE | no unresolved contradictions across ADRs, work packages and schemas |
-| Parked/rejected/blocked gap audit | OPEN | explicit reopening criteria and v1 consequence for every item |
-| Phase 0B input/proof-corpus enumeration | OPEN | schema, migration, conformance, golden and negative-evidence checklist |
-| Phase 0A freeze/readiness decision | OPEN | accepted freeze or named blocking gaps; implementation still prohibited |
+None block Phase 0B contract design.
+
+- Linux semantic automation is closed; exact GNOME Ponytail dependency approval remains Phase 0B/0C selection work.
+- JuiceFS/SeaweedFS remain parked until measured shared-POSIX need.
+- `.P5C` remains parked pending a lawful immutable sample or authoritative format/tool.
+- private device-manager modules that could not be audited retain public/native fallback contracts.
+- Hunter Foreman remains excluded unless explicitly reintroduced.
+- Dify remains study-only or separately licensed under its modified licence.
+- MiniRouter remains study-only until its repository licence is resolved.
+- Strix remains an authorized high-risk workload, not a security authority.
+- ClaimBound cards remain Views; SparkDistill remains an optional specialist workload.
+- `chrisipanaque` prototypes remain parked pending exact need, compatible licence and independent proof.
+- `amertoglu16.github.io` remains parked because no recoverable source was found.
+- donor code without a clear compatible licence remains blocked from reuse.
+- final public Ptah project licence is a Phase 0C gate because no implementation is distributed yet.
+
+Detailed reopening criteria: `DONOR_RECOVERY.md` and the consistency-review work package.
+
+---
+
+# Phase 0B active work
+
+Active package:
+
+- **0B-WP01 — common identity, versioning and typed-family conventions.**
+
+Full Phase 0B input/order:
+
+- `work-packages/PHASE-0B-ENTRY-CONTRACT-PROOF-INPUTS.md`
+- `CURRENT_STATE.md`
+- `PROGRESS.md`
+
+No runtime implementation, donor-source reuse or dependency selection is authorized until Phase 0C.
 
 ---
 
 # Current conclusion
 
-Every current v1 architecture requirement is closed for **Phase 0B contract design**, not implementation.
+Every current v1 architecture requirement is closed for **Phase 0B contract design**.
 
-No research catalogue, profile, documentation tool or unresolved stale link remains an architecture gap.
-
-Phase 0A now requires only the consistency, parked-gap and Phase 0B-input review recorded in `CURRENT_STATE.md`. Phase 0A cannot freeze until those checks pass and all roadmap references agree.
+Phase 0A is frozen. Phase 0B is active. The next work is contract/schema design—not implementation.
