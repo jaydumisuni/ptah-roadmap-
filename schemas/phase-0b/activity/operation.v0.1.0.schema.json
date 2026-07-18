@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:operation:0.1.0",
+  "title": "Ptah Operation",
+  "description": "One logical side effect or observation request inside an Activity.",
+  "x-ptah-schema-name": "activity.operation",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "activity_ref",
+    "operation_kind",
+    "lifecycle",
+    "logical_target_refs",
+    "command_or_action_ref",
+    "side_effect_class",
+    "retry_class",
+    "idempotency_class",
+    "required_authority_refs",
+    "precondition_refs",
+    "desired_proof_refs",
+    "attempt_refs",
+    "receipt_refs",
+    "created_at",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.operation" } } }
+      ]
+    },
+    "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "operation_kind": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+    "lifecycle": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/stateProjection" },
+        {
+          "properties": {
+            "state_machine_name": { "const": "operation.lifecycle" },
+            "state_machine_version": { "const": "0.1.0" },
+            "current_state": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/operationLifecycleState" }
+          }
+        }
+      ]
+    },
+    "logical_target_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "command_or_action_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "side_effect_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/sideEffectClass" },
+    "retry_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/retryClass" },
+    "idempotency_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/idempotencyClass" },
+    "idempotency_key": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/keyToken" },
+    "required_authority_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "permission_grant_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "precondition_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "desired_proof_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "current_attempt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "attempt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "result_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "compensating_operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "wait_reason": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/waitReason" },
+    "failure_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/failureClass" },
+    "failure_outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "created_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "completed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "idempotency_class": { "enum": ["explicit_key", "provider_key", "receipt_guarded"] } },
+        "required": ["idempotency_class"]
+      },
+      "then": { "required": ["idempotency_key"] }
+    },
+    {
+      "if": {
+        "properties": { "retry_class": { "const": "compensating_action_required" } },
+        "required": ["retry_class"]
+      },
+      "then": { "required": ["compensating_operation_ref"] }
+    },
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "const": "waiting" } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["wait_reason"] }
+    },
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "const": "failed" } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["failure_class", "failure_outcome"] }
+    },
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "enum": ["succeeded", "failed", "cancelled", "blocked"] } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["completed_at"] }
+    }
+  ]
+}
