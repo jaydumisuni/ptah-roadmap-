@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:manual-action-request:0.1.1",
+  "title": "Ptah Manual Action Request",
+  "description": "Corrected candidate: durable human/manual action request with a versioned lifecycle.",
+  "x-ptah-schema-name": "activity.manual-action-request",
+  "x-ptah-schema-version": "0.1.1",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "activity_ref",
+    "operation_ref",
+    "request_kind",
+    "lifecycle",
+    "requested_from_refs",
+    "instruction_ref",
+    "required_response_schema_id",
+    "required_response_schema_version",
+    "requested_at",
+    "supersedes_schema_ref",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.manual_action_request" } } }
+      ]
+    },
+    "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "request_kind": {
+      "type": "string",
+      "enum": ["approval", "credential", "physical_action", "challenge_completion", "choice", "confirmation", "data_entry", "other"]
+    },
+    "lifecycle": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/stateProjection" },
+        {
+          "properties": {
+            "state_machine_name": { "const": "manual_action_request.lifecycle" },
+            "state_machine_version": { "const": "0.1.0" },
+            "current_state": { "$ref": "urn:ptah:schema:activity:request-definitions:0.1.0#/$defs/manualActionRequestState" }
+          }
+        }
+      ]
+    },
+    "requested_from_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "instruction_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "context_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "required_response_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "required_response_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "response_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "response_by_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "response_outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "requested_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "expires_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "responded_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "supersedes_schema_ref": {
+      "type": "string",
+      "const": "urn:ptah:schema:activity:manual-action-request:0.1.0"
+    },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "enum": ["responded", "accepted", "rejected"] } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["response_ref", "response_by_ref", "responded_at"] }
+    },
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "enum": ["accepted", "rejected", "expired", "cancelled"] } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["response_outcome"] }
+    }
+  ]
+}
