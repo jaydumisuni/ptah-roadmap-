@@ -3,7 +3,7 @@
 **Last updated:** 2026-07-18  
 **Overall status:** ACTIVE PLANNING — PHASE 0A FROZEN; PHASE 0B ACTIVE  
 **Current phase:** Phase 0B — contracts, migrations, conformance and proof design  
-**Active work package:** 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof  
+**Active work package:** 0B-WP03 — Object, Revision, View, Artifact and storage relationships  
 **Runtime implementation:** NOT STARTED  
 **Dependency selection:** NOT STARTED  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
@@ -26,282 +26,162 @@ All current v1 requirements are closed for contract design. No runtime implement
 
 ---
 
-# Accepted Ptah position
+# Phase 0B common layer — WP01 candidate complete
 
-Ptah is an independent, open-source, online-first concurrent digital world built around persistent Workspaces, Objects, Activities, Facilities, Nodes, Devices, Applications, Browsers, Sessions, Panels, Knowledge Sources, Datasets, Plugins, security Findings and Artifacts.
+Accepted candidate:
 
-Ptah supplies the working world. Humans and compatible systems supply intent, reasoning, policy, restrictions, risk acceptance and acceptance criteria.
+- `ptah.common` `0.1.0`
+- `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`
+- `work-packages/PHASE-0B-WP01-COMMON-IDENTITY-VERSIONING-TYPED-FAMILIES.md`
+- `schemas/phase-0b/common/schema-catalog.v0.1.0.json`
 
-The public `Ptah-space` repository remains a no-code implementation shell.
+Common rules remain active:
+
+1. canonical IDs use lowercase UUIDv7 plus registered `entity_kind`;
+2. backend IDs remain scoped Aliases;
+3. schemas use JSON Schema 2020-12, absolute Ptah URNs and local catalogs;
+4. domain entities embed the common Entity Envelope;
+5. record revision, Object Revision, schema version, generation and connection epoch remain separate;
+6. Provider, Session, Lease, Event, Revision, Snapshot, Recipe, Protocol and Evidence are typed families;
+7. state machines are namespaced/versioned and there is no global `status` enum;
+8. migration preserves frozen history and compatibility is directional;
+9. privacy/audience/redaction/retention and tombstone/deletion are explicit;
+10. structural validation never replaces semantic conformance.
 
 ---
 
-# Phase 0B common layer — candidate complete
+# Phase 0B Activity/Event/proof layer — WP02 candidate complete
 
-0B-WP01 produced candidate `ptah.common` `0.1.0` and is approved for downstream Phase 0B schema use.
+Accepted candidate:
 
-Accepted decision:
+- `ptah.activity` `0.1.0`;
+- corrected mutable-request schemas at `0.1.1`;
+- `decisions/ADR-0019-ACTIVITY-OPERATION-ATTEMPT-EVENT-RECEIPT-PROOF-BOUNDARY.md`;
+- `work-packages/PHASE-0B-WP02-ACTIVITY-EVENT-RECEIPT-PROOF.md`;
+- `schemas/phase-0b/activity/schema-catalog.v0.1.1.json`.
 
-- `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`
+Normative records:
 
-Work package:
+- `contracts/PHASE-0B-WP02-ACTIVITY-EVENT-PROOF-CONVENTIONS.md`
+- `contracts/PHASE-0B-WP02-ENTITY-KIND-SUPPLEMENT.md`
+- `contracts/PHASE-0B-WP02-PROOF-LEVEL-REGISTRY.md`
+- `state-machines/phase-0b/`
+- `conformance/PHASE-0B-WP02-ACTIVITY-EVENT-RECEIPT-SAFETY-NET.md`
+- `conformance/fixtures/phase-0b/wp02/activity-event-receipt-cases.v0.1.0.json`
 
-- `work-packages/PHASE-0B-WP01-COMMON-IDENTITY-VERSIONING-TYPED-FAMILIES.md`
+## WP02 boundaries now active
 
-Normative inputs:
+1. Activity Request and Activity are different entities; acceptance creates a new durable Activity.
+2. Activity lifecycle is limited to `queued`, `preparing`, `running`, `waiting`, `paused`, `resuming`, `recovering`, `completed`, `failed`, and `cancelled`.
+3. requested, leasing, cancelling, retrying, detached and unknown belong to separate requests/entities/dimensions.
+4. Activity Dependency is first-class and Event delivery cannot satisfy it by itself.
+5. Operation owns one logical side effect/observation and persists across physical retries.
+6. Attempt owns one physical try with a new ID/nonce and exact Node/Provider/workload generations and connection epoch.
+7. retry and idempotency classes are explicit; uncertain non-idempotent work cannot retry automatically.
+8. Cancellation Request and Manual Action Request have independent versioned lifecycles.
+9. Event is typed notification; telemetry is sampled operational observation; neither is proof by itself.
+10. Receipt is immutable append-only producer evidence bound to exact Activity/Operation/Attempt/nonce/generations/epoch.
+11. proof levels are bounded by request/dispatch, runtime, output, external-result, and review domains; no automatic cross-domain ladder exists.
+12. Review and Verdict are separate, and Verdict is not caller acceptance.
+13. Authoritative External Result preserves the source system/device authority and cannot be fabricated from weaker evidence.
+14. Reconciliation explicitly dispositions stale, late, duplicate, contradictory, unauthenticated and wrong-correlation evidence.
+15. Event or telemetry loss cannot erase durable Activity truth or proof-critical Receipts.
+16. the first mutable-request drafts were not rewritten; corrected `0.1.1` schemas supersede them through catalog history.
 
-- `contracts/PHASE-0B-COMMON-CONTRACT-CONVENTIONS.md`
-- `contracts/PHASE-0B-ENTITY-KIND-REGISTRY.md`
-- `contracts/PHASE-0B-IDENTITY-KIND-REGISTRY.md`
-- `schemas/phase-0b/common/`
-- `conformance/PHASE-0B-WP01-COMMON-CONTRACT-SAFETY-NET.md`
-- `conformance/fixtures/phase-0b/wp01/common-contract-cases.v0.1.0.json`
+## WP02 proof status
 
-## Common rules now active
-
-1. New canonical entity IDs use lowercase UUIDv7 plus registered `entity_kind`.
-2. Backend and legacy identifiers remain scoped Aliases.
-3. Candidate schemas use JSON Schema 2020-12, absolute Ptah URNs and a local catalog.
-4. Domain entities embed a nested common Entity Envelope.
-5. `record_revision`, Object Revision, schema version, Node/Provider/workload generations and connection epoch remain separate.
-6. Provider, Session, Lease, Event, Revision, Snapshot, Recipe, Protocol, Evidence and related concepts are typed families.
-7. There is no global `status` enum.
-8. State machines and transitions are namespaced, versioned and append-only.
-9. `completed`, `verified` and `accepted` remain separate dimensions.
-10. Authentication, authorization, technical capability and organizational acceptance remain separate.
-11. Migration preserves frozen history and reports loss/defaults/coercion.
-12. Compatibility is directional and evidence-backed, not inferred from SemVer alone.
-13. Tombstone and physical deletion remain separate.
-14. Privacy, audience, redaction and retention travel with exportable records.
-15. Structural schema validation never replaces semantic conformance.
-
-## WP01 proof status
-
-- normative conventions: complete candidate;
-- entity and identity registries: complete candidate;
-- eight common machine-readable schemas: complete candidate;
-- local schema catalog: complete candidate;
-- positive/negative fixtures: committed;
+- normative conventions and proof-level registry: candidate complete;
+- 17 active schema entries plus common dependencies: candidate complete;
+- six lifecycle state machines: candidate complete;
 - consolidated safety-net specification: committed;
+- positive/negative fixtures: committed;
 - executable conformance harness: deferred to 0B-WP13/0B-WP14;
 - implementation freeze: not granted.
 
 ---
 
-# Active work — 0B-WP02
+# Active work — 0B-WP03
 
-## Activity, Operation, Attempt, Event, Receipt and proof
+## Object, Revision, View, Artifact and storage relationships
 
-WP02 must turn ADR-0003, ADR-0004 and the common candidate layer into machine-readable contracts.
+WP03 must turn ADR-0006 and ADR-0007 plus WP01/WP02 into exact contracts.
 
-### Required entities
+### Required entities and boundaries
 
-- `core.activity`;
-- Activity dependency edge;
-- `core.operation`;
-- `core.attempt`;
-- idempotency and correlation-key records;
-- `event.event` and event-domain payload registration;
-- `proof.receipt`;
-- proof-level definition;
-- `proof.review` and `proof.verdict`;
-- `proof.external_result`;
-- retry, pause, cancellation, recovery and reconnect records.
+- `object.object` — canonical content/logical Object identity;
+- `object.revision` — immutable source/logical revision;
+- content byte identity and hash observation;
+- `object.detector_observation` — one detector/type/structure claim;
+- `core.relationship` — first-class typed relationship and revision;
+- `object.view` — derived representation over an exact Object/revision;
+- `object.preview` — human-oriented derived View;
+- `object.derivative` — transformed output;
+- child Object relationships from decomposition;
+- `object.decomposition_run` and progressive levels;
+- `object.artifact` — durable promoted-result role;
+- `object.artifact_release` — immutable released/published Artifact revision;
+- `storage.location` — physical/logical replica/location;
+- content-addressed storage identity versus mutable location aliases;
+- production links to Activity/Operation/Attempt/Receipt;
+- storage verification, corruption, missing-location and repair evidence;
+- retention, tombstone, shared-reference deletion and supersession;
+- migrations, compatibility and negative fixtures.
 
-### Activity contract requirements
+### Core questions WP03 must resolve
 
-```text
-activity_id
-workspace_ref
-caller_or_owner_ref
-activity_kind
-intent_and_parameters_ref
-state_machine_name_and_version
-current_state_and_sequence
-dependency_edges
-priority_and_budgets
-created_started_completed timestamps
-current_attempt summaries
-result_refs
-failure_or_wait_reason
-privacy_retention_and_extensions
-```
+1. Object content identity versus logical revision identity.
+2. Whether identical bytes across different logical sources share one content record while retaining separate provenance/roles.
+3. Hash algorithm/version and multi-hash records without letting path/tag/name become identity.
+4. Original, child, View, Preview, Derivative and Artifact relationships.
+5. Detector disagreement and confidence without destructive type flattening.
+6. progressive decomposition and partial/failed/unsupported levels.
+7. Artifact promotion without copying/replacing Object identity.
+8. immutable Artifact Release, publication audience and provenance.
+9. storage Location/replica state, verification and movement.
+10. tombstone versus physical deletion while retained references still exist.
+11. production and proof correlation through WP02 Receipts.
+12. exact migration/compatibility behavior for saved Objects/Artifacts.
 
-Activity is caller-visible durable work. It is not a Temporal workflow ID, queue job, process, container, browser task or scanner run ID.
+### WP03 minimum proof cases
 
-### Operation contract requirements
-
-```text
-operation_id
-activity_ref
-operation_kind
-logical_target_refs
-idempotency_class
-idempotency_key_or_nonce
-preconditions
-authority_and_permission refs
-side_effect_class
-expected_receipt_and_readback
-retry_policy
-```
-
-Operation is one logical side effect or observation. Retries preserve Operation identity.
-
-### Attempt contract requirements
-
-```text
-attempt_id
-operation_ref
-attempt_number
-node_provider_workload_generation refs
-connection_epoch
-started_completed timestamps
-physical backend aliases
-outcome
-receipt_refs
-resource_usage
-```
-
-Attempt is one physical execution try. Every retry creates a new Attempt.
-
-### Event contract requirements
-
-The Event envelope must include:
-
-```text
-event_id
-event_domain
-event_type
-event_version
-source_ref
-subject_ref
-activity_operation_attempt refs
-provider_workload generations
-connection_epoch
-occurred_at
-observed_at
-sequence_or_cursor
-payload_schema_id_and_ref
-privacy_and_retention
-```
-
-Event is notification/history input. It is not automatically a Receipt or authoritative state.
-
-### Receipt contract requirements
-
-Receipt must bind:
-
-```text
-receipt_id
-producer_and_authority class
-activity_operation_attempt
-nonce_or_idempotency key
-node_provider_workload generations
-connection_epoch
-subject_and_result refs
-proof_level
-observed facts
-limitations
-signature_or_integrity refs
-occurred_at
-received_at
-```
-
-Receipts are append-only evidence. A Receipt cannot silently mutate Activity state without accepted transition/reconciliation rules.
-
-### Initial Activity lifecycle
-
-Candidate states remain:
-
-```text
-queued
-preparing
-running
-waiting
-paused
-resuming
-completed
-failed
-cancelled
-detached
-recovering
-```
-
-WP02 must specify exact allowed transitions, authorities, preconditions, retry/recovery semantics and proof requirements.
-
-### Required failure and recovery distinctions
-
-- provider unavailable;
-- waiting for dependency;
-- waiting for human/manual action;
-- retryable attempt failure;
-- non-idempotent retry blocked;
-- cancellation requested versus acknowledged versus completed;
-- disconnected versus detached;
-- recovering versus resumed;
-- Activity completed versus output verified versus caller accepted;
-- late current-generation Receipt versus stale-generation evidence;
-- missing Event versus fresh snapshot/reconciliation.
-
-### WP02 safety-net proof
-
-At minimum:
-
-1. ten unrelated Activities run independently;
-2. one failed Attempt does not fail unrelated Activities;
-3. retry creates a new Attempt without duplicating a non-idempotent side effect;
-4. wrong nonce/Operation/Attempt/generation/epoch Receipt is rejected;
-5. late valid current-generation completion is reconciled after reconnect;
-6. stale generation/epoch output is retained but cannot update current state;
-7. Event loss does not erase durable Activity truth;
-8. telemetry loss does not erase proof-critical Receipts;
-9. cancellation races preserve exact result;
-10. completed/verified/accepted remain separate;
-11. Review/Verdict remains separate from external authoritative result;
-12. crash/restart reconstructs Activity state and attempt history.
+- identical bytes from two sources retain content deduplication and distinct provenance;
+- same logical Object receives a new immutable Revision without rewriting the prior one;
+- detector disagreement remains visible;
+- View/Preview/Derivative cannot replace the original;
+- child extraction records exact parent/revision/range/tool/Activity evidence;
+- partial decomposition does not claim complete coverage;
+- Artifact role references exact Object(s) and producing Activity/Operation/Attempt/Receipts;
+- mutable path/tag/location cannot become content identity;
+- corrupted/missing replica is retained as a location state and repaired from a verified replica;
+- shared bytes are not physically deleted while retained Objects/Artifacts reference them;
+- public Artifact Release cannot leak restricted source/evidence;
+- backend replacement preserves Object/Artifact identities.
 
 ---
 
 # Ordered Phase 0B sequence
 
-1. **0B-WP01** — common identity/versioning/typed families. **CANDIDATE COMPLETE**
-2. **0B-WP02** — Activity/Operation/Attempt/Event/Receipt/proof. **ACTIVE**
-3. **0B-WP03** — Object/Revision/View/Artifact/storage relationships.
-4. **0B-WP04** — Node/Facility/Provider/capability/health.
-5. **0B-WP05** — Workspace/Session/checkpoint/recovery.
-6. **0B-WP06** — transfer/sync/conflict/backup.
-7. **0B-WP07** — Recipe/Build/provenance/SBOM/signature/verification.
-8. **0B-WP08** — Domain Pack/firmware/disk/Device.
-9. **0B-WP09** — Application/Browser/semantic UI/Shell.
-10. **0B-WP10** — knowledge/data/Package/Plugin.
-11. **0B-WP11** — isolation/placement/reservation/lease/secure grants.
-12. **0B-WP12** — security/Finding/Claim/Evidence/reproduction.
-13. **0B-WP13** — migrations and executable conformance harness.
-14. **0B-WP14** — golden/negative corpus and proof-plan freeze.
+1. 0B-WP01 — common identity/versioning/typed families. **CANDIDATE COMPLETE**
+2. 0B-WP02 — Activity/Operation/Attempt/Event/Receipt/proof. **CANDIDATE COMPLETE**
+3. 0B-WP03 — Object/Revision/View/Artifact/storage relationships. **ACTIVE**
+4. 0B-WP04 — Node/Facility/Provider/capability/health.
+5. 0B-WP05 — Workspace/Session/checkpoint/recovery.
+6. 0B-WP06 — transfer/sync/conflict/backup.
+7. 0B-WP07 — Recipe/Build/provenance/SBOM/signature/verification.
+8. 0B-WP08 — Domain Pack/firmware/disk/Device.
+9. 0B-WP09 — Application/Browser/semantic UI/Shell.
+10. 0B-WP10 — knowledge/data/Package/Plugin.
+11. 0B-WP11 — isolation/placement/reservation/lease/secure grants.
+12. 0B-WP12 — security/Finding/Claim/Evidence/reproduction.
+13. 0B-WP13 — migrations and executable conformance harness.
+14. 0B-WP14 — golden/negative corpus and proof-plan freeze.
 15. Phase 0B review/freeze and Phase 0C readiness decision.
 
 ---
 
-# Parked and restricted items
+# Parked/restricted items
 
-The parked/restricted Phase 0A items remain non-blocking and retain their recorded reopening criteria:
-
-- `.P5C`;
-- shared cross-Node POSIX filesystems;
-- MiniRouter licence;
-- Dify modified-licence integration;
-- exact GNOME Ponytail dependency selection;
-- non-GNOME Wayland input completion;
-- unaudited private device-manager source;
-- `chrisipanaque` prototype reuse;
-- missing `amertoglu16.github.io` source;
-- donor source without a clear compatible licence;
-- final public Ptah project licence.
-
-Detailed audit:
-
-- `work-packages/PHASE-0A-CROSS-REQUIREMENT-CONSISTENCY-REVIEW.md`
-- `DONOR_RECOVERY.md`
+The Phase 0A parked/restricted items remain non-blocking and retain recorded reopening criteria, including `.P5C`, shared POSIX filesystems, MiniRouter licence, Dify modified licence, Ponytail/non-GNOME Wayland completion, unaudited private device source, prototype repos without clear licences/proof, missing `amertoglu16` source, and final public Ptah project licence.
 
 ---
 
@@ -309,37 +189,34 @@ Detailed audit:
 
 Allowed now:
 
-- contract/schema/state-machine design;
+- contracts, schemas and state machines;
 - migration/compatibility design;
-- conformance and fixture design;
-- proof-plan design;
-- public/private schema boundaries;
-- Phase 0C dependency/licence inputs.
+- conformance and lawful fixture design;
+- proof plans and public/private export boundaries.
 
 Not allowed yet:
 
-- runtime or large UI implementation;
-- donor-source copying/adaptation;
-- production dependency selection/distribution;
-- Node/Provider/browser/scanner/scheduler deployment;
-- public registry activation;
-- presenting candidate contracts as built or proven.
+- runtime or UI implementation;
+- donor-source reuse;
+- production dependency/backend selection;
+- deployment of Nodes, Providers, browsers, scanners or schedulers;
+- presenting candidates as built or proven.
 
-Implementation begins only after Phase 0C approval is recorded in this file.
+Implementation begins only after Phase 0C approval is recorded here.
 
 ---
 
 # Chat continuation instruction
 
-Read this file first, followed by:
+Read this file first, then:
 
-1. `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`;
-2. `work-packages/PHASE-0B-WP01-COMMON-IDENTITY-VERSIONING-TYPED-FAMILIES.md`;
-3. `contracts/PHASE-0B-COMMON-CONTRACT-CONVENTIONS.md`;
-4. `schemas/phase-0b/common/schema-catalog.v0.1.0.json`;
-5. `decisions/ADR-0003-ACTIVITY-EVENT-OBSERVABILITY-BOUNDARY.md`;
-6. `decisions/ADR-0004-OPERATION-RECEIPTS-PROOF-LEVELS.md`;
-7. `work-packages/PHASE-0B-ENTRY-CONTRACT-PROOF-INPUTS.md`;
-8. `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md` and `REQUIREMENT_CLOSURE_MATRIX.md`.
+1. `decisions/ADR-0019-ACTIVITY-OPERATION-ATTEMPT-EVENT-RECEIPT-PROOF-BOUNDARY.md`;
+2. `work-packages/PHASE-0B-WP02-ACTIVITY-EVENT-RECEIPT-PROOF.md`;
+3. `schemas/phase-0b/activity/schema-catalog.v0.1.1.json`;
+4. `contracts/PHASE-0B-WP02-ACTIVITY-EVENT-PROOF-CONVENTIONS.md`;
+5. `decisions/ADR-0006-STORAGE-TRANSFER-SYNC-BOUNDARY.md`;
+6. `decisions/ADR-0007-OBJECT-GRAPH-DECOMPOSITION-DERIVATIVE-BOUNDARY.md`;
+7. `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`;
+8. `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md`, `REQUIREMENT_CLOSURE_MATRIX.md`.
 
 Do not restart donor research or implementation from conversational memory.
