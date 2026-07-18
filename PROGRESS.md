@@ -11,14 +11,14 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 # Phase 0A — Donor recovery and requirement closure
 
-**Status:** ACTIVE
+**Status:** ACTIVE — ARCHITECTURE SUBSYSTEMS CLOSED; CLEANUP/REVIEW REMAINS
 
 ## Repository and method control
 
 - [x] Private roadmap repository and public/private separation.
 - [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] ADR-0001 through ADR-0015 accepted and indexed.
+- [x] ADR-0001 through ADR-0016 accepted and indexed.
 - [-] Normalize remaining donor register and unresolved profiles.
 - [-] Save after every meaningful inspection unit.
 
@@ -129,7 +129,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] crun low-memory OCI runtime/library donor.
 - [x] Ray distributed Task/Actor/placement donor.
 - [x] existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer, lease/fencing and checkpoint foundations reused.
-- [x] internal THETECHGUY Node/worker/resource/deployment requirements incorporated through existing recovered architecture and constraints.
+- [x] internal THETECHGUY Node/worker/resource/deployment requirements incorporated.
 - [x] isolation-class and no-silent-weakening escalation model.
 - [x] Node/provider capability and resource snapshots.
 - [x] placement, candidate explanation, reservation, lease, generation and fencing model.
@@ -142,11 +142,32 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] ADR-0014 isolation/runtime/placement/scheduling boundary.
 - [x] Isolation/Distributed Placement Phase 0B design closure.
 
+### Security Assessment and Reproduction Workloads
+
+- [x] ReproZip environment capture/replay donor.
+- [x] ClaimBound evidence-card and bounded-claim donor.
+- [x] SparkDistill recipe/data/checkpoint/claim/recheck workload donor.
+- [x] Syft inventory/SBOM donor.
+- [x] Grype vulnerability-matching donor.
+- [x] GUAC supply-chain graph/enrichment donor.
+- [x] Semgrep source/static-analysis donor.
+- [x] Trivy vulnerability/configuration/secret/licence scanner donor.
+- [x] ZAP passive/active dynamic web/API donor.
+- [x] Strix optional agentic offensive-validation workload.
+- [x] Security Assessment Authorization, Plan, exact Target, machinery revision and Coverage model.
+- [x] Finding Observation versus Correlated Finding and disposition model.
+- [x] severity/confidence/exploitability/impact/release-policy separation.
+- [x] active/offensive isolation, network, credential, stop and cleanup boundary.
+- [x] Protocol Revision, Reproduction Run and bounded Evidence Card model.
+- [x] remediation proposal, re-test, independent review and regression model.
+- [x] `SEC-001` and `REPRO-001` closed for Phase 0B design.
+- [x] ADR-0016 and security/reproduction composition work package.
+
 ## Active remaining Phase 0A completion
 
 - [x] Linux AT-SPI semantic completion.
-- [-] Reproduction/security workloads and scanners.
-- [ ] research/documentation sources and unresolved profiles.
+- [x] Reproduction/security workloads and scanners.
+- [-] research/documentation sources and unresolved profiles.
 - [ ] cross-requirement Phase 0A review.
 - [ ] Phase 0A freeze/readiness decision for Phase 0B.
 
@@ -162,7 +183,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Human Workspace/UI.
 - [x] Knowledge/Data/Search/Plugin.
 - [x] Isolation/Distributed placement.
-- [-] Security/reproduction workloads.
+- [x] Security/reproduction workloads.
 - [ ] Phase 0A review and freeze.
 
 ---
@@ -180,6 +201,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] Browser Profile/Context/Page/evidence schemas.
 - [ ] Shell, Panel, Layout and human-control schemas.
 - [ ] Knowledge Source, Corpus, Index, Query, citation, data and plugin schemas.
+- [ ] Security Authorization, Finding, reproduction and Evidence Card schemas.
 - [ ] Session, checkpoint, credential and privacy schemas.
 - [ ] isolation, placement, reservation, lease, fencing, scheduler and secure-network schemas.
 - [ ] telemetry conventions and resource accounting.
