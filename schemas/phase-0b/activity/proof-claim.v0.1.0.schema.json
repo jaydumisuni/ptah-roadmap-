@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:proof-claim:0.1.0",
+  "title": "Ptah Proof Claim",
+  "description": "One bounded assertion made by a Receipt under a versioned proof-level definition.",
+  "x-ptah-schema-name": "activity.proof-claim",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "proof_level_definition_ref",
+    "proof_domain",
+    "proof_level",
+    "subject_refs",
+    "claim_summary",
+    "authority_class",
+    "observed_fact_refs",
+    "limitations",
+    "created_at",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "proof.proof_claim" } } }
+      ]
+    },
+    "proof_level_definition_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "proof_domain": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/proofDomain" },
+    "proof_level": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/proofLevel" },
+    "receipt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "subject_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "claim_summary": { "type": "string", "minLength": 1, "maxLength": 8192 },
+    "authority_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/receiptAuthorityClass" },
+    "observed_fact_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "inline_observed_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact_name", "fact_value"],
+        "properties": {
+          "fact_name": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+          "fact_value": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/smallPayload" },
+          "unit": { "type": "string", "maxLength": 64 },
+          "source_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 4096 }
+    },
+    "contradicts_claim_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "supersedes_claim_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "created_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "anyOf": [
+    { "properties": { "observed_fact_refs": { "minItems": 1 } } },
+    { "required": ["inline_observed_facts"], "properties": { "inline_observed_facts": { "minItems": 1 } } }
+  ]
+}
