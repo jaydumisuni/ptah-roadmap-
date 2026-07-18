@@ -1,0 +1,61 @@
+{
+  "catalog_id": "urn:ptah:schema-catalog:activity:0.1.1",
+  "catalog_version": "0.1.1",
+  "maturity": "candidate",
+  "created_at": "2026-07-18T00:00:00Z",
+  "supersedes_catalog": "urn:ptah:schema-catalog:activity:0.1.0",
+  "depends_on_catalogs": [
+    "urn:ptah:schema-catalog:common:0.1.0"
+  ],
+  "resolution_policy": {
+    "canonical_id_type": "absolute_urn",
+    "unknown_schema": "reject_or_preserve_without_interpretation",
+    "network_resolution_required": false,
+    "frozen_schema_mutation": "forbidden"
+  },
+  "superseded_candidate_schemas": [
+    {
+      "schema_id": "urn:ptah:schema:activity:activity-request:0.1.0",
+      "replacement_schema_id": "urn:ptah:schema:activity:activity-request:0.1.1",
+      "reason": "Mutable request state was normalized into a versioned state projection."
+    },
+    {
+      "schema_id": "urn:ptah:schema:activity:cancellation-request:0.1.0",
+      "replacement_schema_id": "urn:ptah:schema:activity:cancellation-request:0.1.1",
+      "reason": "Cancellation request lifecycle was separated from the Activity cancellation projection."
+    },
+    {
+      "schema_id": "urn:ptah:schema:activity:manual-action-request:0.1.0",
+      "replacement_schema_id": "urn:ptah:schema:activity:manual-action-request:0.1.1",
+      "reason": "Manual request state was normalized into a versioned state projection."
+    }
+  ],
+  "schemas": [
+    {"schema_id":"urn:ptah:schema:activity:definitions:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/definitions.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:request-definitions:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/request-definitions.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:activity-request:0.1.1","schema_version":"0.1.1","maturity":"candidate","repository_path":"schemas/phase-0b/activity/activity-request.v0.1.1.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:activity:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/activity.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:activity-dependency:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/activity-dependency.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:cancellation-request:0.1.1","schema_version":"0.1.1","maturity":"candidate","repository_path":"schemas/phase-0b/activity/cancellation-request.v0.1.1.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:manual-action-request:0.1.1","schema_version":"0.1.1","maturity":"candidate","repository_path":"schemas/phase-0b/activity/manual-action-request.v0.1.1.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:operation:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/operation.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:attempt:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/attempt.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:event-payload-type:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/event-payload-type.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:event:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/event.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:proof-level-definition:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/proof-level-definition.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:proof-claim:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/proof-claim.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:receipt:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/receipt.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:review:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/review.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:verdict:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/verdict.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:external-result:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/external-result.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:activity:reconciliation-run:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/activity/reconciliation-run.v0.1.0.schema.json"}
+  ],
+  "state_machines": [
+    {"state_machine_name":"activity_request.lifecycle","state_machine_version":"0.1.0","repository_path":"state-machines/phase-0b/activity-request-lifecycle.v0.1.0.json"},
+    {"state_machine_name":"activity.lifecycle","state_machine_version":"0.1.0","repository_path":"state-machines/phase-0b/activity-lifecycle.v0.1.0.json"},
+    {"state_machine_name":"cancellation_request.lifecycle","state_machine_version":"0.1.0","repository_path":"state-machines/phase-0b/cancellation-request-lifecycle.v0.1.0.json"},
+    {"state_machine_name":"manual_action_request.lifecycle","state_machine_version":"0.1.0","repository_path":"state-machines/phase-0b/manual-action-request-lifecycle.v0.1.0.json"},
+    {"state_machine_name":"operation.lifecycle","state_machine_version":"0.1.0","repository_path":"state-machines/phase-0b/operation-lifecycle.v0.1.0.json"},
+    {"state_machine_name":"attempt.lifecycle","state_machine_version":"0.1.0","repository_path":"state-machines/phase-0b/attempt-lifecycle.v0.1.0.json"}
+  ]
+}
