@@ -1,7 +1,7 @@
 # Ptah Requirement Closure Matrix
 
 **Phase:** 0A  
-**Status:** POPULATING — CORE THROUGH HUMAN WORKSPACE SHELL CLOSED FOR DESIGN
+**Status:** POPULATING — CORE THROUGH KNOWLEDGE/DATA/SEARCH/PLUGIN CLOSED FOR DESIGN
 
 This file maps Ptah requirements to internal evidence, composite donors, native ownership, exit strategy and proof.
 
@@ -17,9 +17,9 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 |---|---|---|---|---|
 | CORE-001 | Persistent Workspace model | Workspace Provider | Daytona, Coder, E2B, Dev Containers, DevPod, local/OCI providers | WP02, ADR-0001 |
 | CORE-002 | Concurrent Activity runtime | Activity Ledger | Temporal, NATS/JetStream, OTel and internal runtime/evidence systems | WP02, ADR-0003/0004 |
-| CORE-003 | Universal Object graph | Object/Claim/Relationship/View contracts | internal recovery tools plus archive/document/binary/media/firmware parsers | WP05/06, ADR-0007/0008 |
-| CORE-004 | Facility, Domain Pack and UI-contribution host foundation | Facility/Contribution manifests | OpenClaw/OpenHands/MCP, internal specialist bridges, parser/runtime/browser/shell adapters | WP02–WP09 |
-| CORE-005 | Node Protocol and capabilities | Node Protocol | OpenClaw, provider agents, NATS, OTel, Device/Application/Browser Providers | WP01/02/07/08 |
+| CORE-003 | Universal Object graph plus knowledge-source/document extensions | Object/Claim/Relationship/View and Knowledge Source contracts | internal recovery tools, decomposition donors, Hunter, RAGFlow and LlamaIndex | WP05/06/10, ADR-0007/0008/0013 |
+| CORE-004 | Facility, Domain Pack, UI and plugin contribution host | Facility/Contribution/Package manifests | OpenClaw/OpenHands/MCP, Deno, ClawHub, internal specialist bridges and UI/runtime adapters | WP02–WP10 |
+| CORE-005 | Node Protocol and capabilities | Node Protocol | OpenClaw, provider agents, NATS, OTel and Device/Application/Browser Providers | WP01/02/07/08 |
 | RELAY-001 | Live Events | Event Fabric | NATS/JetStream, OTel, internal bridge/outbox and runtime streams | WP02 |
 | RELAY-002 | Durable recovery | Activity Ledger/checkpoints/receipts | Temporal, SQL, provider snapshots and internal workflows/outbox | WP02 |
 | EXEC-001 | Terminal/process supervision | Process/PTY Facility | OS APIs, OpenClaw, Coder, E2B/OpenHands and internal workers | WP02 |
@@ -27,7 +27,7 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 | EXEC-003 | Reproducible Build graph | Build Recipe/backend adapter | BuildKit, Dagger and internal Builder | WP03, ADR-0005 |
 | STORE-001–005 | Storage classes, Object storage, catalogue, hashing and Drive recovery | Storage/Object/Location contracts | local CAS, SQL, R2/S3, ORAS, rclone and Drive | WP03/04 |
 | XFER-001–003 | Upload, download and cloud/Node transfer | Transfer Facilities | tusd, Lumi, aria2, rclone, Syncthing and browser handoff | WP04/08 |
-| SYNC-001 | Online/local revisions and conflicts | Revision/Conflict contracts | Hunter safe sync, Syncthing vectors and Object digests | WP04 |
+| SYNC-001 | Online/local revisions and conflicts | Revision/Conflict contracts | Hunter safe sync, Syncthing vectors and Object digests | WP04/10 |
 | DECOMP-001/002 | Detection and recursive decomposition | Detector and Domain Pack contracts | Tika, libarchive, Binwalk, LIEF, ffprobe, libvips and internal tools | WP05 |
 | DOC-001 | Document structure/render/proof | Document Domain Pack | Document Generator, Tika, Unstructured and renderers | WP05 |
 | MEDIA-001 | Video/audio | Media Domain Pack | Creative Studio and FFmpeg/ffprobe | WP05 |
@@ -43,66 +43,78 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 | BROWSE-001–003 | Persistent browser, rendered retrieval and evidence | Browser Provider/Profile/Context/Page/Evidence contracts | Playwright, Browser-Use, TurboWebFetch and Playwright MCP | WP08, ADR-0011 |
 | UI-001 | Human Workspace shell | Shell Client/Session, Panel and Layout contracts | Theia, Dockview, OpenVSCode/code-server, xterm.js and internal UI evidence | WP09, ADR-0012 |
 | UI-002 | Activity Centre, evidence and review | Activity/Evidence projection contracts | Activity Ledger, OTel, Receipts, Sergeant/MIBU patterns and runtime panels | WP09, ADR-0012 |
-| SESSION-001 | Checkpoint/archive/export/import/resume | Session manifest | Workspace, storage, VM, Device, Application, Browser and Shell checkpoints/projections | WP02–WP09 |
-| OBS-001 | Logs/metrics/traces/resource accounting | OTel conventions and human projections | OTel plus Build/runtime/device/application/browser/UI evidence | WP02–WP09 |
-| PROV-001 | Provenance/signing/proof bundles | Provenance/Verification graph | Witness, in-toto, Sigstore, ORAS, Syft and runtime/UI evidence | WP03–WP09 |
-| OFFLINE-001 | Intermittent Node operation | local journal/outbox and reconciliation | Event Fabric, revisions and runtime generations | WP02/04/07/08 |
+| SEARCH-001 | Unified source-grounded search and retrieval | Knowledge Source/Corpus/Document/Chunk/Index/Query/Result/Citation contracts | Hunter, LlamaIndex, RAGFlow, Browser Facility, native lexical/SQL search and MCP adapters | WP10, ADR-0013 |
+| DATA-001 | Structured datasets, tables and analytical Query Activities | Dataset/Table/Schema/Query/Transformation/Result contracts | Polars, DuckDB, Object/Artifact storage and Activity runtime | WP10, ADR-0013 |
+| PLUGIN-001 | Package/plugin discovery, install, activation, upgrade, rollback and removal | Package/Release/Installed Plugin/Activation contracts | ClawHub, OpenClaw, MCP, Deno, Dify patterns, OCI/Artifact/provenance machinery | WP10, ADR-0013 |
+| SESSION-001 | Checkpoint/archive/export/import/resume | Session manifest | Workspace, storage, VM, Device, Application, Browser, Shell, Knowledge and Plugin checkpoints/projections | WP02–WP10 |
+| OBS-001 | Logs/metrics/traces/resource accounting | OTel conventions and human projections | OTel plus Build/runtime/device/application/browser/UI/knowledge/data/plugin evidence | WP02–WP10 |
+| PROV-001 | Provenance/signing/proof bundles | Provenance/Verification graph | Witness, in-toto, Sigstore, ORAS, Syft and runtime/knowledge/plugin evidence | WP03–WP10 |
+| OFFLINE-001 | Intermittent Node operation | local journal/outbox and reconciliation | Event Fabric, revisions, runtime generations and local-first knowledge/index providers | WP02/04/07/08/10 |
 
 ## Closed-foundation notes
 
-- `PLUGIN-001` has closed Facility, Domain Pack, Build-module and UI-contribution foundations; complete discovery/install/upgrade/rollback remains WP10.
-- `DIST-001` has Node, Event, provider, Object-transfer, capability and UI foundations; scheduler quality and secure multi-Node placement remain open.
+- `DIST-001` has Node, Event, provider, Object-transfer, capability and UI foundations; scheduler quality, isolation selection and secure multi-Node placement remain open in WP11.
 - Linux semantic automation retains an AT-SPI completion gap.
 - JuiceFS/SeaweedFS are parked until measured shared-POSIX need.
 - `.P5C` is parked pending a lawful immutable sample or authoritative format/tool.
 - private device-manager modules that could not be audited remain an internal source-recovery gap.
 - Hunter Foreman is excluded from active shell reuse unless explicitly reintroduced.
+- Dify remains study-only or separately licensed because of its modified licence.
+- MiniRouter remains study-only until a repository licence is resolved and belongs to later routing evaluation.
 
 ---
 
-# Active WP10 — Knowledge, Data, Search and Plugin Composition
+# WP10 closure summary
 
-## SEARCH-001 — Unified source-grounded search and retrieval
+## SEARCH-001 — CLOSED FOR DESIGN
 
-**Status:** INTERNAL + RAGFLOW FIRST PASS COMPLETE; LLAMAINDEX ACTIVE
+- Source truth, derived indexes, Queries, Results, Citations and caller-owned memory are separate.
+- Source Objects/View revisions are authoritative; embeddings and indexes are rebuildable derived state.
+- Exact Citations bind to exact permitted source revisions and ranges.
+- LlamaIndex is the primary modular local foundation candidate; RAGFlow is an optional heavier Facility.
+- Backend conformance, freshness, deletion, tombstones, reconciliation and permissions are native Ptah responsibilities.
 
-- Internal foundation recovered: Hunter chat/knowledge/memory separation, approval, local-first sync, sync proof state, degraded retrieval and provider-adapter patterns.
-- Internal evidence: `internal/HUNTER-KNOWLEDGE-MEMORY-SEARCH.md`.
-- Primary end-to-end donor recovered: RAGFlow ingestion pipelines, dataset/document state, hybrid retrieval, metadata filtering, backend abstraction and deletion/reconciliation lessons.
-- RAGFlow evidence: `donors/RAGFLOW.md` pinned at `b7a3a2760f46dbdff1e0cce307bfb874944244b4`.
-- Active primary library donor: LlamaIndex.
-- Remaining completion: Dify knowledge/workflow patterns and Browser/Live Research source records.
-- Native gap: Knowledge Source, Corpus, Document, Chunk, Index Revision, Query, Result, Citation, freshness, permissions, deletion, ranking explanation and backend-conformance contracts.
-- Current invariant: Objects/Views and their revisions remain source truth; embeddings, chunks, indexes and retrieval caches are derived, versioned and replaceable.
+## DATA-001 — CLOSED FOR DESIGN
 
-## DATA-001 — Structured data, tables and database Activities
+- Ptah owns Dataset, Table, Column Schema, snapshot, Data Query, Transformation, Result and lineage identities.
+- Polars is the primary local lazy/streaming DataFrame engine candidate.
+- DuckDB is the primary embedded SQL analytical engine candidate.
+- Transactional databases remain separate Facilities.
 
-**Status:** INSPECTING DONORS
+## PLUGIN-001 — CLOSED FOR DESIGN
 
-- Primary direction: Polars plus SQL/database Facilities.
-- Completion: Object/Artifact storage, Build/Activity runtime and evidence contracts.
-- Native gap: Dataset/Table/Query/Transformation identities, schemas, lazy/eager execution, result Artifacts, lineage and resource controls.
+- Package, immutable Package Release, Installed Plugin, Activation and Registry Entry are separate.
+- Family, executes-code state, runtime class, permissions, resources, digest, signature, SBOM and provenance are explicit.
+- Discovery, scans and registry trust are evidence inputs rather than approval.
+- Deno is the lightweight runtime candidate; stronger isolation is selected by risk.
+- MCP is an external adapter, not Ptah's internal model.
+- Upgrade/migration/health/rollback and full removal cleanup are Activity-driven.
 
-## PLUGIN-001 — General Facility/plugin lifecycle
+Evidence:
 
-**Status:** INSPECTING DONORS
+- `work-packages/PHASE-0A-WP10-KNOWLEDGE-DATA-SEARCH-PLUGIN.md`
+- `decisions/ADR-0013-KNOWLEDGE-DATA-SEARCH-PLUGIN-BOUNDARY.md`
 
-- Foundation already closed: Facility manifests, Domain Packs, Build modules and UI contributions.
-- Primary completion: MCP specification/servers, OpenClaw/ClawHub patterns, Deno tool runtime and OCI/Artifact distribution.
-- Native gap: discovery, install, trust, permission, pin, health, activation, upgrade, migration, rollback, removal and replacement contracts.
+---
 
-## Knowledge and provider extensions
+# Active WP11 — Strong Isolation and Distributed Placement/Scheduling
 
-Resolve:
+## ISOLATION-001 — Runtime isolation classes and escalation
 
-- source permissions, freshness, revision and deletion;
-- embeddings/indexes as derived state rather than source truth;
-- citation binding to exact Object/View/source revisions;
-- local versus shared knowledge locations;
-- provider-neutral model/data interfaces;
-- external reasoning ownership;
-- Dify/Hermes/agent systems as optional callers/workloads rather than Ptah Core;
-- MCP as one adapter protocol rather than Ptah's internal object model.
+**Status:** ACTIVE
+
+- Primary donors: gVisor, Kata Containers and Firecracker.
+- OCI/runtime completion: containerd, youki and crun.
+- Native gap: runtime classes, threat/risk selection, host capability checks, network/credential/object scopes, checkpoint support, failure evidence and fallback.
+
+## DIST-001 — Distributed placement and scheduling
+
+**Status:** ACTIVE COMPOSITE CANDIDATE
+
+- Existing foundations: Node Protocol, Provider generations, Activity runtime, capability announcements, Object transfer, leases/fencing, checkpoints and UI projections.
+- Primary completion donor: Ray plus lower-level Node/provider scheduling patterns recovered during WP11.
+- MiniRouter is only a future routing/evaluation workload, not the scheduler or Core reasoning layer.
+- Native gap: resource/capability snapshots, reservation, placement, data gravity, locality, accelerator/cost policy, secure networking, rescheduling, recovery and degraded one-Node fallback.
 
 ---
 
@@ -110,8 +122,7 @@ Resolve:
 
 | Cluster | Status | Direction |
 |---|---|---|
-| Strong isolation | OPEN | gVisor, Kata, Firecracker, youki and crun |
-| Distributed placement | COMPOSITE CANDIDATE | Node/provider foundations exist; scheduler, leases and secure networking remain |
+| Strong isolation and distributed placement | ACTIVE | WP11: gVisor, Kata, Firecracker, youki, crun, Ray and native placement contracts |
 | Reproduction/security workloads | OPEN | SparkDistill, ClaimBound, ReproZip, GUAC, Strix, Semgrep, Trivy, ZAP and scanners |
 | Research/documentation sources | OPEN | unresolved profiles/catalogues and public documentation tooling |
 | Linux semantic UI | OPEN COMPLETION GAP | AT-SPI-specific donor pass |
@@ -120,8 +131,8 @@ Resolve:
 
 # Current conclusion
 
-Core runtime, Build/Artifact/Provenance, Storage/Transfer/Sync, Object/Decomposition, Firmware/Disk/Filesystem, Device/Application Runtime, Browser/Live Research and Human Workspace/UI are closed for **Phase 0B contract design**, not implementation.
+Core runtime, Build/Artifact/Provenance, Storage/Transfer/Sync, Object/Decomposition, Firmware/Disk/Filesystem, Device/Application Runtime, Browser/Live Research, Human Workspace/UI and Knowledge/Data/Search/Plugin are closed for **Phase 0B contract design**, not implementation.
 
-Active Phase 0A group: Knowledge, Data, Search and Plugin Composition (`WP10`) as recorded in `CURRENT_STATE.md`.
+Active Phase 0A group: Strong Isolation and Distributed Placement/Scheduling (`WP11`) as recorded in `CURRENT_STATE.md`.
 
 Phase 0A cannot close until every v1 requirement is `CLOSED FOR DESIGN`, explicitly parked, or rejected with a replacement.
