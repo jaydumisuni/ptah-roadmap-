@@ -1,0 +1,25 @@
+{
+  "state_machine_name": "cancellation_request.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.cancellation_request"],
+  "states": [
+    {"name":"requested","description":"Authorized cancellation request was durably created.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Subject, scope, cleanup class, reason and authority exist."]},
+    {"name":"acknowledged","description":"Control plane or current producer acknowledged the request.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Acknowledgement evidence is current and correlated."]},
+    {"name":"completing","description":"Cancellation and required cleanup/rollback actions are in progress.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Cleanup plan and current execution context are recorded."]},
+    {"name":"completed","description":"Cancellation reached the declared cleanup and termination boundary.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Decision outcome and cleanup/termination evidence exist."]},
+    {"name":"rejected","description":"Cancellation was not permitted or lost a completion race under policy.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Typed rejection/race outcome exists."]},
+    {"name":"expired","description":"Cancellation deadline elapsed before effect under declared policy.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Expiry authority/time and outcome exist."]}
+  ],
+  "initial_states": ["requested"],
+  "transitions": [
+    {"transition_name":"request","from_states":[null],"to_state":"requested","transition_class":"cancellation","authority_classes":["caller","workspace_owner","organization_policy","ptah_control_plane","human_operator"],"side_effecting":false,"required_preconditions":["Requestor has cancellation authority over exact subject/scope."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"acknowledge","from_states":["requested"],"to_state":"acknowledged","transition_class":"cancellation","authority_classes":["ptah_control_plane","ptah_node","provider","facility"],"side_effecting":false,"required_preconditions":["Current subject execution generation accepted cancellation handling."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"begin_completion","from_states":["requested","acknowledged"],"to_state":"completing","transition_class":"cancellation","authority_classes":["ptah_control_plane","ptah_node","provider","facility"],"side_effecting":false,"required_preconditions":["Cancellation or cleanup work is active."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"complete","from_states":["requested","acknowledged","completing"],"to_state":"completed","transition_class":"cancellation","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Declared cancellation boundary and cleanup requirements are satisfied."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"reject","from_states":["requested","acknowledged"],"to_state":"rejected","transition_class":"administrative","authority_classes":["ptah_control_plane","organization_policy"],"side_effecting":false,"required_preconditions":["Typed denial or completion-race outcome exists."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"expire","from_states":["requested","acknowledged","completing"],"to_state":"expired","transition_class":"expiry","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation deadline elapsed under policy."],"required_evidence_kinds":[],"required_receipt_proof_levels":[],"expiry_clock_authority":"ptah_control_plane"}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
