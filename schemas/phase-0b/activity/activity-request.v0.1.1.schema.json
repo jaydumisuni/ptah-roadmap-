@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:activity-request:0.1.1",
+  "title": "Ptah Activity Request",
+  "description": "Corrected candidate: pre-ledger caller submission with a versioned lifecycle projection.",
+  "x-ptah-schema-name": "activity.activity-request",
+  "x-ptah-schema-version": "0.1.1",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "lifecycle",
+    "requestor_ref",
+    "workspace_ref",
+    "activity_kind",
+    "intent_ref",
+    "priority",
+    "budgets",
+    "requested_proof_refs",
+    "submitted_at",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.activity_request" } } }
+      ]
+    },
+    "lifecycle": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/stateProjection" },
+        {
+          "properties": {
+            "state_machine_name": { "const": "activity_request.lifecycle" },
+            "state_machine_version": { "const": "0.1.0" },
+            "current_state": { "$ref": "urn:ptah:schema:activity:request-definitions:0.1.0#/$defs/activityRequestState" }
+          }
+        }
+      ]
+    },
+    "requestor_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "workspace_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "activity_kind": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+    "intent_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "parameter_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "target_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "priority": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/priority" },
+    "budgets": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/budget" },
+    "requested_proof_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "policy_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "idempotent_submission_key": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/keyToken" },
+    "submitted_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "expires_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "accepted_activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "decision_outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "decision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "supersedes_schema_ref": {
+      "type": "string",
+      "const": "urn:ptah:schema:activity:activity-request:0.1.0"
+    },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "const": "accepted" } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["accepted_activity_ref", "decision_outcome"] }
+    },
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "enum": ["rejected", "expired", "withdrawn"] } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["decision_outcome"] }
+    }
+  ]
+}
