@@ -1,43 +1,33 @@
 # Ptah Donor Recovery Register
 
 **Phase:** 0A  
-**Status:** ACTIVE  
-**Purpose:** determine what should be adopted, adapted, wrapped, forked, studied, hosted as a workload, rejected, or built natively before Ptah runtime implementation begins.
+**Status:** ARCHITECTURE RECOVERY COMPLETE — FINAL CONSISTENCY REVIEW ACTIVE  
+**Purpose:** determine what should be adopted, adapted, wrapped, hosted as a workload, studied, parked or rejected before Ptah implementation begins.
 
-This register begins from the approved external donor pool and the recovered internal repository pool. It must be expanded with file-level evidence during inspection.
+Detailed source evidence lives in `donors/`, `internal/`, `work-packages/` and `decisions/`. This register is the recovery/classification index and must not replace those records.
 
 ---
 
 # 1. Required donor record
 
-Every donor must eventually record:
+Every implementation donor must record:
 
-- repository name;
-- canonical URL;
-- owner or organisation;
-- contributor fork or snapshot, if relevant;
+- canonical repository URL and owner;
+- contributor fork/snapshot relationship where relevant;
 - default branch;
-- pinned commit SHA;
-- pinned release or tag;
-- licence;
-- primary language;
-- last meaningful update;
-- activity status: Active, Maintenance, Dormant, Archived, or Unknown;
-- Ptah tier and subsystem;
-- requirements supported;
-- verified capabilities;
-- exact directories and files studied;
+- pinned commit or release;
+- licence and transitive/component licence concerns;
+- primary language and meaningful activity status;
+- Ptah tier, subsystem and requirements supported;
+- exact files/components inspected;
+- verified capabilities and limitations;
 - architecture patterns to borrow;
-- code potentially reusable;
-- code or behavior that must not be inherited;
-- known limitations;
-- security concerns;
-- dependency and maintenance risks;
-- integration approach;
-- licence compatibility decision;
-- replacement or exit strategy;
-- validation activity;
-- evidence collected;
+- code potentially reusable and code/behavior that must not be inherited;
+- security, dependency and maintenance risks;
+- integration classification;
+- native Ptah boundary;
+- replacement/exit strategy;
+- validation activity and evidence;
 - final recommendation.
 
 Integration classifications:
@@ -50,6 +40,8 @@ Integration classifications:
 - Architecture study only
 - Workload running inside Ptah
 - Research source only
+- Documentation/presentation tool only
+- Parked with reopening criteria
 - Reject
 - Further inspection required
 
@@ -57,135 +49,138 @@ Integration classifications:
 
 # 2. Inspection rule
 
-A donor is not considered inspected from its README alone.
+A donor is not inspected from its README alone.
 
-Minimum inspection:
+Minimum implementation-donor inspection:
 
 1. repository metadata and canonical upstream;
 2. licence;
-3. active branch or release;
-4. source tree;
-5. architecture and runtime entry points;
-6. persistence model;
-7. concurrency model;
-8. error and recovery behavior;
-9. tests and CI;
-10. exact Ptah boundary;
-11. proof against the relevant Ptah requirement.
+3. active branch/release and exact pin;
+4. source tree and runtime entry points;
+5. persistence and concurrency models where applicable;
+6. error, recovery and lifecycle behavior;
+7. tests/CI and live evidence where required;
+8. exact Ptah identity, authority and proof boundary;
+9. limitations and security review;
+10. replacement path and requirement proof.
+
+Research catalogues, profiles and documentation tools use a lighter classification inspection, but can never close runtime requirements.
 
 ---
 
-# 3. Foundation-grade inspection order
+# 3. Foundation-grade donor groups
 
-## Relay, nodes, activities, and control plane
+## Relay, Nodes, Activities and control plane — CLOSED FOR DESIGN
 
-1. `openclaw/openclaw`
-2. relevant OpenClaw organisation repositories, especially plugin, source-mirroring, MCP, Google, Git research, compatibility, and platform-control tools
-3. `temporalio/temporal` and one likely Ptah SDK
-4. `nats-io/nats-server`, JetStream, CLI, and likely clients
-5. `open-telemetry/opentelemetry-collector`, contrib, and specification
+Primary inspected composition:
 
-## Workspace and environment model
+- `openclaw/openclaw` and relevant ecosystem patterns;
+- `temporalio/temporal` and SDK behavior;
+- `nats-io/nats-server`/JetStream and clients;
+- OpenTelemetry specification/collector/contrib;
+- internal Hunter, Sergeant and local runtime/evidence foundations.
 
-6. `daytonaio/daytona`
-7. `e2b-dev/E2B`
-8. `e2b-dev/desktop`
-9. `coder/coder`
-10. `All-Hands-AI/OpenHands`
-11. Dev Container specification and provider implementations
-12. Eclipse Theia and optional OpenVSCode Server
-13. Apache Guacamole or equivalent remote-display gateway
+Closed through WP01/WP02, ADR-0001 through ADR-0004 and detailed donor/internal records.
 
-## Runtime, builds, and isolation
+## Workspace and environment model — CLOSED FOR DESIGN
 
-14. `containerd/containerd`
-15. OCI runtime, image, and distribution specifications
-16. `moby/buildkit`
-17. `dagger/dagger`
-18. `moby/moby` and `docker/cli` boundaries
-19. `google/gvisor`
-20. `kata-containers/kata-containers`
-21. `firecracker-microvm/firecracker`
-22. `youki-dev/youki`
-23. `containers/crun`
+Primary inspected composition:
 
-## Provenance and artifact integrity
+- `daytonaio/daytona`;
+- `e2b-dev/E2B` and `e2b-dev/desktop`;
+- `coder/coder`;
+- `All-Hands-AI/OpenHands`;
+- Dev Container specification/providers;
+- native and OCI Workspace Providers.
 
-24. `in-toto/witness`
-25. `in-toto/in-toto`
-26. `sigstore/cosign`, Rekor, Fulcio, and Sigstore
-27. `oras-project/oras` and `oras-go`
-28. `guacsec/guac`
-29. `anchore/syft`
-30. `anchore/grype`
-31. `aquasecurity/trivy`
+Closed through WP01/WP02.
+
+## Runtime, Builds and isolation — CLOSED FOR DESIGN
+
+Primary inspected composition:
+
+- `containerd/containerd`;
+- OCI runtime/image/distribution specifications;
+- `moby/buildkit`;
+- `dagger/dagger`;
+- `moby/moby` and `docker/cli` boundary study;
+- `google/gvisor`;
+- `kata-containers/kata-containers`;
+- `firecracker-microvm/firecracker`;
+- `youki-dev/youki`;
+- `containers/crun`;
+- full-VM fallback direction.
+
+Closed through WP03/WP11, ADR-0005 and ADR-0014.
+
+## Provenance, Artifact integrity and security evidence — CLOSED FOR DESIGN
+
+Primary inspected composition:
+
+- `in-toto/witness`;
+- `in-toto/in-toto`;
+- Sigstore/Cosign/Rekor/Fulcio;
+- ORAS/OCI Artifact machinery;
+- `anchore/syft`;
+- `anchore/grype`;
+- `guacsec/guac`;
+- `aquasecurity/trivy`;
+- `semgrep/semgrep`;
+- `zaproxy/zaproxy`;
+- `usestrix/strix` as an optional workload;
+- ClaimBound, ReproZip and SparkDistill proof/reproduction patterns.
+
+Closed through WP03, the security/reproduction work package, ADR-0005 and ADR-0016.
 
 ---
 
-# 4. Facility-grade inspection order
+# 4. Facility-grade donor groups
 
-## Browser and live research
+## Browser and live research — CLOSED FOR DESIGN
 
-- `microsoft/playwright`
-- `microsoft/playwright-mcp`
-- `browser-use/browser-use`
-- `aza-ali/turbowebfetch`
+- `microsoft/playwright`;
+- `microsoft/playwright-mcp`;
+- `browser-use/browser-use`;
+- `aza-ali/turbowebfetch`.
 
-Primary questions:
+Closed through WP08 and ADR-0011.
 
-- persistent contexts and authenticated profiles;
-- concurrency and warm pools;
-- interactive and headless use;
-- tracing, screenshots, recording, downloads, network, and console events;
-- reconnect and recovery;
-- neutral browser activity contract.
+## Transfer, synchronization and backup — CLOSED FOR DESIGN
 
-## Transfer, synchronization, and backup
-
-- internal Download Manager source when recovered;
+- internal Download Manager/Lumi evidence;
 - `aria2/aria2`;
 - `tus/tusd`;
 - `rclone/rclone`;
 - `syncthing/syncthing`;
 - `restic/restic`.
 
-Primary questions:
+Closed through WP04 and ADR-0006.
 
-- resumable transfer;
-- segmented and multi-source transfer;
-- queue persistence;
-- partial-file recovery;
-- browser handoff;
-- local, R2/S3, Drive, and node transport;
-- deduplication and hash verification;
-- reusable engine boundary versus product UI.
-
-## Android and physical devices
+## Android and physical devices — CLOSED FOR DESIGN
 
 - `DeviceFarmer/stf`;
 - `DeviceFarmer/adbkit`;
 - `DeviceFarmer/minicap`;
 - `DeviceFarmer/minitouch`;
-- `appium/appium`;
-- `appium/appium-uiautomator2-driver`;
+- Appium core and platform drivers;
 - `Genymobile/scrcpy`;
-- Android ADB/Fastboot source;
-- Android UIAutomator source;
-- `touchpilot/touchpilot` and `tmimmanuel/touchpilot` relationship;
-- internal Device Manager, MIBU, ADB, Fastboot, MTP, META, USB/serial, SPD/Unisoc, and Qualcomm work.
+- Android ADB/Fastboot/UIAutomator sources;
+- `touchpilot/touchpilot` relationship;
+- internal Device Manager, MIBU, ADB, Fastboot, MTP, META, USB/serial, Qualcomm and SPD/Unisoc work.
 
-Primary questions:
+Closed through WP07A and ADR-0009.
 
-- device discovery and state;
-- remote screen and input;
-- semantic UI hierarchy;
-- application install and operation;
-- device booking/ownership state;
-- unstable USB recovery;
-- logs, recordings, and activity correlation;
-- generic facility versus specialist repair operations.
+## Application runtime and semantic UI — CLOSED FOR DESIGN
 
-## General decomposition
+- Xpra, Guacamole, noVNC and VM/native provider machinery;
+- Windows/macOS/iOS automation/runtime donors;
+- AT-SPI/libatspi;
+- Dogtail testing patterns;
+- GNOME Ponytail as one GNOME-Wayland input adapter.
+
+Closed through WP07B, Linux semantic completion and ADR-0010/ADR-0015.
+
+## General decomposition — CLOSED FOR DESIGN
 
 - `libarchive/libarchive`;
 - Apache Tika;
@@ -196,157 +191,161 @@ Primary questions:
 - Apktool;
 - `libvips/libvips`;
 - FFmpeg/ffprobe;
-- internal App Recover;
-- internal APK Extractor.
+- internal App Recover/APK Extractor and related tools.
 
-Primary questions:
+Closed through WP05 and ADR-0007.
 
-- true-type detection;
-- progressive and streaming decomposition;
-- recursive child objects;
-- source/resource/raw separation;
-- executable structures;
-- embedded payloads;
-- media and image derivatives;
-- rebuild proof levels.
-
-## Firmware, disks, and filesystems
+## Firmware, disks and filesystems — CLOSED FOR DESIGN
 
 - `blacktop/ipsw`;
-- MTKClient and internal MTK work;
+- MTKClient and internal MTK/META evidence;
 - Qualcomm EDL/Firehose donors and internal Qualcomm work;
-- Android `payload.bin` extraction tools;
-- Unisoc PAC/FDL parsers and internal Unisoc work;
-- GPT/MBR and sparse image tools;
-- Android dynamic-partition tools;
-- libguestfs and filesystem-specific tools;
-- embedded firmware tooling.
+- Unisoc PAC/FDL sources and internal work;
+- AOSP OTA/image/dynamic-partition tools;
+- Samsung/vendor-specific completion donors;
+- libfdisk, libguestfs and filesystem tooling.
 
-Required families:
+Closed through WP06 and ADR-0008.
 
-- Apple IPSW/OTA/IMG4;
-- MediaTek scatter/DA/preloader;
-- Unisoc PAC/FDL/NV;
-- Qualcomm MBN/ELF/Firehose/rawprogram/patch/content XML;
-- generic Android OTA, boot images, vbmeta, sparse images, and super;
-- Samsung, Huawei/Honor, LG, Sony, OPPO/Realme/OnePlus;
-- embedded and router firmware;
-- unknown/plugin-based formats including P5C after a real sample or verified tool is recovered.
+`.P5C` remains parked pending a lawful verified sample, specification or parser.
 
-## Knowledge, data, and application platforms
+## Knowledge, data, search and plugins — CLOSED FOR DESIGN
 
 - `infiniflow/ragflow`;
 - `run-llama/llama_index`;
-- `langgenius/dify`;
+- `langgenius/dify` with modified-licence restriction;
 - `pola-rs/polars`;
+- DuckDB;
 - `denoland/deno`;
-- database and search-engine candidates.
+- MCP specification/reference servers;
+- ClawHub/OpenClaw plugin lifecycle;
+- Hunter/internal knowledge and sync foundations.
 
-These may supply connectors, ingestion, indexing, workflow, data, or workload patterns. They must not replace Ptah Core.
+Closed through WP10 and ADR-0013.
 
-## Security workloads
+## Human Workspace shell and presentation — CLOSED FOR DESIGN
 
-- upstream `usestrix/strix` and contributor fork `josh45-source/strix`;
-- `semgrep/semgrep`;
-- `aquasecurity/trivy`;
-- `zaproxy/zaproxy`.
+- Eclipse Theia;
+- Dockview;
+- xterm.js;
+- optional OpenVSCode Server/code-server Applications;
+- internal Hunter/Sergeant/MIBU/Device Manager/site UI patterns.
 
-These are workloads and stress tests unless a smaller neutral component is deliberately extracted.
+Closed through WP09 and ADR-0012.
+
+## Distributed placement and Compute Facilities — CLOSED FOR DESIGN
+
+- Ray as an optional trusted Compute Facility;
+- existing Node, Activity, Object transfer, lease/fence and checkpoint machinery;
+- MiniRouter only as a future routing/evaluation workload.
+
+Closed through WP11 and ADR-0014.
 
 ---
 
-# 5. Experimental, routing, and proof donors
+# 5. Experimental, routing and proof sources
 
 ## MiniRouter
 
-Canonical project currently expected at `mini-router/minirouter`, with `tmimmanuel/minirouter` preserved as a contributor snapshot/fork.
-
-Study for:
-
-- coordinator/worker separation;
-- low-cost routing;
-- activity-state progression;
-- worker validation;
-- oracle-ceiling diagnostics;
-- measurement of routing value rather than assumed value.
-
-Do not make MiniRouter Ptah’s reasoning layer.
+- Canonical repository: `mini-router/minirouter`.
+- Contributor/discovery lineage: `tmimmanuel` profile and competition site.
+- Classification: future routing/evaluation workload only.
+- Source reuse remains blocked until repository licence is resolved.
+- Never Ptah's reasoning layer, global scheduler or security authority.
 
 ## SparkDistill
 
-Canonical project currently expected at `gittensor-model-hub/SparkDistill`, with `tmimmanuel/SparkDistill` preserved as a contributor snapshot/fork.
+- Canonical repository: `gittensor-model-hub/SparkDistill`.
+- Classification: optional AI-training/reproduction workload.
+- Recipe, dataset, checkpoint, claim, attestation and recheck remain separate.
+- Model/dataset/provider rights require independent review.
 
-Study for:
+## ClaimBound
 
-- pinned recipes and datasets;
-- independent reproduction;
-- hashes and manifests;
-- immutable ledgers;
-- cryptographically bound claims;
-- validator workers;
-- GPU capability evidence.
-
-## NeoZorK and ClaimBound
-
-Inspect actual ClaimBound, replay, benchmark, and simulation repositories.
-
-Study for:
-
-- pre-registration;
-- frozen targets and gates;
-- source lineage;
-- honest claim boundaries;
-- negative-result retention;
-- replay and shadow modes.
-
-The profile README is a discovery source, not reusable runtime code.
+- Canonical repository: `ClaimBound/claimbound-evidence`.
+- Classification: bounded-claim/evidence-card donor.
+- Cards are Views, not certification, Activity truth or universal proof.
 
 ## ReproZip
 
-Study for dependency capture, reproducible packaging, and workload replay.
+- Canonical repository: `VIDA-NYU/reprozip`.
+- Classification: optional observed dependency capture/replay Facility.
+- Bundle creation is not reproduction proof.
+
+Detailed records exist in `donors/`.
 
 ---
 
-# 6. Research and documentation sources
+# 6. Research and documentation sources — RESOLVED
 
-- `aza-ali/awesome-ai-product-management` — research catalogue only;
-- `tmimmanuel/tmimmanuel` — discovery map only;
-- Chris Ipanaque profile — unresolved until actual implementation repositories are identified;
-- `amertoglu16/amertoglu16.github.io` — unresolved until source and functionality are recovered;
-- `aza-ali/github-readme-crisp-links` — public documentation tooling only;
-- MkDocs Material, Docusaurus, and Mermaid — documentation and diagrams.
+## Research/discovery
+
+- `aza-ali/awesome-ai-product-management`
+  - verified and pinned;
+  - CC0;
+  - optional Research Source only.
+
+- `tmimmanuel/tmimmanuel`
+  - discovery lineage only;
+  - referenced repositories assessed independently.
+
+- `chrisipanaque/chrisipanaque`
+  - correct Chris/Christiam Ipanaque identity resolved;
+  - profile is discovery lineage;
+  - representative prototypes remain parked for source reuse pending clear licences, deeper source inspection and independent proof.
+
+- `amertoglu16/amertoglu16.github.io`
+  - repository/site implementation not recovered;
+  - parked with reopening criteria;
+  - no Ptah subsystem assigned.
+
+Canonical record: `donors/RESEARCH-DISCOVERY-SOURCES.md`.
+
+## Documentation/presentation
+
+- `aza-ali/github-readme-crisp-links`
+  - verified, MIT;
+  - optional README SVG asset generator only.
+
+- `squidfunk/mkdocs-material`
+  - verified, MIT;
+  - primary lightweight documentation-site candidate, not selected.
+
+- `facebook/docusaurus`
+  - verified, MIT code with separately licensed docs;
+  - optional richer project-site alternative.
+
+- `mermaid-js/mermaid`
+  - verified, MIT;
+  - primary text-defined documentation-diagram candidate.
+
+Canonical record: `donors/DOCUMENTATION-PRESENTATION-TOOLS.md`.
+
+These tools never become Ptah Core, runtime proof or the Human Workspace shell.
 
 ---
 
 # 7. Internal donor pool
 
-Internal work defines real operating requirements and may contain reusable code, incomplete prototypes, binaries, research, or specialist engines.
+Internal work defines real operating requirements and may contain reusable code, incomplete prototypes, binaries, research or specialist engines.
 
-Inspect at minimum:
+Relevant projects include:
 
-- Hunter AI;
-- TechGuy Tool;
-- TechGuy DM;
-- TechGuy IMEI;
-- TechGuy ADB;
-- TechGuy Redirect;
-- TechGuy Repair;
-- TechGuy Installer;
-- TTG Device Manager;
-- TTG Enabler;
+- Hunter AI and voice/cloud/browser/website components;
+- TechGuy Tool, DM, IMEI, ADB, Redirect, Repair and Installer;
+- TTG Device Manager and TTG Enabler;
 - Android OTA Manager;
 - MIBU;
-- MTK META engine;
-- ADB, Fastboot, MTP, USB/serial, Qualcomm DIAG, and SPD/Unisoc engines;
+- MTK META, ADB, Fastboot, MTP, USB/serial, Qualcomm DIAG and SPD/Unisoc engines;
 - Pay Gateway;
 - Software Builder;
 - App Recover;
 - APK Extractor;
 - NETUNLOCKER;
 - ZTE generator;
-- voice, Cloudflare worker, website assistant, support, and technician workflows where they impose Ptah requirements.
+- support, technician, payment, deployment and synchronization workflows.
 
-Internal projects are not automatically adopted unchanged. Classify each relevant part as:
+Internal projects are not automatically adopted unchanged. Each relevant part is classified as:
 
 - reuse as-is;
 - wrap;
@@ -357,54 +356,39 @@ Internal projects are not automatically adopted unchanged. Classify each relevan
 - reject;
 - not yet recovered.
 
----
-
-# 8. Canonical corrections already identified
-
-- TurboWebFetch: `aza-ali/turbowebfetch`
-- Awesome AI Product Management: `aza-ali/awesome-ai-product-management`
-- GitHub README Crisp Links: `aza-ali/github-readme-crisp-links`
-- OpenClaw: `openclaw/openclaw`
-- TouchPilot upstream: `touchpilot/touchpilot`; contributor snapshot/fork: `tmimmanuel/touchpilot`
-- MiniRouter upstream: `mini-router/minirouter`; contributor snapshot/fork: `tmimmanuel/minirouter`
-- SparkDistill upstream candidate: `gittensor-model-hub/SparkDistill`; contributor snapshot/fork: `tmimmanuel/SparkDistill`
-- Strix upstream: `usestrix/strix`; contributor snapshot/fork: `josh45-source/strix`
-
-These relationships must still be pinned and compared before final adoption decisions.
+Private consumer details remain outside the public Ptah repository.
 
 ---
 
-# 9. Requirement Closure Matrix template
+# 8. Parked, blocked or restricted items
 
-For each Ptah v1 requirement record:
+| Item | State | Reopening criterion / consequence |
+|---|---|---|
+| `.P5C` | Parked | lawful immutable sample, authoritative specification or verified parser; v1 continues without it |
+| distributed shared POSIX filesystem | Parked | measured cross-Node POSIX need that Object transfer/cache cannot satisfy |
+| MiniRouter source reuse | Blocked | compatible repository licence and source review; evaluation remains optional |
+| Dify source integration | Restricted | separate licence treatment; study patterns or separately licensed deployment only |
+| GNOME Ponytail dependency approval | Open for Phase 0B selection | exact source pin, licence and deployment/security review |
+| non-GNOME Wayland semantic/input completion | Partial/parked | compositor-specific provider evidence; visual fallback remains v1 path |
+| unaudited private device-manager modules | Source-recovery gap | lawful source access and file-level inspection; existing public/native contracts remain |
+| `chrisipanaque` prototype reuse | Parked | exact repo gap, clear licence, tests/live proof and superiority to accepted composition |
+| `amertoglu16.github.io` | Parked | valid source/archive or recoverable implementation lineage |
+| any donor without clear root/component licence | Source reuse blocked | licence resolved before dependency/adaptation approval |
 
-| Field | Value |
-|---|---|
-| Requirement ID | |
-| Requirement | |
-| Phase | |
-| Internal evidence | |
-| Primary donor | |
-| Secondary/exit donor | |
-| Mature upstream machinery | |
-| Native Ptah gap | |
-| Public/private boundary | |
-| Licence decision | |
-| Integration classification | |
-| Validation activity | |
-| Evidence | |
-| Status | |
+The final Phase 0A review must confirm that every parked item has a non-blocking v1 path or is named as a true blocker.
 
 ---
 
-# 10. Phase 0A completion rule
+# 9. Final Phase 0A review
 
-Phase 0A is complete only when:
+Active work:
 
-- every v1 requirement has a closure path;
-- selected donors have canonical upstreams, pinned versions, licences, exact studied components, limitations, and exit strategies;
-- internal overlap is recovered;
-- code inheritance boundaries are clear;
-- native Ptah gaps are isolated;
-- implementation dependencies are selected by evidence rather than popularity;
-- the findings are reviewed and frozen.
+1. identity consistency across all ADRs/work packages;
+2. authority and permission consistency;
+3. state/proof-level consistency;
+4. lifecycle and deletion/recovery consistency;
+5. parked/rejected/blocked gap audit;
+6. Phase 0B schema, migration, conformance and proof-corpus enumeration;
+7. freeze/readiness decision.
+
+No runtime implementation or dependency selection is authorized until Phase 0C.
