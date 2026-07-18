@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:external-result:0.1.0",
+  "title": "Ptah Authoritative External Result",
+  "description": "Result whose semantic authority belongs to an external system or physical device.",
+  "x-ptah-schema-name": "activity.external-result",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "source_system_or_device_ref",
+    "source_result_alias_ref",
+    "source_authority_evidence_refs",
+    "activity_ref",
+    "operation_ref",
+    "attempt_ref",
+    "subject_refs",
+    "result_type",
+    "result_schema_id",
+    "result_schema_version",
+    "result_payload_class",
+    "occurred_at",
+    "retrieved_at",
+    "freshness_state",
+    "integrity_and_readback_refs",
+    "limitations",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "proof.external_result" } } }
+      ]
+    },
+    "source_system_or_device_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "source_result_alias_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "source_authority_evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "attempt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "subject_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "result_type": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+    "result_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "result_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "result_payload_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/eventPayloadClass" },
+    "inline_result": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/smallPayload" },
+    "result_payload_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "occurred_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "retrieved_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "fresh_until": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "freshness_state": {
+      "type": "string",
+      "enum": ["current", "stale", "expired", "unknown"]
+    },
+    "integrity_and_readback_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 4096 }
+    },
+    "supersedes_external_result_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "result_payload_class": { "const": "inline_small" } }, "required": ["result_payload_class"] },
+      "then": { "required": ["inline_result"] }
+    },
+    {
+      "if": { "properties": { "result_payload_class": { "enum": ["object_reference", "artifact_reference"] } }, "required": ["result_payload_class"] },
+      "then": { "required": ["result_payload_ref"] }
+    },
+    {
+      "if": { "properties": { "result_payload_class": { "enum": ["stream_reference", "none"] } }, "required": ["result_payload_class"] },
+      "then": false
+    }
+  ]
+}
