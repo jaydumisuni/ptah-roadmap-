@@ -64,12 +64,16 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 
 ## SEARCH-001 — Unified source-grounded search and retrieval
 
-**Status:** INSPECTING DONORS
+**Status:** INTERNAL + RAGFLOW FIRST PASS COMPLETE; LLAMAINDEX ACTIVE
 
-- Internal foundation: Hunter memory/learning/search/provider bridges and Object/Artifact catalogue requirements.
-- Primary donors: RAGFlow and LlamaIndex.
-- Completion: Dify knowledge/workflow patterns and Browser/Live Research source records.
-- Native gap: Knowledge Source, Corpus, Document, Chunk, Index Revision, Query, Result, Citation, freshness, permissions and deletion contracts.
+- Internal foundation recovered: Hunter chat/knowledge/memory separation, approval, local-first sync, sync proof state, degraded retrieval and provider-adapter patterns.
+- Internal evidence: `internal/HUNTER-KNOWLEDGE-MEMORY-SEARCH.md`.
+- Primary end-to-end donor recovered: RAGFlow ingestion pipelines, dataset/document state, hybrid retrieval, metadata filtering, backend abstraction and deletion/reconciliation lessons.
+- RAGFlow evidence: `donors/RAGFLOW.md` pinned at `b7a3a2760f46dbdff1e0cce307bfb874944244b4`.
+- Active primary library donor: LlamaIndex.
+- Remaining completion: Dify knowledge/workflow patterns and Browser/Live Research source records.
+- Native gap: Knowledge Source, Corpus, Document, Chunk, Index Revision, Query, Result, Citation, freshness, permissions, deletion, ranking explanation and backend-conformance contracts.
+- Current invariant: Objects/Views and their revisions remain source truth; embeddings, chunks, indexes and retrieval caches are derived, versioned and replaceable.
 
 ## DATA-001 — Structured data, tables and database Activities
 
