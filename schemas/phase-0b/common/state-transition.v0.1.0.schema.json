@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:common:state-transition:0.1.0",
+  "title": "Ptah State Transition Record",
+  "description": "Append-only candidate record for one accepted or rejected state-transition attempt.",
+  "x-ptah-schema-name": "common.state-transition",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "transition_id",
+    "subject_ref",
+    "state_machine_name",
+    "state_machine_version",
+    "sequence",
+    "from_state",
+    "to_state",
+    "transition_status",
+    "transition_reason",
+    "authority_ref",
+    "occurred_at",
+    "observed_at",
+    "precondition_evidence_refs",
+    "receipt_refs",
+    "extensions"
+  ],
+  "properties": {
+    "transition_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/uuidv7" },
+    "subject_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "state_machine_name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$"
+    },
+    "state_machine_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "sequence": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger" },
+    "from_state": {
+      "oneOf": [
+        { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        { "type": "null" }
+      ]
+    },
+    "to_state": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "transition_status": {
+      "type": "string",
+      "enum": ["accepted", "rejected"]
+    },
+    "transition_reason": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "authority_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "attempt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "expected_record_revision": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger" },
+    "resulting_record_revision": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger" },
+    "precondition_evidence_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "rejection_outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "occurred_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "observed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "transition_status": { "const": "accepted" } },
+        "required": ["transition_status"]
+      },
+      "then": {
+        "required": ["resulting_record_revision"],
+        "not": { "required": ["rejection_outcome"] }
+      },
+      "else": {
+        "required": ["rejection_outcome"],
+        "not": { "required": ["resulting_record_revision"] }
+      }
+    },
+    {
+      "if": {
+        "required": ["operation_ref"]
+      },
+      "then": {
+        "required": ["activity_ref"]
+      }
+    },
+    {
+      "if": {
+        "required": ["attempt_ref"]
+      },
+      "then": {
+        "required": ["activity_ref", "operation_ref"]
+      }
+    }
+  ]
+}
