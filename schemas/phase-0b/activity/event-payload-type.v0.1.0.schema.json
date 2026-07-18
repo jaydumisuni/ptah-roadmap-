@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:event-payload-type:0.1.0",
+  "title": "Ptah Event Payload Type Registration",
+  "description": "Versioned registration for one Event domain/type and its payload schema/default handling.",
+  "x-ptah-schema-name": "activity.event-payload-type",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "event_domain",
+    "event_type",
+    "event_version",
+    "payload_schema_id",
+    "payload_schema_version",
+    "event_class",
+    "default_retention_class",
+    "default_privacy_class",
+    "default_redaction_policy",
+    "max_inline_bytes",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "event.payload_type" } } }
+      ]
+    },
+    "event_domain": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)*$" },
+    "event_type": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+    "event_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "payload_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "payload_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "event_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/eventClass" },
+    "default_retention_class": {
+      "type": "string",
+      "enum": ["ephemeral", "operational", "historical", "proof_critical"]
+    },
+    "default_privacy_class": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/privacyClass" },
+    "default_redaction_policy": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/redactionAction" },
+    "max_inline_bytes": { "type": "integer", "minimum": 0, "maximum": 1048576 },
+    "allowed_source_entity_kinds": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityKind" },
+      "uniqueItems": true
+    },
+    "allowed_subject_entity_kinds": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityKind" },
+      "uniqueItems": true
+    },
+    "proof_notification_requires_receipt_ref": { "type": "boolean" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "event_class": { "const": "proof_notification" } }, "required": ["event_class"] },
+      "then": { "properties": { "proof_notification_requires_receipt_ref": { "const": true } }, "required": ["proof_notification_requires_receipt_ref"] }
+    }
+  ]
+}
