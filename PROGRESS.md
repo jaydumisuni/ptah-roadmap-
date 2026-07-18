@@ -11,18 +11,21 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 # Phase 0A — Donor recovery and requirement closure
 
-**Status:** ACTIVE — ARCHITECTURE AND SOURCE CLEANUP CLOSED; CROSS-REQUIREMENT REVIEW ACTIVE
+**Status:** COMPLETE AND FROZEN AT `7d2dffee48f1400ba1cf88823343f09a3895ad33`
 
 ## Repository and method control
 
 - [x] Private roadmap repository and public/private separation.
 - [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] ADR-0001 through ADR-0016 accepted and indexed.
+- [x] ADR-0001 through ADR-0017 accepted and indexed.
 - [x] Remaining donor register and unresolved-profile cleanup.
-- [-] Save after every meaningful inspection/review unit.
+- [x] Cross-requirement identity/authority/state/lifecycle review.
+- [x] Parked/restricted gap audit.
+- [x] Phase 0B schema, conformance and proof-corpus inputs enumerated.
+- [x] Phase 0A freeze/readiness decision.
 
-## Completed clusters
+## Closed clusters
 
 ### WP01–WP02 — Core runtime
 
@@ -82,110 +85,70 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 ### WP09 — Human Workspace Shell and Operator Interface
 
-- [x] Eclipse Theia.
-- [x] OpenVSCode Server and code-server compatibility paths.
-- [x] xterm.js terminal renderer.
-- [x] Dockview responsive layout candidate.
+- [x] Eclipse Theia, Dockview, xterm.js and optional coding Applications.
 - [x] internal Hunter/Sergeant/MIBU/Device Manager/website UI patterns.
-- [x] Ptah Home, Workspace switcher and Panel contract direction.
-- [x] multi-terminal, Browser, Device and Application panel direction.
-- [x] Activity Centre and Evidence Explorer.
+- [x] Ptah Home, Workspace switcher, Panel, Activity Centre and Evidence Explorer direction.
 - [x] human/automation focus and fenced control handoff.
-- [x] responsive desktop/tablet/phone layout direction.
-- [x] accessibility, keyboard, touch and reduced-motion requirements.
-- [x] honest lifecycle/proof labels.
+- [x] responsive desktop/tablet/phone and accessibility requirements.
 - [x] ADR-0012 and WP09.
-- [x] Human Workspace/UI Phase 0B design closure.
+- [x] Phase 0B design closure.
 
 ### WP10 — Knowledge, Data, Search and Plugin Composition
 
-- [x] Internal Hunter knowledge/memory/learning/search/provider foundations.
-- [x] RAGFlow end-to-end ingestion/retrieval platform donor.
-- [x] LlamaIndex modular connector/ingestion/retrieval donor.
-- [x] Dify workflow/application/plugin patterns and licence boundary.
-- [x] Polars DataFrame/lazy/streaming analytical engine.
-- [x] DuckDB embedded SQL analytical engine.
-- [x] Deno permission-scoped lightweight tool runtime.
-- [x] MCP specification and official reference-server adapter patterns.
-- [x] OpenClaw/ClawHub registry, manifest and plugin-lifecycle patterns.
-- [x] Hermes Agent classified as optional caller/workload.
-- [x] MiniRouter canonical repository recovered and moved to later routing evaluation; licence unresolved.
-- [x] Knowledge Source/Corpus/Document/Chunk and Index Revision model.
-- [x] ingestion, freshness, deletion, tombstone and reconciliation model.
-- [x] Query/Result/Citation and exact source-grounding boundary.
-- [x] search across Objects, Activities, Artifacts, Workspaces and external sources.
-- [x] Dataset/Table/Schema/Data Query/Transformation/Result direction.
+- [x] Hunter knowledge/memory/search/provider foundations.
+- [x] RAGFlow, LlamaIndex, Dify, Polars, DuckDB and Deno boundaries.
+- [x] MCP and OpenClaw/ClawHub adapter/registry patterns.
+- [x] Knowledge Source/Corpus/Document/Chunk/Index/Query/Result/Citation model.
+- [x] Dataset/Table/Schema/Query/Transformation/Result model.
 - [x] Package/Release/Installed Plugin/Activation lifecycle.
-- [x] provider-neutral model/data adapter and external-reasoning boundary.
-- [x] ADR-0013 and composite WP10 record.
-- [x] Knowledge/Data/Search/Plugin Phase 0B design closure.
+- [x] MiniRouter classified as optional future evaluation workload pending licence.
+- [x] ADR-0013 and WP10.
+- [x] Phase 0B design closure.
 
 ### WP11 — Strong Isolation and Distributed Placement/Scheduling
 
-- [x] gVisor userspace application-kernel/`runsc` isolation donor.
-- [x] Kata Containers VM-backed container/Workspace donor.
-- [x] Firecracker standalone microVM donor.
-- [x] youki baseline Rust OCI runtime donor.
-- [x] crun low-memory OCI runtime/library donor.
-- [x] Ray distributed Task/Actor/placement donor.
-- [x] existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer, lease/fencing and checkpoint foundations reused.
-- [x] internal THETECHGUY Node/worker/resource/deployment requirements incorporated.
-- [x] isolation-class and no-silent-weakening escalation model.
+- [x] gVisor, Kata, Firecracker, youki, crun and Ray.
+- [x] isolation-class and no-silent-weakening model.
 - [x] Node/provider capability and resource snapshots.
-- [x] placement, candidate explanation, reservation, lease, generation and fencing model.
-- [x] secure networking, Object mount, device and credential-delivery boundary.
-- [x] interruption, rescheduling, checkpoint and recovery behavior.
-- [x] local one-Node versus multi-Node placement contract.
-- [x] cost, locality, data-gravity, failure-domain and accelerator-aware scheduling direction.
-- [x] MiniRouter classified only as a routing/evaluation workload, not Core; source reuse blocked pending licence.
-- [x] composite WP11 record.
-- [x] ADR-0014 isolation/runtime/placement/scheduling boundary.
-- [x] Isolation/Distributed Placement Phase 0B design closure.
+- [x] Placement, Candidate/Decision, Reservation, Lease, Generation and Fence.
+- [x] secure network/Object/device/credential grants.
+- [x] interruption, checkpoint, restore and rescheduling behavior.
+- [x] one-Node/multi-Node contract.
+- [x] ADR-0014 and WP11.
+- [x] Phase 0B design closure.
 
 ### Security Assessment and Reproduction Workloads
 
-- [x] ReproZip environment capture/replay donor.
-- [x] ClaimBound evidence-card and bounded-claim donor.
-- [x] SparkDistill recipe/data/checkpoint/claim/recheck workload donor.
-- [x] Syft inventory/SBOM donor.
-- [x] Grype vulnerability-matching donor.
-- [x] GUAC supply-chain graph/enrichment donor.
-- [x] Semgrep source/static-analysis donor.
-- [x] Trivy vulnerability/configuration/secret/licence scanner donor.
-- [x] ZAP passive/active dynamic web/API donor.
-- [x] Strix optional agentic offensive-validation workload.
-- [x] Security Assessment Authorization, Plan, exact Target, machinery revision and Coverage model.
-- [x] Finding Observation versus Correlated Finding and disposition model.
-- [x] severity/confidence/exploitability/impact/release-policy separation.
-- [x] active/offensive isolation, network, credential, stop and cleanup boundary.
+- [x] ReproZip, ClaimBound, SparkDistill, Syft, Grype, GUAC, Semgrep, Trivy, ZAP and Strix.
+- [x] Security Authorization, Plan, exact Target, machinery revision and Coverage.
+- [x] Finding Observation, Correlated Finding, risk/disposition/remediation/re-test model.
 - [x] Protocol Revision, Reproduction Run and bounded Evidence Card model.
-- [x] remediation proposal, re-test, independent review and regression model.
-- [x] `SEC-001` and `REPRO-001` closed for Phase 0B design.
-- [x] ADR-0016 and security/reproduction composition work package.
+- [x] active/offensive isolation, network, credential, stop and cleanup boundary.
+- [x] `SEC-001` and `REPRO-001` design closure.
+- [x] ADR-0016 and security/reproduction work package.
 
 ### Research, documentation and source cleanup
 
-- [x] `aza-ali/awesome-ai-product-management` verified and classified as optional Research Source.
-- [x] `tmimmanuel` profile classified as discovery lineage only.
-- [x] Chris Ipanaque identity resolved to `chrisipanaque`; representative prototypes parked pending licence/proof.
-- [x] `amertoglu16.github.io` parked with explicit reopening criteria after no source/functionality was recovered.
-- [x] `aza-ali/github-readme-crisp-links` verified and classified as optional README asset generator.
-- [x] MkDocs Material pinned as primary lightweight documentation-site candidate, not selected.
-- [x] Docusaurus pinned as optional richer documentation/project-site alternative.
-- [x] Mermaid pinned as primary text-defined documentation-diagram candidate.
-- [x] catalogue/profile/README claims explicitly prevented from becoming donor proof.
-- [x] public/private documentation build boundary and leakage checks recorded.
+- [x] research catalogue and discovery profiles resolved/classified.
+- [x] Chris/Christiam Ipanaque identity resolved; prototype reuse parked pending licence/proof.
+- [x] `amertoglu16.github.io` parked with reopening criteria.
+- [x] Crisp Links, MkDocs Material, Docusaurus and Mermaid pinned/classified.
+- [x] public/private documentation build boundary recorded.
 - [x] cleanup work package committed.
 
-## Active remaining Phase 0A completion
+### Cross-requirement consistency and freeze
 
-- [x] Linux AT-SPI semantic completion.
-- [x] Reproduction/security workloads and scanners.
-- [x] research/documentation sources and unresolved profiles.
-- [-] cross-requirement Phase 0A consistency review.
-- [ ] parked/rejected/blocked gap audit.
-- [ ] Phase 0B input and proof-corpus enumeration.
-- [ ] Phase 0A freeze/readiness decision for Phase 0B.
+- [x] Object versus Artifact normalized.
+- [x] Activity/Operation/Attempt and Event/Telemetry/Receipt/Evidence normalized.
+- [x] Provider/Session/Lease/Event/Revision/Snapshot typed-family rule accepted.
+- [x] namespaced state-machine rule accepted.
+- [x] Claim/Observation/Finding/Review/Acceptance relationships normalized.
+- [x] Recipe/Plan/Protocol/Run relationships normalized.
+- [x] lifecycle/deletion/tombstone rules enumerated.
+- [x] parked/restricted gaps confirmed non-blocking.
+- [x] public `Ptah-space` checked and confirmed no implementation conflict.
+- [x] Phase 0B entry inputs/golden/negative corpus enumerated.
+- [x] ADR-0017 accepted; Phase 0A frozen.
 
 ## Requirement closure
 
@@ -200,34 +163,60 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Knowledge/Data/Search/Plugin.
 - [x] Isolation/Distributed placement.
 - [x] Security/reproduction workloads.
-- [-] Phase 0A review and freeze.
+- [x] Phase 0A review and freeze.
+
+Evidence:
+
+- `work-packages/PHASE-0A-CROSS-REQUIREMENT-CONSISTENCY-REVIEW.md`
+- `work-packages/PHASE-0B-ENTRY-CONTRACT-PROOF-INPUTS.md`
+- `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`
 
 ---
 
-# Phase 0B — Contracts, migrations and proof design
+# Phase 0B — Contracts, migrations, conformance and proof design
 
-**Status:** NOT STARTED
+**Status:** ACTIVE — IMPLEMENTATION STILL NOT AUTHORIZED
 
-- [ ] Node, Workspace, Activity, Event and Facility schemas.
-- [ ] Operation Receipt and proof schemas.
-- [ ] Object, View, storage, revision and transfer schemas.
-- [ ] Build, Artifact and provenance schemas.
-- [ ] firmware, disk and Device schemas.
-- [ ] Application, Window, display and semantic-context schemas.
-- [ ] Browser Profile/Context/Page/evidence schemas.
-- [ ] Shell, Panel, Layout and human-control schemas.
-- [ ] Knowledge Source, Corpus, Index, Query, citation, data and plugin schemas.
-- [ ] Security Authorization, Finding, reproduction and Evidence Card schemas.
-- [ ] Session, checkpoint, credential and privacy schemas.
-- [ ] isolation, placement, reservation, lease, fencing, scheduler and secure-network schemas.
-- [ ] telemetry conventions and resource accounting.
-- [ ] versioning, migrations, golden corpus and failure proofs.
-- [ ] Review and freeze.
+## Ordered work packages
+
+- [-] 0B-WP01 — Common identity, versioning and typed-family conventions.
+- [ ] 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof.
+- [ ] 0B-WP03 — Object, Revision, View, Artifact and storage relationships.
+- [ ] 0B-WP04 — Node, Facility, Provider, capability and health.
+- [ ] 0B-WP05 — Workspace, Session, checkpoint and recovery.
+- [ ] 0B-WP06 — Transfer, sync, conflict and backup.
+- [ ] 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification.
+- [ ] 0B-WP08 — Domain Pack, firmware, disk and Device contracts.
+- [ ] 0B-WP09 — Application, Browser, semantic UI and Shell contracts.
+- [ ] 0B-WP10 — Knowledge, data, Package and Plugin contracts.
+- [ ] 0B-WP11 — Isolation, placement, reservation, lease and secure grants.
+- [ ] 0B-WP12 — Security, Finding, Claim, Evidence and reproduction contracts.
+- [ ] 0B-WP13 — Cross-contract migrations and conformance harness.
+- [ ] 0B-WP14 — Golden/negative corpus and proof-plan freeze.
+- [ ] Phase 0B review/freeze and Phase 0C readiness decision.
+
+## Cross-cutting Phase 0B gates
+
+- [ ] every schema versioned and traceable to ADR/requirement;
+- [ ] state machines/transitions explicit and namespaced;
+- [ ] saved records/sessions have migration paths;
+- [ ] permissions, audience and redaction represented;
+- [ ] Provider/Facility conformance contracts defined;
+- [ ] lawful golden and negative fixtures pinned;
+- [ ] proof plans name exact Receipts/Evidence;
+- [ ] backend replacement testable;
+- [ ] online and later local Nodes use the same contracts;
+- [ ] private consumer knowledge absent from public schemas;
+- [ ] public licence/dependency strategy ready for Phase 0C;
+- [ ] first vertical slice selectable without identity/proof ambiguity.
+
+---
 
 # Phase 0C — First vertical slice approval
 
 - [ ] Select Linux host and exact components.
-- [ ] Approve dependency/source layout and proof plan.
+- [ ] Select public project licence and dependency/source layout.
+- [ ] Approve implementation proof plan.
 - [ ] Record implementation authorization in `CURRENT_STATE.md`.
 
 # Implementation phases
