@@ -1,7 +1,7 @@
 # Donor Record — LlamaIndex
 
 **Phase:** 0A / WP10  
-**Status:** FIRST-PASS COMPLETE — MODULAR DATA CONNECTOR, NODE, INGESTION AND QUERY DONOR  
+**Status:** FIRST-PASS COMPLETE — PRIMARY MODULAR DATA CONNECTOR, NODE, INGESTION AND QUERY DONOR  
 **Inspected:** 2026-07-18
 
 ## Identity
@@ -9,10 +9,11 @@
 - Canonical URL: https://github.com/run-llama/llama_index
 - Default branch: `main`
 - Pinned commit: `dbdaf89dc66a6469081c9f8fddc9c1bf6c43d8a2`
-- Licence: MIT
+- Pinned commit date: 2026-07-16
+- Licence: MIT for the root repository; every optional integration still requires package-level dependency/licence review
 - Activity: Active
 - Classification: modular data-framework, connector, ingestion-pipeline, index/retriever and integration donor
-- Ptah targets: `SEARCH-001`, source connectors, Document/Node relationships, transformation pipelines, deduplication/upsert/delete strategies, vector-store abstraction and provider-neutral retrieval
+- Ptah targets: `SEARCH-001`, source connectors, Document/Node relationships, transformation pipelines, deduplication/upsert/delete strategies, vector/document-store abstraction and provider-neutral retrieval
 
 ## Files/components inspected
 
@@ -22,59 +23,89 @@
 - `llama-index-core/llama_index/core/ingestion/pipeline.py`
 - core versus integration-package architecture
 - documented reader, parser, index, retriever, workflow and vector-store boundaries
+- latest pinned commit and integration-package change evidence
 
 ## Verified capabilities and patterns
 
-- Separates `llama-index-core` from more than three hundred optional integration packages.
-- Uses connectors/readers for APIs, files, databases and other data sources.
-- Models retrievable Nodes with UUIDs, hashes, embeddings, metadata and explicit SOURCE/PREVIOUS/NEXT/PARENT/CHILD relationships.
-- Distinguishes text, image, multimodal, Document and Index object classes.
-- Metadata can be included differently for embedding and LLM/context use.
-- Transform components have synchronous and asynchronous interfaces.
-- Ingestion pipelines compose readers, transformations, parsers, embeddings, caches, document stores and vector stores.
-- Transformation cache keys combine node content and serialized transformation configuration.
-- Pipelines support persisted cache/docstore state.
-- Document-store strategies include upsert, duplicate-only handling and upsert-with-delete.
-- Transformations can execute in worker processes.
-- Vector-store and document-store interfaces are replaceable.
-- The framework can be installed minimally or with selected provider integrations.
+### Core and integration separation
+
+- `llama-index-core` can be installed independently from the larger starter package.
+- More than three hundred optional integration packages provide selected LLM, embedding, vector-store, reader and protocol adapters.
+- Imports distinguish core modules from integration packages.
+- Hosted LlamaParse/LlamaCloud products are separate optional services rather than required for the open-source core.
+- The repository remains active and changes core and integration packages independently.
+
+### Node and relationship model
+
+- Retrievable Nodes carry UUID identity, optional embeddings, metadata and content hashes.
+- Relationship types include SOURCE, PREVIOUS, NEXT, PARENT and CHILD.
+- Related-node records can retain node ID, type, metadata and hash.
+- Object classes distinguish text, image, multimodal, Document and Index concepts.
+- Metadata can be selectively included or excluded for embedding and LLM/context rendering.
+- Node source relationships are explicit rather than inferred only from prompt text.
+
+### Transformation and ingestion pipeline
+
+- Transform components expose synchronous and asynchronous interfaces.
+- A transformation-cache hash combines node content with the serialized transformation configuration after removing unstable memory-address text.
+- Pipelines compose readers, input Documents/Nodes, transformations, caches, document stores and vector stores.
+- Pipeline cache and document-store state can be persisted and loaded.
+- Transformations can run sequentially or through worker processes.
+- In-memory worker cache writes are merged back into the parent; shared external backends write through directly.
+- Default transformations can include a sentence splitter and configured embedding model, while callers can supply explicit transformations.
+
+### Deduplication, upsert and deletion
+
+- `DUPLICATES_ONLY` checks existing content hashes.
+- `UPSERTS` compares reference-document IDs and hashes, removes changed reference documents and deletes their vector-store entries before reprocessing.
+- `UPSERTS_AND_DELETE` also identifies source documents absent from the new input set and removes them from document and vector stores.
+- When an upsert/delete strategy is requested without a vector store, the implementation warns and falls back to duplicate-only behavior for that run.
+- After transformations, embedded Nodes can be written to the vector store and source hashes/documents written to the document store.
+- Equivalent asynchronous paths exist for document-store and vector-store operations.
 
 ## What LlamaIndex completes
 
 - A modular, lighter-weight alternative to a full RAG platform.
 - Connector and integration patterns Ptah should not recreate individually.
-- Explicit source/parent/child/sequence relationships for chunks and derived Nodes.
+- Explicit source, parent, child and sequence relationships for chunks and derived Nodes.
 - Transformation pipelines with configuration-aware caches.
-- Upsert/dedup/delete strategies and replaceable stores.
-- Provider-neutral abstractions for embeddings, vector stores, LLMs and retrievers.
-- A practical local/one-Node path and a foundation for custom Ptah Knowledge Facilities.
+- Upsert, deduplication and delete strategies with replaceable stores.
+- Provider-neutral abstractions for embeddings, vector stores, LLMs, readers and retrievers.
+- A practical local/one-Node path and likely foundation for a custom Ptah Knowledge Facility.
+- A way to select only required integrations instead of deploying a complete RAG product.
 
 ## Important limitations for Ptah
 
-- LlamaIndex Nodes/Documents/Indexes are library-local objects, not canonical Ptah Objects or Knowledge identities.
-- Its framework is oriented toward LLM/agent applications; Ptah does not own reasoning or answer generation.
-- Node UUIDs can be regenerated unless explicitly mapped to stable source/revision/chunk identities.
-- Transformation hashing includes serialized content/configuration but does not automatically capture every external binary/model/environment dependency.
-- Pickle and broad Python integration ecosystems add trust and compatibility risk.
-- Hundreds of optional connectors/integrations vary in licence, maintenance and security quality.
-- Vector-store deletion/upsert semantics vary by backend.
-- Metadata filtering and permissions must be enforced by Ptah before retrieval.
-- A cached transformation output is derived state, not source truth or independent proof.
+- LlamaIndex Nodes, Documents and Indexes are library-local objects, not canonical Ptah Objects or Knowledge identities.
+- The framework is oriented toward LLM and agent applications; Ptah does not own reasoning or answer generation.
+- Node UUIDs are generated by default and can change unless explicitly mapped to stable source/revision/chunk identities.
+- Transformation hashing includes node content and serialized configuration but does not automatically capture every external binary, model, prompt, environment or remote-service revision.
+- A transformation cache hit is derived state, not source truth or independent proof.
+- Base component state includes pickle support and attempts to drop unpickleable attributes; arbitrary pickle is unsuitable as a portable trusted Ptah record.
+- Hundreds of optional connectors and integrations vary in licence, maintenance, transitive dependencies, network authority and security quality.
+- Vector-store deletion and metadata-filter semantics vary by backend.
+- Upsert/delete behavior requires both a document store and vector store; otherwise the inspected pipeline degrades to duplicate-only behavior.
+- Multiprocess transformations can complicate deterministic ordering, resource accounting and evidence capture.
+- Metadata included for embeddings or model context can leak private fields unless classified before transformation.
 - LlamaParse/LlamaCloud are optional commercial platforms and cannot be mandatory.
-- Node relationship vocabulary is useful but not broad enough for all Ptah Object/Artifact relationships.
+- The Node relationship vocabulary is useful but not broad enough for all Ptah Object, Artifact, Claim and provenance relationships.
 - Framework query results do not automatically provide exact source-range citations or proof.
+- Integration-package APIs may evolve independently of core and require pinning/conformance tests.
 
 ## Must not be inherited
 
 - LlamaIndex Node, Document or Index IDs as canonical Ptah identities;
-- the agent/workflow/LLM layer used as Ptah reasoning;
+- the agent, workflow or LLM layer used as Ptah reasoning;
 - every integration package installed by default;
 - pickle or untrusted Python objects accepted as portable trusted state;
 - hosted LlamaCloud dependencies made mandatory;
 - transformation cache hits treated as verified source-grounded output;
 - provider-specific metadata or vector-store schemas exposed as Ptah contracts;
 - deletion/upsert behavior assumed consistent across all stores;
-- metadata included in prompts/embeddings without privacy classification.
+- metadata included in embeddings/prompts without privacy classification;
+- default UUID generation used where deterministic Ptah source/chunk identity is required;
+- multiprocessing results accepted without Activity/attempt/resource evidence;
+- a warning-driven fallback reported as equivalent upsert/delete behavior.
 
 ## Integration decision
 
@@ -82,42 +113,55 @@
 
 Recommended role:
 
-1. selected readers/connectors ingest approved Ptah Source Objects;
-2. Ptah assigns stable Source/Document/Chunk/Index Revision identities;
-3. LlamaIndex transformations/parsers/embeddings operate as versioned Activities;
-4. derived Nodes map back to exact Ptah Object/View revisions;
+1. selected approved readers/connectors ingest Ptah Source Objects;
+2. Ptah assigns stable Source, Corpus, Document, Chunk and Index Revision identities;
+3. LlamaIndex transformations, parsers and embeddings execute as versioned Ptah Activities;
+4. derived Nodes map back to exact immutable Ptah Object/View revisions and source ranges;
 5. optional vector/document stores remain backend adapters;
-6. RAGFlow remains an optional heavier platform backend;
-7. agent/query-engine output stays external to Ptah truth.
+6. transformation-cache keys are extended with provider, model, binary, prompt and environment revisions;
+7. RAGFlow remains an optional heavier platform backend;
+8. agent/query-engine output stays external to Ptah truth;
+9. each integration package is installed through Ptah plugin trust, permission, pin and health controls;
+10. every fallback or partial delete/upsert state is exposed in Activity Receipts.
+
+## Licence decision
+
+The root MIT licence is compatible with architecture study and selective adaptation. Optional integrations and their dependencies must be evaluated independently before approval, packaging or distribution.
 
 ## Native Ptah gap
 
 Ptah must define:
 
-- stable Source/Corpus/Document/Chunk/Index Revision identity;
-- deterministic chunk identity from source revision, parser and position;
-- connector/read permission and credential references;
-- parser, transformation, embedding and reranker provenance;
-- transformation cache identity including external model/tool versions;
-- lexical/vector/hybrid query contracts;
-- permissions and audience filtering before retrieval;
-- exact citation ranges and source snapshots;
+- stable Source, Corpus, Document, Chunk and Index Revision identity;
+- deterministic chunk identity from source revision, parser, segmentation and position;
+- connector read permission, audience and credential references;
+- parser, transformation, embedding, reranker and provider provenance;
+- transformation-cache identity including external model, prompt, binary and environment versions;
+- lexical, vector, metadata and hybrid Query contracts;
+- permissions and audience filtering before retrieval and embedding;
+- exact citation ranges and retained source snapshots;
 - deletion, tombstone, freshness and re-index state;
-- integration package manifest, licence, trust and health;
-- safe serialization rather than arbitrary trusted pickle;
-- backend migration and cross-index comparison.
+- integration-package manifest, licence, trust, capability, network and health records;
+- safe serialization instead of arbitrary trusted pickle;
+- resource controls and evidence for parallel transformation workers;
+- backend migration and cross-index semantic comparison;
+- Result/ranking explanation records independent of LlamaIndex response classes.
 
 ## Exit strategy
 
-Ptah's knowledge contracts remain independent of LlamaIndex. Native pipelines, RAGFlow, database search or other frameworks can implement them without changing Source, Document, Chunk or Query identity.
+Ptah's knowledge contracts remain independent of LlamaIndex. Native pipelines, RAGFlow, database search or other frameworks can implement them without changing Source, Document, Chunk, Index Revision, Query or Citation identity.
 
 ## Validation required
 
 1. Ingest one source through two parser/chunker versions and retain separate Index Revisions.
 2. Preserve stable source/chunk identity across a no-change re-ingestion.
-3. Upsert a changed source, delete a removed source and verify all backend stores reconcile.
-4. Run transformations with cache and prove model/tool/config changes invalidate affected outputs.
-5. Enforce source permissions before vector/lexical retrieval.
-6. Return exact Object/View/source-range citations from retrieved Nodes.
-7. Load only approved connector/integration packages with pinned licences and versions.
-8. Replace the vector/document store or LlamaIndex itself without changing Ptah identities.
+3. Upsert a changed source, delete a removed source and verify every document/vector backend reconciles.
+4. Request upsert/delete without a vector store and prove Ptah reports reduced duplicate-only behavior rather than full reconciliation.
+5. Run transformations with cache and prove model, prompt, tool, binary or configuration changes invalidate affected outputs.
+6. Enforce source permissions before reading, embedding, vector/lexical retrieval and context rendering.
+7. Return exact Object/View/source-range citations from retrieved Nodes.
+8. Load only approved connector/integration packages with pinned licences, dependencies and capabilities.
+9. Reject or isolate unsafe pickle and untrusted integration state.
+10. Compare sync, async and multiprocess pipelines for equivalent identities, outputs and evidence.
+11. Replace the vector/document store or LlamaIndex itself without changing Ptah identities.
+12. Remove one connector package without breaking unrelated Knowledge Sources or indexes.
