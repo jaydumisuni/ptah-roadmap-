@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:request-definitions:0.1.0",
+  "title": "Ptah Mutable Request Lifecycle Definitions",
+  "description": "Shared candidate lifecycle states for Activity, cancellation and manual-action requests.",
+  "x-ptah-schema-name": "activity.request-definitions",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "$defs": {
+    "activityRequestState": {
+      "type": "string",
+      "enum": ["submitted", "validating", "accepted", "rejected", "expired", "withdrawn"]
+    },
+    "cancellationRequestState": {
+      "type": "string",
+      "enum": ["requested", "acknowledged", "completing", "completed", "rejected", "expired"]
+    },
+    "manualActionRequestState": {
+      "type": "string",
+      "enum": ["open", "acknowledged", "responded", "accepted", "rejected", "expired", "cancelled"]
+    }
+  }
+}
