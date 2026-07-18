@@ -1,0 +1,27 @@
+{
+  "state_machine_name": "manual_action_request.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.manual_action_request"],
+  "states": [
+    {"name":"open","description":"Manual action request is available for an authorized responder.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Instruction, response schema and target responders are recorded."]},
+    {"name":"acknowledged","description":"An authorized responder acknowledged the request but has not completed it.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Responder identity and acknowledgement evidence exist."]},
+    {"name":"responded","description":"A response was submitted and awaits validation/acceptance under the request protocol.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Response reference, responder and time exist."]},
+    {"name":"accepted","description":"Response was validated and accepted for the waiting Operation/Activity.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Typed acceptance outcome exists."]},
+    {"name":"rejected","description":"Response or requested action was rejected under policy/protocol.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Typed rejection outcome exists."]},
+    {"name":"expired","description":"Request expired without an accepted response.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Expiry authority/time and outcome exist."]},
+    {"name":"cancelled","description":"The request was withdrawn because the Activity/Operation no longer requires it.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Cancellation reason/outcome exists."]}
+  ],
+  "initial_states": ["open"],
+  "transitions": [
+    {"transition_name":"open","from_states":[null],"to_state":"open","transition_class":"normal","authority_classes":["ptah_control_plane","provider","facility"],"side_effecting":false,"required_preconditions":["Waiting Activity/Operation and manual-action contract exist."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"acknowledge","from_states":["open"],"to_state":"acknowledged","transition_class":"normal","authority_classes":["human_operator","caller","external_provider"],"side_effecting":false,"required_preconditions":["Responder is authorized for this request."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"respond","from_states":["open","acknowledged"],"to_state":"responded","transition_class":"normal","authority_classes":["human_operator","caller","external_provider","authoritative_external_system"],"side_effecting":false,"required_preconditions":["Response validates structurally against the declared response schema."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"accept_response","from_states":["responded"],"to_state":"accepted","transition_class":"normal","authority_classes":["ptah_control_plane","organization_policy","authoritative_external_system"],"side_effecting":false,"required_preconditions":["Response satisfies policy/protocol and exact request remains current."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"reject_response","from_states":["open","acknowledged","responded"],"to_state":"rejected","transition_class":"administrative","authority_classes":["ptah_control_plane","organization_policy","human_operator"],"side_effecting":false,"required_preconditions":["Typed rejection outcome exists."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"expire","from_states":["open","acknowledged","responded"],"to_state":"expired","transition_class":"expiry","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Request expiry elapsed."],"required_evidence_kinds":[],"required_receipt_proof_levels":[],"expiry_clock_authority":"ptah_control_plane"},
+    {"transition_name":"cancel","from_states":["open","acknowledged","responded"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["ptah_control_plane","caller","workspace_owner"],"side_effecting":false,"required_preconditions":["Parent Activity/Operation no longer requires the action."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
