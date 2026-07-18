@@ -179,3 +179,25 @@ Full decision: `decisions/ADR-0016-SECURITY-FINDING-VALIDATION-REPRODUCTION-BOUN
 - Runtime implementation and dependency selection remain blocked until Phase 0C approval.
 
 Full decision: `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`.
+
+### D-033 — Common identity, schema versioning and typed families are explicit
+
+**ACCEPTED.** Phase 0B candidate `ptah.common` `0.1.0` defines the shared identity and compatibility language for all later contracts.
+
+- new canonical entity IDs use lowercase UUIDv7 plus registered `entity_kind`;
+- backend/legacy identifiers remain scoped Aliases;
+- schemas use JSON Schema 2020-12, absolute Ptah URNs and a local catalog;
+- domain records embed a nested common Entity Envelope;
+- `record_revision`, Object Revision, schema version, generations and connection epoch remain separate;
+- Provider, Session, Lease, Event, Revision, Snapshot, Recipe, Protocol, Evidence and other families declare explicit kinds;
+- there is no global `status` enum;
+- state machines and transitions are namespaced, versioned and append-only;
+- authentication, authorization, capability and acceptance remain separate;
+- migration preserves frozen history and reports loss/defaults;
+- compatibility is directional and evidence-backed rather than inferred from SemVer;
+- tombstone and physical deletion remain separate;
+- structural JSON validation does not replace semantic conformance.
+
+The candidate may be used by downstream Phase 0B schemas but is not implementation-frozen until executable conformance and golden/negative corpus proof passes.
+
+Full decision: `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`.
