@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:common:definitions:0.1.0",
+  "title": "Ptah Common Contract Definitions",
+  "description": "Shared primitive definitions for Phase 0B candidate schemas.",
+  "x-ptah-schema-name": "common.definitions",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "$defs": {
+    "uuidv7": {
+      "type": "string",
+      "description": "Lowercase canonical UUID version 7 text.",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "semver": {
+      "type": "string",
+      "description": "Semantic Versioning 2.0.0 syntax.",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?$"
+    },
+    "entityKind": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$"
+    },
+    "familyKind": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "schemaId": {
+      "type": "string",
+      "pattern": "^urn:ptah:schema:[a-z][a-z0-9_-]*(?::[a-z][a-z0-9_-]*)+:(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    },
+    "utcDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "nonNegativeInteger": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "positiveInteger": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "entityRef": {
+      "type": "object",
+      "description": "Typed reference to one canonical Ptah entity, optionally constrained to a revision/generation/epoch.",
+      "additionalProperties": false,
+      "required": [
+        "entity_id",
+        "entity_kind"
+      ],
+      "properties": {
+        "entity_id": {
+          "$ref": "#/$defs/uuidv7"
+        },
+        "entity_kind": {
+          "$ref": "#/$defs/entityKind"
+        },
+        "revision_id": {
+          "$ref": "#/$defs/uuidv7"
+        },
+        "record_revision": {
+          "$ref": "#/$defs/positiveInteger"
+        },
+        "node_generation": {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        "provider_generation": {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        "workload_generation": {
+          "$ref": "#/$defs/nonNegativeInteger"
+        },
+        "connection_epoch": {
+          "$ref": "#/$defs/nonNegativeInteger"
+        }
+      }
+    },
+    "schemaRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_id",
+        "schema_version"
+      ],
+      "properties": {
+        "schema_id": {
+          "$ref": "#/$defs/schemaId"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/semver"
+        }
+      }
+    },
+    "privacyClass": {
+      "type": "string",
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
+    },
+    "audience": {
+      "type": "string",
+      "enum": [
+        "private_owner",
+        "workspace",
+        "organization",
+        "named_recipients",
+        "public"
+      ]
+    },
+    "redactionAction": {
+      "type": "string",
+      "enum": [
+        "none",
+        "mask",
+        "hash_only",
+        "omit",
+        "encrypted_reference"
+      ]
+    },
+    "retentionPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_id",
+        "policy_version",
+        "retention_class"
+      ],
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "policy_version": {
+          "$ref": "#/$defs/semver"
+        },
+        "retention_class": {
+          "type": "string",
+          "enum": [
+            "ephemeral",
+            "operational",
+            "historical",
+            "legal_hold",
+            "permanent"
+          ]
+        },
+        "retain_until": {
+          "$ref": "#/$defs/utcDateTime"
+        },
+        "delete_bytes_when_unreferenced": {
+          "type": "boolean"
+        }
+      }
+    },
+    "tombstone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tombstoned_at",
+        "tombstone_reason",
+        "authority_ref"
+      ],
+      "properties": {
+        "tombstoned_at": {
+          "$ref": "#/$defs/utcDateTime"
+        },
+        "tombstone_reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "authority_ref": {
+          "$ref": "#/$defs/entityRef"
+        },
+        "policy_ref": {
+          "$ref": "#/$defs/entityRef"
+        },
+        "replacement_ref": {
+          "$ref": "#/$defs/entityRef"
+        },
+        "retention_until": {
+          "$ref": "#/$defs/utcDateTime"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entityRef"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "extensionEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_id",
+        "schema_version",
+        "value"
+      ],
+      "properties": {
+        "schema_id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/semver"
+        },
+        "value": true
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/extensionEntry"
+      }
+    },
+    "stableOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome_class",
+        "stable_code",
+        "summary",
+        "retryability"
+      ],
+      "properties": {
+        "outcome_class": {
+          "type": "string",
+          "enum": [
+            "success",
+            "partial",
+            "rejected",
+            "unauthorized",
+            "forbidden",
+            "not_found",
+            "tombstoned",
+            "conflict",
+            "stale_generation",
+            "stale_revision",
+            "unsupported",
+            "invalid_contract",
+            "timeout",
+            "cancelled",
+            "provider_unavailable",
+            "inconclusive",
+            "failed"
+          ]
+        },
+        "stable_code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]{2,127}$"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "retryability": {
+          "type": "string",
+          "enum": [
+            "never",
+            "after_change",
+            "safe_same_attempt_context",
+            "new_attempt_required",
+            "manual_review_required",
+            "unknown"
+          ]
+        },
+        "required_action": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "subject_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entityRef"
+          },
+          "uniqueItems": true
+        },
+        "evidence_or_receipt_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entityRef"
+          },
+          "uniqueItems": true
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}
