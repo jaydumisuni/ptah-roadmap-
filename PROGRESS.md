@@ -97,9 +97,9 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 ## Active WP10 — Knowledge, Data, Search and Plugin Composition
 
-- [-] Recover internal Hunter knowledge/memory/learning/search foundations.
-- [ ] RAGFlow.
-- [ ] LlamaIndex.
+- [x] Recover internal Hunter knowledge/memory/learning/search/provider foundations.
+- [x] RAGFlow end-to-end ingestion, retrieval, metadata, deletion and backend-semantics donor pass.
+- [-] LlamaIndex.
 - [ ] Dify.
 - [ ] Polars.
 - [ ] Deno.
