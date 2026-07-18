@@ -3,7 +3,7 @@
 **Last updated:** 2026-07-18  
 **Overall status:** ACTIVE PLANNING  
 **Current phase:** Phase 0A — Internal and external donor recovery  
-**Active work package:** WP11 — Strong Isolation and Distributed Placement/Scheduling  
+**Active inspection unit:** Remaining Phase 0A completion — Linux AT-SPI, security/reproduction and final review  
 **Runtime implementation:** NOT STARTED  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
@@ -99,7 +99,7 @@ Closed:
 - Linux, Windows, macOS and iOS Application Providers/Sessions;
 - remote display, Window, checkpoint and platform proof boundaries.
 
-Known retained gap: dedicated Linux AT-SPI semantic automation requires a later completion pass.
+Known retained gap: dedicated Linux AT-SPI semantic automation requires the active completion pass.
 
 ## WP08 — Browser and Live Research
 
@@ -128,17 +128,13 @@ Saved decision: `decisions/ADR-0012-HUMAN-WORKSPACE-SHELL-PANEL-CONTROL-BOUNDARY
 Inspected and saved:
 
 - internal Hunter knowledge, memory, learning, sync, retrieval and provider foundations;
-- RAGFlow;
-- LlamaIndex;
+- RAGFlow and LlamaIndex;
 - Dify;
-- Polars;
-- DuckDB;
+- Polars and DuckDB;
 - Deno;
 - MCP specification and official reference servers;
-- ClawHub;
-- OpenClaw plugin lifecycle;
-- Hermes Agent;
-- MiniRouter boundary recovery.
+- ClawHub and OpenClaw plugin lifecycle;
+- Hermes Agent and MiniRouter boundary recovery.
 
 Accepted direction:
 
@@ -148,14 +144,14 @@ Accepted direction:
 4. Permissions apply during acquisition, retention, embedding, indexing, retrieval, citation, export and deletion.
 5. LlamaIndex is the primary modular local knowledge-foundation candidate; RAGFlow is an optional heavier Knowledge Facility.
 6. Search across Objects, Activities, Artifacts and Workspaces is native Ptah catalogue/index behavior, not only document RAG.
-7. Polars and DuckDB are analytical engines behind Ptah Dataset/Query/Result identities; transactional databases remain separate Facilities.
+7. Polars and DuckDB are analytical engines behind Ptah Dataset/Query/Result identities.
 8. Package, Package Release, Installed Plugin, Activation and Registry Entry remain separate.
 9. Registry presence, verification, scans and manifest claims are evidence inputs, not approval or runtime proof.
 10. Deno is the lightweight permission-scoped runtime candidate; native, FFI, untrusted or broad-privilege code escalates to OCI or VM isolation.
 11. MCP is an external Facility adapter protocol, not Ptah's internal Object/Activity model.
-12. Hunter, Hermes, Dify, OpenClaw and future systems remain external callers/Applications that own reasoning, personal memory and relationship policy.
+12. Hunter, Hermes, Dify, OpenClaw and future systems remain external callers/Applications that own reasoning, memory and relationship policy.
 13. Dify is study-only or separately licensed because of its modified licence.
-14. MiniRouter moves to later routing/evaluation work and remains study-only until its licence is resolved.
+14. MiniRouter remains study-only until its licence is resolved and belongs to later routing/evaluation work.
 
 Saved:
 
@@ -174,62 +170,90 @@ Saved:
 - `decisions/ADR-0013-KNOWLEDGE-DATA-SEARCH-PLUGIN-BOUNDARY.md`
 - `work-packages/PHASE-0A-WP10-KNOWLEDGE-DATA-SEARCH-PLUGIN.md`
 
+## WP11 — Strong Isolation and Distributed Placement/Scheduling
+
+**Status:** COMPLETE; closed for Phase 0B contract design, not build.
+
+Inspected and saved:
+
+- gVisor;
+- Kata Containers;
+- Firecracker;
+- youki;
+- crun;
+- Ray;
+- existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer, checkpoint and lease/fencing foundations;
+- MiniRouter only as an optional later routing/evaluation workload.
+
+Accepted direction:
+
+1. Isolation Class, runtime implementation, placement, reservation, execution generation and proof remain separate.
+2. The closed isolation ladder is host/native trusted → Deno/WASM permission runtime → baseline OCI → gVisor → Kata → Firecracker → full VM.
+3. runc, crun and youki remain replaceable implementations below one OCI Provider contract.
+4. Rootless and memory-safe implementation are useful properties, not stronger isolation classes.
+5. Incompatible work may move to an equal or stronger approved class or be blocked; Ptah never silently falls back to weaker isolation.
+6. Node Capability Snapshots retain current kernel, architecture, virtualization, resources, pressure, providers, devices, checkpoint compatibility and health.
+7. Placement filters hard feasibility before scoring locality, load, cost, accelerator fit, failure domain, checkpoint locality and interruption risk.
+8. Placement Request, Candidate/Decision, Reservation, Lease, Generation and Fence remain separate.
+9. Network, exact Object/View mounts, devices and credentials require explicit workload-generation grants.
+10. Checkpoint production, restore compatibility and application recovery/read-back are separate proof levels.
+11. gVisor is the primary stronger-container candidate.
+12. Kata is the primary VM-backed container/sandbox candidate.
+13. Firecracker is the primary standalone microVM candidate.
+14. Ray is an optional trusted distributed Compute Facility behind Ptah Activities and placement, not the global scheduler or Object truth.
+15. Mutually untrusted Ray workloads use separate isolated clusters.
+16. Local one-Node and multi-Node operation use the same identities and contracts.
+17. Scheduler policy is operational policy; caller reasoning may supply constraints/preferences but does not silently control Node authority.
+18. MiniRouter remains an optional evaluation workload, not a Ptah routing authority.
+
+Saved:
+
+- `donors/GVISOR.md`
+- `donors/KATA-CONTAINERS.md`
+- `donors/FIRECRACKER.md`
+- `donors/YOUKI.md`
+- `donors/CRUN.md`
+- `donors/RAY.md`
+- `donors/MINIROUTER.md`
+- `decisions/ADR-0014-ISOLATION-RUNTIME-PLACEMENT-SCHEDULING-BOUNDARY.md`
+- `work-packages/PHASE-0A-WP11-ISOLATION-DISTRIBUTED-PLACEMENT.md`
+
 Closed for Phase 0B design:
 
-- `SEARCH-001`;
-- `DATA-001`;
-- `PLUGIN-001`;
-- knowledge/index extensions of Object, storage, Session, observability and provenance contracts;
-- provider-neutral model/data adapter direction;
-- MCP adapter and external reasoning/caller boundaries.
+- `ISOLATION-001`;
+- `DIST-001`;
+- strong-isolation completion portions of runtime/plugin/caller contracts;
+- distributed placement, checkpoint, observability, resource-accounting and proof extensions.
 
-No Knowledge Facility, search index, data engine, plugin manager, registry, MCP server or UI implementation is approved yet.
+No Runtime Provider, scheduler, Ray cluster, network plane, credential broker or isolation implementation is approved yet.
 
 ---
 
 # Active inspection unit
 
-## WP11 — Strong Isolation and Distributed Placement/Scheduling
+## Remaining Phase 0A completion
 
-Inspect as one complementary group:
+Proceed in this order:
 
-1. gVisor;
-2. Kata Containers;
-3. Firecracker;
-4. youki;
-5. crun;
-6. Ray;
-7. existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer and checkpoint foundations;
-8. internal THETECHGUY Node, worker, resource and deployment requirements;
-9. MiniRouter only as an optional routing/evaluation workload.
+1. Linux AT-SPI semantic automation completion for Linux Application Providers;
+2. reproduction/security workloads and scanners;
+3. research/documentation-source and unresolved-profile cleanup;
+4. cross-requirement Phase 0A review;
+5. Phase 0A freeze/readiness decision for Phase 0B.
 
-Resolve:
+Required outputs:
 
-- lightweight OCI versus syscall sandbox versus VM-strength isolation;
-- runtime-class selection and escalation rules;
-- Node/provider capability and resource snapshots;
-- placement, reservation, lease, fencing and generation identity;
-- secure networking, credential delivery and data locality;
-- CPU, RAM, disk, accelerator and cost-aware scheduling;
-- interruption, checkpoint, migration, rescheduling and recovery;
-- local one-Node operation versus multi-Node distribution;
-- failure domains and degraded fallback;
-- scheduler policy versus caller reasoning;
-- routing/evaluation workloads without embedding a router into Ptah Core.
-
-Required saved output:
-
-- donor records after each inspection unit;
-- isolation and distributed-placement composition record;
-- isolation/runtime-class/placement/scheduling boundary ADR;
-- Requirement Closure Matrix updates for isolation and `DIST-001`;
-- continuous `PROGRESS.md` and Current State updates.
+- donor/composition records for each remaining cluster;
+- any required final ADRs or explicit parked/rejected decisions;
+- Requirement Closure Matrix updates;
+- final Phase 0A review record;
+- freeze/readiness checkpoint before Phase 0B.
 
 ---
 
 # Accepted decisions
 
-ADR-0001 through ADR-0013 are accepted and indexed in `DECISIONS.md`.
+ADR-0001 through ADR-0014 are accepted and indexed in `DECISIONS.md`.
 
 ---
 
