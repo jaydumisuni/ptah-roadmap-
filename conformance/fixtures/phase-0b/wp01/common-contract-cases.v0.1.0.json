@@ -1,0 +1,378 @@
+{
+  "suite_id": "ptah.conformance.common.0.1.0",
+  "fixture_version": "0.1.0",
+  "cases": [
+    {
+      "id": "D01_VALID_WORKSPACE_ENTITY",
+      "target_schema": "urn:ptah:schema:common:entity-envelope:0.1.0",
+      "expected": "valid",
+      "specimen": {
+        "entity_id": "019bd54a-7c32-7d6d-934e-3e56bb42ca11",
+        "entity_kind": "core.activity",
+        "schema_id": "urn:ptah:schema:common:entity-envelope:0.1.0",
+        "schema_version": "0.1.0",
+        "record_revision": 1,
+        "created_at": "2026-07-18T12:00:00Z",
+        "updated_at": "2026-07-18T12:00:00Z",
+        "workspace_ref": {
+          "entity_id": "019bd54a-7c32-7aaa-8aaa-111111111111",
+          "entity_kind": "core.workspace"
+        },
+        "authority_ref": {
+          "entity_id": "019bd54a-7c32-7bbb-9bbb-222222222222",
+          "entity_kind": "identity.principal"
+        },
+        "privacy_class": "internal",
+        "audience": "workspace",
+        "redaction_policy": "none",
+        "retention_policy": {
+          "policy_id": "ptah.operational.default",
+          "policy_version": "0.1.0",
+          "retention_class": "operational",
+          "delete_bytes_when_unreferenced": false
+        },
+        "extensions": {}
+      }
+    },
+    {
+      "id": "B02_INVALID_UUIDV4",
+      "target_schema": "urn:ptah:schema:common:entity-envelope:0.1.0",
+      "expected": "invalid",
+      "expected_code": "INVALID_CANONICAL_ENTITY_ID",
+      "specimen": {
+        "entity_id": "550e8400-e29b-41d4-a716-446655440000",
+        "entity_kind": "core.activity",
+        "schema_id": "urn:ptah:schema:common:entity-envelope:0.1.0",
+        "schema_version": "0.1.0",
+        "record_revision": 1,
+        "created_at": "2026-07-18T12:00:00Z",
+        "updated_at": "2026-07-18T12:00:00Z",
+        "global_scope": "ptah_global",
+        "authority_ref": {
+          "entity_id": "019bd54a-7c32-7bbb-9bbb-222222222222",
+          "entity_kind": "identity.principal"
+        },
+        "privacy_class": "internal",
+        "audience": "organization",
+        "redaction_policy": "none",
+        "retention_policy": {
+          "policy_id": "ptah.operational.default",
+          "policy_version": "0.1.0",
+          "retention_class": "operational"
+        },
+        "extensions": {}
+      }
+    },
+    {
+      "id": "D03_INVALID_DOUBLE_SCOPE",
+      "target_schema": "urn:ptah:schema:common:entity-envelope:0.1.0",
+      "expected": "invalid",
+      "expected_code": "AMBIGUOUS_ENTITY_SCOPE",
+      "specimen": {
+        "entity_id": "019bd54a-7c32-7ccc-accc-333333333333",
+        "entity_kind": "core.facility",
+        "schema_id": "urn:ptah:schema:common:entity-envelope:0.1.0",
+        "schema_version": "0.1.0",
+        "record_revision": 1,
+        "created_at": "2026-07-18T12:00:00Z",
+        "updated_at": "2026-07-18T12:00:00Z",
+        "workspace_ref": {
+          "entity_id": "019bd54a-7c32-7aaa-8aaa-111111111111",
+          "entity_kind": "core.workspace"
+        },
+        "global_scope": "ptah_global",
+        "authority_ref": {
+          "entity_id": "019bd54a-7c32-7bbb-9bbb-222222222222",
+          "entity_kind": "identity.principal"
+        },
+        "privacy_class": "internal",
+        "audience": "organization",
+        "redaction_policy": "none",
+        "retention_policy": {
+          "policy_id": "ptah.historical.default",
+          "policy_version": "0.1.0",
+          "retention_class": "historical"
+        },
+        "extensions": {}
+      }
+    },
+    {
+      "id": "D05_INVALID_MISSING_NAMED_RECIPIENTS",
+      "target_schema": "urn:ptah:schema:common:entity-envelope:0.1.0",
+      "expected": "invalid",
+      "expected_code": "MISSING_NAMED_RECIPIENTS",
+      "specimen": {
+        "entity_id": "019bd54a-7c32-7ddd-bddd-444444444444",
+        "entity_kind": "proof.evidence_card",
+        "schema_id": "urn:ptah:schema:common:entity-envelope:0.1.0",
+        "schema_version": "0.1.0",
+        "record_revision": 1,
+        "created_at": "2026-07-18T12:00:00Z",
+        "updated_at": "2026-07-18T12:00:00Z",
+        "global_scope": "organization_global",
+        "authority_ref": {
+          "entity_id": "019bd54a-7c32-7bbb-9bbb-222222222222",
+          "entity_kind": "identity.principal"
+        },
+        "privacy_class": "confidential",
+        "audience": "named_recipients",
+        "redaction_policy": "mask",
+        "retention_policy": {
+          "policy_id": "ptah.historical.default",
+          "policy_version": "0.1.0",
+          "retention_class": "historical"
+        },
+        "extensions": {}
+      }
+    },
+    {
+      "id": "H02_VALID_ACCEPTED_TRANSITION",
+      "target_schema": "urn:ptah:schema:common:state-transition:0.1.0",
+      "expected": "valid",
+      "specimen": {
+        "transition_id": "019bd54a-7c32-7eee-8eee-555555555555",
+        "subject_ref": {
+          "entity_id": "019bd54a-7c32-7d6d-934e-3e56bb42ca11",
+          "entity_kind": "core.activity",
+          "record_revision": 1
+        },
+        "state_machine_name": "activity.lifecycle",
+        "state_machine_version": "0.1.0",
+        "sequence": 1,
+        "from_state": null,
+        "to_state": "queued",
+        "transition_status": "accepted",
+        "transition_reason": "Activity was accepted into the durable ledger.",
+        "authority_ref": {
+          "entity_id": "019bd54a-7c32-7fff-9fff-666666666666",
+          "entity_kind": "identity.principal"
+        },
+        "resulting_record_revision": 2,
+        "precondition_evidence_refs": [],
+        "receipt_refs": [],
+        "occurred_at": "2026-07-18T12:00:01Z",
+        "observed_at": "2026-07-18T12:00:01Z",
+        "extensions": {}
+      }
+    },
+    {
+      "id": "H03_INVALID_ACCEPTED_NO_RESULT_REVISION",
+      "target_schema": "urn:ptah:schema:common:state-transition:0.1.0",
+      "expected": "invalid",
+      "expected_code": "MISSING_RESULTING_RECORD_REVISION",
+      "specimen": {
+        "transition_id": "019bd54a-7c32-7000-a000-777777777777",
+        "subject_ref": {
+          "entity_id": "019bd54a-7c32-7d6d-934e-3e56bb42ca11",
+          "entity_kind": "core.activity"
+        },
+        "state_machine_name": "activity.lifecycle",
+        "state_machine_version": "0.1.0",
+        "sequence": 2,
+        "from_state": "queued",
+        "to_state": "preparing",
+        "transition_status": "accepted",
+        "transition_reason": "Preparing was requested.",
+        "authority_ref": {
+          "entity_id": "019bd54a-7c32-7fff-9fff-666666666666",
+          "entity_kind": "identity.principal"
+        },
+        "precondition_evidence_refs": [],
+        "receipt_refs": [],
+        "occurred_at": "2026-07-18T12:00:02Z",
+        "observed_at": "2026-07-18T12:00:02Z",
+        "extensions": {}
+      }
+    },
+    {
+      "id": "H04_VALID_REJECTED_TRANSITION",
+      "target_schema": "urn:ptah:schema:common:state-transition:0.1.0",
+      "expected": "valid",
+      "specimen": {
+        "transition_id": "019bd54a-7c32-7111-b111-888888888888",
+        "subject_ref": {
+          "entity_id": "019bd54a-7c32-7d6d-934e-3e56bb42ca11",
+          "entity_kind": "core.activity",
+          "record_revision": 2
+        },
+        "state_machine_name": "activity.lifecycle",
+        "state_machine_version": "0.1.0",
+        "sequence": 2,
+        "from_state": "queued",
+        "to_state": "completed",
+        "transition_status": "rejected",
+        "transition_reason": "Completion cannot skip required execution states.",
+        "authority_ref": {
+          "entity_id": "019bd54a-7c32-7fff-9fff-666666666666",
+          "entity_kind": "identity.principal"
+        },
+        "precondition_evidence_refs": [],
+        "receipt_refs": [],
+        "rejection_outcome": {
+          "outcome_class": "rejected",
+          "stable_code": "INVALID_STATE_TRANSITION",
+          "summary": "queued to completed is not allowed by activity.lifecycle 0.1.0",
+          "retryability": "after_change",
+          "subject_refs": [
+            {
+              "entity_id": "019bd54a-7c32-7d6d-934e-3e56bb42ca11",
+              "entity_kind": "core.activity"
+            }
+          ],
+          "evidence_or_receipt_refs": [],
+          "limitations": []
+        },
+        "occurred_at": "2026-07-18T12:00:03Z",
+        "observed_at": "2026-07-18T12:00:03Z",
+        "extensions": {}
+      }
+    },
+    {
+      "id": "H05_INVALID_REJECTED_WITH_RESULT_REVISION",
+      "target_schema": "urn:ptah:schema:common:state-transition:0.1.0",
+      "expected": "invalid",
+      "expected_code": "REJECTED_TRANSITION_MUTATES_REVISION",
+      "specimen": {
+        "transition_id": "019bd54a-7c32-7222-8222-999999999999",
+        "subject_ref": {
+          "entity_id": "019bd54a-7c32-7d6d-934e-3e56bb42ca11",
+          "entity_kind": "core.activity"
+        },
+        "state_machine_name": "activity.lifecycle",
+        "state_machine_version": "0.1.0",
+        "sequence": 2,
+        "from_state": "queued",
+        "to_state": "completed",
+        "transition_status": "rejected",
+        "transition_reason": "Invalid jump.",
+        "authority_ref": {
+          "entity_id": "019bd54a-7c32-7fff-9fff-666666666666",
+          "entity_kind": "identity.principal"
+        },
+        "resulting_record_revision": 3,
+        "precondition_evidence_refs": [],
+        "receipt_refs": [],
+        "rejection_outcome": {
+          "outcome_class": "rejected",
+          "stable_code": "INVALID_STATE_TRANSITION",
+          "summary": "The requested transition is not allowed.",
+          "retryability": "after_change"
+        },
+        "occurred_at": "2026-07-18T12:00:04Z",
+        "observed_at": "2026-07-18T12:00:04Z",
+        "extensions": {}
+      }
+    },
+    {
+      "id": "J01_VALID_COMPLETED_MIGRATION",
+      "target_schema": "urn:ptah:schema:common:migration-run:0.1.0",
+      "expected": "valid",
+      "specimen": {
+        "migration_run_id": "019bd54a-7c32-7333-9333-aaaaaaaaaaaa",
+        "migration_definition_ref": {
+          "entity_id": "019bd54a-7c32-7444-a444-bbbbbbbbbbbb",
+          "entity_kind": "core.migration_definition"
+        },
+        "activity_ref": {
+          "entity_id": "019bd54a-7c32-7555-b555-cccccccccccc",
+          "entity_kind": "core.activity"
+        },
+        "operation_ref": {
+          "entity_id": "019bd54a-7c32-7666-8666-dddddddddddd",
+          "entity_kind": "core.operation"
+        },
+        "attempt_ref": {
+          "entity_id": "019bd54a-7c32-7777-9777-eeeeeeeeeeee",
+          "entity_kind": "core.attempt"
+        },
+        "input_ref": {
+          "entity_id": "019bd54a-7c32-7888-a888-ffffffffffff",
+          "entity_kind": "core.workspace",
+          "record_revision": 4
+        },
+        "output_ref": {
+          "entity_id": "019bd54a-7c32-7999-b999-000000000001",
+          "entity_kind": "core.workspace",
+          "record_revision": 1
+        },
+        "source_schema_id": "urn:ptah:schema:workspace:workspace:0.1.0",
+        "source_schema_version": "0.1.0",
+        "target_schema_id": "urn:ptah:schema:workspace:workspace:0.2.0",
+        "target_schema_version": "0.2.0",
+        "source_hash": "sha256:abcdef0123456789",
+        "target_hash": "sha256:1234567890abcdef",
+        "migration_status": "completed",
+        "field_mapping_report": [
+          {
+            "source_pointer": "/name",
+            "target_pointer": "/display_name",
+            "mapping_class": "renamed",
+            "notes": "Field meaning was preserved."
+          }
+        ],
+        "loss_or_default_report": [],
+        "validation_outcome": {
+          "outcome_class": "success",
+          "stable_code": "MIGRATION_VALIDATED",
+          "summary": "The migrated record validates against the target schema.",
+          "retryability": "never"
+        },
+        "receipt_refs": [],
+        "supersession_relationship_ref": {
+          "entity_id": "019bd54a-7c32-7aaa-8aaa-000000000002",
+          "entity_kind": "core.relationship"
+        },
+        "started_at": "2026-07-18T12:01:00Z",
+        "completed_at": "2026-07-18T12:01:01Z",
+        "extensions": {}
+      }
+    },
+    {
+      "id": "J02_INVALID_COMPLETED_MIGRATION_NO_OUTPUT",
+      "target_schema": "urn:ptah:schema:common:migration-run:0.1.0",
+      "expected": "invalid",
+      "expected_code": "MISSING_MIGRATION_OUTPUT",
+      "specimen": {
+        "migration_run_id": "019bd54a-7c32-7bbb-9bbb-000000000003",
+        "migration_definition_ref": {
+          "entity_id": "019bd54a-7c32-7444-a444-bbbbbbbbbbbb",
+          "entity_kind": "core.migration_definition"
+        },
+        "activity_ref": {
+          "entity_id": "019bd54a-7c32-7555-b555-cccccccccccc",
+          "entity_kind": "core.activity"
+        },
+        "operation_ref": {
+          "entity_id": "019bd54a-7c32-7666-8666-dddddddddddd",
+          "entity_kind": "core.operation"
+        },
+        "attempt_ref": {
+          "entity_id": "019bd54a-7c32-7777-9777-eeeeeeeeeeee",
+          "entity_kind": "core.attempt"
+        },
+        "input_ref": {
+          "entity_id": "019bd54a-7c32-7888-a888-ffffffffffff",
+          "entity_kind": "core.workspace"
+        },
+        "source_schema_id": "urn:ptah:schema:workspace:workspace:0.1.0",
+        "source_schema_version": "0.1.0",
+        "target_schema_id": "urn:ptah:schema:workspace:workspace:0.2.0",
+        "target_schema_version": "0.2.0",
+        "source_hash": "sha256:abcdef0123456789",
+        "migration_status": "completed",
+        "field_mapping_report": [],
+        "loss_or_default_report": [],
+        "validation_outcome": {
+          "outcome_class": "success",
+          "stable_code": "MIGRATION_VALIDATED",
+          "summary": "Incorrectly claims success without output.",
+          "retryability": "never"
+        },
+        "receipt_refs": [],
+        "started_at": "2026-07-18T12:02:00Z",
+        "completed_at": "2026-07-18T12:02:01Z",
+        "extensions": {}
+      }
+    }
+  ]
+}
