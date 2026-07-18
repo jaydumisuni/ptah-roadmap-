@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:activity-dependency:0.1.0",
+  "title": "Ptah Activity Dependency",
+  "description": "First-class dependency edge between two durable Activities.",
+  "x-ptah-schema-name": "activity.activity-dependency",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "dependent_activity_ref",
+    "dependency_activity_ref",
+    "dependency_condition",
+    "failure_policy",
+    "required_result_or_proof_refs",
+    "created_by_ref",
+    "created_at",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.activity_dependency" } } }
+      ]
+    },
+    "dependent_activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "dependency_activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "dependency_condition": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/dependencyCondition" },
+    "failure_policy": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/dependencyFailurePolicy" },
+    "required_result_or_proof_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "manual_release_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "condition_satisfied_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "condition_evidence_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "created_by_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "created_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "dependency_condition": { "const": "manual_release" } }, "required": ["dependency_condition"] },
+      "then": { "required": ["manual_release_ref"] }
+    }
+  ]
+}
