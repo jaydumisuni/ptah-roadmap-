@@ -3,6 +3,7 @@
 **Last updated:** 2026-07-18  
 **Overall status:** ACTIVE PLANNING  
 **Current phase:** Phase 0A — Internal and external donor recovery  
+**Active work package:** WP11 — Strong Isolation and Distributed Placement/Scheduling  
 **Runtime implementation:** NOT STARTED  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
@@ -10,7 +11,7 @@
 
 # Recovered position
 
-Ptah is an independent, open-source, online-first concurrent digital world built around persistent Workspaces, Objects, Activities, Facilities, Nodes, Devices, Applications, Browsers, Sessions, Panels and Artifacts.
+Ptah is an independent, open-source, online-first concurrent digital world built around persistent Workspaces, Objects, Activities, Facilities, Nodes, Devices, Applications, Browsers, Sessions, Panels, Knowledge Sources, Datasets, Plugins and Artifacts.
 
 Ptah supplies the working world. Humans and compatible systems supply intent, reasoning, policy, restrictions and acceptance criteria.
 
@@ -50,8 +51,6 @@ Closed:
 - local journal/reconnect;
 - operation/attempt/nonce/receipt/proof-level boundaries.
 
-Primary machinery: OpenClaw, Daytona, Coder, E2B, Dev Containers, DevPod, containerd/OCI, OpenHands, Temporal, NATS/JetStream and OpenTelemetry, completed by internal AgentOps, Sergeant, Relay, CodeOps, MIBU and Hunter runtime evidence.
-
 ## WP03 — Build, Artifact and provenance
 
 Closed:
@@ -68,10 +67,7 @@ Closed:
 - hot local Workspace storage;
 - local CAS plus local/shared SQL and R2/S3 direction;
 - immutable Objects and mutable revisions/conflicts;
-- resumable upload/download;
-- cloud/Node transfer;
-- encrypted backup/restore;
-- Drive export/recovery;
+- resumable transfer, sync, backup/restore and Drive recovery;
 - distributed shared filesystems parked pending measured need.
 
 ## WP05 — Universal Object and decomposition
@@ -87,12 +83,7 @@ Closed:
 
 Closed:
 
-- Apple IPSW/BuildManifest;
-- MediaTek META/BROM/Preloader/DA;
-- Qualcomm Sahara/Firehose;
-- Unisoc PAC/FDL;
-- Android OTA/sparse/dynamic-partition/AVB;
-- Samsung and generic vendor routing;
+- Apple, MediaTek, Qualcomm, Unisoc, Android OTA and Samsung/vendor composition;
 - GPT/MBR and isolated filesystem inspection;
 - static analysis versus physical mutation;
 - exact compatibility, immutable backup and read-back proof.
@@ -104,13 +95,9 @@ Closed:
 Closed:
 
 - stable Device identity, interface epochs, Provider workers and lease/fencing;
-- Android ADB/Fastboot, files, packages, logs, display/audio/input and semantic UI;
-- Device and Application Sessions;
-- Linux graphical applications and remote display;
-- Windows native/VM applications, RDP and semantic automation;
-- macOS native/VM applications and visual/accessibility automation;
-- iOS Simulator/physical-device providers and XCUITest/IDB;
-- platform-specific checkpoint and proof classes.
+- Android device control, display/input and semantic UI;
+- Linux, Windows, macOS and iOS Application Providers/Sessions;
+- remote display, Window, checkpoint and platform proof boundaries.
 
 Known retained gap: dedicated Linux AT-SPI semantic automation requires a later completion pass.
 
@@ -119,129 +106,130 @@ Known retained gap: dedicated Linux AT-SPI semantic automation requires a later 
 Closed:
 
 - Browser Provider, Binary, Profile, Process, Context, Page, Frame, Popup and Download identities;
-- Playwright foundation;
-- Browser-Use profile/session/recovery patterns without its agent identity;
-- TurboWebFetch rendered batch retrieval adapted over pooled Contexts;
-- MCP/SDK/UI adapter separation;
-- source, DOM, accessibility, pixels, screenshot, video, trace, console and network evidence;
+- Playwright foundation and Browser-Use/TurboWebFetch completion patterns;
+- source, DOM, accessibility, screenshot, video, trace, console and network evidence;
 - source/citation records and explicit authentication/challenge/human-completion states.
 
 ## WP09 — Human Workspace Shell and Operator Interface
+
+Closed:
+
+- Shell Client/Session, Panel Type/Instance, Layout Profile/Revision and control ownership;
+- Theia full workbench, Dockview responsive layouts, xterm.js terminal rendering and optional coding Applications;
+- Activity Centre, Evidence Explorer and exact lifecycle/proof labels;
+- desktop/tablet/phone projections, accessibility and human/automation fenced control.
+
+Saved decision: `decisions/ADR-0012-HUMAN-WORKSPACE-SHELL-PANEL-CONTROL-BOUNDARY.md`.
+
+## WP10 — Knowledge, Data, Search and Plugin Composition
 
 **Status:** COMPLETE; closed for Phase 0B contract design, not build.
 
 Inspected and saved:
 
-- Eclipse Theia;
-- OpenVSCode Server;
-- code-server;
-- xterm.js;
-- Dockview;
-- internal Hunter, Sergeant, MIBU, Device Manager and website UI patterns.
+- internal Hunter knowledge, memory, learning, sync, retrieval and provider foundations;
+- RAGFlow;
+- LlamaIndex;
+- Dify;
+- Polars;
+- DuckDB;
+- Deno;
+- MCP specification and official reference servers;
+- ClawHub;
+- OpenClaw plugin lifecycle;
+- Hermes Agent;
+- MiniRouter boundary recovery.
 
 Accepted direction:
 
-1. Ptah owns Shell Client, Shell Session, Panel Type/Instance, Layout Profile/Revision and control ownership.
-2. Eclipse Theia is the primary full desktop/workbench foundation, not Ptah Core or the phone shell.
-3. Dockview is the lighter responsive/wide-screen layout candidate.
-4. Phone presentation uses one primary panel, compact switching, drawers and Activity status rather than arbitrary docking.
-5. OpenVSCode Server and code-server are optional coding Applications/Providers.
-6. xterm.js is the browser terminal renderer over Ptah PTY Sessions.
-7. Panel/layout restoration never implies runtime recovery.
-8. Activity Centre and Evidence Explorer project live Activities, Receipts, Artifacts, disagreements and limitations.
-9. Settings remains separate from live operational control.
-10. Human and automation control uses scoped leases, fencing and receipted takeover/return.
-11. UI contributions call scoped Ptah Facilities rather than accessing host resources directly.
-12. Accessibility, keyboard, touch, safe-area, reduced-motion and low-resource behavior are first-class.
-13. Specialist UIs remain products/clients.
-14. Hunter Foreman is excluded from active shell composition unless explicitly reintroduced.
+1. Conversation, Knowledge Source, Source Object/View, Corpus, Document Revision, Chunk, Index Revision and caller-owned memory remain separate.
+2. Source Objects and exact revisions are truth; indexes, embeddings, summaries and caches are derived and rebuildable.
+3. Query, Result, ranking explanation and exact Citation remain separate.
+4. Permissions apply during acquisition, retention, embedding, indexing, retrieval, citation, export and deletion.
+5. LlamaIndex is the primary modular local knowledge-foundation candidate; RAGFlow is an optional heavier Knowledge Facility.
+6. Search across Objects, Activities, Artifacts and Workspaces is native Ptah catalogue/index behavior, not only document RAG.
+7. Polars and DuckDB are analytical engines behind Ptah Dataset/Query/Result identities; transactional databases remain separate Facilities.
+8. Package, Package Release, Installed Plugin, Activation and Registry Entry remain separate.
+9. Registry presence, verification, scans and manifest claims are evidence inputs, not approval or runtime proof.
+10. Deno is the lightweight permission-scoped runtime candidate; native, FFI, untrusted or broad-privilege code escalates to OCI or VM isolation.
+11. MCP is an external Facility adapter protocol, not Ptah's internal Object/Activity model.
+12. Hunter, Hermes, Dify, OpenClaw and future systems remain external callers/Applications that own reasoning, personal memory and relationship policy.
+13. Dify is study-only or separately licensed because of its modified licence.
+14. MiniRouter moves to later routing/evaluation work and remains study-only until its licence is resolved.
 
 Saved:
 
-- `donors/ECLIPSE-THEIA.md`
-- `donors/OPENVSCODE-CODE-SERVER.md`
-- `donors/XTERMJS.md`
-- `donors/DOCKVIEW.md`
-- `internal/UI-FOUNDATIONS.md`
-- `decisions/ADR-0012-HUMAN-WORKSPACE-SHELL-PANEL-CONTROL-BOUNDARY.md`
-- `work-packages/PHASE-0A-WP09-HUMAN-WORKSPACE-SHELL.md`
+- `internal/HUNTER-KNOWLEDGE-MEMORY-SEARCH.md`
+- `donors/RAGFLOW.md`
+- `donors/LLAMAINDEX.md`
+- `donors/DIFY.md`
+- `donors/POLARS.md`
+- `donors/DUCKDB.md`
+- `donors/DENO.md`
+- `donors/MCP.md`
+- `donors/CLAWHUB.md`
+- `donors/OPENCLAW.md`
+- `donors/HERMES-AGENT.md`
+- `donors/MINIROUTER.md`
+- `decisions/ADR-0013-KNOWLEDGE-DATA-SEARCH-PLUGIN-BOUNDARY.md`
+- `work-packages/PHASE-0A-WP10-KNOWLEDGE-DATA-SEARCH-PLUGIN.md`
 
 Closed for Phase 0B design:
 
-- `UI-001` Human Workspace shell;
-- `UI-002` Activity Centre/evidence/review;
-- Human Workspace portions of `SESSION-001`;
-- shell contribution portions of `CORE-004`;
-- human projections of `OBS-001`, `PROV-001` and runtime control leases.
+- `SEARCH-001`;
+- `DATA-001`;
+- `PLUGIN-001`;
+- knowledge/index extensions of Object, storage, Session, observability and provenance contracts;
+- provider-neutral model/data adapter direction;
+- MCP adapter and external reasoning/caller boundaries.
 
-No shell framework or UI implementation is approved yet.
+No Knowledge Facility, search index, data engine, plugin manager, registry, MCP server or UI implementation is approved yet.
 
 ---
 
 # Active inspection unit
 
-## WP10 — Knowledge, Data, Search and Plugin Composition
+## WP11 — Strong Isolation and Distributed Placement/Scheduling
 
 Inspect as one complementary group:
 
-1. RAGFlow;
-2. LlamaIndex;
-3. Dify;
-4. Polars;
-5. Deno;
-6. Model Context Protocol specification and official server examples;
-7. OpenClaw/ClawHub plugin discovery and lifecycle patterns where requirements remain;
-8. internal Hunter knowledge, memory, learning, search and provider bridges;
-9. exact unresolved MiniRouter/Hermes relationships only where they overlap this subsystem.
-
-Current checkpoint:
-
-- [x] Internal Hunter knowledge, memory, learning, sync, retrieval and provider foundations recovered and refreshed at `internal/HUNTER-KNOWLEDGE-MEMORY-SEARCH.md`.
-- [x] RAGFlow ingestion, retrieval, metadata, deletion and backend-semantics donor pass refreshed at `donors/RAGFLOW.md`.
-- [-] LlamaIndex is the next active donor.
-- [ ] Dify, Polars, Deno, MCP and remaining plugin-composition donors follow before composite closure.
-
-Recovered direction so far:
-
-1. Conversation, Knowledge Source, derived Index and durable Memory/Lesson records remain separate.
-2. Hunter contributes private approval, local-first sync, proof-state and degradation patterns but remains a caller/consumer rather than Ptah Core.
-3. RAGFlow contributes end-to-end ingestion, visible parse state, hybrid retrieval, metadata filtering, backend abstraction and deletion/reconciliation lessons.
-4. RAGFlow datasets/documents/chunks and Hunter paths/lessons remain adapter-local identities.
-5. Source Objects and immutable View revisions remain Ptah truth; indexes, embeddings and retrieval caches are derived and rebuildable.
-6. Every Result and Citation must bind to exact permitted source revisions and ranges.
-7. Search-backend abstraction requires semantic conformance tests; a shared method signature does not prove equivalent filtering or ranking.
-8. Full RAGFlow deployment may be optional for large deployments while a lighter provider path remains required for the first slice.
+1. gVisor;
+2. Kata Containers;
+3. Firecracker;
+4. youki;
+5. crun;
+6. Ray;
+7. existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer and checkpoint foundations;
+8. internal THETECHGUY Node, worker, resource and deployment requirements;
+9. MiniRouter only as an optional routing/evaluation workload.
 
 Resolve:
 
-- Knowledge Source, Corpus, Document and Chunk identities;
-- source-grounded indexing and citations;
-- ingestion, parsing, embedding and index revisions;
-- permissions, deletion, freshness and re-indexing;
-- search across Objects, Activities, Artifacts, Workspaces and external sources;
-- structured data/table/database Activities;
-- Polars/SQL execution and result Artifacts;
-- recipe, service, tool and plugin manifests;
-- MCP as one external adapter rather than Ptah's internal model;
-- Deno/other sandboxed lightweight tool execution;
-- provider-neutral model and data interfaces;
-- plugin install, pin, health, upgrade, rollback and removal;
-- public/private plugin registries and contribution boundaries;
-- external reasoning/caller ownership without embedding a council into Ptah.
+- lightweight OCI versus syscall sandbox versus VM-strength isolation;
+- runtime-class selection and escalation rules;
+- Node/provider capability and resource snapshots;
+- placement, reservation, lease, fencing and generation identity;
+- secure networking, credential delivery and data locality;
+- CPU, RAM, disk, accelerator and cost-aware scheduling;
+- interruption, checkpoint, migration, rescheduling and recovery;
+- local one-Node operation versus multi-Node distribution;
+- failure domains and degraded fallback;
+- scheduler policy versus caller reasoning;
+- routing/evaluation workloads without embedding a router into Ptah Core.
 
 Required saved output:
 
-- internal and external donor records after each inspection unit;
-- Knowledge/Data/Search/Plugin composition record;
-- Knowledge Source / Index / Query / Plugin boundary ADR;
-- Requirement Closure Matrix updates for `SEARCH-001`, `DATA-001`, `PLUGIN-001` and related extensions;
+- donor records after each inspection unit;
+- isolation and distributed-placement composition record;
+- isolation/runtime-class/placement/scheduling boundary ADR;
+- Requirement Closure Matrix updates for isolation and `DIST-001`;
 - continuous `PROGRESS.md` and Current State updates.
 
 ---
 
 # Accepted decisions
 
-ADR-0001 through ADR-0012 are accepted and indexed in `DECISIONS.md`.
+ADR-0001 through ADR-0013 are accepted and indexed in `DECISIONS.md`.
 
 ---
 
