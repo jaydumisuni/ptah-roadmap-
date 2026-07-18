@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:proof-level-definition:0.1.0",
+  "title": "Ptah Proof Level Definition",
+  "description": "Versioned definition of one bounded proof level inside one proof domain.",
+  "x-ptah-schema-name": "activity.proof-level-definition",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "proof_domain",
+    "proof_level",
+    "definition_version",
+    "description",
+    "permitted_authority_classes",
+    "required_subject_kinds",
+    "does_not_imply",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "proof.proof_level_definition" } } }
+      ]
+    },
+    "proof_domain": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/proofDomain" },
+    "proof_level": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/proofLevel" },
+    "definition_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "description": { "type": "string", "minLength": 1, "maxLength": 8192 },
+    "permitted_authority_classes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/receiptAuthorityClass" }
+    },
+    "required_subject_kinds": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityKind" },
+      "uniqueItems": true
+    },
+    "required_observed_facts": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "required_readback_classes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+      "uniqueItems": true
+    },
+    "may_follow_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "does_not_imply": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "notes": { "type": "string", "maxLength": 8192 },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
