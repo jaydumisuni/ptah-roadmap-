@@ -86,9 +86,12 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Dockview responsive layout candidate.
 - [x] internal Hunter/Sergeant/MIBU/Device Manager/website UI patterns.
 - [x] Ptah Home, Workspace switcher and Panel contract direction.
-- [x] Activity Centre, Evidence Explorer and exact lifecycle/proof labels.
+- [x] multi-terminal, Browser, Device and Application panel direction.
+- [x] Activity Centre and Evidence Explorer.
 - [x] human/automation focus and fenced control handoff.
-- [x] responsive desktop/tablet/phone and accessibility direction.
+- [x] responsive desktop/tablet/phone layout direction.
+- [x] accessibility, keyboard, touch and reduced-motion requirements.
+- [x] honest lifecycle/proof labels.
 - [x] ADR-0012 and WP09.
 - [x] Human Workspace/UI Phase 0B design closure.
 
@@ -118,11 +121,13 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 ## Active WP11 — Strong Isolation and Distributed Placement/Scheduling
 
 - [x] gVisor userspace application-kernel/`runsc` isolation donor first pass.
-- [-] Kata Containers.
-- [ ] Firecracker.
-- [ ] youki.
-- [ ] crun.
-- [ ] Ray.
+- [x] Kata Containers VM-backed container/Workspace donor first pass.
+- [x] Firecracker standalone microVM donor first pass.
+- [x] youki baseline Rust OCI runtime donor first pass.
+- [x] crun low-memory OCI runtime/library donor first pass.
+- [x] Ray distributed Task/Actor/placement donor first pass.
+- [-] Recover existing containerd/OCI, Workspace Provider, Node Protocol, Activity, transfer, lease/fencing and checkpoint foundations.
+- [ ] Recover internal THETECHGUY Node, worker, resource and deployment requirements.
 - [ ] isolation-class and escalation model.
 - [ ] Node/provider capability and resource snapshots.
 - [ ] placement, reservation, lease and fencing model.
@@ -130,7 +135,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [ ] interruption, rescheduling, checkpoint and recovery behavior.
 - [ ] local one-Node fallback versus multi-Node placement.
 - [ ] cost, locality, data-gravity and accelerator-aware scheduling.
-- [ ] MiniRouter only as a routing/evaluation workload, not Core.
+- [x] MiniRouter classified only as a routing/evaluation workload, not Core; source reuse blocked pending licence.
 - [ ] composite WP11 record.
 - [ ] isolation/placement/scheduling ADR.
 - [ ] Isolation/Distributed Placement Phase 0B design closure.
