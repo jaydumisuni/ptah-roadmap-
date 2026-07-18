@@ -198,3 +198,24 @@ Ptah owns Shell Client, Shell Session, Panel Type/Instance, Layout Profile/Revis
 - Hunter Foreman is excluded from active shell composition unless explicitly reintroduced.
 
 Full decision: `decisions/ADR-0012-HUMAN-WORKSPACE-SHELL-PANEL-CONTROL-BOUNDARY.md`.
+
+## D-028 — Knowledge source, indexes, queries, data and plugins remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns neutral Knowledge Source, Corpus, Document Revision, Chunk, Index Revision, Query, Result, Citation, Dataset, Table, Package Release, Installed Plugin and Activation identities.
+
+- Conversation, source knowledge, derived indexes and caller-owned memory are different truth classes.
+- Source Objects and exact revisions are authoritative; embeddings, indexes, summaries and caches are derived and rebuildable.
+- Query, ranking Result and exact Citation remain separate.
+- Permissions apply during source acquisition, retention, embedding, indexing, retrieval, citation, export and deletion.
+- LlamaIndex is the primary modular local knowledge-foundation candidate; RAGFlow is an optional heavier Knowledge Facility.
+- Polars and DuckDB are analytical engines behind Ptah Dataset/Query/Result contracts, not universal transactional stores.
+- Package, immutable Package Release, Installed Plugin, Activation and Registry Entry remain separate.
+- Registry presence, verification, scans and manifest claims are evidence inputs, not approval or runtime proof.
+- Deno is the lightweight permission-scoped tool-runtime candidate; native, FFI, untrusted or broad-privilege code escalates to OCI or VM isolation.
+- MCP is one external adapter protocol, not Ptah's internal Object or Activity model.
+- Hunter, Hermes, Dify, OpenClaw and future systems remain external callers or Applications that own reasoning, memory and relationship policy.
+- Dify requires separate licence treatment; MiniRouter remains study-only until its licence is resolved.
+
+Full decision: `decisions/ADR-0013-KNOWLEDGE-DATA-SEARCH-PLUGIN-BOUNDARY.md`.
