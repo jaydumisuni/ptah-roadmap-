@@ -194,6 +194,24 @@ Inspect as one complementary group:
 8. internal Hunter knowledge, memory, learning, search and provider bridges;
 9. exact unresolved MiniRouter/Hermes relationships only where they overlap this subsystem.
 
+Current checkpoint:
+
+- [x] Internal Hunter knowledge, memory, learning, sync, retrieval and provider foundations recovered and refreshed at `internal/HUNTER-KNOWLEDGE-MEMORY-SEARCH.md`.
+- [x] RAGFlow ingestion, retrieval, metadata, deletion and backend-semantics donor pass refreshed at `donors/RAGFLOW.md`.
+- [-] LlamaIndex is the next active donor.
+- [ ] Dify, Polars, Deno, MCP and remaining plugin-composition donors follow before composite closure.
+
+Recovered direction so far:
+
+1. Conversation, Knowledge Source, derived Index and durable Memory/Lesson records remain separate.
+2. Hunter contributes private approval, local-first sync, proof-state and degradation patterns but remains a caller/consumer rather than Ptah Core.
+3. RAGFlow contributes end-to-end ingestion, visible parse state, hybrid retrieval, metadata filtering, backend abstraction and deletion/reconciliation lessons.
+4. RAGFlow datasets/documents/chunks and Hunter paths/lessons remain adapter-local identities.
+5. Source Objects and immutable View revisions remain Ptah truth; indexes, embeddings and retrieval caches are derived and rebuildable.
+6. Every Result and Citation must bind to exact permitted source revisions and ranges.
+7. Search-backend abstraction requires semantic conformance tests; a shared method signature does not prove equivalent filtering or ranking.
+8. Full RAGFlow deployment may be optional for large deployments while a lighter provider path remains required for the first slice.
+
 Resolve:
 
 - Knowledge Source, Corpus, Document and Chunk identities;
