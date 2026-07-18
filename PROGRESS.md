@@ -18,7 +18,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Private roadmap repository and public/private separation.
 - [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] ADR-0001 through ADR-0014 accepted and indexed.
+- [x] ADR-0001 through ADR-0015 accepted and indexed.
 - [-] Normalize remaining donor register and unresolved profiles.
 - [-] Save after every meaningful inspection unit.
 
@@ -68,8 +68,8 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Linux, Windows, macOS and iOS Application Providers.
 - [x] remote display, VM, Window and Application Session boundaries.
 - [x] Linux AT-SPI/libatspi semantic tree, actions, text, value, selection, event and GNOME-Wayland input completion.
-- [x] semantic snapshot/node/query/action/read-back and privacy boundary.
-- [x] ADR-0009, ADR-0010, WP07A and WP07B.
+- [x] semantic snapshot/target/selector/action/read-back and privacy boundary.
+- [x] ADR-0009, ADR-0010, ADR-0015, WP07A/WP07B and Linux semantic completion work package.
 - [x] Phase 0B design closure.
 
 ### WP08 — Browser and Live Research
