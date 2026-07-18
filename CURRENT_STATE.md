@@ -1,9 +1,9 @@
 # Ptah Current State
 
 **Last updated:** 2026-07-18  
-**Overall status:** ACTIVE PLANNING — ARCHITECTURE SUBSYSTEMS CLOSED FOR DESIGN  
-**Current phase:** Phase 0A — donor cleanup and cross-requirement review  
-**Active inspection unit:** Research/documentation sources and unresolved-profile cleanup  
+**Overall status:** ACTIVE PLANNING — ALL V1 SUBSYSTEMS CLOSED FOR DESIGN  
+**Current phase:** Phase 0A — cross-requirement review and freeze readiness  
+**Active inspection unit:** Identity, authority, proof and parked-gap consistency review  
 **Runtime implementation:** NOT STARTED  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
@@ -31,7 +31,7 @@ Every requirement combines:
 6. fallback or exit path;
 7. proof of the complete assembled subsystem.
 
-One repository never closes a subsystem. Research, corrections and decisions are committed after every meaningful inspection unit.
+One repository never closes a subsystem. Research, corrections and decisions are committed after every meaningful inspection/review unit.
 
 Canonical method: `decisions/ADR-0002-COMPOSITE-DONOR-CLOSURE.md`.
 
@@ -39,7 +39,7 @@ Design closure does not authorize implementation.
 
 ---
 
-# Phase 0A architecture subsystems closed for Phase 0B contract design
+# Phase 0A architecture closed for Phase 0B contract design
 
 ## WP01–WP02 — Core runtime
 
@@ -110,21 +110,9 @@ Closed:
 - Android device control, display/input and semantic UI;
 - Linux, Windows, macOS and iOS Application Providers/Sessions;
 - remote display, Window, checkpoint and platform proof boundaries;
-- Linux AT-SPI/libatspi semantic tree, query, action, text, selection, value, cache and Event composition;
+- Linux AT-SPI/libatspi semantic tree, target, selector, action, cache and Event composition;
 - X11 versus GNOME-Wayland input paths and explicit visual fallback;
-- Semantic Provider/Snapshot/Target/Selector/Action identities and post-condition proof.
-
-Linux semantic rules:
-
-1. AT-SPI/libatspi is the primary Linux semantic Provider foundation.
-2. D-Bus names, object paths, AccessibleIds and child indices remain provider-local observations.
-3. targets are reacquired against current Application, Window and provider generations.
-4. events update/invalidate state but do not replace fresh snapshots/reconciliation.
-5. semantic inspection, semantic mutation, raw input, clipboard and visual automation are separate permissions.
-6. GNOME Ponytail is one GNOME-Wayland input adapter, not universal Wayland support.
-7. command/action protocol success requires semantic and/or visual read-back.
-8. opaque applications degrade explicitly to partial or visual-only behavior.
-9. mutually untrusted Workspaces do not share one privileged accessibility session.
+- post-condition semantic/visual read-back and sensitive-access boundaries.
 
 Evidence:
 
@@ -166,14 +154,10 @@ Closed:
 - Package, Package Release, Installed Plugin, Activation and Registry Entry lifecycle;
 - Deno lightweight runtime and stronger-isolation escalation;
 - MCP as an external adapter, not the internal model;
-- ClawHub/OpenClaw registry/lifecycle patterns;
-- Dify licence restriction and Hermes/OpenClaw/Hunter external-caller boundary;
+- Dify licence restriction and external-caller boundaries;
 - MiniRouter as a future study-only routing/evaluation workload pending licence.
 
-Evidence:
-
-- `work-packages/PHASE-0A-WP10-KNOWLEDGE-DATA-SEARCH-PLUGIN.md`
-- ADR-0013 and listed donor/internal records.
+Evidence: WP10, ADR-0013 and listed donor/internal records.
 
 ## WP11 — Strong Isolation and Distributed Placement/Scheduling
 
@@ -190,43 +174,22 @@ Closed:
 - one-Node and multi-Node operation under the same identities;
 - Ray as an optional trusted distributed Compute Facility, not the global scheduler or security boundary.
 
-Evidence:
-
-- `work-packages/PHASE-0A-WP11-ISOLATION-DISTRIBUTED-PLACEMENT.md`
-- ADR-0014 and listed donor/internal records.
+Evidence: WP11, ADR-0014 and listed donor/internal records.
 
 ## Security Assessment and Reproduction Workloads
 
-**Status:** COMPLETE; closed for Phase 0B contract design, not build.
+Closed:
 
-Inspected and saved:
-
-- ReproZip;
-- ClaimBound;
-- SparkDistill;
-- Syft and Grype;
-- GUAC;
-- Semgrep;
-- Trivy;
-- ZAP;
-- Strix.
-
-Accepted direction:
-
-1. exact Security Assessment Authorization, Plan, Target Revision, machinery revision and Coverage are mandatory.
-2. static, inventory, vulnerability, configuration, secret, licence, passive, active, exploit and agent-originated observations remain distinct.
-3. raw scanner/workload reports remain immutable restricted Artifacts.
-4. Finding Observation and Correlated Finding remain separate; scanner disagreement is retained.
-5. severity, confidence, exploitability, impact, disposition, remediation priority, release policy and acceptance remain separate.
-6. false-positive, not-affected, accepted-risk and suppression records require authority, reason, scope and optional expiry.
-7. active/fuzz/exploit/agentic work requires exact authorization, strong isolation, network/credential budgets, emergency stop and cleanup/read-back.
-8. scanner/agent fixes remain proposals until correct owner implementation, re-test and independent review.
-9. frozen Protocol Revision, Reproduction Run and bounded claim/Evidence Card remain separate from Result and acceptance.
-10. ReproZip is one environment-capture/replay class, not universal reproduction.
-11. ClaimBound cards are Views, not certification or Activity truth.
-12. SparkDistill is an optional specialist AI-reproduction workload; recipe, dataset, checkpoint, metric claim, attestation and recheck remain separate.
-13. negative, blocked, drift, inconclusive and not-independently-reproduced outcomes remain visible.
-14. no-findings, exit code zero, clean scan, PoC, hash, attestation or replay never becomes broad proof of security or correctness.
+- exact Security Assessment Authorization, Plan, Target Revision, machinery revision and Coverage;
+- separate static, inventory, vulnerability, configuration, secret, licence, passive, active, exploit and agent-originated observations;
+- immutable restricted scanner/workload reports;
+- Finding Observation versus Correlated Finding;
+- severity, confidence, exploitability, impact, disposition, remediation priority, release policy and acceptance separation;
+- scoped exception, not-affected, false-positive and accepted-risk records;
+- active/offensive isolation, network, credential, stop and cleanup boundaries;
+- frozen Protocol Revision, Reproduction Run and bounded Evidence Card;
+- remediation proposal, owner implementation, re-test and independent review;
+- negative, blocked, drift, inconclusive and not-independently-reproduced evidence.
 
 Closed requirements:
 
@@ -239,44 +202,131 @@ Evidence:
 - `decisions/ADR-0016-SECURITY-FINDING-VALIDATION-REPRODUCTION-BOUNDARY.md`
 - canonical donor records in `donors/`.
 
-No scanner, security agent, test target, security gate, evidence-card renderer or reproduction runtime is approved for implementation yet.
+## Research, documentation and source cleanup
+
+Closed:
+
+- Awesome AI Product Management verified as optional Research Source only;
+- `tmimmanuel` retained as discovery lineage only;
+- Chris/Christiam Ipanaque identity resolved to `chrisipanaque` and prototype reuse parked pending licence/proof;
+- `amertoglu16.github.io` parked after no source or functionality was recovered;
+- Crisp Links verified as optional README asset generator;
+- Material for MkDocs pinned as primary lightweight docs candidate;
+- Docusaurus pinned as optional richer docs/site alternative;
+- Mermaid pinned as primary text-defined documentation-diagram candidate;
+- catalogue/profile/README claims prevented from becoming donor proof;
+- public/private documentation build and leakage boundary recorded.
+
+Evidence:
+
+- `donors/RESEARCH-DISCOVERY-SOURCES.md`
+- `donors/DOCUMENTATION-PRESENTATION-TOOLS.md`
+- `work-packages/PHASE-0A-RESEARCH-DOCUMENTATION-SOURCE-CLEANUP.md`
+
+No research catalogue, profile, documentation framework or presentation tool changes accepted runtime architecture.
 
 ---
 
 # Active inspection unit
 
-## Research/documentation sources and unresolved-profile cleanup
+## Cross-requirement consistency and freeze-readiness review
 
-This is a cleanup/classification unit, not a new architecture cluster.
+This is the final Phase 0A review lane. It must not invent a new architecture cluster.
 
-Resolve or explicitly classify:
+### 1. Identity consistency
 
-1. Awesome AI Product Management catalogue;
-2. `tmimmanuel` profile as discovery lineage only after individual repositories are already assessed;
-3. Chris Ipanaque's correct GitHub identity/repositories;
-4. `amertoglu16.github.io` repository/site and actual functionality;
-5. GitHub README Crisp Links or equivalent documentation tooling;
-6. MkDocs Material, Docusaurus and Mermaid documentation/presentation roles;
-7. any remaining donor-list names, redirects, stale URLs, duplicate records or licence gaps;
-8. remaining public/private donor-register inconsistencies.
+Check that every accepted record uses compatible and non-overlapping meanings for:
 
-Expected outcomes:
+- Node, Workspace, Activity, operation, attempt and Event;
+- Object, View, Artifact, revision, location and derivative;
+- Facility, Provider, Package, Plugin and Activation;
+- Device, Application, Browser, Window, Page, Session and generation;
+- Claim, Finding Observation, Correlated Finding, Evidence and Receipt;
+- Recipe, Build, Scan, Protocol, Reproduction Run and Comparison;
+- Placement, Reservation, Lease, Fence and Checkpoint.
 
-- documentation/research source;
-- discovery source only;
-- public presentation tool;
-- already covered;
-- parked with reopening criteria;
-- rejected/no implementation evidence;
-- donor record corrected and pinned.
+No donor-local identifier may be silently promoted to canonical Ptah identity.
 
-Do not reopen accepted runtime architecture merely because a catalogue or profile mentions another tool.
+### 2. Authority consistency
 
-After cleanup:
+Verify separation of:
 
-1. cross-requirement consistency review;
-2. parked/rejected/blocked gap review;
-3. Phase 0A freeze/readiness decision for Phase 0B.
+- caller intent and Ptah execution;
+- policy decision and operation result;
+- user/department/organization approval and provider capability;
+- human-control lease and automation authority;
+- security authorization, scanner output and release acceptance;
+- Code Ops/specialist ownership, Sergeant proof and caller acceptance;
+- credentials/session ownership and plugin/tool permissions.
+
+### 3. State and proof consistency
+
+Verify that all work packages preserve:
+
+- Activity state versus Event/telemetry;
+- protocol acknowledgement versus read-back;
+- Evidence versus Claim;
+- signature/attestation versus semantic correctness;
+- checkpoint produced versus restored versus application recovered;
+- no-findings versus bounded scan coverage;
+- bundle assembled versus workload reproduced;
+- UI projection versus runtime truth;
+- review versus external authoritative result.
+
+### 4. Lifecycle consistency
+
+Check create/start/pause/retry/recover/stop/archive/delete behavior across:
+
+- Workspaces and Activities;
+- Objects and revisions;
+- Builds and Artifacts;
+- transfers, sync and backups;
+- Devices, Applications, Browsers and Shell Sessions;
+- Knowledge indexes and Plugins;
+- reservations, leases and distributed work;
+- Findings, exceptions and reproduction records.
+
+### 5. Parked/rejected/blocked gap audit
+
+At minimum review:
+
+- `.P5C` format/sample gap;
+- distributed shared POSIX filesystems;
+- MiniRouter source licence;
+- Dify modified-licence boundary;
+- `chrisipanaque` prototype source reuse;
+- `amertoglu16.github.io` missing source;
+- GNOME Ponytail exact source/dependency approval;
+- unsupported Wayland compositors/toolkits;
+- private internal device-manager source not yet auditable;
+- any donor root without a clear licence;
+- any stale, redirected or duplicate donor path.
+
+Every parked/blocked item must have reopening criteria and a non-blocking v1 path or be declared a true blocker.
+
+### 6. Phase 0B input enumeration
+
+Produce one explicit checklist of required:
+
+- schemas and migrations;
+- conformance suites;
+- golden Objects/Artifacts/reports;
+- failure and negative-proof corpus;
+- security/privacy fixtures;
+- versioning and compatibility matrices;
+- observability conventions;
+- backend replacement tests;
+- first-slice decision inputs.
+
+### 7. Freeze decision
+
+Phase 0A may freeze only when:
+
+1. ADR, work-package, donor, matrix, progress and Current State references agree;
+2. no identity or authority contradiction remains unresolved;
+3. every parked gap has reopening criteria and a v1 consequence;
+4. all Phase 0B schema/proof inputs are enumerated;
+5. implementation remains blocked until Phase 0C approval.
 
 ---
 
@@ -290,11 +340,11 @@ ADR-0001 through ADR-0016 are accepted and indexed in `DECISIONS.md`.
 
 Allowed now:
 
-- donor/internal recovery;
-- source inspection, canonical pins and licence review;
-- classification/cleanup and duplicate removal;
 - cross-requirement review;
-- ADR, schema and proof planning after Phase 0A review.
+- parked/rejected/blocked gap classification;
+- source/reference corrections and duplicate removal;
+- Phase 0B schema, migration and proof-corpus planning;
+- freeze/readiness decision.
 
 Not allowed yet:
 
@@ -309,15 +359,14 @@ Not allowed yet:
 
 # Phase 0A completion gate
 
-Every v1 requirement now has composite design closure. Phase 0A still cannot freeze until:
+Every v1 requirement has composite design closure. Phase 0A still cannot freeze until:
 
-1. remaining research/documentation/profile entries are resolved or parked;
-2. stale URLs, duplicate donor files and licence gaps are identified;
-3. all ADR/work-package/matrix/current-state references agree;
-4. cross-requirement schemas and identities are checked for contradictions;
-5. parked/blocked gaps have explicit reopening criteria;
-6. Phase 0B inputs and proof corpus are enumerated;
-7. the no-build boundary remains explicit.
+1. cross-requirement identities, authority, states, proofs and lifecycles agree;
+2. stale URLs, duplicates and licence gaps are classified;
+3. parked/blocked gaps have explicit reopening criteria and v1 consequences;
+4. all ADR/work-package/matrix/progress/current-state references agree;
+5. Phase 0B schemas, conformance and proof corpus are enumerated;
+6. the no-build boundary remains explicit.
 
 ---
 
