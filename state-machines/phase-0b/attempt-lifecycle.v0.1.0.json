@@ -1,0 +1,39 @@
+{
+  "state_machine_name": "attempt.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.attempt"],
+  "states": [
+    {"name":"created","description":"Attempt identity, number, nonce and intended execution context are allocated.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Parent Operation exists and permits a new Attempt."]},
+    {"name":"dispatched","description":"Attempt was sent/routed to a producer under fixed generations and epoch.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Dispatch Receipt is correlated."]},
+    {"name":"accepted","description":"Producer accepted the Attempt for execution.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Current producer acceptance evidence exists."]},
+    {"name":"executing","description":"Producer reports active execution or runtime evidence confirms work is in progress.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Execution evidence is current and correlated."]},
+    {"name":"waiting","description":"Attempt remains current but waits inside the physical execution path.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Wait reason/evidence is retained."]},
+    {"name":"completed","description":"Producer reports the physical Attempt completed; Operation proof remains separately evaluated.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Completion Receipt is current and correlated."]},
+    {"name":"failed","description":"Producer/Node/Provider reports terminal physical Attempt failure.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Typed failure outcome is retained."]},
+    {"name":"timed_out","description":"Attempt exceeded a declared deadline and effect may require reconciliation.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Timeout authority and uncertainty are retained."]},
+    {"name":"cancelled","description":"Attempt cancellation reached the provider's declared physical boundary.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Cancellation acknowledgement/result is retained."]},
+    {"name":"abandoned","description":"Current control cannot continue observing/controlling the Attempt and it is no longer selected, while effect certainty remains recorded.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Abandonment and reconciliation reason are retained."]},
+    {"name":"superseded","description":"Another Attempt became the selected physical try after policy allowed replacement.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Superseding Attempt reference is retained."]}
+  ],
+  "initial_states": ["created"],
+  "transitions": [
+    {"transition_name":"create","from_states":[null],"to_state":"created","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Parent Operation permits a new Attempt and nonce/generations are allocated."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"dispatch","from_states":["created"],"to_state":"dispatched","transition_class":"normal","authority_classes":["ptah_control_plane","ptah_node"],"side_effecting":false,"required_preconditions":["Current route, Provider generation and connection epoch are valid."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["routed"]},
+    {"transition_name":"accept","from_states":["dispatched"],"to_state":"accepted","transition_class":"normal","authority_classes":["ptah_node","provider","facility"],"side_effecting":false,"required_preconditions":["Producer acceptance Receipt matches Attempt and nonce."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"execute","from_states":["accepted","waiting"],"to_state":"executing","transition_class":"normal","authority_classes":["ptah_node","provider","facility","operating_system","physical_device"],"side_effecting":false,"required_preconditions":["Current runtime evidence matches generations and epoch."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["process_started"]},
+    {"transition_name":"wait","from_states":["accepted","executing"],"to_state":"waiting","transition_class":"normal","authority_classes":["ptah_node","provider","facility","operating_system","physical_device","external_provider"],"side_effecting":false,"required_preconditions":["Attempt remains current and structured wait reason is retained."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"complete","from_states":["accepted","executing","waiting"],"to_state":"completed","transition_class":"normal","authority_classes":["ptah_node","provider","facility","operating_system","physical_device","external_provider","authoritative_external_system"],"side_effecting":false,"required_preconditions":["Current correlated producer completion Receipt exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"fail","from_states":["created","dispatched","accepted","executing","waiting"],"to_state":"failed","transition_class":"normal","authority_classes":["ptah_node","provider","facility","operating_system","physical_device","external_provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Typed physical failure outcome exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"timeout","from_states":["dispatched","accepted","executing","waiting"],"to_state":"timed_out","transition_class":"expiry","authority_classes":["ptah_control_plane","ptah_node"],"side_effecting":false,"required_preconditions":["Declared deadline elapsed and timeout policy was evaluated."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[],"expiry_clock_authority":"ptah_control_plane_or_authorized_node_monotonic_clock"},
+    {"transition_name":"cancel","from_states":["created","dispatched","accepted","executing","waiting"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["ptah_node","provider","facility","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation acknowledgement/result matches current Attempt."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"abandon","from_states":["dispatched","accepted","executing","waiting"],"to_state":"abandoned","transition_class":"recovery","authority_classes":["ptah_control_plane","ptah_node"],"side_effecting":false,"required_preconditions":["Attempt cannot remain selected and uncertainty is retained for reconciliation."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"supersede","from_states":["created","dispatched","accepted","waiting"],"to_state":"superseded","transition_class":"administrative","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Retry/idempotency policy permits a replacement Attempt and superseding reference exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {
+    "state_mapping_required_for_breaking_change": true,
+    "unmapped_state_behavior": "manual_review",
+    "migration_definition_refs": []
+  },
+  "extensions": {}
+}
