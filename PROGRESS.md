@@ -67,6 +67,8 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Android Device Provider, ADB/Fastboot, display/input and semantic UI.
 - [x] Linux, Windows, macOS and iOS Application Providers.
 - [x] remote display, VM, Window and Application Session boundaries.
+- [x] Linux AT-SPI/libatspi semantic tree, actions, text, value, selection, event and GNOME-Wayland input completion.
+- [x] semantic snapshot/node/query/action/read-back and privacy boundary.
 - [x] ADR-0009, ADR-0010, WP07A and WP07B.
 - [x] Phase 0B design closure.
 
@@ -142,8 +144,8 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 ## Active remaining Phase 0A completion
 
-- [-] Linux AT-SPI semantic completion.
-- [ ] Reproduction/security workloads and scanners.
+- [x] Linux AT-SPI semantic completion.
+- [-] Reproduction/security workloads and scanners.
 - [ ] research/documentation sources and unresolved profiles.
 - [ ] cross-requirement Phase 0A review.
 - [ ] Phase 0A freeze/readiness decision for Phase 0B.
@@ -160,7 +162,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Human Workspace/UI.
 - [x] Knowledge/Data/Search/Plugin.
 - [x] Isolation/Distributed placement.
-- [ ] Security/reproduction workloads.
+- [-] Security/reproduction workloads.
 - [ ] Phase 0A review and freeze.
 
 ---
