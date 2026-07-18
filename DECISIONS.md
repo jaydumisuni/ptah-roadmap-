@@ -239,3 +239,23 @@ Ptah owns the Isolation Class, Runtime Provider, Node Capability Snapshot, Place
 - MiniRouter remains an optional evaluation workload, not a Ptah routing authority.
 
 Full decision: `decisions/ADR-0014-ISOLATION-RUNTIME-PLACEMENT-SCHEDULING-BOUNDARY.md`.
+
+## D-030 — Linux semantic target, snapshot, actions, raw input and proof remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns provider-neutral Semantic Provider, Snapshot, Target, Selector, Event, Action and proof identities for Linux Application Sessions.
+
+- AT-SPI/libatspi is the primary Linux semantic tree/state/action provider foundation.
+- D-Bus names, object paths, AccessibleIds and child indices remain provider-local observations rather than stable Ptah identities.
+- targets are reacquired against current Application, Window and provider generations before mutation.
+- bulk snapshots, events and reconciliation remain separate sources of semantic state.
+- selector ambiguity and stale/defunct references are explicit.
+- semantic inspection, semantic mutation, raw pointer/keyboard, clipboard and visual automation are separate permission classes.
+- X11, GNOME Wayland/Ponytail and unsupported compositor input paths remain distinct.
+- semantic action protocol success requires semantic and/or visual post-condition read-back.
+- mutually untrusted Workspaces do not share one privileged accessibility session.
+- opaque or incomplete UIs degrade explicitly to semantic-partial or visual-only behavior.
+- Dogtail and Accerciser remain optional testing/inspection Applications; future accessibility providers remain replaceable.
+
+Full decision: `decisions/ADR-0015-LINUX-APPLICATION-SEMANTIC-AUTOMATION-BOUNDARY.md`.
