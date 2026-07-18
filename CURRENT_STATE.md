@@ -3,7 +3,7 @@
 **Last updated:** 2026-07-18  
 **Overall status:** ACTIVE PLANNING  
 **Current phase:** Phase 0A — Internal and external donor recovery  
-**Active inspection unit:** Remaining Phase 0A completion — Linux AT-SPI, security/reproduction and final review  
+**Active inspection unit:** Reproduction/security workloads and scanners  
 **Runtime implementation:** NOT STARTED  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
@@ -97,9 +97,25 @@ Closed:
 - stable Device identity, interface epochs, Provider workers and lease/fencing;
 - Android device control, display/input and semantic UI;
 - Linux, Windows, macOS and iOS Application Providers/Sessions;
-- remote display, Window, checkpoint and platform proof boundaries.
+- remote display, Window, checkpoint and platform proof boundaries;
+- Linux AT-SPI/libatspi semantic tree, query, action, text, selection, value, cache and Event composition;
+- Xorg versus GNOME-Wayland input paths and explicit visual fallback;
+- Semantic Context/Snapshot/Node/Action identities and semantic post-condition proof.
 
-Known retained gap: dedicated Linux AT-SPI semantic automation requires the active completion pass.
+Linux semantic completion record: `donors/AT-SPI.md`.
+
+Accepted Linux semantic direction:
+
+1. AT-SPI/libatspi is the primary Linux semantic UI Provider foundation.
+2. New Ptah provider work uses direct libatspi/GObject-introspection rather than legacy pyatspi.
+3. Dogtail contributes bounded search, retry, stale-node and diagnostic patterns without defining Ptah contracts.
+4. GNOME Ponytail is a GNOME-Wayland input completion adapter, not universal Wayland automation.
+5. D-Bus names, object paths, application IDs, AccessibleIds and child indices remain provider-local aliases.
+6. Accessibility-bus observation and mutation are separately scoped privileged capabilities.
+7. Events update/invalidate projections but never replace a fresh Semantic Snapshot.
+8. semantic action success requires semantic and/or visual post-condition read-back.
+9. opaque applications degrade explicitly to visual/coordinate automation.
+10. password, sensitive text, clipboard and cross-application access require dedicated privacy/permission controls.
 
 ## WP08 — Browser and Live Research
 
@@ -231,23 +247,47 @@ No Runtime Provider, scheduler, Ray cluster, network plane, credential broker or
 
 # Active inspection unit
 
-## Remaining Phase 0A completion
+## Reproduction/security workloads and scanners
 
-Proceed in this order:
+Inspect as one complementary group:
 
-1. Linux AT-SPI semantic automation completion for Linux Application Providers;
-2. reproduction/security workloads and scanners;
-3. research/documentation-source and unresolved-profile cleanup;
-4. cross-requirement Phase 0A review;
-5. Phase 0A freeze/readiness decision for Phase 0B.
+1. ReproZip and reproducible workload capture;
+2. GUAC and security/provenance graph aggregation;
+3. Semgrep and source/static analysis;
+4. Trivy and Artifact/container/filesystem/IaC scanning;
+5. ZAP and dynamic web/API security testing;
+6. Strix and other approved offensive-validation orchestration only within explicit test scopes;
+7. SparkDistill, ClaimBound and any internal/external reproduction or claim-evidence systems already named in the donor plan;
+8. existing Build, SBOM, attestation, Object, Activity, Receipt, isolation and Sergeant review foundations.
+
+Resolve:
+
+- scanner invocation versus Finding, Claim, Evidence and review;
+- source/static, dependency/SBOM, secret, configuration, container, runtime and dynamic-test classes;
+- scanner/tool/database/rule versions and freshness;
+- target Object/Artifact/Workspace revision and test authorization;
+- suppression, exception, accepted-risk and false-positive records;
+- finding deduplication without losing independent detector disagreement;
+- exploitability/impact/confidence versus severity;
+- active security-test network, credential and destructive-action scopes;
+- reproducible environment capture and replay limitations;
+- security result signing, provenance and retention;
+- independent Sergeant/department review and release gates;
+- public/private security evidence boundaries.
 
 Required outputs:
 
-- donor/composition records for each remaining cluster;
-- any required final ADRs or explicit parked/rejected decisions;
+- donor/composition records for the security/reproduction group;
+- security Finding/Claim/Evidence/reproduction boundary ADR if required;
 - Requirement Closure Matrix updates;
-- final Phase 0A review record;
-- freeze/readiness checkpoint before Phase 0B.
+- progress/current-state synchronization;
+- explicit parked/rejected tools or unsafe paths.
+
+After this group:
+
+1. research/documentation-source and unresolved-profile cleanup;
+2. cross-requirement Phase 0A review;
+3. Phase 0A freeze/readiness decision for Phase 0B.
 
 ---
 
