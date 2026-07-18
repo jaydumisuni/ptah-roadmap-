@@ -23,16 +23,40 @@
       "repository_path": "schemas/phase-0b/common/entity-envelope.v0.1.0.schema.json"
     },
     {
+      "schema_id": "urn:ptah:schema:common:state-machine-definition:0.1.0",
+      "schema_version": "0.1.0",
+      "maturity": "candidate",
+      "repository_path": "schemas/phase-0b/common/state-machine-definition.v0.1.0.schema.json"
+    },
+    {
       "schema_id": "urn:ptah:schema:common:state-transition:0.1.0",
       "schema_version": "0.1.0",
       "maturity": "candidate",
       "repository_path": "schemas/phase-0b/common/state-transition.v0.1.0.schema.json"
     },
     {
+      "schema_id": "urn:ptah:schema:common:typed-family-definition:0.1.0",
+      "schema_version": "0.1.0",
+      "maturity": "candidate",
+      "repository_path": "schemas/phase-0b/common/typed-family-definition.v0.1.0.schema.json"
+    },
+    {
+      "schema_id": "urn:ptah:schema:common:migration-definition:0.1.0",
+      "schema_version": "0.1.0",
+      "maturity": "candidate",
+      "repository_path": "schemas/phase-0b/common/migration-definition.v0.1.0.schema.json"
+    },
+    {
       "schema_id": "urn:ptah:schema:common:migration-run:0.1.0",
       "schema_version": "0.1.0",
       "maturity": "candidate",
       "repository_path": "schemas/phase-0b/common/migration-run.v0.1.0.schema.json"
+    },
+    {
+      "schema_id": "urn:ptah:schema:common:compatibility-record:0.1.0",
+      "schema_version": "0.1.0",
+      "maturity": "candidate",
+      "repository_path": "schemas/phase-0b/common/compatibility-record.v0.1.0.schema.json"
     }
   ]
 }
