@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:reconciliation-run:0.1.0",
+  "title": "Ptah Activity Reconciliation Run",
+  "description": "One durable reconciliation over ledger, Provider, Event, Receipt, journal and external-result evidence.",
+  "x-ptah-schema-name": "activity.reconciliation-run",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "activity_ref",
+    "reconciliation_reason",
+    "ledger_snapshot_ref",
+    "current_generation_refs",
+    "event_refs",
+    "receipt_refs",
+    "journal_refs",
+    "external_result_refs",
+    "evidence_dispositions",
+    "accepted_transition_refs",
+    "rejected_transition_refs",
+    "outcome",
+    "started_at",
+    "completed_at",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.reconciliation_run" } } }
+      ]
+    },
+    "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "reconciliation_reason": {
+      "type": "string",
+      "enum": ["control_restart", "node_reconnect", "provider_restart", "connection_epoch_change", "event_gap", "late_receipt", "stale_projection", "uncertain_attempt", "external_result_arrived", "manual_request"]
+    },
+    "ledger_snapshot_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "current_generation_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "event_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "journal_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "external_result_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "evidence_dispositions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["evidence_ref", "disposition", "reason"],
+        "properties": {
+          "evidence_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+          "disposition": { "type": "string", "enum": ["accepted_current", "accepted_historical", "duplicate", "stale_generation", "stale_epoch", "wrong_subject", "wrong_nonce", "unauthenticated", "contradictory", "inconclusive", "rejected"] },
+          "reason": { "type": "string", "minLength": 1, "maxLength": 4096 }
+        }
+      }
+    },
+    "accepted_transition_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "rejected_transition_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "new_projection_health": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/projectionHealth" },
+    "outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "started_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "completed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
