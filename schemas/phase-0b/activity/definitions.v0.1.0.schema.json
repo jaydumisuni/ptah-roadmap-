@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:definitions:0.1.0",
+  "title": "Ptah Activity, Event and Proof Definitions",
+  "description": "Shared candidate definitions for Phase 0B WP02 schemas.",
+  "x-ptah-schema-name": "activity.definitions",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "$defs": {
+    "activityLifecycleState": {
+      "type": "string",
+      "enum": ["queued", "preparing", "running", "waiting", "paused", "resuming", "recovering", "completed", "failed", "cancelled"]
+    },
+    "activityRequestState": {
+      "type": "string",
+      "enum": ["submitted", "validating", "accepted", "rejected", "expired", "withdrawn"]
+    },
+    "cancellationState": {
+      "type": "string",
+      "enum": ["none", "requested", "acknowledged", "completing", "completed", "rejected", "expired"]
+    },
+    "attachmentState": {
+      "type": "string",
+      "enum": ["attached", "detached"]
+    },
+    "projectionHealth": {
+      "type": "string",
+      "enum": ["current", "stale", "reconciling", "unknown"]
+    },
+    "waitReason": {
+      "type": "string",
+      "enum": ["dependency", "timer", "human_action", "provider_capacity", "external_result", "credential", "approval", "backpressure", "retry_backoff", "checkpoint", "other"]
+    },
+    "dependencyCondition": {
+      "type": "string",
+      "enum": ["activity_completed", "activity_terminal", "result_available", "artifact_available", "proof_level_reached", "manual_release"]
+    },
+    "dependencyFailurePolicy": {
+      "type": "string",
+      "enum": ["block", "fail_dependent", "continue_with_warning", "skip_dependent", "manual_decision"]
+    },
+    "operationLifecycleState": {
+      "type": "string",
+      "enum": ["planned", "ready", "dispatching", "executing", "waiting", "uncertain", "succeeded", "failed", "cancelled", "blocked"]
+    },
+    "attemptLifecycleState": {
+      "type": "string",
+      "enum": ["created", "dispatched", "accepted", "executing", "waiting", "completed", "failed", "timed_out", "cancelled", "abandoned", "superseded"]
+    },
+    "sideEffectClass": {
+      "type": "string",
+      "enum": ["observation_only", "reversible", "idempotent_mutation", "non_idempotent_mutation", "destructive", "external_authoritative"]
+    },
+    "retryClass": {
+      "type": "string",
+      "enum": ["retry_safe", "retry_requires_idempotency_receipt", "non_retryable", "manual_resume_only", "compensating_action_required"]
+    },
+    "idempotencyClass": {
+      "type": "string",
+      "enum": ["none_required", "operation_identity", "explicit_key", "provider_key", "receipt_guarded", "manual_only", "compensating"]
+    },
+    "eventClass": {
+      "type": "string",
+      "enum": ["ephemeral", "replayable", "ledger_derived", "proof_notification"]
+    },
+    "eventPayloadClass": {
+      "type": "string",
+      "enum": ["inline_small", "object_reference", "artifact_reference", "stream_reference", "none"]
+    },
+    "receiptKind": {
+      "type": "string",
+      "enum": ["request_acknowledgement", "routing", "work_dispatch", "process_observation", "runtime_observation", "operation_observation", "progress_checkpoint", "output_observation", "readback", "hash_verification", "external_result", "review", "correction"]
+    },
+    "receiptAuthorityClass": {
+      "type": "string",
+      "enum": ["caller_claim", "ptah_control_plane", "ptah_node", "workspace_provider", "facility_runtime", "operating_system", "physical_device", "external_provider", "human_confirmation", "independent_reviewer", "authoritative_external_system"]
+    },
+    "receiptOutcome": {
+      "type": "string",
+      "enum": ["positive", "negative", "partial", "inconclusive", "corrected", "superseded"]
+    },
+    "proofDomain": {
+      "type": "string",
+      "enum": ["request_dispatch", "runtime", "output", "external_result", "review"]
+    },
+    "proofLevel": {
+      "type": "string",
+      "enum": ["requested", "accepted", "routed", "dispatched", "process_started", "interface_launched", "runtime_ready", "operation_armed", "progress_observed", "operation_completed", "output_created", "output_read_back", "output_hash_verified", "external_result_recorded", "authoritative_external_result", "independently_reviewed"]
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["pass", "fail", "conditional", "inconclusive", "unsupported"]
+    },
+    "failureClass": {
+      "type": "string",
+      "enum": ["control_failure", "event_transport_failure", "durable_orchestrator_failure", "node_failure", "provider_failure", "facility_failure", "process_failure", "stream_failure", "object_transfer_failure", "artifact_validation_failure", "telemetry_failure", "caller_cancellation", "authorization_failure", "proof_failure", "reconciliation_conflict"]
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": -1000,
+      "maximum": 1000
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deadline_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+        "max_runtime_seconds": { "type": "integer", "minimum": 0 },
+        "max_attempts": { "type": "integer", "minimum": 1 },
+        "max_cpu_seconds": { "type": "number", "minimum": 0 },
+        "max_memory_byte_seconds": { "type": "number", "minimum": 0 },
+        "max_network_bytes": { "type": "integer", "minimum": 0 },
+        "max_storage_bytes": { "type": "integer", "minimum": 0 },
+        "max_cost": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["amount", "currency"],
+          "properties": {
+            "amount": { "type": "string", "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$" },
+            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+          }
+        }
+      }
+    },
+    "traceContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "trace_id": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+        "span_id": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+        "trace_flags": { "type": "string", "pattern": "^[0-9a-f]{2}$" },
+        "trace_state": { "type": "string", "maxLength": 1024 }
+      }
+    },
+    "contentHash": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[0-9a-f]+$"
+    },
+    "keyToken": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 512
+    },
+    "stateProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_machine_name", "state_machine_version", "current_state", "state_sequence"],
+      "properties": {
+        "state_machine_name": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+        "state_machine_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+        "current_state": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "state_sequence": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "last_transition_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }
+      }
+    },
+    "smallPayload": {
+      "description": "Small JSON payload only. Size enforcement is semantic and transport-specific.",
+      "type": ["object", "array", "string", "number", "integer", "boolean", "null"]
+    }
+  }
+}
