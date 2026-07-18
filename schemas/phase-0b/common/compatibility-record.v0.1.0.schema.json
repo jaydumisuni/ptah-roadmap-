@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:common:compatibility-record:0.1.0",
+  "title": "Ptah Schema Compatibility Record",
+  "description": "Candidate directional compatibility decision between producer and consumer contract versions.",
+  "x-ptah-schema-name": "common.compatibility-record",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "compatibility_record_id",
+    "producer_schema_id",
+    "producer_schema_version",
+    "consumer_schema_id",
+    "consumer_schema_version",
+    "read_compatibility",
+    "write_compatibility",
+    "round_trip_compatibility",
+    "migration_required",
+    "lossy_pointers",
+    "unsupported_features",
+    "assessed_at",
+    "assessor_ref",
+    "evidence_refs",
+    "extensions"
+  ],
+  "properties": {
+    "compatibility_record_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/uuidv7" },
+    "producer_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "producer_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "consumer_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "consumer_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "read_compatibility": {
+      "type": "string",
+      "enum": ["compatible", "compatible_with_ignored_extensions", "compatible_with_migration", "lossy", "incompatible", "unknown"]
+    },
+    "write_compatibility": {
+      "type": "string",
+      "enum": ["compatible", "compatible_with_ignored_extensions", "compatible_with_migration", "lossy", "incompatible", "unknown"]
+    },
+    "round_trip_compatibility": {
+      "type": "string",
+      "enum": ["compatible", "compatible_with_ignored_extensions", "compatible_with_migration", "lossy", "incompatible", "unknown"]
+    },
+    "migration_required": { "type": "boolean" },
+    "migration_definition_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "lossy_pointers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$" }
+    },
+    "unsupported_features": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "assessed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "assessor_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "assessment_protocol_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "notes": { "type": "string", "maxLength": 8192 },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "migration_required": { "const": true } }, "required": ["migration_required"] },
+      "then": {
+        "required": ["migration_definition_refs"],
+        "properties": { "migration_definition_refs": { "minItems": 1 } }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          { "properties": { "read_compatibility": { "const": "lossy" } }, "required": ["read_compatibility"] },
+          { "properties": { "write_compatibility": { "const": "lossy" } }, "required": ["write_compatibility"] },
+          { "properties": { "round_trip_compatibility": { "const": "lossy" } }, "required": ["round_trip_compatibility"] }
+        ]
+      },
+      "then": { "properties": { "lossy_pointers": { "minItems": 1 } } }
+    }
+  ]
+}
