@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:attempt:0.1.0",
+  "title": "Ptah Operation Attempt",
+  "description": "One physical execution try of a logical Operation.",
+  "x-ptah-schema-name": "activity.attempt",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "operation_ref",
+    "attempt_number",
+    "lifecycle",
+    "correlation_nonce",
+    "node_ref",
+    "node_generation",
+    "provider_ref",
+    "provider_generation",
+    "workload_generation",
+    "connection_epoch",
+    "producer_instance_ref",
+    "producer_version",
+    "backend_alias_refs",
+    "receipt_refs",
+    "started_at",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.attempt" } } }
+      ]
+    },
+    "operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "attempt_number": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger" },
+    "lifecycle": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/stateProjection" },
+        {
+          "properties": {
+            "state_machine_name": { "const": "attempt.lifecycle" },
+            "state_machine_version": { "const": "0.1.0" },
+            "current_state": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/attemptLifecycleState" }
+          }
+        }
+      ]
+    },
+    "correlation_nonce": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/keyToken" },
+    "node_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "node_generation": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "provider_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "provider_generation": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "workload_generation": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "connection_epoch": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "facility_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "producer_instance_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "producer_version": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "backend_alias_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "dispatch_receipt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "resource_usage_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "uncertainty_reason": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "superseded_by_attempt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "started_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "completed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "enum": ["completed", "failed", "timed_out", "cancelled", "abandoned", "superseded"] } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["outcome", "completed_at"] }
+    },
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "enum": ["timed_out", "abandoned"] } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["uncertainty_reason"] }
+    },
+    {
+      "if": {
+        "properties": { "lifecycle": { "properties": { "current_state": { "const": "superseded" } } } },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["superseded_by_attempt_ref"] }
+    }
+  ]
+}
