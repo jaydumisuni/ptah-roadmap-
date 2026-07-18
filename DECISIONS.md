@@ -219,3 +219,23 @@ Ptah owns neutral Knowledge Source, Corpus, Document Revision, Chunk, Index Revi
 - Dify requires separate licence treatment; MiniRouter remains study-only until its licence is resolved.
 
 Full decision: `decisions/ADR-0013-KNOWLEDGE-DATA-SEARCH-PLUGIN-BOUNDARY.md`.
+
+## D-029 — Isolation Class, runtime, placement, reservation and proof remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns the Isolation Class, Runtime Provider, Node Capability Snapshot, Placement Request/Decision, Reservation, Lease, Generation, Fence, secure grants and Checkpoint Bundle.
+
+- Baseline OCI, gVisor, Kata, Firecracker and full VM are distinct runtime classes with explicit compatibility and threat boundaries.
+- runc, crun and youki remain replaceable implementations below one OCI Provider contract.
+- Rootless and memory-safe implementation are useful properties, not stronger containment classes.
+- Incompatible work may escalate to an equal or stronger approved class or be blocked; Ptah never silently falls back to weaker isolation.
+- Placement filters hard feasibility before scoring locality, pressure, accelerator fit, cost, failure domain and interruption risk.
+- Placement selection, Reservation, Lease, workload Generation and fencing token are separate records.
+- Network, Objects, devices and credentials require exact workload-generation grants.
+- Checkpoint creation, restore compatibility and application recovery are separate proof levels.
+- Ray is an optional trusted distributed Compute Facility behind Ptah Activities and placement, not the global scheduler or Object truth.
+- Mutually untrusted Ray workloads use separate isolated clusters.
+- MiniRouter remains an optional evaluation workload, not a Ptah routing authority.
+
+Full decision: `decisions/ADR-0014-ISOLATION-RUNTIME-PLACEMENT-SCHEDULING-BOUNDARY.md`.
