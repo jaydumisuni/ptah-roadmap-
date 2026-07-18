@@ -259,3 +259,24 @@ Ptah owns provider-neutral Semantic Provider, Snapshot, Target, Selector, Event,
 - Dogtail and Accerciser remain optional testing/inspection Applications; future accessibility providers remain replaceable.
 
 Full decision: `decisions/ADR-0015-LINUX-APPLICATION-SEMANTIC-AUTOMATION-BOUNDARY.md`.
+
+## D-031 — Security Observation, Finding, validation, reproduction and acceptance remain separate
+
+**Status:** ACCEPTED
+
+Ptah owns exact Security Assessment Authorization, Assessment Plan, Target Revision, Scanner/Rule/Database/Protocol Revision, Coverage, Finding Observation, Correlated Finding, disposition, remediation, Verification Run, Reproduction Run, Claim boundary and Evidence Card identities.
+
+- static, inventory, vulnerability, configuration, secret, passive, active, exploit and agent-originated observations remain distinct.
+- no-findings results require exact coverage, skipped scope and errors.
+- scanner severity/confidence, exploitability, business impact, remediation priority, release policy and acceptance remain separate.
+- false-positive, not-affected, accepted-risk and suppression dispositions never erase original evidence and may expire.
+- active/fuzz/exploit/agentic work requires explicit target authority, isolation, network/credential budgets, stop and cleanup/read-back.
+- Semgrep, Syft/Grype, Trivy, GUAC and ZAP are complementary Facilities rather than one universal scanner.
+- Strix is an optional authorized offensive-validation workload, not a security authority or independent reviewer.
+- ReproZip captures one environment/replay class and does not prove universal portability or independent reproduction.
+- ClaimBound-style cards are bounded Views over Ptah Claims/Activities/Artifacts, not certification.
+- SparkDistill is an optional specialist AI-reproduction workload; recipe, dataset, checkpoint, metric claim, attestation and recheck remain separate.
+- remediation remains a proposal until correct ownership, re-test and independent review.
+- Result, Reproduction, Verification, Review and Acceptance levels remain separate, including negative, blocked, drift and inconclusive outcomes.
+
+Full decision: `decisions/ADR-0016-SECURITY-FINDING-VALIDATION-REPRODUCTION-BOUNDARY.md`.
