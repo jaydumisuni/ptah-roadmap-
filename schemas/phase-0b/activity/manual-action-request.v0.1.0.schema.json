@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:manual-action-request:0.1.0",
+  "title": "Ptah Manual Action Request",
+  "description": "Durable request for human or external manual action required by an Activity.",
+  "x-ptah-schema-name": "activity.manual-action-request",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "activity_ref",
+    "operation_ref",
+    "request_kind",
+    "request_state",
+    "request_sequence",
+    "requested_from_refs",
+    "instruction_ref",
+    "required_response_schema_id",
+    "required_response_schema_version",
+    "requested_at",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.manual_action_request" } } }
+      ]
+    },
+    "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "request_kind": {
+      "type": "string",
+      "enum": ["approval", "credential", "physical_action", "challenge_completion", "choice", "confirmation", "data_entry", "other"]
+    },
+    "request_state": {
+      "type": "string",
+      "enum": ["open", "acknowledged", "responded", "accepted", "rejected", "expired", "cancelled"]
+    },
+    "request_sequence": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "requested_from_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "instruction_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "context_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "required_response_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "required_response_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "response_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "response_by_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "response_outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "requested_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "expires_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "responded_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "request_state": { "enum": ["responded", "accepted", "rejected"] } }, "required": ["request_state"] },
+      "then": { "required": ["response_ref", "response_by_ref", "responded_at"] }
+    },
+    {
+      "if": { "properties": { "request_state": { "enum": ["accepted", "rejected", "expired", "cancelled"] } }, "required": ["request_state"] },
+      "then": { "required": ["response_outcome"] }
+    }
+  ]
+}
