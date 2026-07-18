@@ -117,8 +117,8 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 ## Active WP11 — Strong Isolation and Distributed Placement/Scheduling
 
-- [-] gVisor.
-- [ ] Kata Containers.
+- [x] gVisor userspace application-kernel/`runsc` isolation donor first pass.
+- [-] Kata Containers.
 - [ ] Firecracker.
 - [ ] youki.
 - [ ] crun.
