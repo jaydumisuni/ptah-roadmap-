@@ -1,0 +1,160 @@
+{
+  "suite_id": "ptah.conformance.activity.0.1.0",
+  "fixture_version": "0.1.0",
+  "cases": [
+    {
+      "id": "A01_VALID_ACTIVITY_REQUEST_SUBMITTED",
+      "target_schema": "urn:ptah:schema:activity:activity-request:0.1.1",
+      "expected": "valid",
+      "specimen": {
+        "envelope": {
+          "entity_id": "019bd64a-7c32-7a01-8a01-000000000001",
+          "entity_kind": "core.activity_request",
+          "schema_id": "urn:ptah:schema:activity:activity-request:0.1.1",
+          "schema_version": "0.1.1",
+          "record_revision": 1,
+          "created_at": "2026-07-18T13:00:00Z",
+          "updated_at": "2026-07-18T13:00:00Z",
+          "workspace_ref": {"entity_id":"019bd64a-7c32-7a02-8a02-000000000002","entity_kind":"core.workspace"},
+          "authority_ref": {"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},
+          "privacy_class": "internal",
+          "audience": "workspace",
+          "redaction_policy": "none",
+          "retention_policy": {"policy_id":"ptah.operational.default","policy_version":"0.1.0","retention_class":"operational"},
+          "extensions": {}
+        },
+        "lifecycle": {"state_machine_name":"activity_request.lifecycle","state_machine_version":"0.1.0","current_state":"submitted","state_sequence":1},
+        "requestor_ref": {"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},
+        "workspace_ref": {"entity_id":"019bd64a-7c32-7a02-8a02-000000000002","entity_kind":"core.workspace"},
+        "activity_kind": "build.compile",
+        "intent_ref": {"entity_id":"019bd64a-7c32-7a04-8a04-000000000004","entity_kind":"object.object"},
+        "priority": 0,
+        "budgets": {"max_runtime_seconds":3600,"max_attempts":3},
+        "requested_proof_refs": [],
+        "submitted_at": "2026-07-18T13:00:00Z",
+        "supersedes_schema_ref": "urn:ptah:schema:activity:activity-request:0.1.0",
+        "extensions": {}
+      }
+    },
+    {
+      "id": "A03_INVALID_REQUEST_KIND_MUTATED_TO_ACTIVITY",
+      "target_schema": "urn:ptah:schema:activity:activity:0.1.0",
+      "expected": "invalid",
+      "expected_code": "ENTITY_KIND_MISMATCH",
+      "specimen": {
+        "envelope": {
+          "entity_id": "019bd64a-7c32-7a01-8a01-000000000001",
+          "entity_kind": "core.activity_request",
+          "schema_id": "urn:ptah:schema:activity:activity:0.1.0",
+          "schema_version": "0.1.0",
+          "record_revision": 2,
+          "created_at": "2026-07-18T13:00:00Z",
+          "updated_at": "2026-07-18T13:00:01Z",
+          "workspace_ref": {"entity_id":"019bd64a-7c32-7a02-8a02-000000000002","entity_kind":"core.workspace"},
+          "authority_ref": {"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},
+          "privacy_class":"internal","audience":"workspace","redaction_policy":"none",
+          "retention_policy":{"policy_id":"ptah.operational.default","policy_version":"0.1.0","retention_class":"operational"},
+          "extensions":{}
+        },
+        "request_ref":{"entity_id":"019bd64a-7c32-7a01-8a01-000000000001","entity_kind":"core.activity_request"},
+        "workspace_ref":{"entity_id":"019bd64a-7c32-7a02-8a02-000000000002","entity_kind":"core.workspace"},
+        "caller_ref":{"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},
+        "activity_kind":"build.compile",
+        "intent_ref":{"entity_id":"019bd64a-7c32-7a04-8a04-000000000004","entity_kind":"object.object"},
+        "lifecycle":{"state_machine_name":"activity.lifecycle","state_machine_version":"0.1.0","current_state":"queued","state_sequence":1},
+        "cancellation_state":"none","projection_health":"current","priority":0,"budgets":{},"dependency_refs":[],"input_refs":[],"result_refs":[],"receipt_refs":[],"created_at":"2026-07-18T13:00:01Z","extensions":{}
+      }
+    },
+    {
+      "id": "B03_VALID_RUNNING_DETACHED_CANCELLATION_REQUESTED_STALE_PROJECTION",
+      "target_schema": "urn:ptah:schema:activity:activity:0.1.0",
+      "expected": "valid",
+      "semantic_assertions": [
+        "attachment_state may be detached outside the Activity record",
+        "cancellation request does not replace lifecycle",
+        "stale projection does not overwrite durable running state"
+      ],
+      "specimen": {
+        "envelope": {
+          "entity_id":"019bd64a-7c32-7a10-8a10-000000000010","entity_kind":"core.activity","schema_id":"urn:ptah:schema:activity:activity:0.1.0","schema_version":"0.1.0","record_revision":8,
+          "created_at":"2026-07-18T13:01:00Z","updated_at":"2026-07-18T13:02:00Z",
+          "workspace_ref":{"entity_id":"019bd64a-7c32-7a02-8a02-000000000002","entity_kind":"core.workspace"},
+          "authority_ref":{"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},
+          "privacy_class":"internal","audience":"workspace","redaction_policy":"none","retention_policy":{"policy_id":"ptah.historical.activity","policy_version":"0.1.0","retention_class":"historical"},"extensions":{}
+        },
+        "request_ref":{"entity_id":"019bd64a-7c32-7a01-8a01-000000000001","entity_kind":"core.activity_request"},
+        "workspace_ref":{"entity_id":"019bd64a-7c32-7a02-8a02-000000000002","entity_kind":"core.workspace"},
+        "caller_ref":{"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},
+        "activity_kind":"build.compile","intent_ref":{"entity_id":"019bd64a-7c32-7a04-8a04-000000000004","entity_kind":"object.object"},
+        "lifecycle":{"state_machine_name":"activity.lifecycle","state_machine_version":"0.1.0","current_state":"running","state_sequence":4},
+        "cancellation_state":"requested","current_cancellation_request_ref":{"entity_id":"019bd64a-7c32-7a11-8a11-000000000011","entity_kind":"core.cancellation_request"},
+        "projection_health":"stale","priority":0,"budgets":{},"dependency_refs":[],"input_refs":[],"operation_refs":[],"current_attempt_refs":[],"result_refs":[],"receipt_refs":[],"created_at":"2026-07-18T13:01:00Z","started_at":"2026-07-18T13:01:10Z","extensions":{}
+      }
+    },
+    {
+      "id": "B06_INVALID_WAITING_WITHOUT_REASON",
+      "target_schema": "urn:ptah:schema:activity:activity:0.1.0",
+      "expected": "invalid",
+      "expected_code": "MISSING_WAIT_REASON",
+      "specimen": {
+        "envelope":{"entity_id":"019bd64a-7c32-7a12-8a12-000000000012","entity_kind":"core.activity","schema_id":"urn:ptah:schema:activity:activity:0.1.0","schema_version":"0.1.0","record_revision":3,"created_at":"2026-07-18T13:03:00Z","updated_at":"2026-07-18T13:03:10Z","global_scope":"ptah_global","authority_ref":{"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},"privacy_class":"internal","audience":"organization","redaction_policy":"none","retention_policy":{"policy_id":"ptah.operational.default","policy_version":"0.1.0","retention_class":"operational"},"extensions":{}},
+        "request_ref":{"entity_id":"019bd64a-7c32-7a01-8a01-000000000001","entity_kind":"core.activity_request"},"workspace_ref":{"entity_id":"019bd64a-7c32-7a02-8a02-000000000002","entity_kind":"core.workspace"},"caller_ref":{"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},"activity_kind":"transfer.download","intent_ref":{"entity_id":"019bd64a-7c32-7a04-8a04-000000000004","entity_kind":"object.object"},"lifecycle":{"state_machine_name":"activity.lifecycle","state_machine_version":"0.1.0","current_state":"waiting","state_sequence":2},"cancellation_state":"none","projection_health":"current","priority":0,"budgets":{},"dependency_refs":[],"input_refs":[],"result_refs":[],"receipt_refs":[],"created_at":"2026-07-18T13:03:00Z","extensions":{}
+      }
+    },
+    {
+      "id": "D02_VALID_RETRY_NEW_ATTEMPT_SAME_OPERATION",
+      "target_schema": "urn:ptah:schema:activity:attempt:0.1.0",
+      "expected": "valid",
+      "semantic_assertions": ["operation ID and idempotency key remain stable outside this Attempt", "attempt ID, number and nonce are new"],
+      "specimen": {
+        "envelope":{"entity_id":"019bd64a-7c32-7a20-8a20-000000000020","entity_kind":"core.attempt","schema_id":"urn:ptah:schema:activity:attempt:0.1.0","schema_version":"0.1.0","record_revision":1,"created_at":"2026-07-18T13:04:00Z","updated_at":"2026-07-18T13:04:00Z","global_scope":"ptah_global","authority_ref":{"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},"privacy_class":"internal","audience":"organization","redaction_policy":"none","retention_policy":{"policy_id":"ptah.historical.attempt","policy_version":"0.1.0","retention_class":"historical"},"extensions":{}},
+        "operation_ref":{"entity_id":"019bd64a-7c32-7a21-8a21-000000000021","entity_kind":"core.operation"},
+        "attempt_number":2,"lifecycle":{"state_machine_name":"attempt.lifecycle","state_machine_version":"0.1.0","current_state":"created","state_sequence":1},"correlation_nonce":"nonce-attempt-2-abcdef","node_ref":{"entity_id":"019bd64a-7c32-7a22-8a22-000000000022","entity_kind":"core.node"},"node_generation":4,"provider_ref":{"entity_id":"019bd64a-7c32-7a23-8a23-000000000023","entity_kind":"runtime.provider"},"provider_generation":7,"workload_generation":3,"connection_epoch":12,"producer_instance_ref":{"entity_id":"019bd64a-7c32-7a24-8a24-000000000024","entity_kind":"runtime.provider"},"producer_version":"provider-build-abc","backend_alias_refs":[],"receipt_refs":[],"started_at":"2026-07-18T13:04:00Z","extensions":{}
+      }
+    },
+    {
+      "id": "H04_INVALID_PROOF_NOTIFICATION_WITHOUT_RECEIPT",
+      "target_schema": "urn:ptah:schema:activity:event:0.1.0",
+      "expected": "invalid",
+      "expected_code": "MISSING_PROOF_RECEIPT_REFERENCE",
+      "specimen": {
+        "envelope":{"entity_id":"019bd64a-7c32-7a30-8a30-000000000030","entity_kind":"event.event","schema_id":"urn:ptah:schema:activity:event:0.1.0","schema_version":"0.1.0","record_revision":1,"created_at":"2026-07-18T13:05:00Z","updated_at":"2026-07-18T13:05:00Z","global_scope":"ptah_global","authority_ref":{"entity_id":"019bd64a-7c32-7a03-8a03-000000000003","entity_kind":"identity.principal"},"privacy_class":"internal","audience":"organization","redaction_policy":"none","retention_policy":{"policy_id":"ptah.operational.event","policy_version":"0.1.0","retention_class":"operational"},"extensions":{}},
+        "event_domain":"activity","event_type":"activity.receipt.available","event_version":"0.1.0","event_class":"proof_notification","source_ref":{"entity_id":"019bd64a-7c32-7a23-8a23-000000000023","entity_kind":"runtime.provider"},"subject_ref":{"entity_id":"019bd64a-7c32-7a10-8a10-000000000010","entity_kind":"core.activity"},"occurred_at":"2026-07-18T13:05:00Z","observed_at":"2026-07-18T13:05:00Z","sequence_scope_ref":{"entity_id":"019bd64a-7c32-7a23-8a23-000000000023","entity_kind":"runtime.provider"},"sequence":44,"retention_class":"operational","payload_class":"none","extensions":{}
+      }
+    },
+    {
+      "id": "I01_VALID_CORRELATED_RECEIPT",
+      "target_schema": "urn:ptah:schema:activity:receipt:0.1.0",
+      "expected": "valid",
+      "specimen": {
+        "envelope":{"entity_id":"019bd64a-7c32-7a40-8a40-000000000040","entity_kind":"proof.receipt","schema_id":"urn:ptah:schema:activity:receipt:0.1.0","schema_version":"0.1.0","record_revision":1,"created_at":"2026-07-18T13:06:00Z","updated_at":"2026-07-18T13:06:00Z","global_scope":"ptah_global","authority_ref":{"entity_id":"019bd64a-7c32-7a24-8a24-000000000024","entity_kind":"runtime.provider"},"privacy_class":"internal","audience":"organization","redaction_policy":"none","retention_policy":{"policy_id":"ptah.proof.receipt","policy_version":"0.1.0","retention_class":"historical"},"extensions":{}},
+        "receipt_contract_version":"0.1.0","receipt_kind":"operation_observation","receipt_outcome":"positive","authority_class":"facility_runtime","activity_ref":{"entity_id":"019bd64a-7c32-7a10-8a10-000000000010","entity_kind":"core.activity"},"operation_ref":{"entity_id":"019bd64a-7c32-7a21-8a21-000000000021","entity_kind":"core.operation"},"attempt_ref":{"entity_id":"019bd64a-7c32-7a20-8a20-000000000020","entity_kind":"core.attempt"},"idempotency_key":"operation-key-abcdef","correlation_nonce":"nonce-attempt-2-abcdef","node_ref":{"entity_id":"019bd64a-7c32-7a22-8a22-000000000022","entity_kind":"core.node"},"node_generation":4,"provider_ref":{"entity_id":"019bd64a-7c32-7a23-8a23-000000000023","entity_kind":"runtime.provider"},"provider_generation":7,"workload_generation":3,"connection_epoch":12,"facility_ref":{"entity_id":"019bd64a-7c32-7a41-8a41-000000000041","entity_kind":"core.facility"},"producer_instance_ref":{"entity_id":"019bd64a-7c32-7a24-8a24-000000000024","entity_kind":"runtime.provider"},"producer_version":"provider-build-abc","producer_identity_evidence_refs":[],"proof_claim_refs":[{"entity_id":"019bd64a-7c32-7a42-8a42-000000000042","entity_kind":"proof.proof_claim"}],"occurred_at":"2026-07-18T13:06:00Z","observed_at":"2026-07-18T13:06:00Z","received_at":"2026-07-18T13:06:01Z","summary":"Producer reports the Attempt completed.","input_refs":[],"output_refs":[],"artifact_refs":[],"checkpoint_refs":[],"content_hashes":[],"event_refs":[],"previous_or_superseded_receipt_refs":[],"signature_or_attestation_refs":[],"limitations":["This Receipt does not prove an output was created or hash-verified."],"payload_class":"none","extensions":{}
+      }
+    },
+    {
+      "id": "E06_SEMANTIC_STALE_GENERATION_RECEIPT",
+      "target_schema": "urn:ptah:schema:activity:receipt:0.1.0",
+      "expected": "structurally_valid_semantically_rejected_for_current_state",
+      "expected_code": "STALE_PROVIDER_GENERATION",
+      "mutation_effect": "none",
+      "disposition": "accepted_historical"
+    },
+    {
+      "id": "J05_INVALID_CONDITIONAL_VERDICT_WITHOUT_CONDITIONS",
+      "target_schema": "urn:ptah:schema:activity:verdict:0.1.0",
+      "expected": "invalid",
+      "expected_code": "MISSING_VERDICT_CONDITIONS",
+      "specimen": {
+        "envelope":{"entity_id":"019bd64a-7c32-7a50-8a50-000000000050","entity_kind":"proof.verdict","schema_id":"urn:ptah:schema:activity:verdict:0.1.0","schema_version":"0.1.0","record_revision":1,"created_at":"2026-07-18T13:07:00Z","updated_at":"2026-07-18T13:07:00Z","global_scope":"ptah_global","authority_ref":{"entity_id":"019bd64a-7c32-7a51-8a51-000000000051","entity_kind":"identity.principal"},"privacy_class":"internal","audience":"organization","redaction_policy":"none","retention_policy":{"policy_id":"ptah.proof.verdict","policy_version":"0.1.0","retention_class":"historical"},"extensions":{}},
+        "review_ref":{"entity_id":"019bd64a-7c32-7a52-8a52-000000000052","entity_kind":"proof.review"},"subject_refs":[{"entity_id":"019bd64a-7c32-7a10-8a10-000000000010","entity_kind":"core.activity"}],"verdict":"conditional","summary":"Conditional without declared conditions.","limitations":[],"evidence_refs":[{"entity_id":"019bd64a-7c32-7a40-8a40-000000000040","entity_kind":"proof.receipt"}],"issued_by_ref":{"entity_id":"019bd64a-7c32-7a51-8a51-000000000051","entity_kind":"identity.principal"},"issued_at":"2026-07-18T13:07:00Z","extensions":{}
+      }
+    },
+    {
+      "id": "L04_SEMANTIC_OLD_EPOCH_EVIDENCE",
+      "target_schema": "urn:ptah:schema:activity:reconciliation-run:0.1.0",
+      "expected": "disposition_required",
+      "expected_disposition": "stale_epoch",
+      "mutation_effect": "none"
+    }
+  ]
+}
