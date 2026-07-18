@@ -1,11 +1,14 @@
 # Ptah Space — Canonical Master Roadmap
 
-**Status:** Accepted planning baseline  
+**Status:** Phase 0A frozen; Phase 0B active  
 **Implementation:** Not started  
-**Current phase:** Phase 0A — Recovery and donor closure  
+**Current phase:** Phase 0B — Contracts, migrations, conformance, and proof design  
+**Phase 0A frozen checkpoint:** `7d2dffee48f1400ba1cf88823343f09a3895ad33`  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 This document is the complete execution roadmap. It supersedes earlier Ptah plans unless a later accepted decision explicitly changes it.
+
+Phase transition authority: `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`.
 
 ---
 
@@ -272,6 +275,8 @@ No phase is complete because code exists. It is complete only when its gate is p
 
 ## Phase 0A — Internal and external donor recovery
 
+**Status:** COMPLETE AND FROZEN at `7d2dffee48f1400ba1cf88823343f09a3895ad33`.
+
 **Purpose:** close requirements using the strongest available internal work, external donors, mature upstream machinery, and only then identify native Ptah gaps.
 
 Deliverables:
@@ -315,9 +320,19 @@ Gate:
 - No important donor remains classified merely from its README.
 - Licence and exit strategy are recorded before code reuse.
 
+Gate result: **PASSED** through ADR-0017, the Requirement Closure Matrix, source cleanup and cross-requirement consistency review.
+
 ---
 
 ## Phase 0B — Contracts, migrations, and proof design
+
+**Status:** ACTIVE — 0B-WP01 common identity, versioning and typed-family conventions.
+
+Canonical entry inputs:
+
+- `work-packages/PHASE-0B-ENTRY-CONTRACT-PROOF-INPUTS.md`
+- `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`
+- `CURRENT_STATE.md`
 
 Deliverables:
 
@@ -342,11 +357,30 @@ Deliverables:
 - golden test-corpus rules;
 - proof levels for extraction and rebuilding.
 
+Additional frozen requirements from ADR-0017:
+
+- typed families for Provider, Session, Lease, Event, Revision, Snapshot, Recipe, Protocol and Evidence;
+- namespaced/versioned state machines;
+- Object content identity separate from Artifact role identity;
+- Activity/Operation/Attempt correlation;
+- Claim/Observation/Finding/Review separation;
+- Recipe/Plan/Protocol/Run separation;
+- retention, tombstone, supersession and referential-integrity rules;
+- Provider/Facility conformance suites;
+- lawful golden and negative-proof fixtures;
+- backend-replacement tests;
+- public/private audience and redaction rules.
+
 Gate:
 
 - Contracts support online and later local nodes without private consumer knowledge.
 - Old saved sessions and objects have a migration path.
 - Concurrency, recovery, provenance, and failure states are explicit.
+- Every schema is versioned and traceable to accepted requirements and ADRs.
+- Provider/Facility conformance and proof plans name exact required Receipts and Evidence.
+- The first vertical slice can be selected without unresolved identity or proof ambiguity.
+
+No runtime implementation or dependency selection is authorized during Phase 0B.
 
 ---
 
@@ -368,6 +402,12 @@ Required slice:
 - one decomposition adapter;
 - artifact registration;
 - checkpoint and reconnect.
+
+Additional gate inputs:
+
+- select the public Ptah project licence;
+- approve exact dependency/source layout;
+- approve the implementation proof plan.
 
 Gate:
 
