@@ -1,7 +1,7 @@
 # Ptah Requirement Closure Matrix
 
 **Phase:** 0A  
-**Status:** POPULATING — CORE THROUGH ISOLATION/DISTRIBUTED PLACEMENT CLOSED FOR DESIGN
+**Status:** POPULATING — CORE THROUGH ISOLATION/DISTRIBUTED PLACEMENT PLUS LINUX SEMANTIC UI CLOSED FOR DESIGN
 
 This file maps Ptah requirements to internal evidence, composite donors, native ownership, exit strategy and proof.
 
@@ -37,7 +37,7 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 | FW-001–006 | Apple, MTK, Unisoc, Qualcomm, OTA and other firmware | Firmware Domain Packs and Device adapters | internal evidence plus blacktop/ipsw, MTKClient, edl, PAC/FDL, AOSP image tools and vendor adapters | WP06 |
 | FS-001 | Disks/partitions/filesystems | Disk/Image/Filesystem Packs | libfdisk, libguestfs and platform image machinery | WP06 |
 | DEVICE-001/002 | Android inventory/control/display/input/semantic UI | Device Provider/Session/Stream/Screen Context | Device Manager, MIBU, STF, platform-tools, scrcpy, AndroidX UIA, Appium and TouchPilot | WP07A, ADR-0009 |
-| APP-002 | Linux graphical/native runtime | Application Provider/Session/Window | native/OCI providers, Xpra, Guacamole and noVNC | WP07B, ADR-0010 |
+| APP-002 | Linux graphical/native runtime and semantic UI | Application Provider/Session/Window/Semantic Context | native/OCI providers, Xpra, Guacamole, noVNC, AT-SPI/libatspi, Dogtail patterns and GNOME Ponytail | WP07B, ADR-0010, `donors/AT-SPI.md` |
 | APP-003 | Windows EXE/MSI/UWP runtime | Windows native/VM Application Provider | QEMU/libvirt, FreeRDP/Guacamole, FlaUI and NovaWindows | WP07B, ADR-0010 |
 | APP-004 | macOS/iOS runtime | macOS/iOS Application and Device Providers | Peekaboo, Appium XCUITest, IDB and Apple platform tooling | WP07B, ADR-0010 |
 | BROWSE-001–003 | Persistent browser, rendered retrieval and evidence | Browser Provider/Profile/Context/Page/Evidence contracts | Playwright, Browser-Use, TurboWebFetch and Playwright MCP | WP08, ADR-0011 |
@@ -55,7 +55,7 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 
 ## Closed-foundation notes
 
-- Linux semantic automation retains an AT-SPI completion gap.
+- Linux semantic automation is closed for design through `donors/AT-SPI.md`; exact GNOME Ponytail source pin remains a Phase 0B dependency-approval requirement, not an architecture gap.
 - JuiceFS/SeaweedFS are parked until measured shared-POSIX need.
 - `.P5C` is parked pending a lawful immutable sample or authoritative format/tool.
 - private device-manager modules that could not be audited remain an internal source-recovery gap.
@@ -63,6 +63,28 @@ Design closure does **not** authorize implementation. Phase 0B schemas/conforman
 - Dify remains study-only or separately licensed because of its modified licence.
 - MiniRouter remains study-only until a repository licence is resolved and is only a future routing/evaluation workload.
 - Design closure of `ISOLATION-001`/`DIST-001` does not select one production runtime, scheduler or Node topology.
+
+---
+
+# Linux semantic UI completion summary
+
+## APP-002 semantic extension — CLOSED FOR DESIGN
+
+- AT-SPI/libatspi supplies the primary Linux semantic tree, actions, text, selection, value, geometry, cache and Event interfaces.
+- direct libatspi/GObject-introspection is preferred for new provider code; pyatspi remains legacy compatibility.
+- Dogtail supplies bounded search, retry, stale-node, action logging and test diagnostics.
+- GNOME Ponytail supplies the GNOME-Wayland compositor-approved input bridge; it is not universal Wayland support.
+- Semantic Context, Snapshot, Node Snapshot, Query and Action Result remain Ptah identities.
+- D-Bus names, paths, AccessibleIds and child indices remain provider-local aliases.
+- observation, sensitive-text access, mutation, clipboard, input and cross-application control are separate permissions.
+- semantic Events invalidate/update projections but do not replace fresh snapshots.
+- semantic action protocol success is followed by semantic and/or visual post-condition read-back.
+- opaque/custom UIs degrade visibly to visual/coordinate automation.
+
+Evidence:
+
+- `donors/AT-SPI.md`
+- existing `ADR-0010-APPLICATION-PROVIDER-WINDOW-DISPLAY-BOUNDARY.md`
 
 ---
 
@@ -133,17 +155,16 @@ Evidence:
 
 | Cluster | Status | Direction |
 |---|---|---|
-| Reproduction/security workloads | OPEN | SparkDistill, ClaimBound, ReproZip, GUAC, Strix, Semgrep, Trivy, ZAP and scanners |
+| Reproduction/security workloads | ACTIVE | SparkDistill, ClaimBound, ReproZip, GUAC, Strix, Semgrep, Trivy, ZAP and scanners |
 | Research/documentation sources | OPEN | unresolved profiles/catalogues and public documentation tooling |
-| Linux semantic UI | ACTIVE COMPLETION GAP | AT-SPI-specific donor pass |
 | Phase 0A review/freeze | OPEN | cross-requirement consistency, parked gaps and Phase 0B readiness |
 
 ---
 
 # Current conclusion
 
-Core runtime, Build/Artifact/Provenance, Storage/Transfer/Sync, Object/Decomposition, Firmware/Disk/Filesystem, Device/Application Runtime, Browser/Live Research, Human Workspace/UI, Knowledge/Data/Search/Plugin and Isolation/Distributed Placement are closed for **Phase 0B contract design**, not implementation.
+Core runtime, Build/Artifact/Provenance, Storage/Transfer/Sync, Object/Decomposition, Firmware/Disk/Filesystem, Device/Application Runtime including Linux semantic UI, Browser/Live Research, Human Workspace/UI, Knowledge/Data/Search/Plugin and Isolation/Distributed Placement are closed for **Phase 0B contract design**, not implementation.
 
-Active Phase 0A work: Linux AT-SPI completion, reproduction/security workloads, research/documentation cleanup and final Phase 0A review/freeze as recorded in `CURRENT_STATE.md`.
+Active Phase 0A work: reproduction/security workloads, research/documentation cleanup and final Phase 0A review/freeze as recorded in `CURRENT_STATE.md`.
 
 Phase 0A cannot close until every v1 requirement is `CLOSED FOR DESIGN`, explicitly parked, or rejected with a replacement.
