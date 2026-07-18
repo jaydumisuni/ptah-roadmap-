@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:common:typed-family-definition:0.1.0",
+  "title": "Ptah Typed Family Definition",
+  "description": "Candidate definition for shared families such as Provider, Session, Lease, Event, Revision and Snapshot.",
+  "x-ptah-schema-name": "common.typed-family-definition",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family_name",
+    "family_contract_version",
+    "kinds",
+    "unknown_kind_policy",
+    "extensions"
+  ],
+  "properties": {
+    "family_name": {
+      "type": "string",
+      "enum": [
+        "provider",
+        "session",
+        "lease",
+        "event",
+        "revision",
+        "snapshot",
+        "recipe",
+        "protocol",
+        "evidence",
+        "relationship",
+        "location",
+        "capability"
+      ]
+    },
+    "family_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "kinds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "description",
+          "schema_id",
+          "schema_version",
+          "authority_classes",
+          "capability_scope",
+          "cross_kind_authority"
+        ],
+        "properties": {
+          "kind": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/familyKind" },
+          "description": { "type": "string", "minLength": 1, "maxLength": 4096 },
+          "schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+          "schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+          "entity_kind": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityKind" },
+          "state_machine_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+          "authority_classes": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "caller",
+                "workspace_owner",
+                "organization_policy",
+                "ptah_control_plane",
+                "ptah_node",
+                "provider",
+                "facility",
+                "operating_system",
+                "physical_device",
+                "external_provider",
+                "human_operator",
+                "independent_reviewer",
+                "authoritative_external_system"
+              ]
+            }
+          },
+          "capability_scope": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" }
+          },
+          "cross_kind_authority": {
+            "type": "string",
+            "enum": ["forbidden", "explicit_adapter_only", "explicit_parent_grant_only"]
+          },
+          "generation_fields": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": ["node_generation", "provider_generation", "workload_generation", "connection_epoch", "record_revision"]
+            }
+          },
+          "privacy_default": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/privacyClass" },
+          "notes": { "type": "string", "maxLength": 4096 }
+        }
+      }
+    },
+    "unknown_kind_policy": {
+      "type": "string",
+      "enum": ["reject", "preserve_read_only", "extension_adapter_required"]
+    },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
