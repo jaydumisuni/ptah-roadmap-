@@ -1,0 +1,37 @@
+{
+  "state_machine_name": "operation.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.operation"],
+  "states": [
+    {"name":"planned","description":"Logical Operation exists but is not yet eligible to dispatch.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Operation intent, target, retry and idempotency classes are recorded."]},
+    {"name":"ready","description":"Preconditions and authority permit a new Attempt to be created.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Required permissions and preconditions are current."]},
+    {"name":"dispatching","description":"A new Attempt has been created and is being routed or delivered to a producer.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Attempt identity, nonce and execution generations are fixed."]},
+    {"name":"executing","description":"Current Attempt is accepted/executing under the selected producer.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Dispatch/acceptance evidence is correlated."]},
+    {"name":"waiting","description":"Operation is waiting for retry delay, external result, human action, capacity or another registered condition.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Structured wait reason is recorded."]},
+    {"name":"uncertain","description":"The physical effect may have occurred but proof is insufficient for success, failure or safe retry.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Uncertainty reason and reconciliation requirement are recorded."]},
+    {"name":"succeeded","description":"The Operation's required bounded proof claims and result conditions are satisfied.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Required Receipts/read-back exist."]},
+    {"name":"failed","description":"Operation is terminally unsuccessful under retry and Activity policy.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Typed failure outcome is retained."]},
+    {"name":"cancelled","description":"Operation cancellation reached its required cleanup boundary.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Cancellation evidence is retained."]},
+    {"name":"blocked","description":"Operation cannot proceed without changed authorization, capability, compatibility or manual decision.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Blocking reason and required action are retained."]}
+  ],
+  "initial_states": ["planned"],
+  "transitions": [
+    {"transition_name":"create","from_states":[null],"to_state":"planned","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Parent Activity exists and Operation contract validates."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"make_ready","from_states":["planned","waiting","uncertain"],"to_state":"ready","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Preconditions, retry and idempotency policy permit an Attempt."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"dispatch","from_states":["ready"],"to_state":"dispatching","transition_class":"normal","authority_classes":["ptah_control_plane","ptah_node"],"side_effecting":false,"required_preconditions":["New Attempt, nonce and current execution generations exist."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["routed"]},
+    {"transition_name":"accept_execution","from_states":["dispatching"],"to_state":"executing","transition_class":"normal","authority_classes":["ptah_node","provider","facility"],"side_effecting":false,"required_preconditions":["Attempt acceptance is current and correlated."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"wait","from_states":["planned","ready","dispatching","executing","uncertain"],"to_state":"waiting","transition_class":"normal","authority_classes":["ptah_control_plane","ptah_node","provider","facility","authoritative_external_system"],"side_effecting":false,"required_preconditions":["Structured wait reason and wake condition exist."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"mark_uncertain","from_states":["dispatching","executing","waiting"],"to_state":"uncertain","transition_class":"recovery","authority_classes":["ptah_control_plane","ptah_node","provider"],"side_effecting":false,"required_preconditions":["Effect cannot be safely classified from current evidence."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"succeed","from_states":["executing","waiting","uncertain"],"to_state":"succeeded","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Required proof definitions are satisfied by valid current Receipts/read-back."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"fail","from_states":["planned","ready","dispatching","executing","waiting","uncertain"],"to_state":"failed","transition_class":"normal","authority_classes":["ptah_control_plane","organization_policy"],"side_effecting":false,"required_preconditions":["Retry policy is exhausted or declares terminal failure."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"cancel","from_states":["planned","ready","dispatching","executing","waiting","uncertain"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation result and required cleanup evidence exist."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"block","from_states":["planned","ready","dispatching","executing","waiting","uncertain"],"to_state":"blocked","transition_class":"administrative","authority_classes":["ptah_control_plane","organization_policy","human_operator"],"side_effecting":false,"required_preconditions":["Typed blocking condition and required action are recorded."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {
+    "state_mapping_required_for_breaking_change": true,
+    "unmapped_state_behavior": "manual_review",
+    "migration_definition_refs": []
+  },
+  "extensions": {}
+}
