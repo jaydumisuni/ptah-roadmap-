@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:activity:activity:0.1.0",
+  "title": "Ptah Activity",
+  "description": "Durable caller-visible unit of work in the Ptah Activity Ledger.",
+  "x-ptah-schema-name": "activity.activity",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope",
+    "request_ref",
+    "workspace_ref",
+    "caller_ref",
+    "activity_kind",
+    "intent_ref",
+    "lifecycle",
+    "cancellation_state",
+    "projection_health",
+    "priority",
+    "budgets",
+    "dependency_refs",
+    "input_refs",
+    "result_refs",
+    "receipt_refs",
+    "created_at",
+    "extensions"
+  ],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.activity" } } }
+      ]
+    },
+    "request_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "workspace_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "caller_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "owner_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "activity_kind": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+    "intent_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "parameter_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "lifecycle": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/stateProjection" },
+        {
+          "properties": {
+            "state_machine_name": { "const": "activity.lifecycle" },
+            "state_machine_version": { "const": "0.1.0" },
+            "current_state": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/activityLifecycleState" }
+          }
+        }
+      ]
+    },
+    "cancellation_state": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/cancellationState" },
+    "current_cancellation_request_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "projection_health": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/projectionHealth" },
+    "wait_reason": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/waitReason" },
+    "wait_detail_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "priority": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/priority" },
+    "budgets": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/budget" },
+    "dependency_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "input_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "operation_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "current_attempt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "result_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "produced_object_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "produced_artifact_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "checkpoint_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "backend_alias_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "failure_class": { "$ref": "urn:ptah:schema:activity:definitions:0.1.0#/$defs/failureClass" },
+    "failure_outcome": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/stableOutcome" },
+    "retry_of_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "resume_of_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "follow_up_to_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "created_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "started_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "completed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "lifecycle": { "properties": { "current_state": { "const": "waiting" } } }
+        },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["wait_reason"] },
+      "else": { "not": { "required": ["wait_reason"] } }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle": { "properties": { "current_state": { "enum": ["completed", "failed", "cancelled"] } } }
+        },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["completed_at"] }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle": { "properties": { "current_state": { "const": "failed" } } }
+        },
+        "required": ["lifecycle"]
+      },
+      "then": { "required": ["failure_class", "failure_outcome"] }
+    },
+    {
+      "if": {
+        "properties": { "cancellation_state": { "enum": ["requested", "acknowledged", "completing", "completed", "rejected", "expired"] } },
+        "required": ["cancellation_state"]
+      },
+      "then": { "required": ["current_cancellation_request_ref"] }
+    }
+  ]
+}
