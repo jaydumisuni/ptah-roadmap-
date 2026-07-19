@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:workspace:workspace-import:0.1.0",
+  "title": "Ptah Workspace Import Package",
+  "x-ptah-schema-name": "workspace.workspace-import",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "source_artifact_ref", "source_digest_refs", "source_workspace_aliases", "manifest_ref", "included_refs", "omitted_or_unavailable_records", "signature_or_attestation_refs", "integrity_verification_refs", "received_at", "limitations", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "object.workspace_import"}}}]},
+    "source_artifact_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "source_location_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "source_digest_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "minItems": 1, "uniqueItems": true},
+    "source_workspace_aliases": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "manifest_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "included_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "minItems": 1, "uniqueItems": true},
+    "checkpoint_bundle_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "omitted_or_unavailable_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_subject_or_alias", "reason"],
+        "properties": {
+          "source_subject_or_alias": {"type": "string", "minLength": 1, "maxLength": 1024},
+          "reason": {"type": "string", "enum": ["not_exported", "privacy_redacted", "secret_or_credential", "licence", "missing", "corrupt", "unsupported", "unknown"]},
+          "effect_on_import": {"type": "string", "enum": ["none", "manual_mapping_required", "partial_import_only", "not_restorable", "unknown"]},
+          "details": {"type": "string", "minLength": 1, "maxLength": 4096}
+        }
+      }
+    },
+    "signature_or_attestation_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "integrity_verification_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "minItems": 1, "uniqueItems": true},
+    "source_audience": {"type": "string", "enum": ["private", "workspace", "organization", "restricted_external", "public"]},
+    "received_by_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "received_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "import_decision_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "activity_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
