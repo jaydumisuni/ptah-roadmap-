@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:runtime:provider-capability-snapshot:0.1.0",
+  "title": "Ptah Provider Capability Snapshot",
+  "x-ptah-schema-name": "runtime.provider-capability-snapshot",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "provider_instance_ref", "provider_revision_ref", "provider_generation", "node_ref", "node_generation", "connection_epoch", "observed_at", "valid_until", "snapshot_outcome", "capability_availability_refs", "operation_availability", "dependency_states", "observation_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "runtime.provider_capability_snapshot"}}}]},
+    "provider_instance_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_revision_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "node_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "node_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "connection_epoch": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "observed_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "snapshot_outcome": {"type": "string", "enum": ["complete", "partial", "failed"]},
+    "capability_availability_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "minItems": 1, "uniqueItems": true},
+    "operation_availability": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["operation_key", "availability", "capability_refs", "evidence_refs"], "properties": {"operation_key": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "availability": {"$ref": "urn:ptah:schema:runtime:definitions:0.1.0#/$defs/capabilityAvailabilityState"}, "capability_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "minItems": 1, "uniqueItems": true}, "evidence_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}, "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}}}}, "minItems": 1},
+    "dependency_states": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["dependency_ref", "dependency_class", "state"], "properties": {"dependency_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "dependency_class": {"$ref": "urn:ptah:schema:runtime:definitions:0.1.0#/$defs/dependencyClass"}, "state": {"type": "string", "enum": ["satisfied", "degraded", "unsatisfied", "unknown", "stale"]}, "affected_operation_keys": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "uniqueItems": true}, "evidence_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}}}},
+    "observation_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "errors": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
