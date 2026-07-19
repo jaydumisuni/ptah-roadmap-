@@ -8,11 +8,11 @@ This is the compact index of decisions that must not be silently reversed. Full 
 
 ### D-001 — Ptah is independent
 
-**ACCEPTED.** Ptah is a neutral open-source working world. Private consumers integrate through public-safe contracts rather than defining Ptah's identity.
+**ACCEPTED.** Ptah is a neutral open-source working world. Private consumers integrate through public-safe contracts rather than defining Ptah identity.
 
 ### D-002 — Ptah is the world, not the thinker
 
-**ACCEPTED.** Ptah supplies environments, Objects, Activities, tools, applications, devices, browsers, storage and evidence. Callers supply intent, reasoning, policy and acceptance.
+**ACCEPTED.** Ptah supplies environments, Objects, Activities, Facilities, applications, devices, browsers, storage and evidence. Callers supply intent, reasoning, policy and acceptance.
 
 ### D-003 — Roadmap and implementation are separate
 
@@ -28,7 +28,7 @@ This is the compact index of decisions that must not be silently reversed. Full 
 
 ### D-006 — Object-first architecture
 
-**ACCEPTED.** Original bytes remain preserved through Content/Object/Revision identities with hashes, locations, provenance, relationships, Views and derivatives.
+**ACCEPTED.** Original bytes remain preserved through Content/Object/Revision identities with hashes, Locations, provenance, Relationships, Views and Derivatives.
 
 ### D-007 — Domain Packs
 
@@ -68,7 +68,7 @@ This is the compact index of decisions that must not be silently reversed. Full 
 
 ### D-016 — Operating-system assembly is a later private lane
 
-**ACCEPTED.** Ptah stays OS-neutral. Distribution/boot/update/hardware integration follows proven online and Node software.
+**ACCEPTED.** Ptah stays OS-neutral. Distribution, boot, update and hardware integration follow proven online and Node software.
 
 ---
 
@@ -136,118 +136,80 @@ Full decision: `decisions/ADR-0011-BROWSER-PROFILE-CONTEXT-PAGE-EVIDENCE-BOUNDAR
 
 ### D-027 — Human Workspace shell, Panels, Layout and control remain separate
 
-**ACCEPTED.** Ptah owns Shell Client/Session, Panel Type/Instance, Layout Profile/Revision and scoped control leases. UI/layout state never becomes runtime truth; Activity Centre/Evidence Explorer project exact records; mobile uses compact presentation; human/automation takeover is fenced and receipted.
+**ACCEPTED.** Ptah owns Shell Client/Session, Panel Type/Instance, Layout Profile/Revision and scoped control leases. UI state never becomes runtime truth; human/automation takeover is fenced and receipted.
 
 Full decision: `decisions/ADR-0012-HUMAN-WORKSPACE-SHELL-PANEL-CONTROL-BOUNDARY.md`.
 
 ### D-028 — Knowledge source, indexes, queries, data and plugins remain separate
 
-**ACCEPTED.** Ptah owns neutral Knowledge Source, Corpus, Document/Index Revision, Query/Result/Citation, Dataset/Table and Package/Release/Installed Plugin/Activation identities. Indexes are derived, MCP is an adapter, Deno is a lightweight runtime candidate, and caller reasoning/memory remains external.
+**ACCEPTED.** Ptah owns neutral Knowledge Source, Corpus, Document/Index Revision, Query/Result/Citation, Dataset/Table and Package/Release/Installed Plugin/Activation identities. Indexes are derived and caller reasoning/memory remains external.
 
 Full decision: `decisions/ADR-0013-KNOWLEDGE-DATA-SEARCH-PLUGIN-BOUNDARY.md`.
 
 ### D-029 — Isolation Class, runtime, placement, reservation and proof remain separate
 
-**ACCEPTED.** Ptah owns Isolation Class, Runtime Provider, Node Capability Snapshot, Placement Request/Decision, Reservation, Lease, Generation, Fence, secure grants and Checkpoint Bundle. No silent weakening is permitted. Ray is an optional trusted Compute Facility, not the global scheduler.
+**ACCEPTED.** Ptah owns Isolation Class, Runtime Provider, Node Capability Snapshot, Placement Request/Decision, Reservation, Lease, Generation, Fence, secure grants and Checkpoint Bundle. No silent weakening is permitted.
 
 Full decision: `decisions/ADR-0014-ISOLATION-RUNTIME-PLACEMENT-SCHEDULING-BOUNDARY.md`.
 
 ### D-030 — Linux semantic target, snapshot, actions, raw input and proof remain separate
 
-**ACCEPTED.** AT-SPI/libatspi is the primary Linux semantic foundation. Ptah owns Semantic Provider/Snapshot/Target/Selector/Action identities; backend aliases are ephemeral; stale targets are reacquired; X11, GNOME Wayland and fallback paths remain explicit; post-condition read-back is required.
+**ACCEPTED.** AT-SPI/libatspi is the primary Linux semantic foundation. Ptah owns Semantic Provider/Snapshot/Target/Selector/Action identities; stale targets are reacquired and post-condition read-back is required.
 
 Full decision: `decisions/ADR-0015-LINUX-APPLICATION-SEMANTIC-AUTOMATION-BOUNDARY.md`.
 
 ### D-031 — Security Observation, Finding, validation, reproduction and acceptance remain separate
 
-**ACCEPTED.** Ptah owns exact Security Authorization/Plan/Target/machinery/Coverage, Finding Observation, Correlated Finding, disposition, remediation, Verification Run, Reproduction Run, bounded Claim and Evidence Card identities. Scanner/agent output is not authority; active work requires exact scope; no-findings and reproduction are bounded.
+**ACCEPTED.** Ptah owns exact Security Authorization/Plan/Target/machinery/Coverage, Finding Observation, Correlated Finding, disposition, remediation, Verification Run, Reproduction Run, bounded Claim and Evidence Card identities.
 
 Full decision: `decisions/ADR-0016-SECURITY-FINDING-VALIDATION-REPRODUCTION-BOUNDARY.md`.
 
 ### D-032 — Phase 0A is frozen; Phase 0B contract design is active
 
-**ACCEPTED.** Phase 0A architecture/donor closure is frozen at roadmap commit `7d2dffee48f1400ba1cf88823343f09a3895ad33`.
-
-- Every current v1 requirement is closed for design.
-- Cross-requirement review found no design-blocking contradiction.
-- Provider, Session, Lease, Event, Revision and Snapshot become typed families.
-- State machines are namespaced/versioned; `completed`, `verified` and `accepted` remain separate.
-- Object owns content identity; Artifact owns durable promoted-result role.
-- Recipe, Plan, Protocol and Run remain separate.
-- parked/restricted items have non-blocking v1 paths and reopening criteria.
-- Phase 0B is limited to schemas, migrations, conformance and proof design.
-- Runtime implementation and dependency selection remain blocked until Phase 0C approval.
+**ACCEPTED.** Phase 0A architecture and donor closure are frozen at roadmap commit `7d2dffee48f1400ba1cf88823343f09a3895ad33`. Phase 0B is limited to schemas, migrations, conformance and proof design; implementation and dependency selection remain blocked until Phase 0C approval.
 
 Full decision: `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`.
 
+---
+
+## Phase 0B candidate decisions
+
 ### D-033 — Common identity, schema versioning and typed families are explicit
 
-**ACCEPTED.** Phase 0B candidate `ptah.common` `0.1.0` defines the shared identity and compatibility language for all later contracts.
-
-- canonical entity IDs use lowercase UUIDv7 plus registered `entity_kind`;
-- backend/legacy identifiers remain scoped Aliases;
-- schemas use JSON Schema 2020-12, absolute Ptah URNs and local catalogs;
-- domain records embed a nested common Entity Envelope;
-- record revision, Object Revision, schema version, generations and connection epoch remain separate;
-- Provider, Session, Lease, Event, Revision, Snapshot, Recipe, Protocol, Evidence and other families declare explicit kinds;
-- state machines are namespaced/versioned; there is no global `status` enum;
-- migration preserves frozen history and compatibility is directional;
-- tombstone and physical deletion remain separate;
-- structural validation does not replace semantic conformance.
+**ACCEPTED.** `ptah.common` `0.1.0` defines UUIDv7 canonical identity, scoped Aliases, absolute schema URNs, the Entity Envelope, typed families, namespaced state machines, directional migration and explicit privacy/retention semantics.
 
 Full decision: `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`.
 
 ### D-034 — Activity, Operation, Attempt, Event, Receipt and proof remain exact
 
-**ACCEPTED.** Phase 0B candidate `ptah.activity` `0.1.0` with corrected mutable-request schemas `0.1.1` separates durable work, logical effects, physical tries, notifications, telemetry, producer evidence, review and authoritative external truth.
-
-- Activity Request and Activity are different entities;
-- Activity lifecycle excludes request, lease, cancellation, retry, attachment and projection-health dimensions;
-- Operation persists across retries; every Attempt gets a new ID/nonce and exact generations/epoch;
-- uncertain non-idempotent effects cannot retry automatically;
-- Event/telemetry are not proof;
-- Receipt is immutable, append-only and exactly correlated;
-- proof levels are bounded by domain rather than one automatic ladder;
-- Review, Verdict, caller acceptance and authoritative external result remain separate;
-- stale/late/duplicate/contradictory evidence is reconciled explicitly.
+**ACCEPTED.** `ptah.activity` `0.1.0` with corrected request schemas `0.1.1` separates durable work, logical effects, physical tries, notifications, telemetry, immutable producer evidence, review and authoritative external truth.
 
 Full decision: `decisions/ADR-0019-ACTIVITY-OPERATION-ATTEMPT-EVENT-RECEIPT-PROOF-BOUNDARY.md`.
 
 ### D-035 — Content, Object, Revision, View, Artifact and Location remain separate
 
-**ACCEPTED.** Phase 0B candidates `ptah.object` / `ptah.storage` `0.1.0` define byte identity, logical source identity, immutable revisions, plural detector evidence, relationship history, derived representations, promoted results and storage replicas without backend leakage.
-
-- Content owns exact bytes/digests and authorized deduplication scope;
-- Object owns logical/source identity; Revision owns one immutable version;
-- paths, provider keys, ETags and tags remain aliases;
-- matching bytes never silently merge logical Objects or expose cross-scope equality;
-- detector observations remain plural and classification is separate;
-- relationships have stable identity plus immutable revisions and may overlap;
-- child Objects, Views, Previews and Derivatives cannot replace originals;
-- decomposition retains budgets, coverage, partial outputs and unknown gaps;
-- Artifact promotion does not imply verification, review, acceptance or release;
-- Artifact Release is immutable and public-safe/allowlisted;
-- Location lifecycle, health and verification remain separate;
-- tombstone, replica deletion and shared Content-byte deletion remain separate and receipted.
+**ACCEPTED.** `ptah.object` / `ptah.storage` `0.1.0` define exact byte identity, logical source identity, immutable revisions, plural detector evidence, relationship history, derived representations, promoted results and storage replicas without backend leakage.
 
 Full decision: `decisions/ADR-0020-OBJECT-REVISION-VIEW-ARTIFACT-STORAGE-BOUNDARY.md`.
 
 ### D-036 — Node, Facility, Provider, capability and health remain separate
 
-**ACCEPTED.** Phase 0B candidate `ptah.runtime` / `ptah.facility` `0.1.0` defines stable Node and Facility identity, Provider revisions/instances/generations, capability evidence, resource truth and time-bounded dispatch eligibility without backend leakage.
+**ACCEPTED.** `ptah.runtime` `0.1.2` defines stable Node/Facility identity, Provider revisions/instances/generations, capability evidence, resource truth, truthful local/remote locality and expiring Dispatch Eligibility. Lifecycle, reachability, readiness, health and pressure remain separate.
 
-- Node Enrollment is separate from Node lifecycle;
-- Node generation and connection epoch fence different authority scopes;
-- reachability and health do not create trust or lifecycle;
-- Capability Definition, Claim, Verification and Availability remain separate;
-- total, allocatable, reserved, consumed, available and pressure remain separate resource dimensions;
-- Facility, Facility Revision and Facility Instance remain caller-facing contracts independent of implementation;
-- Provider, Provider Revision and Provider Instance remain separate;
-- Provider lifecycle, reachability, readiness and health remain separate;
-- `failed` requires receipted exact-generation evidence; transient `unhealthy` is not automatic failure;
-- local Providers bind Node evidence; remote Providers bind approved external-service evidence and never fabricate Nodes;
-- heartbeat proves contact only;
-- Dispatch Eligibility is operation-specific, expiring evidence—not Placement, Lease, Attempt or proof of execution;
-- Provider/backend/locality replacement preserves Facility identity and fences stale evidence.
+Full decisions:
 
-Full decision: `decisions/ADR-0021-NODE-FACILITY-PROVIDER-CAPABILITY-HEALTH-BOUNDARY.md`.
+- `decisions/ADR-0021-NODE-FACILITY-PROVIDER-CAPABILITY-HEALTH-BOUNDARY.md`;
+- `decisions/ADR-0021A-WP04-CATALOG-PROOF-VOCABULARY-CORRECTION.md`;
+- `decisions/ADR-0021B-WP04-FINAL-CATALOG-CORRECTION.md`.
+
+### D-037 — Workspace, Session, Checkpoint, Restore and Recovery remain separate
+
+**ACCEPTED.** `ptah.workspace` `0.1.0` preserves stable Workspace identity across revisions, Provider bindings, materializations, Sessions, clients and layouts. Checkpoint creation, integrity verification, target compatibility, runtime restore and application Recovery Verification are distinct. Restore creates new generations and cannot erase uncertain external effects.
+
+Full decision: `decisions/ADR-0022-WORKSPACE-SESSION-CHECKPOINT-RESTORE-RECOVERY-BOUNDARY.md`.
+
+### D-038 — Transfer, Sync, Conflict, Backup and storage restore remain separate
+
+**ACCEPTED.** `ptah.transfer` `0.1.0` separates Transfer Request/Run/Manifest/Progress/Verification; Sync Relationship/Cursor/Run/Conflict/Resolution; and Backup Policy/Snapshot/Verification/Prune/Restore. Provider acknowledgement is not Content acceptance, sync is not backup, and restored storage is not Workspace/application recovery.
+
+Full decision: `decisions/ADR-0023-TRANSFER-SYNC-CONFLICT-BACKUP-RESTORE-BOUNDARY.md`.
