@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:runtime:capability:0.1.0",
+  "title": "Ptah Capability Definition",
+  "x-ptah-schema-name": "runtime.capability",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "capability_key", "capability_version", "summary", "operation_keys", "permission_classes", "evidence_requirements", "compatibility_dimensions", "deprecated", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "core.capability"}}}]},
+    "capability_key": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"},
+    "capability_version": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
+    "summary": {"type": "string", "minLength": 1, "maxLength": 4096},
+    "operation_keys": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "uniqueItems": true},
+    "input_schema_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaRef"}, "uniqueItems": true},
+    "output_schema_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaRef"}, "uniqueItems": true},
+    "permission_classes": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "uniqueItems": true},
+    "evidence_requirements": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "uniqueItems": true},
+    "compatibility_dimensions": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "uniqueItems": true},
+    "security_class": {"type": "string", "enum": ["ordinary", "privileged", "sensitive", "high_risk"]},
+    "deprecated": {"type": "boolean"},
+    "replacement_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "known_limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf": [{"if": {"properties": {"deprecated": {"const": true}}, "required": ["deprecated"]}, "then": {"required": ["known_limitations"]}}]
+}
