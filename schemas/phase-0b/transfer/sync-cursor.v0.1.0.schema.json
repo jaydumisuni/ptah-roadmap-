@@ -1,0 +1,29 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:transfer:sync-cursor:0.1.0",
+  "title":"Ptah Sync Cursor",
+  "x-ptah-schema-name":"transfer.sync-cursor",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","sync_relationship_ref","endpoint_ref","cursor_strategy","protocol_revision","observed_at","valid_until","provider_generation","connection_epoch","cursor_payload_ref_or_value","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"sync.cursor"}}}]},
+    "sync_relationship_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "endpoint_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "cursor_strategy":{"$ref":"urn:ptah:schema:transfer:definitions:0.1.0#/$defs/cursorStrategy"},
+    "protocol_revision":{"type":"string","minLength":1,"maxLength":256},
+    "provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_generation":{"type":"integer","minimum":0},
+    "connection_epoch":{"type":"integer","minimum":0},
+    "observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "cursor_payload_ref_or_value":{"oneOf":[{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},{"type":"string","minLength":1,"maxLength":8192}]},
+    "last_accepted_revision_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "last_accepted_location_generations":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["location_ref","location_generation"],"properties":{"location_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"location_generation":{"type":"integer","minimum":0}}}},
+    "journal_or_event_sequence":{"type":"integer","minimum":0},
+    "evidence_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
