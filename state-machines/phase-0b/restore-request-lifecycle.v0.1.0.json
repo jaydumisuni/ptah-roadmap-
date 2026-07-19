@@ -1,0 +1,23 @@
+{
+  "state_machine_name": "restore.request.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["runtime.restore_request"],
+  "states": [
+    {"name":"submitted","description":"Restore intent is durable and awaits compatibility/authorization validation.","terminal":false,"proof_dimension":"request_lifecycle","entry_requirements":["Bundle, target intent, scope and policies are recorded."]},
+    {"name":"validating","description":"Checkpoint verification, target compatibility, authority and grants are being evaluated.","terminal":false,"proof_dimension":"request_lifecycle","entry_requirements":["Validation Activity/Attempt exists."]},
+    {"name":"accepted","description":"Request is accepted into a Restore Run.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Non-expired compatibility decision, Restore Activity and decision Receipt exist."]},
+    {"name":"rejected","description":"Restore will not proceed under current target/scope/policy.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Typed rejection and evidence exist before mutation."]},
+    {"name":"cancelled","description":"Request was cancelled before accepted restore completed.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Cancellation and temporary state are reconciled."]}
+  ],
+  "initial_states":["submitted"],
+  "transitions":[
+    {"transition_name":"submit","from_states":[null],"to_state":"submitted","transition_class":"normal","authority_classes":["caller","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Request is schema-valid and authority is identified."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"begin_validation","from_states":["submitted"],"to_state":"validating","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Bundle verification, target state, compatibility and grants can be evaluated without mutation."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"accept","from_states":["submitted","validating"],"to_state":"accepted","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Compatibility decision is non-expired and requested full/partial scope is explicitly approved."],"required_evidence_kinds":["receipt","restore_compatibility","activity"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"reject","from_states":["submitted","validating"],"to_state":"rejected","transition_class":"normal","authority_classes":["ptah_control_plane","organization_policy"],"side_effecting":false,"required_preconditions":["Incompatibility, missing grant, privacy, policy or scope reason is retained before mutation."],"required_evidence_kinds":["receipt","restore_compatibility","outcome"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"cancel","from_states":["submitted","validating"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["caller","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation and validation temporary state are reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject",
+  "migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions":{}
+}
