@@ -1,0 +1,23 @@
+{
+  "state_machine_name": "session.attachment.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["runtime.session_attachment"],
+  "states": [
+    {"name":"attaching","description":"Attachment authentication, epoch and capability scope are being established.","terminal":false,"proof_dimension":"attachment","entry_requirements":["Session and attacher identities exist."]},
+    {"name":"attached","description":"Attachment may observe or act within its declared scope and current lease/fencing context.","terminal":false,"proof_dimension":"attachment","entry_requirements":["Attachment acceptance and current connection epoch are recorded."]},
+    {"name":"detached","description":"Client/actor is no longer attached; underlying Session may remain active.","terminal":true,"proof_dimension":"attachment","entry_requirements":["Detach time/reason and stream cursor are retained."]},
+    {"name":"expired","description":"Attachment ended by expiry/freshness policy.","terminal":true,"proof_dimension":"attachment","entry_requirements":["Expiry time/reconciliation are recorded."]},
+    {"name":"revoked","description":"Attachment authority was administratively withdrawn and fenced.","terminal":true,"proof_dimension":"attachment","entry_requirements":["Revocation authority/reason and affected control lease are reconciled."]}
+  ],
+  "initial_states":["attaching"],
+  "transitions":[
+    {"transition_name":"begin_attach","from_states":[null],"to_state":"attaching","transition_class":"normal","authority_classes":["session_owner","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Session exists and attacher membership/policy are valid."],"required_evidence_kinds":["receipt","authorization"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"mark_attached","from_states":["attaching"],"to_state":"attached","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Current epoch and declared capability scope are established; control remains lease-bound."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"detach","from_states":["attaching","attached"],"to_state":"detached","transition_class":"normal","authority_classes":["session_owner","provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Detach reason/cursor and any control lease release are recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"expire","from_states":["attaching","attached"],"to_state":"expired","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":true,"required_preconditions":["Expiry/freshness threshold reached and control scope is fenced."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"revoke","from_states":["attaching","attached"],"to_state":"revoked","transition_class":"administrative","authority_classes":["session_owner","workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Attachment/control authority is fenced and reason retained."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject",
+  "migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions":{}
+}
