@@ -1,97 +1,27 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:ptah:schema:transfer:definitions:0.1.0",
-  "title": "Ptah Transfer Sync Backup Definitions",
-  "x-ptah-schema-name": "transfer.definitions",
-  "x-ptah-schema-version": "0.1.0",
-  "x-ptah-maturity": "candidate",
-  "$defs": {
-    "stateProjection": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["state_machine_name", "state_machine_version", "current_state", "state_sequence"],
-      "properties": {
-        "state_machine_name": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"},
-        "state_machine_version": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
-        "current_state": {"type": "string", "pattern": "^[a-z][a-z0-9_]{1,63}$"},
-        "state_sequence": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger"},
-        "entered_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
-        "transition_receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}
-      }
-    },
-    "transferMode": {"type": "string", "enum": ["upload", "download", "provider_to_provider", "node_to_node", "location_to_location", "streaming_ingest", "streaming_export", "local_copy", "replica_copy"]},
-    "destinationIntent": {"type": "string", "enum": ["create_new_location", "replace_location_generation", "repair_location", "create_replica", "stage_for_object_acceptance", "export_only"]},
-    "sourceKind": {"type": "string", "enum": ["content", "object_revision", "storage_location", "remote_descriptor", "stream"]},
-    "digestValue": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["algorithm", "value", "digest_domain"],
-      "properties": {
-        "algorithm": {"type": "string", "enum": ["sha256", "sha512", "blake3", "md5", "provider_checksum", "other"]},
-        "other_algorithm": {"type": "string", "maxLength": 128},
-        "value": {"type": "string", "pattern": "^[A-Za-z0-9+/=_:.-]{4,1024}$"},
-        "digest_domain": {"type": "string", "enum": ["canonical_content", "transport_chunk", "transport_whole", "provider_object", "encrypted_payload", "compressed_payload", "manifest", "other"]}
-      }
-    },
-    "sourceDescriptor": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["source_kind"],
-      "properties": {
-        "source_kind": {"$ref": "#/$defs/sourceKind"},
-        "content_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "object_revision_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "location_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "provider_instance_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "remote_alias_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "stream_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "expected_size": {"type": "integer", "minimum": 0},
-        "expected_digests": {"type": "array", "items": {"$ref": "#/$defs/digestValue"}},
-        "validator_observations": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["validator_type", "value", "observed_at"], "properties": {"validator_type": {"type": "string", "enum": ["etag", "last_modified", "provider_version", "content_length", "custom"]}, "value": {"type": "string", "maxLength": 2048}, "observed_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"}}}
-      },
-      "allOf": [
-        {"if": {"properties": {"source_kind": {"const": "content"}}, "required": ["source_kind"]}, "then": {"required": ["content_ref"]}},
-        {"if": {"properties": {"source_kind": {"const": "object_revision"}}, "required": ["source_kind"]}, "then": {"required": ["object_revision_ref"]}},
-        {"if": {"properties": {"source_kind": {"const": "storage_location"}}, "required": ["source_kind"]}, "then": {"required": ["location_ref"]}},
-        {"if": {"properties": {"source_kind": {"const": "remote_descriptor"}}, "required": ["source_kind"]}, "then": {"required": ["remote_alias_ref"]}},
-        {"if": {"properties": {"source_kind": {"const": "stream"}}, "required": ["source_kind"]}, "then": {"required": ["stream_ref"]}}
-      ]
-    },
-    "destinationDescriptor": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["destination_intent", "provider_instance_ref", "storage_class"],
-      "properties": {
-        "destination_intent": {"$ref": "#/$defs/destinationIntent"},
-        "provider_instance_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "existing_location_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "namespace_or_alias_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "storage_class": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"},
-        "encryption_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "retention_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
-        "expected_location_generation": {"type": "integer", "minimum": 0}
-      }
-    },
-    "byteRange": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["offset", "length", "state"],
-      "properties": {
-        "offset": {"type": "integer", "minimum": 0},
-        "length": {"type": "integer", "minimum": 1},
-        "state": {"type": "string", "enum": ["planned", "requested", "received_unverified", "verified", "failed", "invalidated"]},
-        "transport_digest": {"$ref": "#/$defs/digestValue"},
-        "attempt_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}
-      }
-    },
-    "transferVerificationDomain": {"type": "string", "enum": ["transport_completed", "byte_count_matched", "transport_checksums_matched", "content_digest_matched", "destination_readback_matched", "location_registered", "object_acceptance_completed", "external_delivery_confirmed"]},
-    "syncDirection": {"type": "string", "enum": ["one_way_a_to_b", "one_way_b_to_a", "bidirectional", "publish_subscribe"]},
-    "cursorStrategy": {"type": "string", "enum": ["journal_sequence", "vector_clock", "version_vector", "provider_change_token", "snapshot_scan", "hybrid"]},
-    "conflictKind": {"type": "string", "enum": ["content_divergence", "rename_divergence", "delete_modify", "metadata_divergence", "permission_or_policy_divergence", "identity_ambiguity", "source_drift_during_transfer", "cursor_gap", "provider_generation_change", "unsupported_semantic_merge"]},
-    "conflictResolutionKind": {"type": "string", "enum": ["choose_revision", "keep_both", "create_merged_revision", "apply_rename_mapping", "apply_tombstone", "ignore_for_scope", "postpone", "reject_automatic_resolution"]},
-    "snapshotCompleteness": {"type": "string", "enum": ["complete_for_declared_scope", "partial", "failed", "unknown"]},
-    "backupStrategy": {"type": "string", "enum": ["full", "incremental", "differential", "deduplicated_content", "provider_native", "hybrid"]},
-    "backupRestoreDecision": {"type": "string", "enum": ["restorable", "restorable_with_conversion", "partially_restorable", "not_restorable", "unknown"]},
-    "replicaState": {"type": "string", "enum": ["present_verified", "present_unverified", "stale", "missing", "corrupt", "inaccessible", "unknown"]}
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:transfer:definitions:0.1.0",
+  "title":"Ptah Transfer Sync Backup Definitions",
+  "x-ptah-schema-name":"transfer.definitions",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "$defs":{
+    "stateProjection":{"type":"object","additionalProperties":false,"required":["state_machine_name","state_machine_version","current_state","state_sequence"],"properties":{"state_machine_name":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},"state_machine_version":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},"current_state":{"type":"string","pattern":"^[a-z][a-z0-9_]{1,63}$"},"state_sequence":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger"},"entered_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},"transition_receipt_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true}}},
+    "transferMode":{"type":"string","enum":["upload","download","provider_to_provider","node_to_node","location_to_location","streaming_ingest","streaming_export","local_copy","replica_copy"]},
+    "destinationIntent":{"type":"string","enum":["create_new_location","replace_location_generation","repair_location","create_replica","stage_for_object_acceptance","export_only"]},
+    "sourceKind":{"type":"string","enum":["content","object_revision","storage_location","remote_descriptor","stream"]},
+    "digestValue":{"type":"object","additionalProperties":false,"required":["algorithm","value","digest_domain"],"properties":{"algorithm":{"type":"string","enum":["sha256","sha512","blake3","md5","provider_checksum","other"]},"other_algorithm":{"type":"string","maxLength":128},"value":{"type":"string","pattern":"^[A-Za-z0-9+/=_:.-]{4,1024}$"},"digest_domain":{"type":"string","enum":["canonical_content","transport_chunk","transport_whole","provider_object","encrypted_payload","compressed_payload","manifest","other"]}}},
+    "sourceDescriptor":{"type":"object","additionalProperties":false,"required":["source_kind"],"properties":{"source_kind":{"$ref":"#/$defs/sourceKind"},"content_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"object_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"location_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"remote_alias_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"stream_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"expected_size":{"type":"integer","minimum":0},"expected_digests":{"type":"array","items":{"$ref":"#/$defs/digestValue"}},"validator_observations":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["validator_type","value","observed_at"],"properties":{"validator_type":{"type":"string","enum":["etag","last_modified","provider_version","content_length","custom"]},"value":{"type":"string","maxLength":2048},"observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"}}}}},"allOf":[{"if":{"properties":{"source_kind":{"const":"content"}},"required":["source_kind"]},"then":{"required":["content_ref"]}},{"if":{"properties":{"source_kind":{"const":"object_revision"}},"required":["source_kind"]},"then":{"required":["object_revision_ref"]}},{"if":{"properties":{"source_kind":{"const":"storage_location"}},"required":["source_kind"]},"then":{"required":["location_ref"]}},{"if":{"properties":{"source_kind":{"const":"remote_descriptor"}},"required":["source_kind"]},"then":{"required":["remote_alias_ref"]}},{"if":{"properties":{"source_kind":{"const":"stream"}},"required":["source_kind"]},"then":{"required":["stream_ref"]}}]},
+    "destinationDescriptor":{"type":"object","additionalProperties":false,"required":["destination_intent","provider_instance_ref","storage_class"],"properties":{"destination_intent":{"$ref":"#/$defs/destinationIntent"},"provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"existing_location_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"namespace_or_alias_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"storage_class":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},"encryption_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"retention_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"expected_location_generation":{"type":"integer","minimum":0}}},
+    "byteRange":{"type":"object","additionalProperties":false,"required":["offset","length","state"],"properties":{"offset":{"type":"integer","minimum":0},"length":{"type":"integer","minimum":1},"state":{"type":"string","enum":["planned","requested","received_unverified","verified","failed","invalidated"]},"transport_digest":{"$ref":"#/$defs/digestValue"},"attempt_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}}},
+    "transferVerificationDomain":{"type":"string","enum":["transport_completed","byte_count_matched","transport_checksums_matched","content_digest_matched","destination_readback_matched","location_registered","object_acceptance_completed","external_delivery_confirmed"]},
+    "syncDirection":{"type":"string","enum":["one_way_a_to_b","one_way_b_to_a","bidirectional","publish_subscribe"]},
+    "cursorStrategy":{"type":"string","enum":["journal_sequence","vector_clock","version_vector","provider_change_token","snapshot_scan","hybrid"]},
+    "conflictKind":{"type":"string","enum":["content_divergence","rename_divergence","delete_modify","metadata_divergence","permission_or_policy_divergence","identity_ambiguity","source_drift_during_transfer","cursor_gap","provider_generation_change","unsupported_semantic_merge"]},
+    "conflictResolutionKind":{"type":"string","enum":["choose_revision","keep_both","create_merged_revision","apply_rename_mapping","apply_tombstone","ignore_for_scope","postpone","reject_automatic_resolution"]},
+    "snapshotCompleteness":{"type":"string","enum":["complete_for_declared_scope","partial","failed","unknown"]},
+    "backupStrategy":{"type":"string","enum":["full","incremental","differential","deduplicated_content","provider_native","hybrid"]},
+    "backupRestoreDecision":{"type":"string","enum":["restorable","restorable_with_conversion","partially_restorable","not_restorable","unknown"]},
+    "replicaState":{"type":"string","enum":["present_verified","present_unverified","stale","missing","corrupt","inaccessible","unknown"]}
   }
 }
