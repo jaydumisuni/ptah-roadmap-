@@ -1,0 +1,40 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:application:application-installation:0.1.0",
+  "title":"Ptah Application Installation",
+  "x-ptah-schema-name":"application.application-installation","x-ptah-schema-version":"0.1.0","x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","lifecycle","application_ref","application_revision_ref","provider_revision_ref","provider_instance_ref","provider_generation","locality","installation_scope_ref","installed_object_revision_refs","installed_digest_refs","configuration_refs","install_activity_ref","verification_refs","installed_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"application.installation"}}}]},
+    "lifecycle":{"$ref":"urn:ptah:schema:application:definitions:0.1.0#/$defs/stateProjection"},
+    "application_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "application_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "locality":{"type":"string","enum":["node_local","remote_service","device_local"]},
+    "node_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "node_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "remote_service_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "device_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "device_profile_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "installation_scope_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "installation_alias_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "installed_object_revision_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "installed_digest_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "configuration_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "dependency_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "install_activity_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "upgrade_repair_uninstall_activity_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "verification_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "session_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "installed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "removed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf":[
+    {"if":{"properties":{"locality":{"const":"node_local"}}},"then":{"required":["node_ref","node_generation"],"not":{"anyOf":[{"required":["remote_service_ref"]},{"required":["device_ref"]}]}},"else":{"if":{"properties":{"locality":{"const":"remote_service"}}},"then":{"required":["remote_service_ref"],"not":{"anyOf":[{"required":["node_ref"]},{"required":["device_ref"]}]}},"else":{"required":["device_ref","device_profile_revision_ref"],"not":{"anyOf":[{"required":["node_ref"]},{"required":["remote_service_ref"]}]}}}}
+  ]
+}
