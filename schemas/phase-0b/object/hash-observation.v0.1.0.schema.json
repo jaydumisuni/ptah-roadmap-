@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:hash-observation:0.1.0",
+  "title": "Ptah Hash Observation",
+  "description": "One immutable producer observation of a qualified digest over an exact byte scope.",
+  "x-ptah-schema-name": "object.hash-observation",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "observation_contract_version", "subject_ref", "qualified_digest", "observed_size", "outcome", "producer_ref", "producer_version", "observed_at", "receipt_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.hash_observation" } } }
+      ]
+    },
+    "observation_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "subject_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "location_or_stream_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "qualified_digest": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/qualifiedDigest" },
+    "observed_size": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "outcome": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/hashObservationOutcome" },
+    "producer_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "producer_version": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "observed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "production_correlation": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/productionCorrelation" },
+    "receipt_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
