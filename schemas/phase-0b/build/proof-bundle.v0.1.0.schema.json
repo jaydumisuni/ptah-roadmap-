@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:proof-bundle:0.1.0",
+  "title":"Ptah Provenance Proof Bundle",
+  "x-ptah-schema-name":"build.proof-bundle",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","subject_refs","manifest_artifact_ref","record_entries","created_at","creator_ref","provenance_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"provenance.proof_bundle"}}}]},
+    "subject_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "manifest_artifact_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "record_entries":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["proof_domain","record_ref","authority_class","limitations"],"properties":{"proof_domain":{"$ref":"urn:ptah:schema:build:definitions:0.1.0#/$defs/proofDomain"},"record_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"authority_class":{"type":"string","enum":["producer_statement","tool_verification","independent_review","external_authoritative_result","caller_acceptance"]},"limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}}}}},
+    "signature_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "verification_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "created_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "creator_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provenance_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
