@@ -1,0 +1,20 @@
+{
+  "state_machine_name":"device.connection.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["device.connection"],
+  "states":[
+    {"name":"establishing","description":"Connection continuity and protocol state are being established.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Interface, epoch and Provider generation exist."]},
+    {"name":"connected","description":"Connection epoch is active with current continuity evidence.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Reachability/continuity evidence exists."]},
+    {"name":"degraded","description":"Connection remains partially usable or intermittent.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Degradation evidence exists."]},
+    {"name":"recovering","description":"Continuity is uncertain and reconciliation/re-establishment is in progress.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Recovery evidence exists."]},
+    {"name":"ended","description":"Connection epoch ended normally or by re-enumeration/mode transition.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["End reason/time exist."]},
+    {"name":"failed","description":"Connection epoch ended because of terminal transport/provider failure.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Failure evidence exists."]}
+  ],
+  "initial_states":["establishing"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"establishing","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["New epoch, Interface and Provider generation exist."],"required_evidence_kinds":["receipt","connection_observation"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"connect","from_states":["establishing","recovering","degraded"],"to_state":"connected","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Current reachability/continuity evidence exists."],"required_evidence_kinds":["receipt","connection_observation"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"degrade","from_states":["establishing","connected","recovering"],"to_state":"degraded","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Intermittent/partial quality evidence exists."],"required_evidence_kinds":["receipt","connection_observation"],"required_receipt_proof_levels":[]},
+    {"transition_name":"recover","from_states":["connected","degraded"],"to_state":"recovering","transition_class":"recovery","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Continuity is uncertain and active Operations are fenced/reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"end","from_states":["establishing","connected","degraded","recovering"],"to_state":"ended","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Epoch end reason/time recorded and stale evidence fenced."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"fail","from_states":["establishing","connected","degraded","recovering"],"to_state":"failed","transition_class":"failure","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Terminal connection failure and active-effect disposition exist."],"required_evidence_kinds":["receipt","error","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],"unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
