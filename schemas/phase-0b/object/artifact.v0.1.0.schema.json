@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:artifact:0.1.0",
+  "title": "Ptah Artifact",
+  "description": "Durable promoted-result role over exact Object Revisions, separate from Content identity and release acceptance.",
+  "x-ptah-schema-name": "object.artifact",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "artifact_contract_version", "artifact_type", "artifact_version", "purpose", "subject_refs", "promoted_revision_refs", "production_correlation", "promotion_receipt_refs", "lifecycle", "verification_projection", "review_projection", "acceptance_projection", "provenance_refs", "sbom_refs", "signature_or_attestation_refs", "reproduction_refs", "release_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.artifact" } } }
+      ]
+    },
+    "artifact_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "artifact_type": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "artifact_version": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "purpose": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "subject_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "promoted_revision_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "production_correlation": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/productionCorrelation" },
+    "promotion_receipt_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "lifecycle": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stateProjection" },
+    "verification_projection": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/verificationProjectionState" },
+    "review_projection": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/reviewProjectionState" },
+    "acceptance_projection": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/acceptanceProjectionState" },
+    "release_eligibility": { "type": "string", "enum": ["not_evaluated", "ineligible", "eligible", "conditional", "expired"] },
+    "provenance_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "sbom_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "signature_or_attestation_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "reproduction_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "release_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
