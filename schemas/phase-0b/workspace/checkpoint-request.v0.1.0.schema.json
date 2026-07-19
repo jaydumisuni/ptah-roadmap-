@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:workspace:checkpoint-request:0.1.0",
+  "title": "Ptah Checkpoint Request",
+  "x-ptah-schema-name": "workspace.checkpoint-request",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "lifecycle", "requestor_ref", "subject_refs", "requested_checkpoint_classes", "requested_consistency", "component_scope", "privacy_policy_ref", "credential_policy_ref", "portability_target", "destination_or_retention_refs", "requested_proof_refs", "submitted_at", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "runtime.checkpoint_request"}}}]},
+    "lifecycle": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/stateProjection"},
+    "requestor_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "workspace_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "workspace_materialization_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "materialization_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "subject_refs": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "requested_checkpoint_classes": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/checkpointClass"}, "uniqueItems": true},
+    "requested_consistency": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/consistencyClass"},
+    "quiesce_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "component_scope": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["checkpoint_class", "component_role", "subject_refs"],
+        "properties": {
+          "checkpoint_class": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/checkpointClass"},
+          "component_role": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/componentRole"},
+          "subject_refs": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+          "include": {"type": "boolean"},
+          "limitations": {"type": "array", "items": {"type": "string", "maxLength": 4096}}
+        }
+      }
+    },
+    "privacy_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "credential_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "portability_target": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/portabilityClass"},
+    "target_compatibility_constraint_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "destination_or_retention_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "budget_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "requested_proof_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "submitted_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "accepted_activity_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "decision_receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf": [{"if": {"required": ["workspace_materialization_ref"]}, "then": {"required": ["materialization_generation"]}}]
+}
