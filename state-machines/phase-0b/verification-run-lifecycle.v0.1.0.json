@@ -1,0 +1,23 @@
+{
+  "state_machine_name":"provenance.verification_run.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["provenance.verification_run"],
+  "states":[
+    {"name":"requested","description":"Verification intent is durable but not started.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Subjects and Protocol/Policy exist."]},
+    {"name":"validating","description":"Subject integrity, policy, verifier and required evidence are being validated.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Current subject/policy references exist."]},
+    {"name":"running","description":"Verification procedures are executing.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Activity/Operation/Attempt and verifier revision exist."]},
+    {"name":"completed","description":"Verification procedure completed and a separate decision/result is recorded.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Decision, requirement results and Receipts exist."]},
+    {"name":"failed","description":"Verification execution failed before a valid decision could be produced.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Typed execution failure exists."]},
+    {"name":"cancelled","description":"Verification ended by cancellation with retained partial evidence.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Cancellation and cleanup evidence exist."]},
+    {"name":"blocked","description":"Verification cannot proceed because required evidence/service/policy is unavailable.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Structured blocking reason exists."]}
+  ],
+  "initial_states":["requested"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"requested","transition_class":"normal","authority_classes":["caller","ptah_control_plane","reviewer"],"side_effecting":false,"required_preconditions":["Exact subjects and Protocol/Policy exist."],"required_evidence_kinds":["receipt","protocol"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"validate","from_states":["requested","blocked"],"to_state":"validating","transition_class":"normal","authority_classes":["ptah_control_plane","verifier"],"side_effecting":false,"required_preconditions":["Current verifier, subject and policy evidence are available."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"start","from_states":["validating"],"to_state":"running","transition_class":"normal","authority_classes":["ptah_control_plane","verifier"],"side_effecting":false,"required_preconditions":["New Attempt and exact verifier context exist."],"required_evidence_kinds":["receipt","attempt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"complete","from_states":["running"],"to_state":"completed","transition_class":"normal","authority_classes":["ptah_control_plane","verifier"],"side_effecting":false,"required_preconditions":["Separate decision/result and requirement evidence exist."],"required_evidence_kinds":["receipt","verification"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"fail","from_states":["requested","validating","running","blocked"],"to_state":"failed","transition_class":"failure","authority_classes":["verifier","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Execution failure is terminal for this run."],"required_evidence_kinds":["receipt","error"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"cancel","from_states":["requested","validating","running","blocked"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["caller","reviewer","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation and partial-evidence disposition exist."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"block","from_states":["requested","validating","running"],"to_state":"blocked","transition_class":"normal","authority_classes":["verifier","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Required evidence/service/policy is unavailable and retry condition exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
