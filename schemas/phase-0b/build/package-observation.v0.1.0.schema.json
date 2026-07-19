@@ -1,0 +1,31 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:package-observation:0.1.0",
+  "title":"Ptah Package Observation",
+  "x-ptah-schema-name":"build.package-observation",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","subject_ref","scanner_or_cataloguer_revision_ref","package_name","package_type","locations","confidence","observed_at","evidence_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"provenance.package_observation"}}}]},
+    "subject_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "scanner_or_cataloguer_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "package_name":{"type":"string","minLength":1,"maxLength":512},
+    "package_version":{"type":"string","maxLength":256},
+    "package_type":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},
+    "namespace":{"type":"string","maxLength":256},
+    "purl":{"type":"string","maxLength":2048},
+    "cpe":{"type":"string","maxLength":2048},
+    "licence_claims":{"type":"array","items":{"type":"string","minLength":1,"maxLength":512},"uniqueItems":true},
+    "locations":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["location_type","locator"],"properties":{"location_type":{"type":"string","enum":["path","layer","archive_member","package_database","binary_evidence","other_registered"]},"locator":{"type":"string","minLength":1,"maxLength":4096},"source_range_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}}}},
+    "confidence":{"type":"number","minimum":0,"maximum":1},
+    "relationship_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "warnings":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
