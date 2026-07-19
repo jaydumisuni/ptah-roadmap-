@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:workspace:restore-request:0.1.0",
+  "title": "Ptah Restore Request",
+  "x-ptah-schema-name": "workspace.restore-request",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "lifecycle", "requestor_ref", "checkpoint_bundle_ref", "target_intent", "restore_scope", "compatibility_decision_ref", "credential_policy_ref", "network_policy_ref", "required_readback_refs", "submitted_at", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "runtime.restore_request"}}}]},
+    "lifecycle": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/stateProjection"},
+    "requestor_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "checkpoint_bundle_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "target_intent": {"type": "string", "enum": ["restore_existing_workspace", "create_new_workspace", "fork_workspace", "recover_materialization", "recover_sessions_only", "validate_only"]},
+    "target_workspace_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "target_workspace_revision_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "target_provider_binding_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "target_node_or_remote_service_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "restore_scope": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/componentEntry"}},
+    "overwrite_or_merge_policy": {"type": "string", "enum": ["no_overwrite", "create_new_generation", "fork", "merge_by_explicit_plan", "replace_materialization_only"]},
+    "compatibility_decision_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "credential_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "network_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "device_or_secure_grant_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "required_readback_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "accept_partial_restore": {"type": "boolean", "default": false},
+    "submitted_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "accepted_activity_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "decision_receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf": [
+    {"if": {"properties": {"target_intent": {"enum": ["restore_existing_workspace", "recover_materialization", "recover_sessions_only"]}}, "required": ["target_intent"]}, "then": {"required": ["target_workspace_ref"]}}
+  ]
+}
