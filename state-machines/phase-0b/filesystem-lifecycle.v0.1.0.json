@@ -1,0 +1,20 @@
+{
+  "state_machine_name":"filesystem.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["filesystem.filesystem"],
+  "states":[
+    {"name":"identified","description":"Filesystem identity is selected from retained observations.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Selected observations and container subject exist."]},
+    {"name":"available","description":"Filesystem can be inspected under current capabilities.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Current Provider capability evidence exists."]},
+    {"name":"degraded","description":"Filesystem is only partially inspectable or has warnings/damage.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Degradation evidence exists."]},
+    {"name":"locked","description":"Encryption/credential/policy prevents inspection.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Blocking state/evidence exists."]},
+    {"name":"unavailable","description":"Current backing/container/provider state prevents access.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Unavailability evidence exists."]},
+    {"name":"retired","description":"Identity is retained but no new Sessions are permitted.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Retirement authority and retention exist."]}
+  ],
+  "initial_states":["identified"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"identified","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Selected observation evidence exists."],"required_evidence_kinds":["receipt","filesystem_observation"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"mark_available","from_states":["identified","degraded","locked","unavailable"],"to_state":"available","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Current read capability and subject availability are verified."],"required_evidence_kinds":["receipt","capability_snapshot"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"degrade","from_states":["identified","available","locked","unavailable"],"to_state":"degraded","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Partial/dirty/damaged/unsupported-feature evidence exists."],"required_evidence_kinds":["receipt","filesystem_observation"],"required_receipt_proof_levels":[]},
+    {"transition_name":"lock","from_states":["identified","available","degraded","unavailable"],"to_state":"locked","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Encryption/credential/policy blocker exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"mark_unavailable","from_states":["identified","available","degraded","locked"],"to_state":"unavailable","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Backing/container/provider unavailable evidence exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"retire","from_states":["identified","available","degraded","locked","unavailable"],"to_state":"retired","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy"],"side_effecting":false,"required_preconditions":["No active Sessions remain and retention is fixed."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]}
+  ],"unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
