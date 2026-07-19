@@ -7,7 +7,7 @@
   "x-ptah-maturity":"candidate",
   "type":"object",
   "additionalProperties":false,
-  "required":["envelope","subject_ref","subject_digest_refs","transparency_mode","service_or_authority_ref","entry_or_timestamp_refs","verification_protocol_ref","trusted_root_refs","observed_at","verification_result","privacy_policy_refs","evidence_refs","limitations","extensions"],
+  "required":["envelope","subject_ref","subject_digest_refs","transparency_mode","verification_protocol_ref","trusted_root_refs","observed_at","verification_result","privacy_policy_refs","evidence_refs","limitations","extensions"],
   "properties":{
     "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"provenance.transparency_evidence"}}}]},
     "subject_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
@@ -36,7 +36,9 @@
     "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
   },
   "allOf":[
+    {"if":{"properties":{"transparency_mode":{"enum":["public_log","private_log","timestamp_authority","other_registered"]}},"required":["transparency_mode"]},"then":{"required":["service_or_authority_ref","entry_or_timestamp_refs"]}},
     {"if":{"properties":{"transparency_mode":{"const":"public_log"}},"required":["transparency_mode"]},"then":{"required":["identity_disclosure_acknowledgement_ref"]}},
-    {"if":{"properties":{"transparency_mode":{"const":"offline_no_log"}},"required":["transparency_mode"]},"then":{"properties":{"entry_or_timestamp_refs":{"minItems":0}},"not":{"required":["identity_disclosure_acknowledgement_ref"]}}}
+    {"if":{"properties":{"transparency_mode":{"enum":["offline_no_log","not_used"]}},"required":["transparency_mode"]},"then":{"not":{"anyOf":[{"required":["service_or_authority_ref"]},{"required":["entry_or_timestamp_refs"]},{"required":["identity_disclosure_acknowledgement_ref"]}]}}},
+    {"if":{"properties":{"transparency_mode":{"const":"not_used"}},"required":["transparency_mode"]},"then":{"properties":{"verification_result":{"const":"not_applicable"},"online_availability":{"const":"not_required"}}}}
   ]
 }
