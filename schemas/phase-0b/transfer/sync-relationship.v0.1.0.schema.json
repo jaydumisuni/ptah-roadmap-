@@ -1,0 +1,33 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:transfer:sync-relationship:0.1.0",
+  "title":"Ptah Sync Relationship",
+  "x-ptah-schema-name":"transfer.sync-relationship",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","lifecycle","relationship_key","endpoint_refs","direction","included_scopes","excluded_scopes","cursor_strategy","conflict_policy_ref","deletion_policy_ref","rename_policy_ref","network_or_grant_refs","credential_refs","created_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"sync.relationship"}}}]},
+    "lifecycle":{"$ref":"urn:ptah:schema:transfer:definitions:0.1.0#/$defs/stateProjection"},
+    "relationship_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},
+    "endpoint_refs":{"type":"array","minItems":2,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "direction":{"$ref":"urn:ptah:schema:transfer:definitions:0.1.0#/$defs/syncDirection"},
+    "included_scopes":{"type":"array","items":{"type":"string","minLength":1,"maxLength":1024}},
+    "excluded_scopes":{"type":"array","items":{"type":"string","minLength":1,"maxLength":1024}},
+    "cursor_strategy":{"$ref":"urn:ptah:schema:transfer:definitions:0.1.0#/$defs/cursorStrategy"},
+    "conflict_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "deletion_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "rename_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "metadata_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "offline_or_retry_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "retention_or_tombstone_policy_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "network_or_grant_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "credential_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "current_cursor_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "created_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "last_run_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
