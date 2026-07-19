@@ -1,0 +1,38 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:firmware-protocol-stage-observation:0.1.1",
+  "title":"Ptah Firmware Protocol Stage Observation",
+  "description":"Corrected protocol-stage observation adding transport authorization and cleanup verification without creating a universal proof ladder.",
+  "x-ptah-schema-name":"domain.firmware-protocol-stage-observation",
+  "x-ptah-schema-version":"0.1.1",
+  "x-ptah-maturity":"candidate",
+  "x-ptah-supersedes":"urn:ptah:schema:domain:firmware-protocol-stage-observation:0.1.0",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","device_ref","device_session_ref","interface_ref","connection_ref","connection_epoch","provider_instance_ref","provider_generation","stage","stage_result","observed_at","operation_ref","attempt_ref","evidence_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"firmware.protocol_stage_observation"}}}]},
+    "device_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "device_session_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "interface_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "connection_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "connection_epoch":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "asset_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "stage":{"type":"string","enum":["interface_detected","interface_claimed","transport_authorized","protocol_handshake","boot_or_download_mode_confirmed","first_stage_loaded","second_stage_or_programmer_loaded","service_configured","layout_inventoried","read_completed","backup_verified","write_acknowledged","write_read_back_verified","device_reset_observed","device_boot_observed","cleanup_verified","authoritative_external_result"]},
+    "stage_result":{"type":"string","enum":["observed","acknowledged","verified","failed","timed_out","disconnected","unsupported","inconclusive"]},
+    "backend_alias_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "operation_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "attempt_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "receipt_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf":[
+    {"if":{"properties":{"stage":{"const":"transport_authorized"}},"required":["stage"]},"then":{"properties":{"stage_result":{"enum":["acknowledged","verified","failed","timed_out","disconnected","inconclusive"]}}}},
+    {"if":{"properties":{"stage":{"const":"cleanup_verified"}},"required":["stage"]},"then":{"properties":{"stage_result":{"enum":["verified","failed","inconclusive"]}}}}
+  ]
+}
