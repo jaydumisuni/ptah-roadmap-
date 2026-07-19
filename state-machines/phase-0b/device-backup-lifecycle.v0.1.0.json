@@ -1,0 +1,20 @@
+{
+  "state_machine_name":"device.backup.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["device.backup"],
+  "states":[
+    {"name":"capturing","description":"Backup bytes/ranges are being read and registered.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Exact Device Session/connection/ranges and read authority exist."]},
+    {"name":"captured_unverified","description":"Bytes exist but range/size/digest verification is incomplete.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Object/Location evidence exists."]},
+    {"name":"verified","description":"Expected range/size/digest and retained Locations passed verification.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Verification evidence exists."]},
+    {"name":"degraded","description":"Backup is partial or has compatibility/coverage limitations.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Partial/missing scope is explicit."]},
+    {"name":"corrupt_or_invalid","description":"Backup bytes or metadata failed verification.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Failure evidence exists."]},
+    {"name":"retired","description":"Backup retained historically but no longer approved for ordinary restore.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Retirement authority and retention exist."]}
+  ],
+  "initial_states":["capturing"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"capturing","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":true,"required_preconditions":["Exact Session/epoch/ranges and read capability exist."],"required_evidence_kinds":["receipt","attempt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"capture","from_states":["capturing"],"to_state":"captured_unverified","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Backup Objects/Locations and actual ranges exist."],"required_evidence_kinds":["receipt","object_revision"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"verify","from_states":["captured_unverified","degraded"],"to_state":"verified","transition_class":"normal","authority_classes":["ptah_control_plane","verifier"],"side_effecting":false,"required_preconditions":["Expected range/size/digest and Location verification passed."],"required_evidence_kinds":["receipt","verification"],"required_receipt_proof_levels":["output_verified"]},
+    {"transition_name":"degrade","from_states":["capturing","captured_unverified","verified"],"to_state":"degraded","transition_class":"normal","authority_classes":["provider","ptah_control_plane","verifier"],"side_effecting":false,"required_preconditions":["Partial/unsupported/missing scope is explicit."],"required_evidence_kinds":["receipt","coverage"],"required_receipt_proof_levels":[]},
+    {"transition_name":"invalidate","from_states":["capturing","captured_unverified","verified","degraded"],"to_state":"corrupt_or_invalid","transition_class":"failure","authority_classes":["verifier","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Digest/range/size/Location verification failed."],"required_evidence_kinds":["receipt","verification"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"retire","from_states":["verified","degraded"],"to_state":"retired","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy"],"side_effecting":false,"required_preconditions":["Restore authority removed and retention fixed."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]}
+  ],"unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
