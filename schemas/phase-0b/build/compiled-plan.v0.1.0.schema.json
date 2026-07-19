@@ -1,0 +1,33 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:compiled-plan:0.1.0",
+  "title":"Ptah Build Compiled Plan",
+  "x-ptah-schema-name":"build.compiled-plan",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","recipe_revision_ref","acceptance_ref","backend_facility_revision_ref","backend_provider_revision_ref","compiler_or_adapter_revision_ref","plan_object_ref","plan_content_digest_refs","step_mappings","requirement_results","created_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"build.compiled_plan"}}}]},
+    "recipe_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "acceptance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "backend_facility_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "backend_provider_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "compiler_or_adapter_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "plan_object_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "plan_content_digest_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "backend_alias_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "selected_platforms":{"type":"array","items":{"type":"string","minLength":1,"maxLength":256},"uniqueItems":true},
+    "step_mappings":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["recipe_step_key","backend_step_alias_refs","operation_templates"],"properties":{"recipe_step_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},"backend_step_alias_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"operation_templates":{"type":"array","minItems":1,"items":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},"uniqueItems":true}}}},
+    "requirement_results":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:build:definitions:0.1.0#/$defs/requirementResult"}},
+    "cache_strategy":{"type":"string","enum":["disabled","backend_native","ptah_managed","hybrid","other_registered"]},
+    "secret_injection_strategy":{"type":"string","enum":["none","file_mount","environment","socket_or_agent","provider_native","other_registered"]},
+    "network_strategy":{"type":"string","enum":["none","restricted","ordinary","provider_managed","other_registered"]},
+    "output_export_strategy":{"type":"string","enum":["local_only","object_storage","oci_registry","drive_export","multiple","other_registered"]},
+    "proof_hook_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "created_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
