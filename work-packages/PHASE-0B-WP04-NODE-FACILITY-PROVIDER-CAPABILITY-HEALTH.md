@@ -20,13 +20,13 @@ WP04 closes the contract boundary required to represent a Node or remote service
 - `conformance/PHASE-0B-WP04-NODE-FACILITY-PROVIDER-SAFETY-NET.md`
 - `conformance/PHASE-0B-WP04-NODE-FACILITY-PROVIDER-SAFETY-NET.v0.1.1.md`
 - `conformance/fixtures/phase-0b/wp04/node-facility-provider-cases.v0.1.0.json`
-- `schemas/phase-0b/runtime/schema-catalog.v0.1.0.json`
+- `schemas/phase-0b/runtime/schema-catalog.v0.1.2.json`
 
-The `0.1.1` correction records supersede only the named clauses of the original candidate drafts. They preserve candidate history while making the accepted package internally consistent.
+The conventions and safety-net `0.1.1` correction records supersede only named clauses of the original candidate drafts. Runtime catalog `0.1.2` preserves the superseded lifecycle candidates while selecting the proof-vocabulary-correct and locality-exact Provider Instance lifecycle `0.1.2`.
 
 ## Candidate schema set
 
-The runtime catalog contains 19 active schemas:
+The runtime catalog contains 19 active record schemas:
 
 1. shared runtime definitions;
 2. Node;
@@ -58,12 +58,12 @@ Dependencies:
 
 Six namespaced lifecycle machines are included:
 
-- `node.enrollment.lifecycle`;
-- `node.lifecycle`;
-- `facility.lifecycle`;
-- `facility.instance.lifecycle`;
-- `provider.lifecycle`;
-- `provider.instance.lifecycle`.
+- `node.enrollment.lifecycle` `0.1.1`;
+- `node.lifecycle` `0.1.0`;
+- `facility.lifecycle` `0.1.0`;
+- `facility.instance.lifecycle` `0.1.1`;
+- `provider.lifecycle` `0.1.0`;
+- `provider.instance.lifecycle` `0.1.2`.
 
 Reachability, readiness, health, capability verification, capability availability and resource pressure are independent observations/projections rather than lifecycle aliases.
 
