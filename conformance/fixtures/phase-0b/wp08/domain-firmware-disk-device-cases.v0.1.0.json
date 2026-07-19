@@ -1,0 +1,58 @@
+{
+  "suite_id":"ptah.conformance.domain-firmware-disk-device.0.1.0",
+  "fixture_version":"0.1.0",
+  "fixture_class":"cross_record_scenarios",
+  "execution_status":"specification_only_until_wp13",
+  "cases":[
+    {"id":"D01_VALID_DETECTOR_DISAGREEMENT","expected":"valid","setup":"Magic/parser claim ZIP while firmware Pack claims vendor container.","assertions":["both observations retained","classification may select multiple/polyglot","no observation overwritten"]},
+    {"id":"D02_INVALID_EXTENSION_AS_AUTHORITY","expected":"invalid","expected_code":"EXTENSION_NOT_AUTHORITATIVE_TYPE","setup":"Filename extension alone selects Pack and execution.","assertions":["content/parser evidence or explicit unknown required"]},
+    {"id":"D03_VALID_BUDGET_PARTIAL","expected":"valid","setup":"Recursive archive/firmware decomposition hits child/output budget after valid children.","assertions":["children retained","coverage budget_exhausted","not complete"]},
+    {"id":"D04_INVALID_BUDGET_RESET_PER_CHILD","expected":"invalid","expected_code":"DESCENDANT_BUDGET_RESET_FORBIDDEN","setup":"Each child receives fresh full recursion budget.","assertions":["remaining inherited budget required"]},
+    {"id":"D05_VALID_PACK_REPLACEMENT","expected":"valid","setup":"Same source Object is parsed by two Pack revisions.","assertions":["source identity stable","new Runs/Inventories/Relationships","differences retained"]},
+    {"id":"D06_INVALID_PARSER_OUTPUT_REWRITES_ORIGINAL","expected":"invalid","expected_code":"DERIVED_OUTPUT_NOT_ORIGINAL","setup":"Parser-normalized bytes replace source Object Revision.","assertions":["new View/Derivative/Object required"]},
+    {"id":"D07_VALID_UNKNOWN_OPAQUE","expected":"valid","setup":"Unknown encrypted section cannot be parsed.","assertions":["opaque/locked coverage retained","other valid scope usable"]},
+    {"id":"D08_INVALID_STATIC_PACK_MUTATION","expected":"invalid","expected_code":"STATIC_CAPABILITY_CANNOT_MUTATE_DEVICE","setup":"Inventory-only Pack invokes flash backend.","assertions":["separate mutation capability/authority required"]},
+
+    {"id":"F01_VALID_FIRMWARE_MANIFEST","expected":"valid","setup":"Package manifest maps components and ordered source/destination operations with coverage.","assertions":["package/manifest/components separate","source requirements explicit"]},
+    {"id":"F02_INVALID_FILENAME_MODEL_COMPATIBILITY","expected":"invalid","expected_code":"FILENAME_MODEL_NOT_COMPATIBILITY","setup":"Firmware filename matching device model authorizes write.","assertions":["exact live Profile/layout/tool evidence required"]},
+    {"id":"F03_INVALID_ANALYZABLE_AS_WRITABLE","expected":"invalid","expected_code":"STATIC_COMPATIBILITY_NOT_WRITE_COMPATIBILITY","setup":"Package parses successfully and is labelled compatible_for_write.","assertions":["operation-specific write requirements required"]},
+    {"id":"F04_VALID_SOURCE_DEPENDENT_DELTA","expected":"valid","setup":"OTA patch plan binds exact source partition digest and destination digest.","assertions":["missing source blocks rebuild/write"]},
+    {"id":"F05_INVALID_P5C_GUESS","expected":"invalid","expected_code":"PARKED_FORMAT_STRUCTURE_INFERRED","setup":".P5C is parsed with .PAC schema by analogy.","assertions":["unsupported/opaque until lawful evidence"]},
+    {"id":"F06_INVALID_LOADER_BY_SOC_FAMILY","expected":"invalid","expected_code":"EXECUTABLE_ASSET_COMPATIBILITY_UNPROVEN","setup":"Programmer chosen only because SoC family string matches.","assertions":["exact asset/source/HWID/mode evidence required"]},
+    {"id":"F07_VALID_OPERATION_PLAN","expected":"valid","setup":"Plan binds Device Session, current Lease/fence, Compatibility, source/target ranges, asset, backup and readback.","assertions":["Plan not authority or execution","all identities exact"]},
+    {"id":"F08_INVALID_PLAN_AS_AUTHORITY","expected":"invalid","expected_code":"OPERATION_PLAN_NOT_MUTATION_AUTHORITY","setup":"Physical operation starts with Plan but no approved Mutation Authorization.","assertions":["authorization required"]},
+
+    {"id":"K01_VALID_SPARSE_IMAGE_GRAPH","expected":"valid","setup":"Sparse image retains file bytes, logical extent map and expanded partition relationships.","assertions":["encoded and logical identity separate","holes/zeros explicit"]},
+    {"id":"K02_INVALID_RANGE_OUT_OF_BOUNDS","expected":"invalid","expected_code":"PARTITION_RANGE_OUT_OF_BOUNDS","setup":"Partition exceeds logical image size.","assertions":["table/partition rejected or warned invalid"]},
+    {"id":"K03_INVALID_UNDECLARED_OVERLAP","expected":"invalid","expected_code":"PARTITION_OVERLAP_UNEXPLAINED","setup":"Two ordinary partitions overlap without logical/vendor relationship.","assertions":["overlap evidence and invalid/intentional classification required"]},
+    {"id":"K04_INVALID_BACKING_PATH_ESCAPE","expected":"invalid","expected_code":"UNTRUSTED_BACKING_PATH_NOT_ALLOWLISTED","setup":"Virtual image header references arbitrary host file.","assertions":["explicit backing Object allowlist required"]},
+    {"id":"K05_VALID_READ_ONLY_INSPECTION","expected":"valid","setup":"Untrusted filesystem opens in isolated Provider read-only.","assertions":["no host direct mount authority","cleanup receipted"]},
+    {"id":"K06_INVALID_READONLY_TO_WRITABLE","expected":"invalid","expected_code":"FILESYSTEM_MODE_ESCALATION_UNAUTHORIZED","setup":"Read-only Session invokes writable backend operation.","assertions":["new authority/session mode required"]},
+    {"id":"K07_VALID_WRITABLE_OVERLAY","expected":"valid","setup":"Writable overlay records change Artifact without mutating original image.","assertions":["original unchanged","overlay and cleanup retained"]},
+    {"id":"K08_INVALID_MOUNT_PATH_AS_IDENTITY","expected":"invalid","expected_code":"MOUNT_PATH_NOT_FILESYSTEM_IDENTITY","setup":"Host mount path is used as canonical Filesystem identity.","assertions":["scoped Alias only"]},
+
+    {"id":"V01_VALID_DEVICE_MODE_CORRELATION","expected":"valid","setup":"ADB and Fastboot interfaces correlate through multiple profile/attestation/operator evidence.","assertions":["one stable Device","distinct Interfaces/Connections/epochs"]},
+    {"id":"V02_INVALID_DEVICE_MERGE_ONE_ALIAS","expected":"invalid","expected_code":"DEVICE_IDENTITY_EVIDENCE_INSUFFICIENT","setup":"Two mode incarnations merge only because serial or VID/PID matches.","assertions":["multiple evidence or manual review required"]},
+    {"id":"V03_VALID_REENUMERATION_NEW_EPOCH","expected":"valid","setup":"Device switches USB mode and re-enumerates.","assertions":["new Interface/Connection epoch","old Receipts fenced"]},
+    {"id":"V04_INVALID_STALE_EPOCH_MUTATION","expected":"invalid","expected_code":"STALE_CONNECTION_EPOCH","setup":"Write Attempt uses old connection epoch after reconnect.","assertions":["reject before mutation"]},
+    {"id":"V05_INVALID_STALE_FENCE","expected":"invalid","expected_code":"STALE_DEVICE_FENCING_TOKEN","setup":"Old Session/Lease holder attempts control after takeover.","assertions":["reject and record security/authority evidence"]},
+    {"id":"V06_INVALID_PRESENCE_AS_PROTOCOL_READY","expected":"invalid","expected_code":"INTERFACE_PRESENCE_NOT_PROTOCOL_READINESS","setup":"USB PID/ADB device listing is treated as configured service session.","assertions":["handshake/service/read evidence required"]},
+    {"id":"V07_VALID_PARTIAL_SESSION","expected":"valid","setup":"Display/log available while semantic/input capability unavailable.","assertions":["Session partial","independent stream/capability state"]},
+    {"id":"V08_INVALID_STREAM_HEALTH_AS_SESSION_PROOF","expected":"invalid","expected_code":"STREAM_OBSERVATION_NOT_SESSION_AUTHORITY","setup":"Video stream active is used to prove mutation capability/Lease.","assertions":["Session/Lease/capability separate"]},
+
+    {"id":"B01_INVALID_BACKUP_FILE_EXISTS","expected":"invalid","expected_code":"BACKUP_FILE_NOT_VERIFIED_BACKUP","setup":"Tool created file and logged success but range/size/digest not checked.","assertions":["captured_unverified only"]},
+    {"id":"B02_VALID_VERIFIED_BACKUP","expected":"valid","setup":"Expected ranges, sizes, digests, Locations and restoration recipe verified.","assertions":["backup verified","privacy/retention retained"]},
+    {"id":"B03_INVALID_DESTRUCTIVE_NO_BACKUP","expected":"invalid","expected_code":"REQUIRED_BACKUP_MISSING","setup":"Write/erase begins with no verified backup and no approved exception.","assertions":["block before execution"]},
+    {"id":"B04_VALID_REVIEWED_BACKUP_EXCEPTION","expected":"valid","setup":"Emergency recovery records backup impossibility, consequences, compensating controls and approval.","assertions":["exception exact/expiring","outcome limitations mandatory"]},
+
+    {"id":"P01_INVALID_ACK_AS_VERIFIED","expected":"invalid","expected_code":"PROTOCOL_ACK_NOT_READBACK_VERIFICATION","setup":"Flash tool returns success and Operation marked completed_verified.","assertions":["readback/authoritative result required"]},
+    {"id":"P02_VALID_ACK_LIMITED","expected":"valid","setup":"Tool ACK retained; readback unavailable under explicit authority/exception.","assertions":["completed_acknowledged","limitations visible"]},
+    {"id":"P03_VALID_READBACK_VERIFIED","expected":"valid","setup":"Exact written ranges re-read and digests match under current epoch.","assertions":["completed_verified","verification distinct from ACK"]},
+    {"id":"P04_INVALID_BLIND_RETRY_AFTER_DISCONNECT","expected":"invalid","expected_code":"UNCERTAIN_PHYSICAL_EFFECT_CANNOT_AUTO_RETRY","setup":"Disconnect during erase/write triggers automatic retry.","assertions":["uncertain","recovery/readback/manual resume required"]},
+    {"id":"P05_VALID_RECOVERY_NEW_ATTEMPT","expected":"valid","setup":"Recovery re-establishes connection, reconciles target and authorizes a new Attempt.","assertions":["old Attempt retained","new epoch/Attempt","decision evidence explicit"]},
+    {"id":"P06_INVALID_OLD_RECEIPT_NEW_SESSION","expected":"invalid","expected_code":"OLD_GENERATION_RECEIPT_REJECTED","setup":"Receipt from prior Provider generation completes new Session Operation.","assertions":["correlation failure retained"]},
+    {"id":"P07_VALID_UNRELATED_FAILURE_ISOLATION","expected":"valid","setup":"One Device Provider/operation fails.","assertions":["unrelated Devices/Workspaces/Providers continue","failure scope exact"]},
+    {"id":"P08_INVALID_PROTECTED_DATA_PUBLIC","expected":"invalid","expected_code":"SENSITIVE_DEVICE_EVIDENCE_AUDIENCE_VIOLATION","setup":"IMEI/NV/RPMB/screenshot/log backup is exported publicly without allowlist/redaction.","assertions":["restricted by default"]},
+    {"id":"P09_VALID_PROVIDER_REPLACEMENT","expected":"valid","setup":"New Device Provider re-observes same Device and reruns compatibility.","assertions":["Device/Object identity stable","new generation/observations/results","old evidence retained"]}
+  ]
+}
