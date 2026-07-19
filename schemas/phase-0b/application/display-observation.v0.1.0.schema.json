@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:application:display-observation:0.1.0",
+  "title":"Ptah Application Display Observation",
+  "x-ptah-schema-name":"application.display-observation","x-ptah-schema-version":"0.1.0","x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","display_session_ref","application_session_ref","provider_generation","availability","observed_at","valid_until","evidence_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"application.display_observation"}}}]},
+    "display_session_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "application_session_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "availability":{"type":"string","enum":["available","degraded","blocked","unavailable","stale","unknown"]},
+    "format_or_geometry":{"type":"object","additionalProperties":{"type":["string","integer","number","boolean"]}},
+    "quality_or_latency":{"type":"object","additionalProperties":{"type":["string","integer","number","boolean"]}},
+    "input_capability_observations":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["method","availability"],"properties":{"method":{"type":"string","maxLength":128},"availability":{"type":"string","enum":["available","degraded","blocked","unavailable","unknown"]},"evidence_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true}}}},
+    "observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
