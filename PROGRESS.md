@@ -89,7 +89,7 @@ Evidence:
 - [x] Review, Verdict and Authoritative External Result separation.
 - [x] explicit reconciliation of stale/late/duplicate/contradictory evidence.
 - [x] six lifecycle state machines.
-- [x] 17 active schema entries plus corrected request schemas `0.1.1`.
+- [x] active schema catalog plus corrected request schemas `0.1.1`.
 - [x] migration/compatibility rules, consolidated safety net and fixtures.
 - [x] ADR-0019 accepted.
 
@@ -127,13 +127,41 @@ Evidence:
 - `conformance/PHASE-0B-WP03-OBJECT-ARTIFACT-STORAGE-SAFETY-NET.md`
 - `decisions/ADR-0020-OBJECT-REVISION-VIEW-ARTIFACT-STORAGE-BOUNDARY.md`
 
+## 0B-WP04 — Node, Facility, Provider, capability and health
+
+**Status:** CANDIDATE COMPLETE — downstream use approved; executable runtime conformance deferred.
+
+- [x] stable Node identity separated from aliases, enrollment, trust and reachability.
+- [x] Node generation and connection epoch separation/fencing.
+- [x] immutable Node observations, capability snapshots and resource snapshots.
+- [x] total/allocatable/reserved/consumed/available/unavailable/pressure resource dimensions.
+- [x] Capability Definition, Claim, Verification, Availability and Snapshot separation.
+- [x] Facility, Facility Revision and Facility Instance contracts.
+- [x] Provider, Provider Revision and Provider Instance/generation contracts.
+- [x] local Node-backed and remote-service Provider locality without fictional Nodes.
+- [x] Provider lifecycle, reachability, readiness and health separation.
+- [x] operation-scoped optional-dependency degradation.
+- [x] immutable, exact-generation, expiring Dispatch Eligibility.
+- [x] 19 active record schemas in runtime catalog `0.1.2`.
+- [x] six active lifecycle machines with versioned proof/locality corrections.
+- [x] migration/compatibility rules, consolidated safety net and cross-record fixtures.
+- [x] ADR-0021 accepted and indexed; ADR-0021A/0021B record catalog corrections.
+
+Evidence:
+
+- `work-packages/PHASE-0B-WP04-NODE-FACILITY-PROVIDER-CAPABILITY-HEALTH.md`
+- `schemas/phase-0b/runtime/schema-catalog.v0.1.2.json`
+- `conformance/PHASE-0B-WP04-NODE-FACILITY-PROVIDER-SAFETY-NET.md`
+- `decisions/ADR-0021-NODE-FACILITY-PROVIDER-CAPABILITY-HEALTH-BOUNDARY.md`
+- `decisions/ADR-0021B-WP04-FINAL-CATALOG-CORRECTION.md`
+
 ## Ordered work packages
 
 - [x] 0B-WP01 — Common identity, versioning and typed-family conventions.
 - [x] 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof.
 - [x] 0B-WP03 — Object, Revision, View, Artifact and storage relationships.
-- [-] 0B-WP04 — Node, Facility, Provider, capability and health.
-- [ ] 0B-WP05 — Workspace, Session, checkpoint and recovery.
+- [x] 0B-WP04 — Node, Facility, Provider, capability and health.
+- [-] 0B-WP05 — Workspace, Session, checkpoint and recovery.
 - [ ] 0B-WP06 — Transfer, sync, conflict and backup.
 - [ ] 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification.
 - [ ] 0B-WP08 — Domain Pack, firmware, disk and Device contracts.
@@ -147,16 +175,16 @@ Evidence:
 
 ## Cross-cutting Phase 0B gates
 
-- [-] every schema versioned and traceable to ADR/requirement — WP01–WP03 complete; remaining domains pending.
-- [-] state machines/transitions explicit and namespaced — WP01–WP03 complete; remaining domains pending.
-- [-] saved records/sessions have migration paths — WP01–WP03 complete; remaining domains pending.
-- [-] permissions, audience and redaction represented — common/Object/Artifact mappings complete; remaining domains pending.
-- [-] Provider/Facility conformance contracts defined — WP04 active.
-- [-] lawful golden and negative fixtures pinned — WP01–WP03 committed; remaining corpus pending.
-- [-] proof plans name exact Receipts/Evidence — Activity/Object layers complete; remaining domains pending.
-- [-] backend replacement testable — Object/storage contract complete; Provider/Facility and other domains pending.
-- [-] online and later local Nodes use the same contracts — neutral foundations complete; Node proof pending.
-- [-] private consumer knowledge absent from public schemas — WP01–WP03 neutral; full audit pending.
+- [-] every schema versioned and traceable to ADR/requirement — WP01–WP04 complete; remaining domains pending.
+- [-] state machines/transitions explicit and namespaced — WP01–WP04 complete; remaining domains pending.
+- [-] saved records/sessions have migration paths — WP01–WP04 complete; Workspace/session and later domains pending.
+- [-] permissions, audience and redaction represented — common/Object/runtime mappings complete; remaining domains pending.
+- [x] Provider/Facility candidate contracts defined — executable conformance deferred.
+- [-] lawful golden and negative fixtures pinned — WP01–WP04 committed; remaining corpus pending.
+- [-] proof plans name exact Receipts/Evidence — Activity/Object/runtime layers complete; remaining domains pending.
+- [-] backend replacement testable — Object/storage and Facility/Provider contracts complete; remaining domains pending.
+- [-] online and later local Nodes use the same contracts — Node/Provider contracts neutral; executable proof pending.
+- [-] private consumer knowledge absent from public schemas — WP01–WP04 neutral; full audit pending.
 - [ ] public licence/dependency strategy ready for Phase 0C.
 - [ ] first vertical slice selectable without identity/proof ambiguity.
 
