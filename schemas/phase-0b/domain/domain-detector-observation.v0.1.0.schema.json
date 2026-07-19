@@ -1,0 +1,32 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:domain-detector-observation:0.1.0",
+  "title":"Ptah Domain Detector Observation",
+  "x-ptah-schema-name":"domain.domain-detector-observation",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","subject_revision_ref","subject_digest_refs","pack_revision_ref","detector_facility_revision_ref","detector_provider_revision_ref","claimed_type","confidence","evidence_classes","observed_at","evidence_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"domain.detector_observation"}}}]},
+    "subject_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "subject_digest_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "pack_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "detector_facility_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "detector_provider_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "detector_configuration_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "claimed_type":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},
+    "claimed_subtype":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},
+    "confidence":{"type":"number","minimum":0,"maximum":1},
+    "confidence_calibration_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "evidence_classes":{"type":"array","minItems":1,"items":{"type":"string","enum":["extension_hint","filename_hint","metadata_hint","magic_signature","container_structure","parser_validated","embedded_signature","text_encoding","model_classification","caller_assertion","live_device_observation","other_registered"]},"uniqueItems":true},
+    "byte_range_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "filename_or_metadata_hints":{"type":"array","items":{"type":"string","minLength":1,"maxLength":2048}},
+    "parser_validation":{"type":"string","enum":["not_attempted","accepted","accepted_with_warnings","rejected","crashed","timed_out","unsupported"]},
+    "observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "warnings":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
