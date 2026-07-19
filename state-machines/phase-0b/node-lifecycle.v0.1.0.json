@@ -1,0 +1,26 @@
+{
+  "state_machine_name": "node.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.node"],
+  "states": [
+    {"name":"active","description":"Node is enrolled and may be considered for new work when authorization, reachability, health, capability and resource evidence also pass.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Approved enrollment and current trust policy are recorded."]},
+    {"name":"draining","description":"Node keeps existing authorized work but receives no ordinary new work.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Drain authority, deadline and workload handling policy are recorded."]},
+    {"name":"quarantined","description":"Node is isolated from ordinary work pending investigation or remediation.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Quarantine reason, scope and policy are retained."]},
+    {"name":"suspended","description":"Node authority is temporarily disabled without retiring identity/history.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Suspension reason and authority are retained."]},
+    {"name":"revoked","description":"Node enrollment/trust authority has been revoked and new work is forbidden.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Revocation and credential/lease fencing evidence are retained."]},
+    {"name":"retired","description":"Node identity is retained for history but no future work is allowed.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Retirement, cleanup and retained-reference policy are recorded."]}
+  ],
+  "initial_states": ["active"],
+  "transitions": [
+    {"transition_name":"activate","from_states":[null,"suspended","quarantined"],"to_state":"active","transition_class":"administrative","authority_classes":["organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Enrollment remains approved; trust, remediation and policy checks pass."],"required_evidence_kinds":["receipt","verdict"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"begin_drain","from_states":["active"],"to_state":"draining","transition_class":"administrative","authority_classes":["node_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["No-new-work policy and handling of active leases/Activities are recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"finish_drain","from_states":["draining"],"to_state":"suspended","transition_class":"administrative","authority_classes":["node_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Active work has stopped, migrated or been explicitly retained under policy."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"quarantine","from_states":["active","draining","suspended"],"to_state":"quarantined","transition_class":"administrative","authority_classes":["organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Reason, scope, network/provider restrictions and workload handling are fixed."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"suspend","from_states":["active","draining","quarantined"],"to_state":"suspended","transition_class":"administrative","authority_classes":["node_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["New dispatch is blocked and active authority is reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"revoke","from_states":["active","draining","quarantined","suspended"],"to_state":"revoked","transition_class":"administrative","authority_classes":["organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Enrollment, credentials, reservations and leases are revoked or fenced."],"required_evidence_kinds":["receipt","revocation_evidence"],"required_receipt_proof_levels":["operation_completed","external_result_recorded"]},
+    {"transition_name":"retire","from_states":["suspended","revoked"],"to_state":"retired","transition_class":"administrative","authority_classes":["node_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["No active leases remain and historical retention/cleanup is recorded."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
