@@ -1,0 +1,28 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:trust-policy:0.1.0",
+  "title":"Ptah Provenance Trust Policy",
+  "x-ptah-schema-name":"build.trust-policy",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","lifecycle","policy_key","policy_version","trust_mode","trusted_root_refs","identity_rules","transparency_policy","offline_policy","valid_from","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"provenance.trust_policy"}}}]},
+    "lifecycle":{"$ref":"urn:ptah:schema:build:definitions:0.1.0#/$defs/stateProjection"},
+    "policy_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},
+    "policy_version":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
+    "trust_mode":{"type":"string","enum":["public_keyless","private_sigstore","kms_or_hsm","project_keypair","caller_pki","offline_bundle","hybrid","other_registered"]},
+    "trusted_root_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "identity_rules":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["rule_key","subject_pattern","issuer_pattern","decision"],"properties":{"rule_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},"subject_pattern":{"type":"string","minLength":1,"maxLength":2048},"issuer_pattern":{"type":"string","minLength":1,"maxLength":2048},"decision":{"type":"string","enum":["allow","deny","require_review"]},"audience_or_scope":{"type":"string","maxLength":2048}}}},
+    "certificate_policy_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "transparency_policy":{"type":"string","enum":["required","optional","forbidden_for_privacy","offline_inclusion_proof","not_applicable"]},
+    "offline_policy":{"type":"string","enum":["allowed","required","forbidden","allowed_with_conditions"]},
+    "revocation_source_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "valid_from":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
