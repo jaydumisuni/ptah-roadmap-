@@ -1,0 +1,32 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:transfer:transfer-manifest:0.1.0",
+  "title":"Ptah Transfer Manifest",
+  "x-ptah-schema-name":"transfer.transfer-manifest",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","transfer_run_ref","source","destination","transport_provider_revision_refs","protocol_revision","chunk_or_range_scheme","compression_mode","encryption_mode","idempotency_key","correlation_nonce","created_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"transfer.manifest"}}}]},
+    "transfer_run_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "source":{"$ref":"urn:ptah:schema:transfer:definitions:0.1.0#/$defs/sourceDescriptor"},
+    "destination":{"$ref":"urn:ptah:schema:transfer:definitions:0.1.0#/$defs/destinationDescriptor"},
+    "expected_size":{"type":"integer","minimum":0},
+    "expected_digests":{"type":"array","items":{"$ref":"urn:ptah:schema:transfer:definitions:0.1.0#/$defs/digestValue"}},
+    "transport_provider_revision_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "protocol_revision":{"type":"string","minLength":1,"maxLength":256},
+    "chunk_or_range_scheme":{"type":"object","additionalProperties":false,"required":["scheme","unit"],"properties":{"scheme":{"type":"string","enum":["single_stream","fixed_chunks","variable_chunks","byte_ranges","multipart","provider_native","other"]},"unit":{"type":"string","enum":["bytes","provider_parts","chunks","stream"]},"nominal_size":{"type":"integer","minimum":1},"checksum_domain":{"type":"string","maxLength":128}}},
+    "compression_mode":{"type":"string","enum":["none","source_encoded","transport_encoded","destination_encoded","other"]},
+    "encryption_mode":{"type":"string","enum":["none","transport_only","client_side_payload","provider_side","hybrid","other"]},
+    "encryption_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "idempotency_key":{"type":"string","pattern":"^[A-Za-z0-9._:-]{8,512}$"},
+    "correlation_nonce":{"type":"string","pattern":"^[A-Za-z0-9._:-]{8,512}$"},
+    "resume_state_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "credential_or_grant_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "policy_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "created_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "limitations":{"type":"array","items":{"type":"string","maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
