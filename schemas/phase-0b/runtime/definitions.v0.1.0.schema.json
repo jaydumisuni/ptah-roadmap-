@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:runtime:definitions:0.1.0",
+  "title": "Ptah Runtime Node Facility Provider Definitions",
+  "x-ptah-schema-name": "runtime.definitions",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "$defs": {
+    "stateProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_machine_name", "state_machine_version", "current_state", "state_sequence"],
+      "properties": {
+        "state_machine_name": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"},
+        "state_machine_version": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
+        "current_state": {"type": "string", "pattern": "^[a-z][a-z0-9_]{1,63}$"},
+        "state_sequence": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger"},
+        "entered_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+        "transition_receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}
+      }
+    },
+    "nodeReachability": {"type": "string", "enum": ["unknown", "online", "offline", "stale"]},
+    "nodeHealth": {"type": "string", "enum": ["unknown", "healthy", "degraded", "unhealthy"]},
+    "providerReachability": {"type": "string", "enum": ["unknown", "reachable", "unreachable", "stale"]},
+    "providerReadiness": {"type": "string", "enum": ["unknown", "not_ready", "ready"]},
+    "providerHealth": {"type": "string", "enum": ["unknown", "healthy", "degraded", "unhealthy"]},
+    "capabilityVerificationState": {"type": "string", "enum": ["unverified", "verified", "failed", "inconclusive", "stale"]},
+    "capabilityAvailabilityState": {"type": "string", "enum": ["unknown", "available", "degraded", "unavailable", "blocked"]},
+    "resourcePressure": {"type": "string", "enum": ["unknown", "normal", "elevated", "critical", "unavailable"]},
+    "providerKind": {
+      "type": "string",
+      "enum": ["workspace", "process", "oci_runtime", "isolation_runtime", "storage", "transfer", "build", "browser", "application", "device", "display", "semantic_ui", "knowledge", "data", "plugin_runtime", "scheduler", "security_scanner", "reproduction"]
+    },
+    "capabilitySubjectKind": {"type": "string", "enum": ["node", "facility_revision", "facility_instance", "provider_revision", "provider_instance"]},
+    "dependencyClass": {"type": "string", "enum": ["required", "optional", "operation_specific", "proof_only"]},
+    "dependencyRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dependency_class", "capability_ref", "failure_behavior"],
+      "properties": {
+        "dependency_class": {"$ref": "#/$defs/dependencyClass"},
+        "capability_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+        "minimum_version": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
+        "provider_or_facility_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+        "operation_keys": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "uniqueItems": true},
+        "network_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+        "credential_requirement_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+        "failure_behavior": {"type": "string", "enum": ["block_all", "block_affected_operations", "degrade_capability", "allow_without_stronger_proof"]},
+        "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}}
+      }
+    },
+    "resourceQuantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resource_key", "unit", "observed_total", "administratively_allocatable", "reserved", "consumed", "currently_available", "pressure"],
+      "properties": {
+        "resource_key": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{1,127}$"},
+        "unit": {"type": "string", "enum": ["count", "bytes", "millicpu", "cores", "percent", "watts", "custom"]},
+        "custom_unit": {"type": "string", "maxLength": 64},
+        "observed_total": {"type": "number", "minimum": 0},
+        "administratively_allocatable": {"type": "number", "minimum": 0},
+        "reserved": {"type": "number", "minimum": 0},
+        "consumed": {"type": "number", "minimum": 0},
+        "currently_available": {"type": "number", "minimum": 0},
+        "unavailable_or_quarantined": {"type": "number", "minimum": 0, "default": 0},
+        "overcommit_limit": {"type": "number", "minimum": 0},
+        "overcommit_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+        "pressure": {"$ref": "#/$defs/resourcePressure"},
+        "observation_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}
+      }
+    },
+    "compatibilityRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_ref", "minimum_version", "maximum_version_inclusive"],
+      "properties": {
+        "contract_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+        "minimum_version": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
+        "maximum_version_inclusive": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
+        "operation_keys": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "uniqueItems": true},
+        "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}}
+      }
+    },
+    "endpointAlias": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alias_type", "value", "scope", "observed_at"],
+      "properties": {
+        "alias_type": {"type": "string", "enum": ["hostname", "ip", "url", "socket", "service_name", "process_id", "container_id", "vm_id", "cloud_instance_id", "other"]},
+        "value": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "scope": {"type": "string", "minLength": 1, "maxLength": 256},
+        "observed_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+        "valid_until": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"}
+      }
+    }
+  }
+}
