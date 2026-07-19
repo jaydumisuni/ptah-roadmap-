@@ -20,6 +20,8 @@ Define how legacy or future Node/Facility/Provider records enter a newer Ptah co
 8. old heartbeat timestamps or cached capability manifests cannot authorize new dispatch.
 9. historical observations, failures, revocations and superseded revisions are retained.
 10. backend aliases remain scoped aliases and cannot become canonical Ptah IDs.
+11. local-Node and remote-service Provider locality remain explicit alternatives.
+12. migration never fabricates a Node merely to represent an external service.
 
 ## Legacy Node import
 
@@ -29,6 +31,8 @@ A legacy machine/worker record may become:
 - one `core.node_enrollment` record with `requested`, `under_review`, `approved`, `rejected`, `revoked` or `expired` state based on evidence;
 - zero or more `core.node_observation` records;
 - zero or more capability/resource snapshots whose freshness and completeness are explicit.
+
+A Node ID may be reserved during enrollment, but lifecycle `active` begins only after approved enrollment. `pending_enrollment` is not imported as a Node lifecycle state.
 
 When identity is ambiguous, create separate candidate Nodes or an unresolved identity relationship. Never merge merely because names, IPs, keys or hardware descriptions match.
 
@@ -89,6 +93,22 @@ One legacy record may produce all six only when evidence supports each layer. Mi
 
 Package names, executable paths, process IDs, service names, URLs, sockets, container/VM IDs and module names remain aliases or implementation evidence.
 
+### Local Provider import
+
+A local Provider Instance requires:
+
+- exact `core.node` identity;
+- Node generation;
+- Provider generation;
+- connection epoch;
+- current local capability/resource evidence where used for dispatch.
+
+### Remote-service Provider import
+
+An external API/SaaS/provider account is represented using an approved remote-service reference plus Provider Instance/generation/epoch.
+
+Do not create a fictional Ptah Node, Node generation or Node snapshots for the remote service. Endpoint, region, account and deployment identifiers remain aliases or external-service metadata.
+
 ## Lifecycle and observation migration
 
 Legacy global `status` fields are split into the applicable namespaced dimensions:
@@ -107,19 +127,32 @@ Legacy global `status` fields are split into the applicable namespaced dimension
 
 Ambiguous values map to `unknown`, a partial observation, or manual review. They are never guessed into `active`, `ready`, `healthy` or `verified`.
 
+Legacy `failed` maps to Provider Instance lifecycle `failed` only when correlated failure evidence identifies the exact Provider generation. Otherwise it becomes an unhealthy/unknown observation plus reconciliation requirement.
+
 ## Dispatch eligibility migration
 
 Historical scheduler/worker selection records may become `runtime.dispatch_eligibility` only when they identify:
 
 - exact Activity and Operation;
-- exact Node and Provider Instance generations;
+- exact Provider Instance and Provider generation;
 - exact Facility Revision/operation key;
-- current-at-the-time capability/resource/provider snapshots;
+- current-at-the-time Provider capability snapshot;
 - authorization and policy;
 - hard-constraint results;
-- evaluation and expiry times.
+- evaluation and expiry times;
+- exactly one locality form.
 
-Otherwise retain them as legacy placement/dispatch evidence, not eligibility authority.
+Local eligibility additionally requires:
+
+- exact Node and Node generation;
+- current-at-the-time Node capability and resource snapshots.
+
+Remote-service eligibility instead requires:
+
+- approved remote-service reference and authority;
+- no fabricated Node fields or snapshots.
+
+Otherwise retain the historical record as legacy placement/dispatch evidence, not eligibility authority.
 
 ## Compatibility direction
 
@@ -133,6 +166,7 @@ Require a new schema/state-machine/contract version when changing:
 
 - canonical identity meaning;
 - generation/epoch semantics;
+- local versus remote locality semantics;
 - lifecycle states or transition authority;
 - capability or operation semantics;
 - side-effect/proof requirements;
@@ -148,11 +182,13 @@ Replacing a Provider implementation/backend:
 
 1. preserves Facility and Facility Revision identities;
 2. creates or selects a Provider/Provider Revision representing the new implementation;
-3. creates a new Provider Instance/generation;
+3. creates a new Provider Instance or advances generation under explicit identity-preserving migration;
 4. creates new capability claims, verifications, availability and snapshots;
-5. invalidates old dispatch eligibility by expiry/generation mismatch;
+5. invalidates old dispatch eligibility by expiry/generation/locality mismatch;
 6. does not rewrite old Attempts, Receipts, aliases, observations or failures;
 7. requires compatibility and conformance evidence before ordinary dispatch.
+
+Moving between local and remote locality normally creates a new Provider Instance. If identity is deliberately preserved, migration must advance Provider generation, replace locality references, fence stale work and re-run readiness/capability verification.
 
 Replacing a Node agent or rebooting a Node preserves Node identity but advances the appropriate generation/epoch and requires fresh observations/snapshots.
 
@@ -162,16 +198,19 @@ Reject or require manual review when migration attempts to:
 
 - merge Nodes solely by hostname/IP/MAC/cloud ID;
 - mark a reachable Node as approved/trusted;
+- import `pending_enrollment` as Node lifecycle;
 - convert declared capability directly to verified/available;
-- mark a running process as a ready/healthy Provider;
+- mark a running process or reachable endpoint as a ready/healthy Provider;
 - reuse Provider generation after restart;
-- preserve dispatch eligibility beyond snapshot expiry or generation change;
+- preserve dispatch eligibility beyond snapshot expiry or generation/locality change;
 - convert total capacity directly to allocatable/available capacity;
 - hide optional dependency loss behind `ready`;
 - infer Facility identity from Provider package name;
 - replace provider aliases with canonical entity IDs;
+- create a Node merely because a remote service exists;
+- mix local Node fields with remote-service locality;
 - discard revocation, failure, stale observation or superseded revision history.
 
 ## Validation expectation
 
-WP13/WP14 must execute legacy-to-candidate fixtures, state mappings, generation/freshness checks, backend replacement and round-trip export. Structural JSON Schema validation alone is insufficient.
+WP13/WP14 must execute legacy-to-candidate fixtures, state mappings, generation/freshness checks, local/remote Provider migration, backend replacement and round-trip export. Structural JSON Schema validation alone is insufficient.
