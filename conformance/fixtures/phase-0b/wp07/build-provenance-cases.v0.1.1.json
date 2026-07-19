@@ -1,0 +1,81 @@
+{
+  "suite_id":"ptah.conformance.build-provenance.0.1.1",
+  "fixture_version":"0.1.1",
+  "supersedes_fixture_version":"0.1.0",
+  "fixture_class":"cross_record_scenarios",
+  "execution_status":"specification_only_until_wp13",
+  "base_fixture_ref":"conformance/fixtures/phase-0b/wp07/build-provenance-cases.v0.1.0.json",
+  "change_summary":"Adds final catalog-review cases for immutable Recipe Revision, exact local/remote readiness and Run locality, produced-output records, Secret Access expiry/cleanup and transparency privacy/offline semantics.",
+  "cases":[
+    {
+      "id":"R07_INVALID_ACCEPTANCE_EMBEDDED_IN_RECIPE_REVISION",
+      "expected":"invalid",
+      "expected_code":"RECIPE_REVISION_CANNOT_OWN_ACCEPTANCE_STATE",
+      "schemas":["urn:ptah:schema:build:build-recipe-revision:0.1.1","urn:ptah:schema:build:build-recipe-acceptance:0.1.0"],
+      "setup":"Importer writes accepted_for_execution or mutable acceptance state into the immutable Recipe Revision.",
+      "assertions":["reject embedded authority state","preserve immutable Recipe Revision","require separate Recipe Acceptance record"]
+    },
+    {
+      "id":"R08_VALID_NODE_LOCAL_EXACT_READINESS",
+      "expected":"valid",
+      "schemas":["urn:ptah:schema:build:build-readiness:0.1.1","urn:ptah:schema:build:build-run:0.1.1"],
+      "setup":"One Node-local Build binds exact Recipe Acceptance, Backend Compatibility, Compiled Plan, Workspace Materialization generation, Provider generation/epoch, Node generation, current Node capability/resource snapshots and Dispatch Eligibility.",
+      "assertions":["readiness is one exact context","Run locality=node_local","all referenced generations match","decision expires"]
+    },
+    {
+      "id":"R09_VALID_REMOTE_BUILD_WITHOUT_FICTIONAL_NODE",
+      "expected":"valid",
+      "schemas":["urn:ptah:schema:build:build-readiness:0.1.1","urn:ptah:schema:build:build-run:0.1.1"],
+      "setup":"An approved remote Build Provider binds remote-service authority, Provider generation/epoch, capability evidence and Dispatch Eligibility without Node fields.",
+      "assertions":["Run locality=remote_service","remote_service_ref present","no Node or Node snapshot fields","Facility/Recipe identity unchanged"]
+    },
+    {
+      "id":"R10_INVALID_MIXED_OR_STALE_BUILD_LOCALITY",
+      "expected":"invalid",
+      "expected_code":"BUILD_EXECUTION_CONTEXT_INVALID",
+      "schemas":["urn:ptah:schema:build:build-readiness:0.1.1","urn:ptah:schema:build:build-run:0.1.1"],
+      "setup":"Build readiness mixes Node and remote-service fields or references a Provider/Materialization generation different from the Run.",
+      "assertions":["reject mixed locality","reject generation mismatch","fresh readiness required"]
+    },
+    {
+      "id":"O04_INVALID_DECLARED_OUTPUT_RECORD_WITHOUT_BYTES",
+      "expected":"invalid",
+      "expected_code":"OUTPUT_RECORD_REQUIRES_PRODUCED_BYTES",
+      "schemas":["urn:ptah:schema:build:build-output-record:0.1.0"],
+      "setup":"A Build Output Record is created in declared state without Content, Object Revision, digest or producer Attempt evidence.",
+      "assertions":["use Output Declaration before production","Output Record requires produced bytes and exact producer Attempt"]
+    },
+    {
+      "id":"S04_VALID_EXPIRY_AFTER_VERIFIED_CLEANUP",
+      "expected":"valid",
+      "schemas":["urn:ptah:schema:build:secret-access:0.1.0"],
+      "state_machine":"build.secret_access.lifecycle@0.1.1",
+      "setup":"Secret grant expires after access absence, revocation/cleanup and required leak checks are verified.",
+      "assertions":["terminal state=expired","cleanup evidence retained","no later transition from expired"]
+    },
+    {
+      "id":"S05_INVALID_TERMINAL_EXPIRED_TO_CLEANUP_FAILED",
+      "expected":"invalid",
+      "expected_code":"TERMINAL_SECRET_ACCESS_STATE_REOPENED",
+      "schemas":["urn:ptah:schema:build:secret-access:0.1.0"],
+      "state_machine":"build.secret_access.lifecycle@0.1.1",
+      "setup":"System marks Secret Access expired without verified cleanup and later transitions the terminal record to cleanup_failed.",
+      "assertions":["cleanup failure must be recorded directly from active/revoking","expired requires successful cleanup verification"]
+    },
+    {
+      "id":"A06_INVALID_PUBLIC_TRANSPARENCY_WITHOUT_DISCLOSURE_ACK",
+      "expected":"invalid",
+      "expected_code":"PUBLIC_TRANSPARENCY_DISCLOSURE_NOT_ACKNOWLEDGED",
+      "schemas":["urn:ptah:schema:build:transparency-evidence:0.1.0"],
+      "setup":"Public transparency-log evidence is recorded without an explicit signer-identity disclosure acknowledgement.",
+      "assertions":["reject public-log record","privacy policy and acknowledgement required"]
+    },
+    {
+      "id":"A07_VALID_OFFLINE_NO_LOG_EVIDENCE",
+      "expected":"valid",
+      "schemas":["urn:ptah:schema:build:transparency-evidence:0.1.0","urn:ptah:schema:build:signature-verification:0.1.0"],
+      "setup":"Trust Policy permits offline verification using exact subject, signature bundle and trusted roots with transparency_mode=offline_no_log.",
+      "assertions":["no log service or entry fabricated","online availability not required","limitations retained"]
+    }
+  ]
+}
