@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:view:0.1.0",
+  "title": "Ptah Object View",
+  "description": "Structured interpretation over exact Object Revision(s), with parser/model provenance and bounded coverage.",
+  "x-ptah-schema-name": "object.view",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "view_contract_version", "view_kind", "view_schema_id", "view_schema_version", "source_revision_refs", "producer_ref", "producer_version", "configuration_refs", "production_correlation", "coverage", "serialized_revision_ref", "origin_class", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.view" } } }
+      ]
+    },
+    "view_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "view_kind": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "view_schema_id": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/schemaId" },
+    "view_schema_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "source_revision_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "producer_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "producer_version": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "configuration_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "production_correlation": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/productionCorrelation" },
+    "coverage": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/coverage" },
+    "serialized_revision_ref": {
+      "oneOf": [
+        { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+        { "type": "null" }
+      ]
+    },
+    "origin_class": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/originClass" },
+    "warnings": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "disagreement_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
