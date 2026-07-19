@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ptah-contract-conformance"
-version = "0.1.2"
+version = "0.1.3"
 description = "Offline Phase 0B Ptah contract conformance harness"
 requires-python = ">=3.11"
 dependencies = ["jsonschema>=4.22,<5"]
 
 [project.scripts]
-ptah-conformance = "ptah_conformance_compat:main"
+ptah-conformance = "ptah_conformance_compat2:main"
 
 [tool.setuptools]
-py-modules = ["ptah_conformance", "ptah_conformance_compat"]
+py-modules = ["ptah_conformance", "ptah_conformance_compat", "ptah_conformance_compat2"]
