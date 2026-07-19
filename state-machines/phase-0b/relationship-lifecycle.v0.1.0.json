@@ -1,0 +1,19 @@
+{
+  "state_machine_name": "relationship.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.relationship"],
+  "states": [
+    {"name":"active","description":"Current Relationship Revision is effective and visible under policy.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["At least one immutable Relationship Revision exists."]},
+    {"name":"superseded","description":"A newer Relationship Revision or replacement Relationship is preferred while history remains.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Supersession reference and reason are retained."]},
+    {"name":"tombstoned","description":"Relationship is logically withdrawn while historical revisions remain retained.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Tombstone authority and retention are recorded."]}
+  ],
+  "initial_states": ["active"],
+  "transitions": [
+    {"transition_name":"register","from_states":[null],"to_state":"active","transition_class":"normal","authority_classes":["ptah_control_plane","facility","human_operator"],"side_effecting":false,"required_preconditions":["Canonical Relationship identity and first immutable Revision exist."],"required_evidence_kinds":["receipt","relationship_revision"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"supersede","from_states":["active","superseded"],"to_state":"superseded","transition_class":"normal","authority_classes":["ptah_control_plane","facility","human_operator"],"side_effecting":false,"required_preconditions":["New Revision or replacement Relationship is retained; endpoints/type are not edited in place."],"required_evidence_kinds":["receipt","relationship_revision"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"tombstone","from_states":["active","superseded"],"to_state":"tombstoned","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Tombstone reason and retention are recorded."],"required_evidence_kinds":["receipt","tombstone"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
