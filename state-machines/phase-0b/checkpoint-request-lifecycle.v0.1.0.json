@@ -1,0 +1,23 @@
+{
+  "state_machine_name": "checkpoint.request.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["runtime.checkpoint_request"],
+  "states": [
+    {"name":"submitted","description":"Checkpoint intent is durable and awaits validation/acceptance.","terminal":false,"proof_dimension":"request_lifecycle","entry_requirements":["Requestor, subjects, scope, consistency, privacy and portability intent are recorded."]},
+    {"name":"validating","description":"Provider capability, subject state, policy and budget are being evaluated.","terminal":false,"proof_dimension":"request_lifecycle","entry_requirements":["Validation Activity/Attempt exists."]},
+    {"name":"accepted","description":"Request is accepted into checkpoint capture work.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Checkpoint Activity reference and decision Receipt exist."]},
+    {"name":"rejected","description":"Request will not produce checkpoint capture under current scope/policy.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Typed rejection outcome, evidence and limitations exist."]},
+    {"name":"cancelled","description":"Request was cancelled before accepted capture completed.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Cancellation authority and cleanup/partial outputs are recorded."]}
+  ],
+  "initial_states":["submitted"],
+  "transitions":[
+    {"transition_name":"submit","from_states":[null],"to_state":"submitted","transition_class":"normal","authority_classes":["caller","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Request is schema-valid and authority is identified."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"begin_validation","from_states":["submitted"],"to_state":"validating","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Current subject generations and Provider capability/policy can be evaluated."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"accept","from_states":["submitted","validating"],"to_state":"accepted","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Capture Activity is durable and request scope/limitations are fixed."],"required_evidence_kinds":["receipt","activity"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"reject","from_states":["submitted","validating"],"to_state":"rejected","transition_class":"normal","authority_classes":["ptah_control_plane","organization_policy"],"side_effecting":false,"required_preconditions":["Typed incompatibility, unsupported capability, policy or validation reason is retained."],"required_evidence_kinds":["receipt","outcome"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"cancel","from_states":["submitted","validating"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["caller","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation and any partial/temporary state are reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject",
+  "migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions":{}
+}
