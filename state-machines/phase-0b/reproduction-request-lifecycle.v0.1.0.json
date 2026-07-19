@@ -1,0 +1,25 @@
+{
+  "state_machine_name":"provenance.reproduction_request.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["provenance.reproduction_request"],
+  "states":[
+    {"name":"proposed","description":"Reproduction request exists but authority/scope is not yet accepted.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Original run, Recipe and comparison Protocol exist."]},
+    {"name":"accepted","description":"Request scope, independence requirements and policy are accepted.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Authorized acceptance exists."]},
+    {"name":"queued","description":"Accepted request waits for compatible independent placement/resources.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Readiness/placement evidence exists."]},
+    {"name":"fulfilled","description":"A Reproduction Run and Comparison were produced.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Run and Comparison refs exist."]},
+    {"name":"rejected","description":"Request was rejected before execution.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Rejection authority/reason exist."]},
+    {"name":"cancelled","description":"Accepted or queued request was cancelled.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Cancellation evidence exists."]},
+    {"name":"expired","description":"Request validity window expired before fulfillment.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Expiry evidence exists."]},
+    {"name":"blocked","description":"Independence, source, platform or policy requirements cannot currently be satisfied.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Structured blocking reason exists."]}
+  ],
+  "initial_states":["proposed"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"proposed","transition_class":"normal","authority_classes":["caller","reviewer"],"side_effecting":false,"required_preconditions":["Exact original Run, Recipe Revision and Protocol exist."],"required_evidence_kinds":["receipt","protocol"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"accept","from_states":["proposed","blocked"],"to_state":"accepted","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","reviewer"],"side_effecting":false,"required_preconditions":["Scope/independence/cache/policy are approved."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"queue","from_states":["accepted","blocked"],"to_state":"queued","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Independent placement/readiness is currently satisfied."],"required_evidence_kinds":["receipt","dispatch_eligibility"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"fulfill","from_states":["queued","accepted"],"to_state":"fulfilled","transition_class":"normal","authority_classes":["ptah_control_plane","reviewer"],"side_effecting":false,"required_preconditions":["Reproduction Run and Comparison are complete."],"required_evidence_kinds":["receipt","reproduction_run","comparison"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"reject","from_states":["proposed","blocked"],"to_state":"rejected","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","reviewer"],"side_effecting":false,"required_preconditions":["Rejection reason and authority exist."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"cancel","from_states":["proposed","accepted","queued","blocked"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["caller","reviewer","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation authority and pending-run disposition exist."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"expire","from_states":["proposed","accepted","queued","blocked"],"to_state":"expired","transition_class":"administrative","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Request validity expired."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"block","from_states":["proposed","accepted","queued"],"to_state":"blocked","transition_class":"normal","authority_classes":["ptah_control_plane","reviewer"],"side_effecting":false,"required_preconditions":["Independence/source/platform/policy requirement is unsatisfied."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
