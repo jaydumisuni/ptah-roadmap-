@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:device-connection:0.1.0",
+  "title":"Ptah Device Connection Epoch",
+  "x-ptah-schema-name":"domain.device-connection","x-ptah-schema-version":"0.1.0","x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","lifecycle","device_ref","interface_ref","connection_epoch","provider_instance_ref","provider_generation","continuity_basis_refs","started_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"device.connection"}}}]},"lifecycle":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/stateProjection"},"device_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"interface_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"connection_epoch":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},"provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"provider_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},"continuity_basis_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"predecessor_connection_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"transition_reason":{"type":"string","enum":["initial_observation","reconnect","reenumeration","mode_transition","repair_or_pairing","provider_restart","fencing_event","transport_continuity_lost","operator_recapture","other_registered"]},"started_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},"ended_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},"observation_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},"extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
