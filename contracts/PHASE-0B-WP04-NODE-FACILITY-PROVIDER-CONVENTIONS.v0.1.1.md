@@ -7,7 +7,7 @@
 
 ## Purpose
 
-Preserve the original WP04 draft as candidate history while correcting two review findings before package acceptance.
+Preserve the original WP04 draft as candidate history while correcting review findings before package acceptance.
 
 All clauses in the original conventions remain active except where explicitly replaced below.
 
@@ -115,6 +115,38 @@ All remaining dispatch rules continue to apply where meaningful.
 
 ---
 
+# C-004 — Provider Instance lifecycle includes receipted failure and quarantine
+
+The original Provider Instance lifecycle list is replaced by:
+
+```text
+declared
+starting
+running
+draining
+stopping
+stopped
+failed
+quarantined
+retired
+```
+
+Rules:
+
+1. `failed` is a durable lifecycle state only after a correlated failure transition records the exact Provider generation and uncertain work.
+2. transient health `unhealthy` does not automatically move lifecycle to `failed`.
+3. lifecycle `failed` does not replace health, readiness, reachability or Activity/Operation reconciliation.
+4. `quarantined` is an administrative lifecycle state that blocks dispatch while preserving the Provider Instance and evidence.
+5. `running` proves only that a local process/service or approved remote binding exists; readiness remains separate.
+6. local startup binds current Node generation; remote startup binds approved remote-service authority.
+7. a new start from `stopped` or `failed` requires a new monotonic Provider generation.
+
+Canonical machine:
+
+- `state-machines/phase-0b/provider-instance-lifecycle.v0.1.0.json`
+
+---
+
 # Conformance additions
 
 1. reject Node lifecycle `pending_enrollment`;
@@ -126,8 +158,12 @@ All remaining dispatch rules continue to apply where meaningful.
 7. reject remote dispatch requiring or inventing Node snapshots;
 8. reject local dispatch without current Node capability/resource snapshots;
 9. preserve Facility identity when local and remote Provider implementations are swapped;
-10. fence stale Provider generations in both locality modes.
+10. fence stale Provider generations in both locality modes;
+11. reject transient health `unhealthy` used as an automatic Provider lifecycle transition;
+12. require correlated failure evidence before lifecycle `failed`;
+13. permit lifecycle `running`, readiness `not_ready`, and health `degraded` simultaneously;
+14. reject ordinary dispatch to lifecycle `quarantined` even when reachable.
 
 ## Do-not-break rule
 
-> Enrollment does not become Node lifecycle, quarantine does not become health, and a remote Provider does not become a fictional Node. Local and remote Providers share Facility/Provider contracts while retaining truthful locality-specific evidence.
+> Enrollment does not become Node lifecycle, quarantine does not become health, transient unhealthiness does not become receipted failure, and a remote Provider does not become a fictional Node. Local and remote Providers share Facility/Provider contracts while retaining truthful locality-specific evidence.
