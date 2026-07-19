@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:workspace:definitions:0.1.0",
+  "title": "Ptah Workspace Session Checkpoint Definitions",
+  "x-ptah-schema-name": "workspace.definitions",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "$defs": {
+    "stateProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_machine_name", "state_machine_version", "current_state", "state_sequence"],
+      "properties": {
+        "state_machine_name": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"},
+        "state_machine_version": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
+        "current_state": {"type": "string", "pattern": "^[a-z][a-z0-9_]{1,63}$"},
+        "state_sequence": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger"},
+        "entered_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+        "transition_receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}
+      }
+    },
+    "sessionKind": {"type": "string", "enum": ["workspace", "process", "pty", "shell", "browser", "application", "device", "display", "semantic_ui", "filesystem_mount", "service", "other_registered"]},
+    "attachmentKind": {"type": "string", "enum": ["human", "automation", "service", "shell_client", "observer", "other_registered"]},
+    "checkpointClass": {"type": "string", "enum": ["workspace_manifest", "filesystem_or_object_snapshot", "process_checkpoint", "container_checkpoint", "sandbox_checkpoint", "microvm_snapshot", "full_vm_checkpoint", "application_checkpoint", "browser_profile_checkpoint", "device_or_emulator_checkpoint", "service_data_checkpoint", "composite"]},
+    "consistencyClass": {"type": "string", "enum": ["metadata_only", "crash_consistent", "filesystem_consistent", "application_consistent", "transaction_consistent", "component_mixed", "unknown"]},
+    "completenessClass": {"type": "string", "enum": ["complete_for_declared_scope", "partial", "mixed", "failed", "unknown"]},
+    "componentRole": {"type": "string", "enum": ["required", "optional", "diagnostic", "proof_only"]},
+    "sensitivityClass": {"type": "string", "enum": ["contains_no_secret_material", "contains_encrypted_secret_material", "contains_recoverable_credential_reference_only", "contains_sensitive_session_state", "unknown_sensitive_content", "prohibited_for_export"]},
+    "compatibilityDecision": {"type": "string", "enum": ["compatible", "compatible_with_conversion", "partially_compatible", "incompatible", "unknown"]},
+    "recoveryOutcome": {"type": "string", "enum": ["recovered", "partially_recovered", "not_recovered", "inconclusive"]},
+    "importDecision": {"type": "string", "enum": ["create_new_workspace", "restore_existing_identity_under_authority", "fork_workspace", "merge_into_workspace", "reference_only", "reject"]},
+    "portabilityClass": {"type": "string", "enum": ["provider_specific", "runtime_family", "architecture_family", "portable_with_conversion", "portable_manifest_only", "unknown"]},
+    "componentEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["component_ref", "component_role", "checkpoint_class"],
+      "properties": {
+        "component_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+        "component_role": {"$ref": "#/$defs/componentRole"},
+        "checkpoint_class": {"$ref": "#/$defs/checkpointClass"}
+      }
+    }
+  }
+}
