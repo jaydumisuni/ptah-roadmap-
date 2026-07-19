@@ -1,0 +1,25 @@
+{
+  "state_machine_name": "node.enrollment.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.node_enrollment"],
+  "states": [
+    {"name":"requested","description":"Enrollment request exists but has not been approved.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Requestor, proposed Node identity evidence and requested scope are recorded."]},
+    {"name":"under_review","description":"Ownership, identity, trust and policy are being evaluated.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Review authority and protocol are recorded."]},
+    {"name":"approved","description":"Enrollment is approved for the recorded scope and trust policy.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Approval, owner, trust policy and credential/certificate issuance references exist."]},
+    {"name":"rejected","description":"Enrollment was denied and no Node authority was granted.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Rejection authority and reason are retained."]},
+    {"name":"revoked","description":"Previously approved enrollment authority has been revoked.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Revocation authority, reason, effective time and credential revocation evidence are retained."]},
+    {"name":"expired","description":"Enrollment authority expired without current renewal.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Expiry time and policy are retained."]}
+  ],
+  "initial_states": ["requested"],
+  "transitions": [
+    {"transition_name":"request","from_states":[null],"to_state":"requested","transition_class":"normal","authority_classes":["caller","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Proposed Node identity evidence and requested scope are present."],"required_evidence_kinds":["receipt","identity_evidence"],"required_receipt_proof_levels":["request_recorded"]},
+    {"transition_name":"begin_review","from_states":["requested"],"to_state":"under_review","transition_class":"administrative","authority_classes":["organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["An authorized reviewer and review protocol are assigned."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"approve","from_states":["requested","under_review"],"to_state":"approved","transition_class":"administrative","authority_classes":["organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Ownership, identity and trust policy pass; exact scope and expiry are fixed."],"required_evidence_kinds":["receipt","verdict","credential_or_certificate"],"required_receipt_proof_levels":["external_result_recorded","operation_completed"]},
+    {"transition_name":"reject","from_states":["requested","under_review"],"to_state":"rejected","transition_class":"administrative","authority_classes":["organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Rejection reason and reviewer authority are retained."],"required_evidence_kinds":["receipt","verdict"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"revoke","from_states":["approved"],"to_state":"revoked","transition_class":"administrative","authority_classes":["organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Revocation reason and affected credentials/leases are identified."],"required_evidence_kinds":["receipt","revocation_evidence"],"required_receipt_proof_levels":["operation_completed","external_result_recorded"]},
+    {"transition_name":"expire","from_states":["approved"],"to_state":"expired","transition_class":"automatic","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Recorded expiry has passed without valid renewal."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
