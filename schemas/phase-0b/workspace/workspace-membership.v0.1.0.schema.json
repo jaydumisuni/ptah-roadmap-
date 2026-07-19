@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:workspace:workspace-membership:0.1.0",
+  "title": "Ptah Workspace Membership",
+  "x-ptah-schema-name": "workspace.workspace-membership",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "lifecycle", "workspace_ref", "member_ref", "role_key", "permission_or_capability_scope", "issued_by_ref", "issued_at", "policy_ref", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "core.workspace_membership"}}}]},
+    "lifecycle": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/stateProjection"},
+    "workspace_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "member_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "role_key": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"},
+    "permission_or_capability_scope": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_.:-]{2,255}$"}, "uniqueItems": true},
+    "issued_by_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "issued_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "expires_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "control_lease_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "decision_receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
