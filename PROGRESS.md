@@ -13,144 +13,19 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 **Status:** COMPLETE AND FROZEN AT `7d2dffee48f1400ba1cf88823343f09a3895ad33`
 
-## Repository and method control
+## Repository, architecture and freeze control
 
 - [x] Private roadmap repository and public/private separation.
 - [x] Master roadmap, Current State, progress and recovery rules.
 - [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] ADR-0001 through ADR-0018 accepted and indexed.
-- [x] Remaining donor register and unresolved-profile cleanup.
-- [x] Cross-requirement identity/authority/state/lifecycle review.
-- [x] Parked/restricted gap audit.
-- [x] Phase 0B schema, conformance and proof-corpus inputs enumerated.
-- [x] Phase 0A freeze/readiness decision.
-
-## Closed clusters
-
-### WP01–WP02 — Core runtime
-
-- [x] Node/Workspace boundary.
-- [x] Workspace/provider execution composition.
-- [x] Activities, Events, recovery and observability.
-- [x] Internal runtime/evidence comparison.
-- [x] Phase 0B design closure.
-
-### WP03 — Build, Artifact and provenance
-
-- [x] BuildKit/Dagger and internal Builder comparison.
-- [x] ORAS, SBOM, attestation, signing and reproduction boundaries.
-- [x] ADR-0005 and WP03.
-- [x] Phase 0B design closure.
-
-### WP04 — Storage, transfer, synchronization and backup
-
-- [x] Lumi, aria2, tusd, rclone, Syncthing and restic.
-- [x] local CAS/catalogue and revision/conflict direction.
-- [x] distributed shared filesystems evaluated and parked.
-- [x] ADR-0006 and WP04.
-- [x] Phase 0B design closure.
-
-### WP05 — Universal Object and decomposition
-
-- [x] internal recovery/decomposition products.
-- [x] archive/document/binary/Android/image/media/source donors.
-- [x] ADR-0007 and WP05.
-- [x] Phase 0B design closure.
-
-### WP06 — Firmware, disks and filesystems
-
-- [x] Apple, MTK, Qualcomm, Unisoc, Android OTA and Samsung composition.
-- [x] libguestfs/libfdisk and isolated disk/filesystem boundary.
-- [x] P5C parked with reopening criteria.
-- [x] ADR-0008 and WP06.
-- [x] Phase 0B design closure.
-
-### WP07 — Device and Application Runtime
-
-- [x] Android Device Provider, ADB/Fastboot, display/input and semantic UI.
-- [x] Linux, Windows, macOS and iOS Application Providers.
-- [x] remote display, VM, Window and Application Session boundaries.
-- [x] Linux AT-SPI/libatspi semantic tree, actions, text, value, selection, event and GNOME-Wayland input completion.
-- [x] semantic snapshot/target/selector/action/read-back and privacy boundary.
-- [x] ADR-0009, ADR-0010, ADR-0015, WP07A/WP07B and Linux semantic completion work package.
-- [x] Phase 0B design closure.
-
-### WP08 — Browser and Live Research
-
-- [x] Playwright, Playwright MCP, Browser-Use and TurboWebFetch.
-- [x] Profile/Process/Context/Page/Download/Evidence model.
-- [x] source/citation and challenge/human-completion model.
-- [x] ADR-0011 and WP08.
-- [x] Phase 0B design closure.
-
-### WP09 — Human Workspace Shell and Operator Interface
-
-- [x] Eclipse Theia, Dockview, xterm.js and optional coding Applications.
-- [x] internal Hunter/Sergeant/MIBU/Device Manager/website UI patterns.
-- [x] Ptah Home, Workspace switcher, Panel, Activity Centre and Evidence Explorer direction.
-- [x] human/automation focus and fenced control handoff.
-- [x] responsive desktop/tablet/phone and accessibility requirements.
-- [x] ADR-0012 and WP09.
-- [x] Phase 0B design closure.
-
-### WP10 — Knowledge, Data, Search and Plugin Composition
-
-- [x] Hunter knowledge/memory/search/provider foundations.
-- [x] RAGFlow, LlamaIndex, Dify, Polars, DuckDB and Deno boundaries.
-- [x] MCP and OpenClaw/ClawHub adapter/registry patterns.
-- [x] Knowledge Source/Corpus/Document/Chunk/Index/Query/Result/Citation model.
-- [x] Dataset/Table/Schema/Query/Transformation/Result model.
-- [x] Package/Release/Installed Plugin/Activation lifecycle.
-- [x] MiniRouter classified as optional future evaluation workload pending licence.
-- [x] ADR-0013 and WP10.
-- [x] Phase 0B design closure.
-
-### WP11 — Strong Isolation and Distributed Placement/Scheduling
-
-- [x] gVisor, Kata, Firecracker, youki, crun and Ray.
-- [x] isolation-class and no-silent-weakening model.
-- [x] Node/provider capability and resource snapshots.
-- [x] Placement, Candidate/Decision, Reservation, Lease, Generation and Fence.
-- [x] secure network/Object/device/credential grants.
-- [x] interruption, checkpoint, restore and rescheduling behavior.
-- [x] one-Node/multi-Node contract.
-- [x] ADR-0014 and WP11.
-- [x] Phase 0B design closure.
-
-### Security Assessment and Reproduction Workloads
-
-- [x] ReproZip, ClaimBound, SparkDistill, Syft, Grype, GUAC, Semgrep, Trivy, ZAP and Strix.
-- [x] Security Authorization, Plan, exact Target, machinery revision and Coverage.
-- [x] Finding Observation, Correlated Finding, risk/disposition/remediation/re-test model.
-- [x] Protocol Revision, Reproduction Run and bounded Evidence Card model.
-- [x] active/offensive isolation, network, credential, stop and cleanup boundary.
-- [x] `SEC-001` and `REPRO-001` design closure.
-- [x] ADR-0016 and security/reproduction work package.
-
-### Research, documentation and source cleanup
-
-- [x] research catalogue and discovery profiles resolved/classified.
-- [x] Chris/Christiam Ipanaque identity resolved; prototype reuse parked pending licence/proof.
-- [x] `amertoglu16.github.io` parked with reopening criteria.
-- [x] Crisp Links, MkDocs Material, Docusaurus and Mermaid pinned/classified.
-- [x] public/private documentation build boundary recorded.
-- [x] cleanup work package committed.
-
-### Cross-requirement consistency and freeze
-
-- [x] Object versus Artifact normalized.
-- [x] Activity/Operation/Attempt and Event/Telemetry/Receipt/Evidence normalized.
-- [x] Provider/Session/Lease/Event/Revision/Snapshot typed-family rule accepted.
-- [x] namespaced state-machine rule accepted.
-- [x] Claim/Observation/Finding/Review/Acceptance relationships normalized.
-- [x] Recipe/Plan/Protocol/Run relationships normalized.
-- [x] lifecycle/deletion/tombstone rules enumerated.
-- [x] parked/restricted gaps confirmed non-blocking.
-- [x] public `Ptah-space` checked and confirmed no implementation conflict.
-- [x] Phase 0B entry inputs/golden/negative corpus enumerated.
+- [x] Core runtime, Build/Artifact, storage, Object/decomposition, firmware/disk, Device/Application, Browser, UI, knowledge/data/plugin, isolation/placement and security/reproduction clusters closed for design.
+- [x] Linux AT-SPI semantic completion.
+- [x] research/documentation/source cleanup and parked-item audit.
+- [x] cross-requirement identity, authority, state and lifecycle review.
+- [x] Phase 0B contract/proof inputs enumerated.
 - [x] ADR-0017 accepted; Phase 0A frozen.
 
-## Requirement closure
+## Phase 0A requirement closure
 
 - [x] Core runtime.
 - [x] Build/Artifact/Provenance.
@@ -163,7 +38,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 - [x] Knowledge/Data/Search/Plugin.
 - [x] Isolation/Distributed placement.
 - [x] Security/reproduction workloads.
-- [x] Phase 0A review and freeze.
+- [x] Review and freeze.
 
 Evidence:
 
@@ -179,7 +54,7 @@ Evidence:
 
 ## 0B-WP01 — Common identity, versioning and typed families
 
-**Status:** CANDIDATE COMPLETE — downstream use approved; implementation freeze deferred to executable conformance.
+**Status:** CANDIDATE COMPLETE — downstream use approved; implementation freeze deferred.
 
 - [x] UUIDv7 canonical identity and Alias/public-remapping rules.
 - [x] controlled entity-kind and identity/authority registries.
@@ -187,31 +62,77 @@ Evidence:
 - [x] local candidate schema catalog.
 - [x] nested common Entity Envelope direction.
 - [x] record revision versus Object Revision/generation/epoch separation.
-- [x] typed Provider/Session/Lease/Event/Revision/Snapshot/etc. families.
+- [x] typed Provider/Session/Lease/Event/Revision/Snapshot/Recipe/Protocol/Evidence families.
 - [x] namespaced/versioned state-machine and transition schemas.
 - [x] migration definition/run and directional compatibility schemas.
-- [x] privacy/audience/redaction/retention and extensions direction.
-- [x] tombstone/supersession/deletion rules.
-- [x] consolidated common safety-net specification.
-- [x] positive/negative candidate fixtures.
+- [x] privacy/audience/redaction/retention, extensions and tombstone rules.
+- [x] consolidated safety net and positive/negative fixtures.
 - [x] ADR-0018 accepted.
 
 Evidence:
 
 - `work-packages/PHASE-0B-WP01-COMMON-IDENTITY-VERSIONING-TYPED-FAMILIES.md`
-- `contracts/PHASE-0B-COMMON-CONTRACT-CONVENTIONS.md`
-- `contracts/PHASE-0B-ENTITY-KIND-REGISTRY.md`
-- `contracts/PHASE-0B-IDENTITY-KIND-REGISTRY.md`
-- `schemas/phase-0b/common/`
-- `conformance/PHASE-0B-WP01-COMMON-CONTRACT-SAFETY-NET.md`
+- `schemas/phase-0b/common/schema-catalog.v0.1.0.json`
 - `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`
+
+## 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof
+
+**Status:** CANDIDATE COMPLETE — downstream use approved; executable conformance deferred.
+
+- [x] Activity Request and durable Activity separation.
+- [x] Activity, logical Operation and physical Attempt identities.
+- [x] retry/idempotency classes and uncertain-side-effect blocking.
+- [x] exact Node/Provider/workload generations, connection epoch and nonce correlation.
+- [x] first-class Activity Dependency, Cancellation Request and Manual Action Request.
+- [x] typed Event payloads and delivery attempts.
+- [x] immutable Receipts, bounded proof claims and correction/supersession.
+- [x] Review, Verdict and Authoritative External Result separation.
+- [x] explicit reconciliation of stale/late/duplicate/contradictory evidence.
+- [x] six lifecycle state machines.
+- [x] 17 active schema entries plus corrected request schemas `0.1.1`.
+- [x] migration/compatibility rules, consolidated safety net and fixtures.
+- [x] ADR-0019 accepted.
+
+Evidence:
+
+- `work-packages/PHASE-0B-WP02-ACTIVITY-EVENT-RECEIPT-PROOF.md`
+- `schemas/phase-0b/activity/schema-catalog.v0.1.1.json`
+- `conformance/PHASE-0B-WP02-ACTIVITY-EVENT-RECEIPT-SAFETY-NET.md`
+- `decisions/ADR-0019-ACTIVITY-OPERATION-ATTEMPT-EVENT-RECEIPT-PROOF-BOUNDARY.md`
+
+## 0B-WP03 — Object, Revision, View, Artifact and storage
+
+**Status:** CANDIDATE COMPLETE — downstream use approved; executable graph/storage conformance deferred.
+
+- [x] Content byte identity, qualified hash observations and deduplication scope.
+- [x] durable logical Object and immutable Object Revision.
+- [x] plural detector observations and separate classification decisions.
+- [x] stable Relationship plus immutable Relationship Revisions.
+- [x] child Object, View, Preview and Derivative separation.
+- [x] progressive Decomposition Run with budgets, coverage, gaps and partial output.
+- [x] Artifact promotion separated from verification/review/acceptance/release.
+- [x] immutable allowlisted Artifact Release and withdrawal/revocation history.
+- [x] Storage Location lifecycle, health and verification separation.
+- [x] storage observation, verification, repair and deletion-decision records.
+- [x] tombstone, replica deletion and shared Content-byte deletion separation.
+- [x] five lifecycle state machines.
+- [x] 20 active schemas plus common/activity dependencies.
+- [x] migration/compatibility record, consolidated safety net and fixtures.
+- [x] ADR-0020 accepted and indexed.
+
+Evidence:
+
+- `work-packages/PHASE-0B-WP03-OBJECT-REVISION-VIEW-ARTIFACT-STORAGE.md`
+- `schemas/phase-0b/object/schema-catalog.v0.1.0.json`
+- `conformance/PHASE-0B-WP03-OBJECT-ARTIFACT-STORAGE-SAFETY-NET.md`
+- `decisions/ADR-0020-OBJECT-REVISION-VIEW-ARTIFACT-STORAGE-BOUNDARY.md`
 
 ## Ordered work packages
 
-- [x] 0B-WP01 — Common identity, versioning and typed-family conventions — candidate complete.
-- [-] 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof.
-- [ ] 0B-WP03 — Object, Revision, View, Artifact and storage relationships.
-- [ ] 0B-WP04 — Node, Facility, Provider, capability and health.
+- [x] 0B-WP01 — Common identity, versioning and typed-family conventions.
+- [x] 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof.
+- [x] 0B-WP03 — Object, Revision, View, Artifact and storage relationships.
+- [-] 0B-WP04 — Node, Facility, Provider, capability and health.
 - [ ] 0B-WP05 — Workspace, Session, checkpoint and recovery.
 - [ ] 0B-WP06 — Transfer, sync, conflict and backup.
 - [ ] 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification.
@@ -220,22 +141,22 @@ Evidence:
 - [ ] 0B-WP10 — Knowledge, data, Package and Plugin contracts.
 - [ ] 0B-WP11 — Isolation, placement, reservation, lease and secure grants.
 - [ ] 0B-WP12 — Security, Finding, Claim, Evidence and reproduction contracts.
-- [ ] 0B-WP13 — Cross-contract migrations and conformance harness.
+- [ ] 0B-WP13 — Cross-contract migrations and executable conformance harness.
 - [ ] 0B-WP14 — Golden/negative corpus and proof-plan freeze.
 - [ ] Phase 0B review/freeze and Phase 0C readiness decision.
 
 ## Cross-cutting Phase 0B gates
 
-- [-] every schema versioned and traceable to ADR/requirement — common layer complete; domain schemas pending.
-- [-] state machines/transitions explicit and namespaced — convention/schema complete; domain machines pending.
-- [-] saved records/sessions have migration paths — common migration contract complete; domain migrations pending.
-- [-] permissions, audience and redaction represented — common identity/privacy direction complete; domain mapping pending.
-- [ ] Provider/Facility conformance contracts defined.
-- [-] lawful golden and negative fixtures pinned — common fixtures committed; domain corpus pending.
-- [ ] proof plans name exact Receipts/Evidence.
-- [ ] backend replacement testable.
-- [-] online and later local Nodes use the same contracts — common layer neutral; domain proof pending.
-- [-] private consumer knowledge absent from public schemas — common candidate is neutral; full audit pending.
+- [-] every schema versioned and traceable to ADR/requirement — WP01–WP03 complete; remaining domains pending.
+- [-] state machines/transitions explicit and namespaced — WP01–WP03 complete; remaining domains pending.
+- [-] saved records/sessions have migration paths — WP01–WP03 complete; remaining domains pending.
+- [-] permissions, audience and redaction represented — common/Object/Artifact mappings complete; remaining domains pending.
+- [-] Provider/Facility conformance contracts defined — WP04 active.
+- [-] lawful golden and negative fixtures pinned — WP01–WP03 committed; remaining corpus pending.
+- [-] proof plans name exact Receipts/Evidence — Activity/Object layers complete; remaining domains pending.
+- [-] backend replacement testable — Object/storage contract complete; Provider/Facility and other domains pending.
+- [-] online and later local Nodes use the same contracts — neutral foundations complete; Node proof pending.
+- [-] private consumer knowledge absent from public schemas — WP01–WP03 neutral; full audit pending.
 - [ ] public licence/dependency strategy ready for Phase 0C.
 - [ ] first vertical slice selectable without identity/proof ambiguity.
 
