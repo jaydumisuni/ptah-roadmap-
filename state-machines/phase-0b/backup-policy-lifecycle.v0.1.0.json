@@ -1,0 +1,21 @@
+{
+  "state_machine_name":"backup.policy.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["backup.policy"],
+  "states":[
+    {"name":"draft","description":"Policy exists but cannot schedule/authorize backups.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Protected scope and policy owner exist."]},
+    {"name":"active","description":"Policy may trigger Backup Activities under current authority/repository capability.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Encryption, repository, retention and verification requirements validated."]},
+    {"name":"paused","description":"New scheduled backups are paused while existing snapshots/history remain.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Pause reason and missed-trigger behavior are recorded."]},
+    {"name":"degraded","description":"Policy cannot currently meet all declared copy/verification/failure-domain requirements.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Degraded requirements and alert/escalation are retained."]},
+    {"name":"revoked","description":"Policy cannot authorize new snapshots/prunes/restores.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Revocation and existing snapshot retention are recorded."]},
+    {"name":"retired","description":"Policy is retained historically after planned replacement/end.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Successor and retention behavior are recorded."]}
+  ],
+  "initial_states":["draft"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"draft","transition_class":"normal","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Policy owner and protected scope exist."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"activate","from_states":["draft","paused","degraded"],"to_state":"active","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Repository/encryption/retention/verification/failure-domain requirements validated."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"pause","from_states":["active","degraded"],"to_state":"paused","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Missed-trigger/current-work behavior recorded."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"degrade","from_states":["active"],"to_state":"degraded","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Requirement failure and alert/escalation retained."],"required_evidence_kinds":["receipt","evidence"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"revoke","from_states":["draft","active","paused","degraded"],"to_state":"revoked","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["New work blocked; existing snapshots/keys/retention reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"retire","from_states":["draft","paused","degraded"],"to_state":"retired","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Successor and retained snapshots/history are explicit."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
