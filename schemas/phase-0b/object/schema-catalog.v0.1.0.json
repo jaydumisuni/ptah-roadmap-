@@ -1,0 +1,45 @@
+{
+  "catalog_id": "urn:ptah:schema-catalog:object:0.1.0",
+  "catalog_version": "0.1.0",
+  "maturity": "candidate",
+  "created_at": "2026-07-19T00:00:00Z",
+  "dependencies": [
+    {"catalog_id":"urn:ptah:schema-catalog:common:0.1.0","required_version":"0.1.0"},
+    {"catalog_id":"urn:ptah:schema-catalog:activity:0.1.1","required_version":"0.1.1"}
+  ],
+  "resolution_policy": {
+    "canonical_id_type": "absolute_urn",
+    "unknown_schema": "reject_or_preserve_without_interpretation",
+    "network_resolution_required": false,
+    "frozen_schema_mutation": "forbidden"
+  },
+  "schemas": [
+    {"schema_id":"urn:ptah:schema:object:definitions:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/definitions.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:content:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/content.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:hash-observation:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/hash-observation.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:object:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/object.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:revision:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/revision.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:detector-observation:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/detector-observation.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:classification-decision:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/classification-decision.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:relationship:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/relationship.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:relationship-revision:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/relationship-revision.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:view:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/view.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:preview:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/preview.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:derivative:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/derivative.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:decomposition-run:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/decomposition-run.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:artifact:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/artifact.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:object:artifact-release:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/artifact-release.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:storage:location:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/storage-location.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:storage:location-observation:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/storage-location-observation.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:storage:verification:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/storage-verification.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:storage:repair:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/storage-repair.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:storage:deletion-decision:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/object/storage-deletion-decision.v0.1.0.schema.json"}
+  ],
+  "state_machines": [
+    {"name":"object.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/object-lifecycle.v0.1.0.json"},
+    {"name":"relationship.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/relationship-lifecycle.v0.1.0.json"},
+    {"name":"artifact.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/artifact-lifecycle.v0.1.0.json"},
+    {"name":"storage.location.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/storage-location-lifecycle.v0.1.0.json"},
+    {"name":"storage.deletion_decision.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/storage-deletion-decision-lifecycle.v0.1.0.json"}
+  ]
+}
