@@ -1,0 +1,32 @@
+{
+  "state_machine_name":"device.session.lifecycle",
+  "state_machine_version":"0.1.1",
+  "subject_entity_kinds":["device.session"],
+  "states":[
+    {"name":"requested","description":"Device Session requested but Lease/connection/capabilities not yet validated.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Workspace, Device and requested capability scope exist."]},
+    {"name":"establishing","description":"Lease, fence, exact connection bindings and capability snapshot are being established.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Current Lease and binding contexts exist."]},
+    {"name":"active","description":"Session is available under current Lease/fence and exact connection binding epochs.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Current capability snapshot and binding evidence exist."]},
+    {"name":"partial","description":"Session remains available for only an explicit capability subset.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Partial availability evidence exists."]},
+    {"name":"recovering","description":"One or more bindings are being replaced/reconciled and stale work is fenced.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Recovery/fencing evidence exists."]},
+    {"name":"closing","description":"New control/mutation is blocked and Streams, forwarding, credentials, helpers, data and Lease authority are being cleaned/revoked.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Close request and cleanup plan exist."]},
+    {"name":"closed","description":"Session ended and every required cleanup/revocation check passed.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Cleanup verification and Lease disposition exist."]},
+    {"name":"failed","description":"Session failed before clean closure; active effects and cleanup requirements remain recoverable/reviewable.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Failure/reconciliation evidence exists."]},
+    {"name":"cleanup_failed","description":"Session ended or failed but cleanup/revocation cannot be proven; Device reassignment is blocked by quarantine.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Cleanup failure evidence and Device quarantine decision exist."]}
+  ],
+  "initial_states":["requested"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"requested","transition_class":"normal","authority_classes":["caller","workspace_owner"],"side_effecting":false,"required_preconditions":["Workspace/Device and scope exist."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"establish","from_states":["requested","recovering","failed"],"to_state":"establishing","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":true,"required_preconditions":["Current Lease/fence, Device Profile and exact connection bindings are valid."],"required_evidence_kinds":["receipt","lease","connection"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"activate","from_states":["establishing","partial"],"to_state":"active","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Current capability snapshot and connection evidence support requested scope."],"required_evidence_kinds":["receipt","capability_snapshot"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"mark_partial","from_states":["establishing","active","recovering"],"to_state":"partial","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Unavailable/degraded capability scope is explicit."],"required_evidence_kinds":["receipt","capability_snapshot"],"required_receipt_proof_levels":[]},
+    {"transition_name":"recover","from_states":["active","partial"],"to_state":"recovering","transition_class":"recovery","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Connection/Provider/Lease discontinuity exists and stale work is fenced."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":[]},
+    {"transition_name":"begin_close","from_states":["requested","establishing","active","partial","recovering","failed"],"to_state":"closing","transition_class":"cancellation","authority_classes":["caller","workspace_owner","provider","ptah_control_plane"],"side_effecting":true,"required_preconditions":["New control/mutation is blocked and active-operation/cleanup disposition exists."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"confirm_closed","from_states":["closing"],"to_state":"closed","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Streams/forwarding/helpers/credentials/accounts/data are cleaned as required, Lease is released and cleanup is verified."],"required_evidence_kinds":["receipt","verification","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"fail","from_states":["requested","establishing","active","partial","recovering"],"to_state":"failed","transition_class":"failure","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Failure, uncertain effects and remaining cleanup obligations are recorded."],"required_evidence_kinds":["receipt","error","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"cleanup_failure","from_states":["closing","failed"],"to_state":"cleanup_failed","transition_class":"failure","authority_classes":["provider","ptah_control_plane","security_reviewer"],"side_effecting":false,"required_preconditions":["Cleanup/revocation cannot be proven and Device quarantine is recorded."],"required_evidence_kinds":["receipt","finding","quarantine_decision"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject",
+  "migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "supersedes_version":"0.1.0",
+  "extensions":{}
+}
