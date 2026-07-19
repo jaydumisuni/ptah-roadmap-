@@ -1,0 +1,27 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:application:definitions:0.1.0",
+  "title":"Ptah Application Browser Semantic and Shell Definitions",
+  "x-ptah-schema-name":"application.definitions",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "$defs":{
+    "stateProjection":{"type":"object","additionalProperties":false,"required":["machine","machine_version","state","transition_sequence","changed_at","changed_by_ref"],"properties":{"machine":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},"machine_version":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},"state":{"type":"string","pattern":"^[a-z][a-z0-9_]{1,63}$"},"transition_sequence":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},"changed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},"changed_by_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"receipt_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true}}},
+    "applicationCompatibilityOperation":{"type":"string","enum":["install","upgrade","repair","uninstall","launch_headless","launch_graphical","remote_display","semantic_inspection","semantic_control","visual_control","checkpoint","restore"]},
+    "compatibilityDecision":{"type":"string","enum":["compatible","compatible_with_conditions","compatible_for_partial_scope","incompatible","unsupported","missing_dependency","missing_capability","resource_or_policy_blocked","unknown","stale"]},
+    "applicationAvailability":{"type":"string","enum":["full","headless_only","display_only","semantic_only","partial","recovering","unavailable","unknown"]},
+    "browserProfileMode":{"type":"string","enum":["persistent_exclusive","persistent_shared_readonly","ephemeral","incognito","managed_remote","other_registered"]},
+    "browserChallengeState":{"type":"string","enum":["none","login_required","mfa_required","captcha_or_anti_bot","consent_or_terms","certificate_or_device_approval","human_completion_required","blocked_by_policy","expired","resolved"]},
+    "navigationState":{"type":"string","enum":["requested","committed","dom_content_loaded","load_complete","same_document","failed","cancelled","crashed","unknown"]},
+    "semanticSourceMethod":{"type":"string","enum":["at_spi","windows_uia","macos_accessibility","android_accessibility","ios_xcuitest","browser_accessibility","browser_dom","application_native_api","visual_only","other_registered"]},
+    "semanticCompleteness":{"type":"string","enum":["complete_for_exposed_tree","partial","truncated","stale","unsupported","opaque","error","unknown"]},
+    "targetResolution":{"type":"string","enum":["unique","multiple_ambiguous","none","stale","unsupported","blocked","human_selection_required"]},
+    "actionMethod":{"type":"string","enum":["semantic_interface","application_api","browser_dom_or_protocol","keyboard_shortcut","raw_keyboard","raw_pointer","coordinate_visual","clipboard","mobile_input_bridge","human_completion"]},
+    "actionOutcome":{"type":"string","enum":["verified","verified_with_limitations","provider_acknowledged_unverified","failed","cancelled","blocked","stale_target","ambiguous_target","inconclusive","uncertain"]},
+    "controlHolderClass":{"type":"string","enum":["human","automation","shared_observe_only","none"]},
+    "panelSurfaceClass":{"type":"string","enum":["desktop","tablet","phone","embedded","headless_projection","other_registered"]},
+    "layoutPlacement":{"type":"object","additionalProperties":false,"required":["panel_ref","region_key","order"],"properties":{"panel_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"region_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},"group_key":{"type":"string","maxLength":128},"order":{"type":"integer","minimum":0},"size_fraction":{"type":"number","minimum":0,"maximum":1},"active":{"type":"boolean"},"hidden":{"type":"boolean"},"collapsed":{"type":"boolean"}}},
+    "viewport":{"type":"object","additionalProperties":false,"required":["width_css_px","height_css_px","device_pixel_ratio"],"properties":{"width_css_px":{"type":"integer","minimum":1},"height_css_px":{"type":"integer","minimum":1},"device_pixel_ratio":{"type":"number","exclusiveMinimum":0},"safe_area_top":{"type":"integer","minimum":0},"safe_area_right":{"type":"integer","minimum":0},"safe_area_bottom":{"type":"integer","minimum":0},"safe_area_left":{"type":"integer","minimum":0}}},
+    "requirementResult":{"type":"object","additionalProperties":false,"required":["requirement_key","result","evidence_refs"],"properties":{"requirement_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},"result":{"type":"string","enum":["satisfied","satisfied_with_conditions","unsatisfied","unsupported","unknown","stale"]},"condition_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"evidence_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"reason":{"type":"string","minLength":1,"maxLength":4096}}}
+  }
+}
