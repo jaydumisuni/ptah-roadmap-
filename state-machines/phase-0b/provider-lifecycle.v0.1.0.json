@@ -1,0 +1,21 @@
+{
+  "state_machine_name": "provider.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["runtime.provider"],
+  "states": [
+    {"name":"draft","description":"Provider definition exists but is not approved for materialization.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Owner, provider kind and initial immutable Provider Revision are recorded."]},
+    {"name":"active","description":"Provider definition may have compatible Provider Instances created under policy.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Approved Provider Revision and review evidence exist."]},
+    {"name":"deprecated","description":"Provider remains supported under a bounded compatibility window while replacement is preferred.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Deprecation reason, replacement and compatibility window are recorded."]},
+    {"name":"retired","description":"No new Provider Instances may be created; retained history remains readable.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Active-instance reconciliation and retention policy are recorded."]}
+  ],
+  "initial_states": ["draft"],
+  "transitions": [
+    {"transition_name":"register_draft","from_states":[null],"to_state":"draft","transition_class":"normal","authority_classes":["provider_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Stable Provider identity and first immutable Revision exist."],"required_evidence_kinds":["receipt","provider_revision"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"activate","from_states":["draft","deprecated"],"to_state":"active","transition_class":"administrative","authority_classes":["provider_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Compatibility, provenance, capability and conformance review pass."],"required_evidence_kinds":["receipt","review","verdict"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"deprecate","from_states":["active"],"to_state":"deprecated","transition_class":"administrative","authority_classes":["provider_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Reason, replacement and support window are recorded."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"retire","from_states":["draft","active","deprecated"],"to_state":"retired","transition_class":"administrative","authority_classes":["provider_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["No new Instances are permitted and existing Instances are reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
