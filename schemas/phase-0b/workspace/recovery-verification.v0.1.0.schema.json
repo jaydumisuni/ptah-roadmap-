@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:workspace:recovery-verification:0.1.0",
+  "title": "Ptah Recovery Verification",
+  "x-ptah-schema-name": "workspace.recovery-verification",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "restore_run_ref", "target_materialization_ref", "target_materialization_generation", "protocol_ref", "outcome", "postcondition_results", "activity_ref", "operation_ref", "attempt_ref", "observed_at", "receipt_refs", "evidence_refs", "unresolved_operation_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "runtime.recovery_verification"}}}]},
+    "restore_run_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "target_materialization_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "target_materialization_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "protocol_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "outcome": {"$ref": "urn:ptah:schema:workspace:definitions:0.1.0#/$defs/recoveryOutcome"},
+    "postcondition_results": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["postcondition_key", "result", "evidence_refs"], "properties": {"postcondition_key": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]{2,127}$"}, "result": {"type": "string", "enum": ["passed", "failed", "partial", "not_tested", "unknown"]}, "subject_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}, "evidence_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}, "limitations": {"type": "array", "items": {"type": "string", "maxLength": 4096}}}}},
+    "activity_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "operation_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "attempt_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_readiness_observation_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "external_result_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "observed_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "receipt_refs": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "evidence_refs": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "unresolved_operation_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf": [
+    {"if": {"properties": {"outcome": {"const": "recovered"}}, "required": ["outcome"]}, "then": {"properties": {"unresolved_operation_refs": {"maxItems": 0}}}}
+  ]
+}
