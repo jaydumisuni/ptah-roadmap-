@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:workspace:workspace-outbox-entry:0.1.0",
+  "title": "Ptah Workspace Outbox Entry",
+  "x-ptah-schema-name": "workspace.workspace-outbox-entry",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "workspace_ref", "outbox_sequence", "intent_kind", "subject_refs", "payload_ref", "claim_token", "lifecycle", "created_at", "delivery_attempts", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "core.workspace_outbox_entry"}}}]},
+    "workspace_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "workspace_materialization_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "materialization_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "outbox_sequence": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "intent_kind": {"type": "string", "enum": ["publish_event", "send_command", "announce_capability", "request_reconciliation", "other_registered"]},
+    "subject_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "minItems": 1, "uniqueItems": true},
+    "payload_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "claim_token": {"type": "string", "minLength": 16, "maxLength": 512},
+    "lifecycle": {"type": "string", "enum": ["pending", "claimed", "published", "acknowledged", "failed", "expired", "reconciled"]},
+    "created_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "not_before": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "expires_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "delivery_attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["attempt_number", "connection_epoch", "started_at", "outcome"],
+        "properties": {
+          "attempt_number": {"type": "integer", "minimum": 1},
+          "connection_epoch": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+          "transport_alias_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+          "started_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+          "completed_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+          "outcome": {"type": "string", "enum": ["published", "acknowledged", "failed", "unknown"]},
+          "event_or_receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+          "error": {"type": "string", "maxLength": 4096}
+        }
+      }
+    },
+    "acknowledgement_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "reconciliation_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf": [{"if": {"required": ["workspace_materialization_ref"]}, "then": {"required": ["materialization_generation"]}}]
+}
