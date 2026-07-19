@@ -42,7 +42,7 @@ Canonical lifecycle machine:
 
 Canonical enrollment lifecycle machine:
 
-- `state-machines/phase-0b/node-enrollment-lifecycle.v0.1.0.json`
+- `state-machines/phase-0b/node-enrollment-lifecycle.v0.1.1.json`
 
 ---
 
@@ -143,7 +143,7 @@ Rules:
 
 Canonical machine:
 
-- `state-machines/phase-0b/provider-instance-lifecycle.v0.1.0.json`
+- `state-machines/phase-0b/provider-instance-lifecycle.v0.1.2.json`
 
 ---
 
