@@ -28,7 +28,7 @@ This is the compact index of decisions that must not be silently reversed. Full 
 
 ### D-006 — Object-first architecture
 
-**ACCEPTED.** Original bytes remain immutable Objects with hashes, locations, provenance, relationships, Views and derivatives.
+**ACCEPTED.** Original bytes remain preserved through Content/Object/Revision identities with hashes, locations, provenance, relationships, Views and derivatives.
 
 ### D-007 — Domain Packs
 
@@ -184,20 +184,50 @@ Full decision: `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`.
 
 **ACCEPTED.** Phase 0B candidate `ptah.common` `0.1.0` defines the shared identity and compatibility language for all later contracts.
 
-- new canonical entity IDs use lowercase UUIDv7 plus registered `entity_kind`;
+- canonical entity IDs use lowercase UUIDv7 plus registered `entity_kind`;
 - backend/legacy identifiers remain scoped Aliases;
-- schemas use JSON Schema 2020-12, absolute Ptah URNs and a local catalog;
+- schemas use JSON Schema 2020-12, absolute Ptah URNs and local catalogs;
 - domain records embed a nested common Entity Envelope;
-- `record_revision`, Object Revision, schema version, generations and connection epoch remain separate;
+- record revision, Object Revision, schema version, generations and connection epoch remain separate;
 - Provider, Session, Lease, Event, Revision, Snapshot, Recipe, Protocol, Evidence and other families declare explicit kinds;
-- there is no global `status` enum;
-- state machines and transitions are namespaced, versioned and append-only;
-- authentication, authorization, capability and acceptance remain separate;
-- migration preserves frozen history and reports loss/defaults;
-- compatibility is directional and evidence-backed rather than inferred from SemVer;
+- state machines are namespaced/versioned; there is no global `status` enum;
+- migration preserves frozen history and compatibility is directional;
 - tombstone and physical deletion remain separate;
-- structural JSON validation does not replace semantic conformance.
-
-The candidate may be used by downstream Phase 0B schemas but is not implementation-frozen until executable conformance and golden/negative corpus proof passes.
+- structural validation does not replace semantic conformance.
 
 Full decision: `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`.
+
+### D-034 — Activity, Operation, Attempt, Event, Receipt and proof remain exact
+
+**ACCEPTED.** Phase 0B candidate `ptah.activity` `0.1.0` with corrected mutable-request schemas `0.1.1` separates durable work, logical effects, physical tries, notifications, telemetry, producer evidence, review and authoritative external truth.
+
+- Activity Request and Activity are different entities;
+- Activity lifecycle excludes request, lease, cancellation, retry, attachment and projection-health dimensions;
+- Operation persists across retries; every Attempt gets a new ID/nonce and exact generations/epoch;
+- uncertain non-idempotent effects cannot retry automatically;
+- Event/telemetry are not proof;
+- Receipt is immutable, append-only and exactly correlated;
+- proof levels are bounded by domain rather than one automatic ladder;
+- Review, Verdict, caller acceptance and authoritative external result remain separate;
+- stale/late/duplicate/contradictory evidence is reconciled explicitly.
+
+Full decision: `decisions/ADR-0019-ACTIVITY-OPERATION-ATTEMPT-EVENT-RECEIPT-PROOF-BOUNDARY.md`.
+
+### D-035 — Content, Object, Revision, View, Artifact and Location remain separate
+
+**ACCEPTED.** Phase 0B candidates `ptah.object` / `ptah.storage` `0.1.0` define byte identity, logical source identity, immutable revisions, plural detector evidence, relationship history, derived representations, promoted results and storage replicas without backend leakage.
+
+- Content owns exact bytes/digests and authorized deduplication scope;
+- Object owns logical/source identity; Revision owns one immutable version;
+- paths, provider keys, ETags and tags remain aliases;
+- matching bytes never silently merge logical Objects or expose cross-scope equality;
+- detector observations remain plural and classification is separate;
+- relationships have stable identity plus immutable revisions and may overlap;
+- child Objects, Views, Previews and Derivatives cannot replace originals;
+- decomposition retains budgets, coverage, partial outputs and unknown gaps;
+- Artifact promotion does not imply verification, review, acceptance or release;
+- Artifact Release is immutable and public-safe/allowlisted;
+- Location lifecycle, health and verification remain separate;
+- tombstone, replica deletion and shared Content-byte deletion remain separate and receipted.
+
+Full decision: `decisions/ADR-0020-OBJECT-REVISION-VIEW-ARTIFACT-STORAGE-BOUNDARY.md`.
