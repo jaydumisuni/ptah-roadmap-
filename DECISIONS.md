@@ -231,3 +231,23 @@ Full decision: `decisions/ADR-0019-ACTIVITY-OPERATION-ATTEMPT-EVENT-RECEIPT-PROO
 - tombstone, replica deletion and shared Content-byte deletion remain separate and receipted.
 
 Full decision: `decisions/ADR-0020-OBJECT-REVISION-VIEW-ARTIFACT-STORAGE-BOUNDARY.md`.
+
+### D-036 — Node, Facility, Provider, capability and health remain separate
+
+**ACCEPTED.** Phase 0B candidate `ptah.runtime` / `ptah.facility` `0.1.0` defines stable Node and Facility identity, Provider revisions/instances/generations, capability evidence, resource truth and time-bounded dispatch eligibility without backend leakage.
+
+- Node Enrollment is separate from Node lifecycle;
+- Node generation and connection epoch fence different authority scopes;
+- reachability and health do not create trust or lifecycle;
+- Capability Definition, Claim, Verification and Availability remain separate;
+- total, allocatable, reserved, consumed, available and pressure remain separate resource dimensions;
+- Facility, Facility Revision and Facility Instance remain caller-facing contracts independent of implementation;
+- Provider, Provider Revision and Provider Instance remain separate;
+- Provider lifecycle, reachability, readiness and health remain separate;
+- `failed` requires receipted exact-generation evidence; transient `unhealthy` is not automatic failure;
+- local Providers bind Node evidence; remote Providers bind approved external-service evidence and never fabricate Nodes;
+- heartbeat proves contact only;
+- Dispatch Eligibility is operation-specific, expiring evidence—not Placement, Lease, Attempt or proof of execution;
+- Provider/backend/locality replacement preserves Facility identity and fences stale evidence.
+
+Full decision: `decisions/ADR-0021-NODE-FACILITY-PROVIDER-CAPABILITY-HEALTH-BOUNDARY.md`.
