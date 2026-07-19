@@ -1,0 +1,25 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:build-recipe-proposal:0.1.0",
+  "title":"Ptah Build Recipe Proposal",
+  "x-ptah-schema-name":"build.build-recipe-proposal",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","proposed_recipe_revision_ref","proposal_source","proposer_ref","source_evidence_refs","confidence","assumptions","unsupported_or_unknown","proposed_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"build.recipe_proposal"}}}]},
+    "proposed_recipe_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "proposal_source":{"type":"string","enum":["human","detector","importer","caller_system","migration","other_registered"]},
+    "proposer_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "detector_or_importer_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "source_evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "confidence":{"type":"number","minimum":0,"maximum":1},
+    "assumptions":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "unsupported_or_unknown":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "proposed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
