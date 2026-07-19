@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:derivative:0.1.0",
+  "title": "Ptah Object Derivative",
+  "description": "Immutable transformation lineage from source Revision(s) to a new output Object Revision.",
+  "x-ptah-schema-name": "object.derivative",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "derivative_contract_version", "derivative_kind", "source_revision_refs", "output_revision_ref", "transformation_ref", "settings_refs", "production_correlation", "comparison_refs", "invalidated_trust_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.derivative" } } }
+      ]
+    },
+    "derivative_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "derivative_kind": { "type": "string", "enum": ["normalized", "converted", "transcoded", "remuxed", "edited", "patched", "repacked", "rebuilt", "generated", "restored", "other"] },
+    "source_revision_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "output_revision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "transformation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "settings_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "production_correlation": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/productionCorrelation" },
+    "comparison_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "invalidated_trust_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
