@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:object:0.1.0",
+  "title": "Ptah Logical Object",
+  "description": "Durable logical/source identity whose immutable versions are Object Revisions.",
+  "x-ptah-schema-name": "object.object",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "object_contract_version", "object_class", "declared_names", "source_refs", "current_revision_ref", "revision_refs", "relationship_refs", "view_refs", "artifact_refs", "lifecycle", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.object" } } }
+      ]
+    },
+    "object_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "object_class": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "declared_names": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "name_role", "source_class"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1, "maxLength": 8192 },
+          "name_role": { "type": "string", "enum": ["original", "display", "source_path_leaf", "user_label", "generated", "legacy"] },
+          "source_class": { "type": "string", "enum": ["caller", "provider", "filesystem", "remote_source", "generated", "migration"] }
+        }
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "current_revision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "revision_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "relationship_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "view_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "lifecycle": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stateProjection" },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
