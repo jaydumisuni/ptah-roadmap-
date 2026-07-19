@@ -28,13 +28,17 @@ jobs:
       - name: Run harness unit tests
         working-directory: conformance/harness
         run: python -m unittest -v test_ptah_conformance.py
-      - name: Run repository conformance
+      - name: Run repository structural conformance
         run: ptah-conformance --root . --report conformance/reports/phase-0b-conformance.json
-      - name: Upload immutable run report
+      - name: Run executable semantic fixtures
+        run: python conformance/harness/semantic_fixture_runner.py --root . --report conformance/reports/phase-0b-semantic.json
+      - name: Upload immutable run reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: phase-0b-conformance-${{ github.sha }}
-          path: conformance/reports/phase-0b-conformance.json
+          path: |
+            conformance/reports/phase-0b-conformance.json
+            conformance/reports/phase-0b-semantic.json
           if-no-files-found: error
           retention-days: 30
