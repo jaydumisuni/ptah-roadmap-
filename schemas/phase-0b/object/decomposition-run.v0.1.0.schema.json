@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:decomposition-run:0.1.0",
+  "title": "Ptah Decomposition Run",
+  "description": "Bounded progressive decomposition result over one exact source Object Revision.",
+  "x-ptah-schema-name": "object.decomposition-run",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "run_contract_version", "source_revision_ref", "requested_level", "achieved_level", "outcome", "production_correlation", "coverage", "budget_request", "budget_usage", "child_object_refs", "view_refs", "preview_refs", "derivative_refs", "relationship_refs", "warnings", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.decomposition_run" } } }
+      ]
+    },
+    "run_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "source_revision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "requested_level": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/decompositionLevel" },
+    "achieved_level": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/decompositionLevel" },
+    "outcome": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/decompositionOutcome" },
+    "production_correlation": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/productionCorrelation" },
+    "coverage": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/coverage" },
+    "budget_request": { "type": "object", "additionalProperties": true },
+    "budget_usage": { "type": "object", "additionalProperties": true },
+    "child_object_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "view_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "preview_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "derivative_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "relationship_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "unknown_gap_locators": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/locator" }
+    },
+    "continuation_of_run_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "warnings": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "outcome": { "const": "complete" } }, "required": ["outcome"] },
+      "then": { "properties": { "coverage": { "properties": { "complete_claim": { "const": true } } } } }
+    },
+    {
+      "if": { "properties": { "outcome": { "enum": ["partial", "budget_exhausted", "timeout", "parser_error", "parser_crash", "cancelled", "failed"] } }, "required": ["outcome"] },
+      "then": { "properties": { "coverage": { "properties": { "complete_claim": { "const": false } } } } }
+    }
+  ]
+}
