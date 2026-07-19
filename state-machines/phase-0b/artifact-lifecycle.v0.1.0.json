@@ -1,0 +1,21 @@
+{
+  "state_machine_name": "artifact.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["object.artifact"],
+  "states": [
+    {"name":"draft","description":"Artifact role is being assembled and is not yet durably promoted.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Exact candidate Object Revisions and purpose are recorded."]},
+    {"name":"promoted","description":"Artifact role is durably promoted over exact Object Revisions with production Receipts.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Promotion Receipt and retained Object Revisions exist."]},
+    {"name":"superseded","description":"A newer Artifact is preferred while this Artifact, releases and proof remain retained.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Replacement Artifact and reason are recorded."]},
+    {"name":"tombstoned","description":"Artifact is logically withdrawn under retention policy; immutable releases/proof remain historical records.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Tombstone authority and retention are recorded."]}
+  ],
+  "initial_states": ["draft"],
+  "transitions": [
+    {"transition_name":"create_draft","from_states":[null],"to_state":"draft","transition_class":"normal","authority_classes":["caller","ptah_control_plane","facility"],"side_effecting":false,"required_preconditions":["Purpose, subject and candidate Object Revisions are known."],"required_evidence_kinds":[],"required_receipt_proof_levels":[]},
+    {"transition_name":"promote","from_states":["draft"],"to_state":"promoted","transition_class":"normal","authority_classes":["caller","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Exact Object Revisions and production correlation are retained; promotion policy passes."],"required_evidence_kinds":["receipt","object_revision"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"supersede","from_states":["promoted","superseded"],"to_state":"superseded","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Replacement Artifact and retained release/proof relationships are recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"tombstone","from_states":["draft","promoted","superseded"],"to_state":"tombstoned","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Retention/legal-hold analysis is complete; physical deletion remains separate."],"required_evidence_kinds":["receipt","tombstone"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
