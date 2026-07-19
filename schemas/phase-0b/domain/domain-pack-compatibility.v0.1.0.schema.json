@@ -1,0 +1,42 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:domain-pack-compatibility:0.1.0",
+  "title":"Ptah Domain Pack Compatibility",
+  "x-ptah-schema-name":"domain.domain-pack-compatibility",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","pack_revision_ref","operation_type","input_subject_refs","requested_scope","candidate_provider_revision_ref","candidate_provider_instance_ref","candidate_provider_generation","locality","decision","requirement_results","evaluated_at","valid_until","evidence_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"domain.pack_compatibility"}}}]},
+    "pack_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "operation_type":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/domainOperationType"},
+    "input_subject_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "requested_scope":{"type":"array","minItems":1,"items":{"type":"string","minLength":1,"maxLength":2048},"uniqueItems":true},
+    "requested_budget":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/budget"},
+    "candidate_provider_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "candidate_provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "candidate_provider_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "locality":{"type":"string","enum":["node_local","remote_service"]},
+    "node_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "node_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "node_capability_snapshot_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "node_resource_snapshot_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "remote_service_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "provider_capability_snapshot_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "isolation_class_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "decision":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/packCompatibilityDecision"},
+    "requirement_results":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/requirementResult"}},
+    "condition_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "evaluated_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "policy_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf":[
+    {"if":{"properties":{"locality":{"const":"node_local"}}},"then":{"required":["node_ref","node_generation","node_capability_snapshot_ref","node_resource_snapshot_ref"],"not":{"required":["remote_service_ref"]}},"else":{"required":["remote_service_ref","provider_capability_snapshot_ref"],"not":{"anyOf":[{"required":["node_ref"]},{"required":["node_generation"]}]}}},
+    {"if":{"properties":{"decision":{"const":"compatible_with_conditions"}}},"then":{"required":["condition_refs"],"properties":{"condition_refs":{"minItems":1}}}}
+  ]
+}
