@@ -40,11 +40,8 @@ Evidence:
 - [x] controlled entity-kind and identity/authority registries.
 - [x] JSON Schema 2020-12, absolute Ptah URNs and local catalog.
 - [x] common Entity Envelope.
-- [x] record revision versus Object Revision/generation/epoch separation.
-- [x] typed Provider/Session/Lease/Event/Revision/Snapshot/Recipe/Protocol/Evidence families.
-- [x] namespaced/versioned state-machine and transition schemas.
-- [x] migration definition/run and directional compatibility schemas.
-- [x] privacy/audience/redaction/retention, extensions and tombstone rules.
+- [x] typed families and namespaced/versioned state machines.
+- [x] directional migration/compatibility and privacy/retention rules.
 - [x] consolidated safety net, fixtures and ADR-0018.
 
 Evidence:
@@ -57,13 +54,11 @@ Evidence:
 **Status:** CANDIDATE COMPLETE.
 
 - [x] Activity Request, Activity, Operation and Attempt separation.
-- [x] retry/idempotency classes and uncertain-side-effect blocking.
-- [x] exact Node/Provider/workload generation, epoch and nonce correlation.
-- [x] dependencies, cancellation and manual-action requests.
-- [x] typed Events and delivery attempts.
+- [x] retry/idempotency and uncertain-side-effect handling.
+- [x] exact generation, epoch and nonce correlation.
+- [x] dependencies, cancellation, Events and delivery attempts.
 - [x] immutable Receipts and bounded proof claims.
 - [x] Review, Verdict and authoritative external-result separation.
-- [x] explicit stale/late/duplicate/contradictory evidence reconciliation.
 - [x] six lifecycle machines and active catalog `0.1.1`.
 - [x] migration, safety net, fixtures and ADR-0019.
 
@@ -78,12 +73,9 @@ Evidence:
 
 - [x] Content byte identity, qualified hashes and deduplication scope.
 - [x] durable Object and immutable Object Revision.
-- [x] plural detector observations and classification decisions.
-- [x] stable Relationship plus immutable Relationship Revisions.
-- [x] child Object, View, Preview and Derivative separation.
-- [x] bounded progressive decomposition.
+- [x] plural detector observations and Relationship history.
+- [x] child/View/Preview/Derivative and bounded decomposition separation.
 - [x] Artifact promotion versus review/verification/acceptance/release.
-- [x] immutable allowlisted Artifact Release.
 - [x] Storage Location lifecycle/health/verification and safe deletion.
 - [x] 20 active schemas, five lifecycle machines, migration, safety net, fixtures and ADR-0020.
 
@@ -96,22 +88,18 @@ Evidence:
 
 **Status:** CANDIDATE COMPLETE.
 
-- [x] stable Node identity separated from aliases, enrollment, trust and reachability.
-- [x] Node generation and connection epoch fencing.
-- [x] immutable capability/resource observations and freshness.
-- [x] Capability Definition/Claim/Verification/Availability/Snapshot separation.
+- [x] stable Node identity, generation and connection epoch.
+- [x] immutable capability/resource evidence and freshness.
 - [x] Facility/Revision/Instance and Provider/Revision/Instance separation.
-- [x] local Node-backed and remote-service Provider locality without fictional Nodes.
+- [x] truthful local Node-backed and remote-service Provider locality.
 - [x] lifecycle, reachability, readiness, health and pressure separation.
-- [x] operation-scoped dependency degradation.
-- [x] exact-generation expiring Dispatch Eligibility.
-- [x] 19 record schemas and six lifecycle machines in runtime catalog `0.1.2`.
+- [x] operation-scoped dependency degradation and expiring Dispatch Eligibility.
+- [x] 19 schemas and six lifecycle machines in runtime catalog `0.1.2`.
 - [x] migration, safety net, fixtures and ADR-0021/0021A/0021B.
 
 Evidence:
 
 - `schemas/phase-0b/runtime/schema-catalog.v0.1.2.json`
-- `decisions/ADR-0021-NODE-FACILITY-PROVIDER-CAPABILITY-HEALTH-BOUNDARY.md`
 - `decisions/ADR-0021B-WP04-FINAL-CATALOG-CORRECTION.md`
 
 ## 0B-WP05 — Workspace, Session, checkpoint, restore and recovery
@@ -119,16 +107,13 @@ Evidence:
 **Status:** CANDIDATE COMPLETE.
 
 - [x] stable Workspace identity and immutable Workspace Revision.
-- [x] Membership and Provider Binding separated from runtime state.
-- [x] Materialization identity/generation and truthful local/remote locality.
+- [x] Membership/Provider Binding/Materialization separation.
 - [x] typed Session and Session Attachment/control separation.
-- [x] Journal/outbox/cursor reconstruction without Activity replay authority.
-- [x] Checkpoint Request, Component, Bundle and Verification separation.
-- [x] consistency, completeness, portability, privacy and credential classification.
-- [x] target-specific expiring Restore Compatibility before mutation.
-- [x] Restore Run with new Activities/Attempts/generations.
-- [x] runtime restore versus post-condition Recovery Verification.
-- [x] explicit Export/Import identity, authority and provenance decisions.
+- [x] Journal/outbox/cursor reconstruction boundaries.
+- [x] Checkpoint Request/Component/Bundle/Verification separation.
+- [x] target-specific Restore Compatibility and new-generation Restore Run.
+- [x] runtime restore versus application Recovery Verification.
+- [x] explicit Export/Import identity, privacy, authority and provenance.
 - [x] 19 schemas and nine lifecycle machines in workspace catalog `0.1.0`.
 - [x] migration, safety net, fixtures, WP05 package and ADR-0022.
 
@@ -143,14 +128,9 @@ Evidence:
 **Status:** CANDIDATE COMPLETE.
 
 - [x] Transfer Request/Run/Attempt/Manifest/Progress/Verification separation.
-- [x] safe resume identity, validators, partial-state and authority checks.
-- [x] Content/Object/Location acceptance after byte movement.
-- [x] uncertain non-idempotent finalize/commit/delete handling.
-- [x] Sync Relationship, Cursor, Run, Conflict and Resolution separation.
-- [x] cursor freshness and destination-acceptance advancement rules.
-- [x] first-class conflict history and explicit merge/selection decisions.
-- [x] Backup Policy, Snapshot, Verification, Prune, Restore Decision and Restore Run separation.
-- [x] encryption/key/read-back and dependency-aware restore/prune proof.
+- [x] safe resume and uncertain finalize/commit/delete handling.
+- [x] Sync Relationship/Cursor/Run/Conflict/Resolution separation.
+- [x] Backup Policy/Snapshot/Verification/Prune/Restore separation.
 - [x] sync/replica/checkpoint/export/backup separation.
 - [x] storage restore versus WP05 Workspace/application recovery.
 - [x] 18 schemas and seven lifecycle machines in transfer catalog `0.1.0`.
@@ -164,23 +144,48 @@ Evidence:
 
 ## 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification
 
+**Status:** CANDIDATE COMPLETE.
+
+- [x] Recipe, immutable Revision, Proposal, Acceptance, Readiness and Backend Compatibility.
+- [x] backend-neutral Recipe versus backend-specific Compiled Plan.
+- [x] Build Run/Step mapped to WP02 Operation/Attempt identity.
+- [x] exact input/material resolution and mutable/volatile classifications.
+- [x] Cache Record/Use and no cache-as-execution/reproduction rule.
+- [x] Secret Access, expiry, cleanup, redaction and leakage evidence.
+- [x] Output Declaration and exact produced-byte/Object Output Record.
+- [x] Artifact promotion/release separate from Build completion.
+- [x] Package Observation, SBOM Coverage and immutable SBOM Document.
+- [x] Trust Policy and public/private/offline Transparency Evidence.
+- [x] Attestation/Signature creation versus independent Verification.
+- [x] Proof Bundle domains/authority and release-acceptance separation.
+- [x] Reproduction Request/Run and byte/functional Comparison.
+- [x] entity-kind overlap correction for Step/SBOM identities.
+- [x] 30 active schemas and nine lifecycle machines in catalog `0.1.1`.
+- [x] migration, safety net, fixtures, WP07 package and ADR-0024.
+
+Evidence:
+
+- `schemas/phase-0b/build/schema-catalog.v0.1.1.json`
+- `work-packages/PHASE-0B-WP07-RECIPE-BUILD-PROVENANCE.md`
+- `decisions/ADR-0024-RECIPE-BUILD-PROVENANCE-SBOM-SIGNATURE-VERIFICATION-BOUNDARY.md`
+
+## 0B-WP08 — Domain Pack, firmware, disk and Device contracts
+
 **Status:** ACTIVE.
 
-- [-] recover and normalize frozen Build/Artifact/Provenance requirements.
-- [ ] define Recipe identity, immutable revision/hash and proposal/acceptance boundary.
-- [ ] define backend-neutral Recipe versus backend-specific Compiled Plan.
-- [ ] define Build Run, step mapping and Activity/Operation/Attempt correlation.
-- [ ] define cache entry/use/verification and volatile-input reproducibility impact.
-- [ ] define secret/credential access, redaction and cleanup evidence.
-- [ ] bind outputs to exact Objects, Artifacts, Locations and provenance.
-- [ ] define SBOM/package observations and explicit coverage limitations.
-- [ ] define attestation creation versus policy verification.
-- [ ] define signature, trust root, certificate, transparency and offline verification.
-- [ ] define Build/export/SBOM/attestation/signing/review/reproduction/acceptance separation.
-- [ ] define independent reproduction and byte-identical/functional comparison.
-- [ ] commit candidate schemas, lifecycle machines and catalog.
-- [ ] commit migration/compatibility rules, fixtures and consolidated safety net.
-- [ ] accept WP07 package and ADR-0024 only after consistency review.
+- [-] recover and normalize frozen Domain Pack/Object/firmware/disk/Device requirements.
+- [ ] define Domain Pack identity, immutable Revision, capabilities and compatibility.
+- [ ] define detector/classification, Inventory, Decomposition and coverage.
+- [ ] define Validation, Compare, Rebuild and Execute recipes/runs.
+- [ ] define firmware Package/Manifest/Component and target/tool compatibility.
+- [ ] define disk image/partition table/partition/filesystem and read-only mount Sessions.
+- [ ] separate static analysis/transformation from physical Device mutation.
+- [ ] define Device/Interface/Connection/Session/Stream/Screen Context identity.
+- [ ] define Lease/fencing, Provider/connection generations and protocol-stage evidence.
+- [ ] define backup/destructive-action approval/write/read-back/cleanup proof.
+- [ ] define partial/unsupported/uncertain outcomes and safe retry/reconciliation.
+- [ ] commit schemas, lifecycle machines, catalog, migration, fixtures and safety net.
+- [ ] accept WP08 package and ADR-0025 only after consistency review.
 
 ---
 
@@ -192,8 +197,8 @@ Evidence:
 - [x] 0B-WP04 — Node, Facility, Provider, capability and health.
 - [x] 0B-WP05 — Workspace, Session, checkpoint and recovery.
 - [x] 0B-WP06 — Transfer, sync, conflict and backup.
-- [-] 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification.
-- [ ] 0B-WP08 — Domain Pack, firmware, disk and Device contracts.
+- [x] 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification.
+- [-] 0B-WP08 — Domain Pack, firmware, disk and Device contracts.
 - [ ] 0B-WP09 — Application, Browser, semantic UI and Shell contracts.
 - [ ] 0B-WP10 — Knowledge, data, Package and Plugin contracts.
 - [ ] 0B-WP11 — Isolation, placement, reservation, lease and secure grants.
@@ -204,16 +209,16 @@ Evidence:
 
 ## Cross-cutting Phase 0B gates
 
-- [-] every schema versioned and traceable — WP01–WP06 complete; remaining domains pending.
-- [-] state machines/transitions explicit and namespaced — WP01–WP06 complete; remaining domains pending.
-- [-] saved records/sessions have migration paths — WP01–WP06 complete; remaining domains pending.
-- [-] permissions, audience, privacy and redaction represented — WP01–WP06 mapped; remaining domains pending.
+- [-] every schema versioned and traceable — WP01–WP07 complete; remaining domains pending.
+- [-] state machines/transitions explicit and namespaced — WP01–WP07 complete; remaining domains pending.
+- [-] saved records/sessions have migration paths — WP01–WP07 complete; remaining domains pending.
+- [-] permissions, audience, privacy and redaction represented — WP01–WP07 mapped; remaining domains pending.
 - [x] Provider/Facility candidate contracts defined — executable conformance deferred.
-- [-] lawful positive/negative fixtures pinned — WP01–WP06 committed; remaining corpus pending.
-- [-] proof plans name exact Receipts/Evidence — WP01–WP06 complete; remaining domains pending.
-- [-] backend replacement testable — identity/runtime/storage/Workspace/transfer layers complete; remaining domains pending.
+- [-] lawful positive/negative fixtures pinned — WP01–WP07 committed; remaining corpus pending.
+- [-] proof plans name exact Receipts/Evidence — WP01–WP07 complete; remaining domains pending.
+- [-] backend replacement testable — identity/runtime/storage/Workspace/transfer/Build layers complete; remaining domains pending.
 - [-] online and later local Nodes use the same contracts — candidate contracts neutral; executable proof pending.
-- [-] private consumer knowledge absent from public schemas — WP01–WP06 neutral; full audit pending.
+- [-] private consumer knowledge absent from public schemas — WP01–WP07 neutral; full audit pending.
 - [ ] public licence/dependency strategy ready for Phase 0C.
 - [ ] first vertical slice selectable without identity/proof ambiguity.
 
