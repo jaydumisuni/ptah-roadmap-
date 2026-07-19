@@ -1,0 +1,19 @@
+{
+  "state_machine_name":"transfer.request.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["transfer.request"],
+  "states":[
+    {"name":"submitted","description":"Transfer intent is durable and awaits validation.","terminal":false,"proof_dimension":"request_lifecycle","entry_requirements":["Requestor, source, destination, policy and verification intent are recorded."]},
+    {"name":"validating","description":"Source/destination authority, capability, policy and budgets are being evaluated.","terminal":false,"proof_dimension":"request_lifecycle","entry_requirements":["Validation Activity/Attempt exists."]},
+    {"name":"accepted","description":"Request is accepted into a distinct Transfer Run/Activity.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Accepted Activity/Run and Receipt exist."]},
+    {"name":"rejected","description":"Request will not run under current inputs/policy.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Typed rejection and evidence exist."]},
+    {"name":"cancelled","description":"Request ended before accepted transfer work completed.","terminal":true,"proof_dimension":"request_lifecycle","entry_requirements":["Cancellation and temporary state are reconciled."]}
+  ],
+  "initial_states":["submitted"],
+  "transitions":[
+    {"transition_name":"submit","from_states":[null],"to_state":"submitted","transition_class":"normal","authority_classes":["caller","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Request is schema-valid and authority identified."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"begin_validation","from_states":["submitted"],"to_state":"validating","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Source/destination/current authority can be evaluated."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"accept","from_states":["submitted","validating"],"to_state":"accepted","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":false,"required_preconditions":["Distinct Activity/Operation/Run and fixed scope exist."],"required_evidence_kinds":["receipt","activity"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"reject","from_states":["submitted","validating"],"to_state":"rejected","transition_class":"normal","authority_classes":["ptah_control_plane","organization_policy"],"side_effecting":false,"required_preconditions":["Typed unsupported/unauthorized/policy/source/destination reason is retained."],"required_evidence_kinds":["receipt","outcome"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"cancel","from_states":["submitted","validating"],"to_state":"cancelled","transition_class":"cancellation","authority_classes":["caller","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cancellation and temporary validation state are reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
