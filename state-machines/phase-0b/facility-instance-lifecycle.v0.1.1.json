@@ -1,0 +1,30 @@
+{
+  "state_machine_name": "facility.instance.lifecycle",
+  "state_machine_version": "0.1.1",
+  "subject_entity_kinds": ["core.facility_instance"],
+  "states": [
+    {"name":"declared","description":"Scoped Facility Instance is defined but not available for dispatch.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Facility Revision, scope and policy bindings are recorded."]},
+    {"name":"activating","description":"Provider bindings and required policies are being materialized/verified.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Activation Activity and intended Provider bindings are recorded."]},
+    {"name":"active","description":"Facility Instance may be considered for dispatch when current Provider readiness/capability evidence also passes.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["At least one compatible Provider binding and activation Receipt exist."]},
+    {"name":"suspended","description":"New dispatch is disabled while identity/history remain active.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Suspension reason and authority are retained."]},
+    {"name":"deactivating","description":"Instance is draining/removing bindings and no new ordinary dispatch is allowed.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Deactivation and active-work handling policy are recorded."]},
+    {"name":"inactive","description":"Facility Instance remains retained but has no active dispatch authority.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Provider bindings and active work are reconciled."]},
+    {"name":"failed","description":"Lifecycle materialization failed; this does not itself describe every Provider or capability state.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Failure Receipt and reconciliation requirements are retained."]},
+    {"name":"retired","description":"Facility Instance cannot be reactivated; history remains retained.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Retirement authority and cleanup/retention evidence are recorded."]}
+  ],
+  "initial_states": ["declared"],
+  "transitions": [
+    {"transition_name":"declare","from_states":[null],"to_state":"declared","transition_class":"normal","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Facility Revision, scope and policy are valid."],"required_evidence_kinds":["receipt","facility_revision"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"begin_activation","from_states":["declared","inactive","failed"],"to_state":"activating","transition_class":"normal","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Compatible Provider binding plan and authorization are recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"activate","from_states":["activating","suspended"],"to_state":"active","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Provider binding exists and current activation evidence passes; readiness remains a separate observation."],"required_evidence_kinds":["receipt","provider_binding"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"suspend","from_states":["active","activating"],"to_state":"suspended","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["New dispatch is blocked and existing work is handled by policy."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"begin_deactivation","from_states":["active","suspended","failed"],"to_state":"deactivating","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["No-new-dispatch rule and active-work cleanup are recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["dispatched"]},
+    {"transition_name":"deactivate","from_states":["deactivating"],"to_state":"inactive","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Provider bindings and active work are reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"fail","from_states":["activating","active","deactivating"],"to_state":"failed","transition_class":"failure","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Failure source, generation and uncertainty/cleanup requirements are retained."],"required_evidence_kinds":["receipt","error"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"retire","from_states":["declared","inactive","failed","suspended"],"to_state":"retired","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["No active binding/lease remains and retention policy is recorded."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "supersedes_version": "0.1.0",
+  "extensions": {}
+}
