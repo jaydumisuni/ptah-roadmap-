@@ -1,0 +1,56 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:device-session:0.1.1",
+  "title":"Ptah Device Session",
+  "description":"Corrected Device Session binding every active Interface/Connection/Provider context independently under one Workspace Lease and fence.",
+  "x-ptah-schema-name":"domain.device-session",
+  "x-ptah-schema-version":"0.1.1",
+  "x-ptah-maturity":"candidate",
+  "x-ptah-supersedes":"urn:ptah:schema:domain:device-session:0.1.0",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","lifecycle","workspace_ref","device_ref","device_profile_revision_ref","lease_ref","fencing_token_hash_ref","connection_bindings","availability","capability_snapshot_ref","privacy_policy_refs","started_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"device.session"}}}]},
+    "lifecycle":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/stateProjection"},
+    "workspace_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "device_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "device_profile_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "lease_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "fencing_token_hash_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "connection_bindings":{
+      "type":"array",
+      "minItems":1,
+      "items":{
+        "type":"object",
+        "additionalProperties":false,
+        "required":["binding_key","interface_ref","connection_ref","connection_epoch","provider_revision_ref","provider_instance_ref","provider_generation","provider_capability_snapshot_ref","capability_scope"],
+        "properties":{
+          "binding_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},
+          "interface_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+          "connection_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+          "connection_epoch":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+          "provider_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+          "provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+          "provider_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+          "provider_capability_snapshot_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+          "capability_scope":{"type":"array","minItems":1,"items":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},"uniqueItems":true},
+          "read_only_shared":{"type":"boolean"},
+          "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}}
+        }
+      }
+    },
+    "availability":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/sessionAvailability"},
+    "capability_snapshot_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "stream_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "screen_context_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "checkpoint_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "privacy_policy_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "started_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "ended_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "cleanup_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "quarantine_decision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
