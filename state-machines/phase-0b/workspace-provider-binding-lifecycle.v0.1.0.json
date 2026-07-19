@@ -1,0 +1,23 @@
+{
+  "state_machine_name": "workspace.provider_binding.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.workspace_provider_binding"],
+  "states": [
+    {"name":"declared","description":"Binding intent exists but compatibility has not been accepted.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Workspace Revision and Facility Revision are referenced."]},
+    {"name":"validated","description":"Binding passed current compatibility/policy validation for its declared scope.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Validation evidence and expiry are recorded."]},
+    {"name":"incompatible","description":"Binding cannot currently materialize the declared Workspace Revision under its constraints.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Failed/unknown constraints and evidence are retained."]},
+    {"name":"deprecated","description":"Binding remains historical or temporarily usable under policy but should not be selected for new ordinary materializations.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Replacement/deprecation policy is recorded."]},
+    {"name":"revoked","description":"Binding can no longer authorize materialization.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Revocation authority and affected materializations are reconciled."]}
+  ],
+  "initial_states":["declared"],
+  "transitions":[
+    {"transition_name":"declare","from_states":[null],"to_state":"declared","transition_class":"normal","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Workspace/Facility/provider requirements and policy are recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"validate","from_states":["declared","incompatible"],"to_state":"validated","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Compatibility, locality, isolation, capability and policy checks pass."],"required_evidence_kinds":["receipt","compatibility_decision"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"mark_incompatible","from_states":["declared","validated"],"to_state":"incompatible","transition_class":"normal","authority_classes":["ptah_control_plane","provider"],"side_effecting":false,"required_preconditions":["Failed/stale/unknown constraints are retained."],"required_evidence_kinds":["receipt","compatibility_decision"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"deprecate","from_states":["declared","validated","incompatible"],"to_state":"deprecated","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Replacement/transition policy is recorded."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"revoke","from_states":["declared","validated","incompatible","deprecated"],"to_state":"revoked","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["New materialization is blocked and affected generations are reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject",
+  "migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions":{}
+}
