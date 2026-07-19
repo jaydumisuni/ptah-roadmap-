@@ -1,0 +1,20 @@
+{
+  "state_machine_name":"provenance.trust_policy.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["provenance.trust_policy"],
+  "states":[
+    {"name":"active","description":"Policy may be selected for new verification decisions.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Trusted roots, identity rules and validity window exist."]},
+    {"name":"suspended","description":"New verification use is blocked pending investigation or update.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Suspension authority/reason exist."]},
+    {"name":"deprecated","description":"Policy remains historical and may be used only where explicitly allowed.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Replacement/migration guidance exists."]},
+    {"name":"revoked","description":"Policy is forbidden for new trust decisions; historical decisions remain.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Revocation authority, effective time and affected scope exist."]},
+    {"name":"retired","description":"Policy is closed after orderly replacement without implying compromise.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Retirement and replacement evidence exist."]}
+  ],
+  "initial_states":["active"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"active","transition_class":"normal","authority_classes":["organization_policy","trust_administrator"],"side_effecting":false,"required_preconditions":["Root/identity/transparency/offline rules are complete."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"suspend","from_states":["active","deprecated"],"to_state":"suspended","transition_class":"administrative","authority_classes":["organization_policy","trust_administrator","security_reviewer"],"side_effecting":false,"required_preconditions":["Reason and affected verification scope exist."],"required_evidence_kinds":["receipt","finding"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"reactivate","from_states":["suspended"],"to_state":"active","transition_class":"administrative","authority_classes":["organization_policy","trust_administrator"],"side_effecting":false,"required_preconditions":["Blocking condition resolved and policy re-reviewed."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"deprecate","from_states":["active","suspended"],"to_state":"deprecated","transition_class":"administrative","authority_classes":["organization_policy","trust_administrator"],"side_effecting":false,"required_preconditions":["Replacement/migration guidance exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"revoke","from_states":["active","suspended","deprecated"],"to_state":"revoked","transition_class":"administrative","authority_classes":["organization_policy","security_reviewer","trust_administrator"],"side_effecting":false,"required_preconditions":["Revocation reason/effective scope exist; affected prior decisions are discoverable."],"required_evidence_kinds":["receipt","finding","policy"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"retire","from_states":["active","suspended","deprecated"],"to_state":"retired","transition_class":"administrative","authority_classes":["organization_policy","trust_administrator"],"side_effecting":false,"required_preconditions":["Replacement is active and historical retention fixed."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
