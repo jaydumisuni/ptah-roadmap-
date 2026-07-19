@@ -1,0 +1,19 @@
+{
+  "state_machine_name": "object.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["object.object"],
+  "states": [
+    {"name":"active","description":"Logical Object may receive new immutable Revisions and relationships.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["At least one valid Object Revision exists."]},
+    {"name":"superseded","description":"Another Object is the preferred logical successor while this Object and history remain retained.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Replacement Object reference and authority are recorded."]},
+    {"name":"tombstoned","description":"Object is logically deleted/unavailable under policy while retained history and references remain.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Tombstone reason, authority, retention and replacement if any are recorded."]}
+  ],
+  "initial_states": ["active"],
+  "transitions": [
+    {"transition_name":"register","from_states":[null],"to_state":"active","transition_class":"normal","authority_classes":["caller","workspace_owner","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Canonical Object ID and first immutable Revision exist."],"required_evidence_kinds":["receipt","object_revision"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"supersede","from_states":["active","superseded"],"to_state":"superseded","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Replacement Object and reason are retained; no history is rewritten."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"tombstone","from_states":["active","superseded"],"to_state":"tombstoned","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Retention/legal-hold analysis is recorded; physical byte deletion is a separate decision."],"required_evidence_kinds":["receipt","tombstone"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
