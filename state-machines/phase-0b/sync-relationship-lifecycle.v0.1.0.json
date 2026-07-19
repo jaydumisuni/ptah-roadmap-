@@ -1,0 +1,21 @@
+{
+  "state_machine_name":"sync.relationship.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["sync.relationship"],
+  "states":[
+    {"name":"declared","description":"Sync relationship/policy exists but has not been activated.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Endpoints, direction, cursor and conflict policies exist."]},
+    {"name":"active","description":"New Sync Runs may be requested under current authority/policy.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Endpoint authority/capability validation exists."]},
+    {"name":"paused","description":"New automatic Runs are paused while relationship/history/cursors remain.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Pause reason and treatment of running work exist."]},
+    {"name":"degraded","description":"Relationship remains usable only for a reduced scope or requires rescan/manual review.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Degraded endpoints/cursor/policy limitations exist."]},
+    {"name":"revoked","description":"Relationship cannot authorize new Sync Runs.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Revocation and active-run/credential handling are reconciled."]},
+    {"name":"retired","description":"Relationship is retained historically after planned replacement/end.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["No new work/cursors are authorized and successor/retention is recorded."]}
+  ],
+  "initial_states":["declared"],
+  "transitions":[
+    {"transition_name":"declare","from_states":[null],"to_state":"declared","transition_class":"normal","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Endpoints/policies/credentials are identified."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"activate","from_states":["declared","paused","degraded"],"to_state":"active","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Endpoint authority, capability and cursor strategy are current."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"pause","from_states":["active","degraded"],"to_state":"paused","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["New Runs blocked and current work policy retained."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"degrade","from_states":["active"],"to_state":"degraded","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Cursor gap, endpoint/capability loss or policy limitation is retained."],"required_evidence_kinds":["receipt","evidence"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"revoke","from_states":["declared","active","paused","degraded"],"to_state":"revoked","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["New work blocked and credentials/running work reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"retire","from_states":["declared","paused","degraded"],"to_state":"retired","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Successor/retention and no new authority are recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
