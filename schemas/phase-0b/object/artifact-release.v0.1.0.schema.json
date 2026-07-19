@@ -10,65 +10,25 @@
   "additionalProperties": false,
   "required": ["envelope", "release_contract_version", "release_action", "artifact_ref", "included_revision_refs", "excluded_ref_reasons", "manifest_digest", "release_authority_ref", "release_policy_ref", "released_at", "public_safe_evidence_refs", "signature_or_attestation_refs", "receipt_refs", "limitations", "extensions"],
   "properties": {
-    "envelope": {
-      "allOf": [
-        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
-        { "properties": { "entity_kind": { "const": "object.artifact_release" } } }
-      ]
-    },
-    "release_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
-    "release_action": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/releaseAction" },
-    "artifact_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-    "included_revision_refs": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-      "uniqueItems": true
-    },
-    "excluded_ref_reasons": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["subject_ref", "reason"],
-        "properties": {
-          "subject_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-          "reason": { "type": "string", "minLength": 1, "maxLength": 4096 }
-        }
-      }
-    },
-    "manifest_digest": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/qualifiedDigest" },
-    "release_authority_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-    "release_policy_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-    "released_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
-    "previous_release_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-    "public_safe_evidence_refs": {
-      "type": "array",
-      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-      "uniqueItems": true
-    },
-    "signature_or_attestation_refs": {
-      "type": "array",
-      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-      "uniqueItems": true
-    },
-    "receipt_refs": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
-      "uniqueItems": true
-    },
-    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
-    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "object.artifact_release"}}}]},
+    "release_contract_version": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver"},
+    "release_action": {"$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/releaseAction"},
+    "artifact_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "included_revision_refs": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "excluded_ref_reasons": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["subject_ref", "reason"], "properties": {"subject_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "reason": {"type": "string", "minLength": 1, "maxLength": 4096}}}},
+    "manifest_digest": {"$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/qualifiedDigest"},
+    "release_authority_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "release_policy_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "released_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "previous_release_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "public_safe_evidence_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "signature_or_attestation_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "receipt_refs": {"type": "array", "minItems": 1, "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "limitations": {"$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList"},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
   },
   "allOf": [
-    {
-      "if": { "properties": { "release_action": { "enum": ["withdraw", "revoke", "supersede"] } }, "required": ["release_action"] },
-      "then": { "required": ["previous_release_ref"] }
-    },
-    {
-      "if": { "properties": { "envelope": { "properties": { "audience": { "const": "public" } } } } },
-      "then": { "properties": { "envelope": { "properties": { "privacy_class": { "const": "public" } } } }
-    }
+    {"if": {"properties": {"release_action": {"enum": ["withdraw", "revoke", "supersede"]}}, "required": ["release_action"]}, "then": {"required": ["previous_release_ref"]}},
+    {"if": {"properties": {"envelope": {"properties": {"audience": {"const": "public"}}}}}, "then": {"properties": {"envelope": {"properties": {"privacy_class": {"const": "public"}}}}}}
   ]
 }
