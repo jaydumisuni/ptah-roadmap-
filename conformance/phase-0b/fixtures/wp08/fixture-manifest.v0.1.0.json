@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:fixture-manifest:phase-0b:wp08:0.1.0",
+  "title": "Ptah Phase 0B WP08 Fixture Manifest",
+  "manifest_version": "0.1.0",
+  "status": "candidate",
+  "rules": {
+    "lawful_sources_only": true,
+    "immutable_content_digests_required": true,
+    "expected_outcomes_pinned": true,
+    "negative_and_inconclusive_results_retained": true,
+    "no_live_destructive_device_required": true
+  },
+  "cases": [
+    {
+      "case_id": "wp08-positive-detector-conflict",
+      "class": "positive",
+      "scenario": "Two detectors disagree over one exact Object Revision and Classification Decision retains both observations.",
+      "required_records": ["domain.detector_observation", "domain.classification_decision"],
+      "expected": "accepted_with_conflict_retained"
+    },
+    {
+      "case_id": "wp08-positive-polyglot",
+      "class": "positive",
+      "scenario": "One polyglot input is routed to two compatible Pack Revisions and produces separate Inventories and Views.",
+      "required_records": ["domain.pack_compatibility", "domain.operation_run", "domain.inventory"],
+      "expected": "multiple_routes_preserved"
+    },
+    {
+      "case_id": "wp08-positive-budgeted-decomposition",
+      "class": "positive",
+      "scenario": "Recursive extraction exhausts a child/depth/byte budget while retaining valid partial children and explicit unknown gaps.",
+      "required_records": ["object.decomposition_run", "domain.coverage"],
+      "expected": "partial_budget_exhausted"
+    },
+    {
+      "case_id": "wp08-negative-filename-authority",
+      "class": "negative",
+      "scenario": "Filename or extension is used as sole authoritative type evidence.",
+      "expected": "reject"
+    },
+    {
+      "case_id": "wp08-positive-parser-replacement",
+      "class": "positive",
+      "scenario": "A replacement Pack/Provider revision produces competing derived revisions without changing source Object identity.",
+      "expected": "history_preserved"
+    },
+    {
+      "case_id": "wp08-positive-disk-layout",
+      "class": "positive",
+      "scenario": "Disk Image Revision, Extent Map, partition-table copies, Partitions and Filesystem observations retain exact ranges and checks.",
+      "required_records": ["disk.image_revision", "disk.extent_map", "disk.partition_table", "disk.partition", "filesystem.observation"],
+      "expected": "valid_layout"
+    },
+    {
+      "case_id": "wp08-negative-out-of-bounds-partition",
+      "class": "negative",
+      "scenario": "A partition or extent exceeds the exact image logical size.",
+      "expected": "reject_or_failed_validation"
+    },
+    {
+      "case_id": "wp08-negative-hidden-overlap",
+      "class": "negative",
+      "scenario": "Overlapping extents are present but no overlap finding/evidence is retained.",
+      "expected": "reject"
+    },
+    {
+      "case_id": "wp08-positive-isolated-readonly-inspection",
+      "class": "positive",
+      "scenario": "Untrusted filesystem inspection uses an isolated read-only Provider and records cleanup/unmount evidence.",
+      "required_records": ["filesystem.mount_session", "filesystem.inspection_result"],
+      "expected": "verified_readonly_cleanup"
+    },
+    {
+      "case_id": "wp08-negative-readonly-upgrade",
+      "class": "negative",
+      "scenario": "A read-only inspection path attempts writable mutation without new authority and target isolation.",
+      "expected": "blocked"
+    },
+    {
+      "case_id": "wp08-positive-firmware-static-analysis",
+      "class": "positive",
+      "scenario": "Firmware Package, Manifest, Components and executable assets are inventoried without physical-write authority.",
+      "required_records": ["firmware.package", "firmware.manifest", "firmware.component", "firmware.executable_asset"],
+      "expected": "static_only"
+    },
+    {
+      "case_id": "wp08-negative-chipset-name-match",
+      "class": "negative",
+      "scenario": "Filename/model/chipset similarity alone is used to select a loader/programmer or authorize write.",
+      "expected": "blocked"
+    },
+    {
+      "case_id": "wp08-positive-destructive-with-backup",
+      "class": "positive",
+      "scenario": "Exact write compatibility, current Session/Connection/Provider context, verified immutable backup, Plan and Authorization precede mutation.",
+      "required_records": ["firmware.compatibility_result", "device.backup", "firmware.mutation_authorization", "firmware.operation"],
+      "expected": "dispatch_eligible"
+    },
+    {
+      "case_id": "wp08-negative-missing-backup",
+      "class": "negative",
+      "scenario": "A destructive operation lacks policy-required backup and has no valid scoped Mutation Exception.",
+      "expected": "blocked"
+    },
+    {
+      "case_id": "wp08-positive-scoped-mutation-exception",
+      "class": "positive",
+      "scenario": "A narrow, expiring exception records authority, exact ranges, reason and compensating controls.",
+      "required_records": ["device.mutation_exception"],
+      "expected": "conditional_authorization"
+    },
+    {
+      "case_id": "wp08-negative-stale-connection",
+      "class": "negative",
+      "scenario": "A mutation or completion uses an old connection epoch or Provider generation after re-enumeration/restart.",
+      "expected": "fenced"
+    },
+    {
+      "case_id": "wp08-negative-attempt-reuse",
+      "class": "negative",
+      "scenario": "A physical retry reuses the previous Attempt identity or nonce.",
+      "expected": "reject"
+    },
+    {
+      "case_id": "wp08-negative-ack-as-success",
+      "class": "negative",
+      "scenario": "Handshake, loader acceptance, service return or write acknowledgement is promoted to verified success without read-back.",
+      "expected": "inconclusive_or_fail"
+    },
+    {
+      "case_id": "wp08-positive-readback-verification",
+      "class": "positive",
+      "scenario": "Exact critical ranges are read back and compared under the immutable Operation Plan.",
+      "required_records": ["firmware.protocol_stage_observation", "firmware.operation_verification"],
+      "expected": "verified_success"
+    },
+    {
+      "case_id": "wp08-positive-disconnect-recovery",
+      "class": "positive",
+      "scenario": "Disconnect during non-idempotent write creates uncertain outcome, preserves partial evidence and performs explicit recovery/reconciliation.",
+      "required_records": ["device.operation_recovery"],
+      "expected": "uncertain_reconciled"
+    },
+    {
+      "case_id": "wp08-negative-blind-retry-after-disconnect",
+      "class": "negative",
+      "scenario": "A non-idempotent write is retried before reconciliation after transport loss.",
+      "expected": "blocked"
+    },
+    {
+      "case_id": "wp08-positive-independent-stream-health",
+      "class": "positive",
+      "scenario": "Video Stream fails while shell/log Streams and Device Session remain available with degraded scope.",
+      "required_records": ["device.stream", "device.stream_observation", "device.session_capability_snapshot"],
+      "expected": "degraded_not_failed"
+    },
+    {
+      "case_id": "wp08-negative-stale-screen-context",
+      "class": "negative",
+      "scenario": "A Screen Context from an old display/connection epoch is used as current semantic state.",
+      "expected": "reject"
+    },
+    {
+      "case_id": "wp08-negative-sensitive-export",
+      "class": "negative",
+      "scenario": "Raw key, credential, protected identifier or calibration data appears in a public/ordinary record.",
+      "expected": "reject_and_redact"
+    },
+    {
+      "case_id": "wp08-positive-backend-replacement",
+      "class": "positive",
+      "scenario": "Parser, mount, transport or flasher backend replacement preserves canonical Object/Pack/Device and proof history.",
+      "expected": "stable_identity_new_generation"
+    }
+  ],
+  "extensions": {}
+}
