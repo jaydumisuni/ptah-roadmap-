@@ -1,0 +1,26 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:application:application-recovery-verification:0.1.0",
+  "title":"Ptah Application Recovery Verification",
+  "x-ptah-schema-name":"application.application-recovery-verification","x-ptah-schema-version":"0.1.0","x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","restore_run_ref","application_session_ref","new_provider_generation","verification_protocol_ref","checks","decision","verified_at","activity_ref","operation_ref","attempt_ref","evidence_refs","receipt_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"application.recovery_verification"}}}]},
+    "restore_run_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "application_checkpoint_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "application_session_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "new_provider_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "verification_protocol_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "checks":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["check","result","evidence_refs"],"properties":{"check":{"type":"string","enum":["process_identity","process_readiness","window_recreated","display_available","semantic_reacquired","application_api_ready","file_state","database_state","network_or_external_effect","functional_postcondition","other_registered"]},"result":{"type":"string","enum":["passed","passed_with_limitations","failed","inconclusive","not_applicable","blocked"]},"evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}}}}},
+    "decision":{"type":"string","enum":["recovered","recovered_with_limitations","runtime_restored_not_application_recovered","failed","inconclusive","blocked"]},
+    "verified_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "activity_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "operation_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "attempt_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "receipt_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
