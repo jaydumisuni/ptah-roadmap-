@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:revision:0.1.0",
+  "title": "Ptah Object Revision",
+  "description": "One immutable version of one logical Object, bound to exact Content and production evidence.",
+  "x-ptah-schema-name": "object.revision",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "revision_contract_version", "object_ref", "revision_number", "revision_role", "origin_class", "parent_revision_refs", "content_ref", "source_refs", "production_correlation", "created_reason", "verification_receipt_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.revision" } } }
+      ]
+    },
+    "revision_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "object_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "revision_number": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger" },
+    "revision_role": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/revisionRole" },
+    "origin_class": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/originClass" },
+    "parent_revision_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "content_ref": {
+      "oneOf": [
+        { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+        { "type": "null" }
+      ]
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "captured_metadata": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "production_correlation": {
+      "oneOf": [
+        { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/productionCorrelation" },
+        { "type": "null" }
+      ]
+    },
+    "created_reason": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "verification_receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "superseded_by_revision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "revision_role": { "const": "tombstone" } }, "required": ["revision_role"] },
+      "then": { "properties": { "content_ref": { "type": "null" } } },
+      "else": { "properties": { "content_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" } } }
+    }
+  ]
+}
