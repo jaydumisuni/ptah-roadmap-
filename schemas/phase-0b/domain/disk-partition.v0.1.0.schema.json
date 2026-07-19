@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:disk-partition:0.1.0",
+  "title":"Ptah Disk Partition",
+  "x-ptah-schema-name":"domain.disk-partition","x-ptah-schema-version":"0.1.0","x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","partition_table_ref","disk_image_revision_ref","partition_index","byte_range","type_claims","attributes","evidence_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"disk.partition"}}}]},"partition_table_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"disk_image_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"partition_index":{"type":"integer","minimum":0},"number_or_slot":{"type":"string","maxLength":128},"name_claim":{"type":"string","maxLength":512},"unique_guid_or_id_claim":{"type":"string","maxLength":512},"type_claims":{"type":"array","minItems":1,"items":{"type":"string","maxLength":512},"uniqueItems":true},"byte_range":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/byteRange"},"lba_start":{"type":"integer","minimum":0},"lba_count":{"type":"integer","minimum":0},"lun_or_group_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"logical_extent_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"attributes":{"type":"object","additionalProperties":{"type":["string","integer","boolean","number"]}},"filesystem_observation_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"child_object_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"relationship_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},"extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
