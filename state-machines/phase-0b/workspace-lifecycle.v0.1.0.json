@@ -1,0 +1,22 @@
+{
+  "state_machine_name": "workspace.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.workspace"],
+  "states": [
+    {"name":"active","description":"Workspace may accept ordinary authorized work whether or not any runtime materialization exists.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Workspace identity, current revision, owner and policies exist."]},
+    {"name":"suspended","description":"Ordinary new mutation/materialization is blocked while identity and history remain retained.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Suspension authority, reason and handling of active work are recorded."]},
+    {"name":"archived","description":"Workspace is retained for reference/export/recovery and normally has no running materialization.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Archive scope, retention and active-work disposition are recorded."]},
+    {"name":"retired","description":"Workspace identity/history remains but ordinary reactivation is not permitted without successor/import authority.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["No active ordinary authority remains and successor/retention policy is recorded."]}
+  ],
+  "initial_states": ["active"],
+  "transitions": [
+    {"transition_name":"create","from_states":[null],"to_state":"active","transition_class":"normal","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Canonical Workspace identity, owner and initial Workspace Revision are durable."],"required_evidence_kinds":["receipt","workspace_revision"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"suspend","from_states":["active"],"to_state":"suspended","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["New work is blocked and active Activities/Sessions/materializations have an explicit policy."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"reactivate","from_states":["suspended","archived"],"to_state":"active","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Membership/policy/current revision remain valid; runtime recovery is not implied."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"archive","from_states":["active","suspended"],"to_state":"archived","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Runtime materializations and active work are stopped, transferred or explicitly excepted; retention/export scope is recorded."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"retire","from_states":["suspended","archived"],"to_state":"retired","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["No active ordinary authority remains and successor/retention/deletion policy is recorded."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
