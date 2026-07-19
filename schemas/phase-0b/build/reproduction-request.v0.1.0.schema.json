@@ -1,0 +1,27 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:reproduction-request:0.1.0",
+  "title":"Ptah Build Reproduction Request",
+  "x-ptah-schema-name":"build.reproduction-request",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","lifecycle","original_build_run_ref","recipe_revision_ref","comparison_protocol_ref","independence_requirements","cache_policy","requested_by_ref","requested_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"provenance.reproduction_request"}}}]},
+    "lifecycle":{"$ref":"urn:ptah:schema:build:definitions:0.1.0#/$defs/stateProjection"},
+    "original_build_run_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "recipe_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "compatible_migrated_recipe_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "comparison_protocol_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "independence_requirements":{"type":"array","minItems":1,"items":{"type":"string","enum":["different_node","different_provider_instance","different_provider_implementation","different_backend","different_operator","cache_disabled","fresh_source_resolution","other_registered"]},"uniqueItems":true},
+    "target_platform_constraints":{"type":"array","items":{"type":"string","minLength":1,"maxLength":256},"uniqueItems":true},
+    "cache_policy":{"type":"string","enum":["disabled","only_verified_source_cache","same_backend_forbidden","declared_and_compared","other_registered"]},
+    "requested_by_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "requested_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "policy_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
