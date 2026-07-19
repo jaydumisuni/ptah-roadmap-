@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:detector-observation:0.1.0",
+  "title": "Ptah Detector Observation",
+  "description": "One immutable detector/type/structure claim over an exact Object Revision.",
+  "x-ptah-schema-name": "object.detector-observation",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "observation_contract_version", "revision_ref", "detector_ref", "detector_version", "outcome", "claimed_types", "evidence_classes", "confidence_class", "locators", "production_correlation", "coverage", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.detector_observation" } } }
+      ]
+    },
+    "observation_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "revision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "detector_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "detector_version": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "detector_feature_set": { "type": "string", "maxLength": 512 },
+    "outcome": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/detectorOutcome" },
+    "claimed_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type_name"],
+        "properties": {
+          "type_name": { "type": "string", "minLength": 1, "maxLength": 512 },
+          "subtype": { "type": "string", "maxLength": 512 },
+          "media_type": { "type": "string", "maxLength": 512 }
+        }
+      }
+    },
+    "evidence_classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/detectorEvidenceClass" },
+      "uniqueItems": true
+    },
+    "confidence_class": { "type": "string", "enum": ["none", "low", "medium", "high", "detector_specific", "not_applicable"] },
+    "confidence_value": { "type": "number" },
+    "evidence_summary": { "type": "string", "maxLength": 8192 },
+    "filename_or_metadata_hints_used": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "locators": { "type": "array", "items": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/locator" } },
+    "production_correlation": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/productionCorrelation" },
+    "coverage": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/coverage" },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
