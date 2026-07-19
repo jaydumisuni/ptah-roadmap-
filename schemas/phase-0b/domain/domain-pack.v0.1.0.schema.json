@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:domain-pack:0.1.0",
+  "title":"Ptah Domain Pack",
+  "x-ptah-schema-name":"domain.domain-pack",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","lifecycle","pack_key","name","summary","current_revision_ref","revision_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"domain.pack"}}}]},
+    "lifecycle":{"$ref":"urn:ptah:schema:domain:definitions:0.1.0#/$defs/stateProjection"},
+    "pack_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},
+    "name":{"type":"string","minLength":1,"maxLength":256},
+    "summary":{"type":"string","minLength":1,"maxLength":4096},
+    "domain_classes":{"type":"array","items":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},"uniqueItems":true},
+    "current_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "revision_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "replacement_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
