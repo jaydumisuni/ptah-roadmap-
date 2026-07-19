@@ -1,0 +1,29 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:transfer:sync-conflict-resolution:0.1.0",
+  "title":"Ptah Sync Conflict Resolution",
+  "x-ptah-schema-name":"transfer.sync-conflict-resolution",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","conflict_ref","resolution_kind","authority_ref","policy_ref","decided_at","selected_or_created_subject_refs","evidence_refs","receipt_refs","limitations","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"sync.conflict_resolution"}}}]},
+    "conflict_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "resolution_kind":{"$ref":"urn:ptah:schema:transfer:definitions:0.1.0#/$defs/conflictResolutionKind"},
+    "authority_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "decided_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "selected_or_created_subject_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "parent_revision_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "tombstone_or_rename_mapping_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "followup_transfer_or_sync_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "receipt_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf":[
+    {"if":{"properties":{"resolution_kind":{"const":"create_merged_revision"}},"required":["resolution_kind"]},"then":{"properties":{"parent_revision_refs":{"minItems":2},"selected_or_created_subject_refs":{"minItems":1}}}}
+  ]
+}
