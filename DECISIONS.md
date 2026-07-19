@@ -218,4 +218,7 @@ Full decision: `decisions/ADR-0023-TRANSFER-SYNC-CONFLICT-BACKUP-RESTORE-BOUNDAR
 
 **ACCEPTED.** `ptah.build` / `ptah.provenance` catalog `0.1.1` separates Recipe/Revision/Proposal/Acceptance/Readiness/Compatibility/Plan/Run/Step, cache and secret evidence, produced output identity, SBOM coverage, attestation/signature creation and verification, trust/transparency policy, proof domains and independent reproduction. `build_completed`, a cache hit, a signed statement or a Proof Bundle cannot become release acceptance.
 
-Full decision: `decisions/ADR-0024-RECIPE-BUILD-PROVENANCE-SBOM-SIGNATURE-VERIFICATION-BOUNDARY.md`.
+Full decisions:
+
+- `decisions/ADR-0024-RECIPE-BUILD-PROVENANCE-SBOM-SIGNATURE-VERIFICATION-BOUNDARY.md`;
+- `decisions/ADR-0024A-WP07-FINAL-CATALOG-CONVENTIONS-CORRECTION.md`.
