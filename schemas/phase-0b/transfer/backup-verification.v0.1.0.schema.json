@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:transfer:backup-verification:0.1.0",
+  "title":"Ptah Backup Verification",
+  "x-ptah-schema-name":"transfer.backup-verification","x-ptah-schema-version":"0.1.0","x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","backup_snapshot_ref","verification_state","protocol_ref","activity_ref","operation_ref","attempt_ref","domain_results","observed_at","valid_until","receipt_refs","limitations","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"backup.verification"}}}]},
+    "backup_snapshot_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "verification_state":{"type":"string","enum":["verified","partial","failed","inconclusive"]},
+    "protocol_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "activity_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "operation_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "attempt_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "domain_results":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["domain","result","evidence_refs"],"properties":{"domain":{"type":"string","enum":["manifest_valid","repository_index_valid","chunk_digest_valid","sampled_readback","full_readback","decryption_test","metadata_relationship_validation","retention_policy_validation","independent_copy_present"]},"result":{"type":"string","enum":["passed","failed","partial","not_performed","unknown"]},"sample_scope":{"type":"string","maxLength":4096},"evidence_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"limitations":{"type":"array","items":{"type":"string","maxLength":4096}}}}},
+    "observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "receipt_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "evidence_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
