@@ -1,0 +1,22 @@
+{
+  "state_machine_name": "workspace.membership.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.workspace_membership"],
+  "states": [
+    {"name":"active","description":"Membership grants its declared scoped authority.","terminal":false,"proof_dimension":"authority","entry_requirements":["Issuer, member, scope, role and policy are valid."]},
+    {"name":"suspended","description":"Membership authority is temporarily blocked while history remains.","terminal":false,"proof_dimension":"authority","entry_requirements":["Suspension authority/reason are recorded."]},
+    {"name":"revoked","description":"Membership authority is permanently withdrawn for this record.","terminal":true,"proof_dimension":"authority","entry_requirements":["Revocation authority/time/reason are recorded."]},
+    {"name":"expired","description":"Membership authority ended by declared expiry.","terminal":true,"proof_dimension":"authority","entry_requirements":["Expiry time is reached and projection is reconciled."]}
+  ],
+  "initial_states": ["active"],
+  "transitions": [
+    {"transition_name":"issue","from_states":[null],"to_state":"active","transition_class":"normal","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Issuer is authorized and scope/policy are valid."],"required_evidence_kinds":["receipt","approval"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"suspend","from_states":["active"],"to_state":"suspended","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Affected control leases/grants are handled."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"resume","from_states":["suspended"],"to_state":"active","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Membership and policy remain current."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"revoke","from_states":["active","suspended"],"to_state":"revoked","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Control leases/grants and active sensitive attachments are revoked/fenced."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"expire","from_states":["active","suspended"],"to_state":"expired","transition_class":"normal","authority_classes":["ptah_control_plane"],"side_effecting":true,"required_preconditions":["Declared expiry reached; leases/grants are reconciled."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject",
+  "migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions":{}
+}
