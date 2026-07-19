@@ -40,7 +40,7 @@ Examples:
 - `location_ref` requires `storage.location`;
 - `artifact_ref` requires `object.artifact`;
 - `release_ref` requires `object.artifact_release`;
-- production correlation uses WP02 kinds such as `activity.activity`, `activity.operation`, `activity.attempt` and `proof.receipt`.
+- production correlation uses WP02 kinds such as `core.activity`, `core.operation`, `core.attempt` and `proof.receipt`.
 
 Structural JSON Schema cannot enforce every cross-document kind constraint by itself. The WP13 executable harness must enforce them through the entity-kind registry and schema catalog.
 
