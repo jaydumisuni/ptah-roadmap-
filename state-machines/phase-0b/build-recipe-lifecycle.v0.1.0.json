@@ -1,0 +1,18 @@
+{
+  "state_machine_name":"build.recipe.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["build.recipe"],
+  "states":[
+    {"name":"active","description":"Recipe may receive proposals/revisions and be selected under policy.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Current Recipe Revision exists."]},
+    {"name":"suspended","description":"New acceptance/execution is blocked while history remains.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Suspension authority and reason exist."]},
+    {"name":"deprecated","description":"Recipe remains readable/executable only where policy permits; replacement may exist.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Deprecation reason and migration/replacement guidance exist."]},
+    {"name":"retired","description":"Recipe cannot receive ordinary new execution; history is retained.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Retirement authority and retention evidence exist."]}
+  ],
+  "initial_states":["active"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"active","transition_class":"normal","authority_classes":["workspace_owner","organization_policy"],"side_effecting":false,"required_preconditions":["Initial Recipe Revision exists."],"required_evidence_kinds":["receipt","recipe_revision"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"suspend","from_states":["active","deprecated"],"to_state":"suspended","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy"],"side_effecting":false,"required_preconditions":["Reason and affected scope exist."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"reactivate","from_states":["suspended"],"to_state":"active","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy"],"side_effecting":false,"required_preconditions":["Blocking condition resolved and current Revision reviewed."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"deprecate","from_states":["active","suspended"],"to_state":"deprecated","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy"],"side_effecting":false,"required_preconditions":["Reason and replacement/migration guidance recorded."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"retire","from_states":["active","suspended","deprecated"],"to_state":"retired","transition_class":"administrative","authority_classes":["workspace_owner","organization_policy"],"side_effecting":false,"required_preconditions":["No ordinary new execution remains authorized and retention is fixed."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
