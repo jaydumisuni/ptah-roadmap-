@@ -1,0 +1,46 @@
+{
+  "catalog_id": "urn:ptah:schema-catalog:runtime:0.1.0",
+  "catalog_version": "0.1.0",
+  "maturity": "candidate",
+  "created_at": "2026-07-19T00:00:00Z",
+  "dependencies": [
+    {"catalog_id":"urn:ptah:schema-catalog:common:0.1.0","required_version":"0.1.0"},
+    {"catalog_id":"urn:ptah:schema-catalog:activity:0.1.1","required_version":"0.1.1"},
+    {"catalog_id":"urn:ptah:schema-catalog:object:0.1.0","required_version":"0.1.0"}
+  ],
+  "resolution_policy": {
+    "canonical_id_type": "absolute_urn",
+    "unknown_schema": "reject_or_preserve_without_interpretation",
+    "network_resolution_required": false,
+    "frozen_schema_mutation": "forbidden"
+  },
+  "schemas": [
+    {"schema_id":"urn:ptah:schema:runtime:definitions:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/definitions.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:node:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/node.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:node-enrollment:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/node-enrollment.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:node-observation:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/node-observation.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:node-capability-snapshot:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/node-capability-snapshot.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:node-resource-snapshot:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/node-resource-snapshot.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:capability:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/capability.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:capability-claim:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/capability-claim.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:capability-verification:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/capability-verification.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:capability-availability:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/capability-availability.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:facility:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/facility.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:facility-revision:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/facility-revision.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:facility-instance:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/facility-instance.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:provider:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/provider.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:provider-revision:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/provider-revision.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:provider-instance:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/provider-instance.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:provider-observation:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/provider-observation.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:provider-capability-snapshot:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/provider-capability-snapshot.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:runtime:dispatch-eligibility:0.1.0","schema_version":"0.1.0","maturity":"candidate","repository_path":"schemas/phase-0b/runtime/dispatch-eligibility.v0.1.0.schema.json"}
+  ],
+  "state_machines": [
+    {"name":"node.enrollment.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/node-enrollment-lifecycle.v0.1.0.json"},
+    {"name":"node.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/node-lifecycle.v0.1.0.json"},
+    {"name":"facility.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/facility-lifecycle.v0.1.0.json"},
+    {"name":"facility.instance.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/facility-instance-lifecycle.v0.1.0.json"},
+    {"name":"provider.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/provider-lifecycle.v0.1.0.json"},
+    {"name":"provider.instance.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/provider-instance-lifecycle.v0.1.0.json"}
+  ]
+}
