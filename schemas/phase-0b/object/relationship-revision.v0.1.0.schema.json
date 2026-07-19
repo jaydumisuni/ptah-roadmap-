@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:relationship-revision:0.1.0",
+  "title": "Ptah Relationship Revision",
+  "description": "Immutable relationship endpoints, type, locator, provenance and coverage.",
+  "x-ptah-schema-name": "core.relationship-revision",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "relationship_revision_contract_version", "relationship_ref", "revision_number", "subject_refs", "relationship_type", "object_refs", "locators", "coverage", "production_correlation", "confidence_class", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.relationship_revision" } } }
+      ]
+    },
+    "relationship_revision_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "relationship_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "revision_number": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger" },
+    "subject_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "relationship_type": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "object_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "direction_class": { "type": "string", "enum": ["subject_to_object", "symmetric", "ordered_set"] },
+    "locators": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/locator" }
+    },
+    "coverage": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/coverage" },
+    "production_correlation": {
+      "oneOf": [
+        { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/productionCorrelation" },
+        { "type": "null" }
+      ]
+    },
+    "confidence_class": { "type": "string", "enum": ["not_applicable", "low", "medium", "high", "verified", "disputed"] },
+    "effective_from": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "effective_until": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "supersedes_revision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
