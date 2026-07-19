@@ -7,15 +7,16 @@
   "x-ptah-maturity": "candidate",
   "type": "object",
   "additionalProperties": false,
-  "required": ["envelope", "provider_instance_ref", "provider_revision_ref", "provider_generation", "node_ref", "node_generation", "connection_epoch", "observed_at", "valid_until", "snapshot_outcome", "capability_availability_refs", "operation_availability", "dependency_states", "observation_refs", "limitations", "extensions"],
+  "required": ["envelope", "provider_instance_ref", "provider_revision_ref", "provider_generation", "connection_epoch", "observed_at", "valid_until", "snapshot_outcome", "capability_availability_refs", "operation_availability", "dependency_states", "observation_refs", "limitations", "extensions"],
   "properties": {
     "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "runtime.provider_capability_snapshot"}}}]},
     "provider_instance_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "provider_revision_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "provider_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "connection_epoch": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
     "node_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "node_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
-    "connection_epoch": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "remote_service_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "observed_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
     "valid_until": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
     "snapshot_outcome": {"type": "string", "enum": ["complete", "partial", "failed"]},
@@ -27,5 +28,11 @@
     "errors": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
     "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
     "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
-  }
+  },
+  "allOf": [
+    {"oneOf": [
+      {"required": ["node_ref", "node_generation"], "not": {"required": ["remote_service_ref"]}},
+      {"required": ["remote_service_ref"], "not": {"anyOf": [{"required": ["node_ref"]}, {"required": ["node_generation"]}]}}
+    ]}
+  ]
 }
