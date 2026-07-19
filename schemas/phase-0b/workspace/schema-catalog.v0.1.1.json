@@ -1,0 +1,59 @@
+{
+  "catalog_id": "urn:ptah:schema-catalog:workspace:0.1.1",
+  "catalog_version": "0.1.1",
+  "maturity": "candidate",
+  "created_at": "2026-07-19T00:00:00Z",
+  "supersedes_catalog_id": "urn:ptah:schema-catalog:workspace:0.1.0",
+  "change_summary": "Adds the durable Workspace outbox, reconnect cursor and Workspace import package records omitted from the first catalog; retains the neutral Session lifecycle as canonical.",
+  "dependencies": [
+    {"catalog_id":"urn:ptah:schema-catalog:common:0.1.0","required_version":"0.1.0"},
+    {"catalog_id":"urn:ptah:schema-catalog:activity:0.1.1","required_version":"0.1.1"},
+    {"catalog_id":"urn:ptah:schema-catalog:object:0.1.0","required_version":"0.1.0"},
+    {"catalog_id":"urn:ptah:schema-catalog:runtime:0.1.2","required_version":"0.1.2"}
+  ],
+  "resolution_policy": {
+    "canonical_id_type": "absolute_urn",
+    "unknown_schema": "reject_or_preserve_without_interpretation",
+    "network_resolution_required": false,
+    "frozen_schema_mutation": "forbidden"
+  },
+  "schemas": [
+    {"schema_id":"urn:ptah:schema:workspace:definitions:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/definitions.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-revision:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-revision.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-membership:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-membership.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-provider-binding:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-provider-binding.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-materialization:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-materialization.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-journal-entry:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-journal-entry.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-outbox-entry:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-outbox-entry.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:reconnect-cursor:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/reconnect-cursor.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-export:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-export.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-import:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-import.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:workspace-import-decision:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/workspace-import-decision.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:session:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/session.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:session-attachment:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/session-attachment.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:checkpoint-request:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/checkpoint-request.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:checkpoint-component:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/checkpoint-component.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:checkpoint-bundle:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/checkpoint-bundle.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:checkpoint-verification:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/checkpoint-verification.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:restore-request:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/restore-request.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:restore-compatibility:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/restore-compatibility.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:restore-run:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/restore-run.v0.1.0.schema.json"},
+    {"schema_id":"urn:ptah:schema:workspace:recovery-verification:0.1.0","schema_version":"0.1.0","repository_path":"schemas/phase-0b/workspace/recovery-verification.v0.1.0.schema.json"}
+  ],
+  "state_machines": [
+    {"name":"workspace.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/workspace-lifecycle.v0.1.0.json"},
+    {"name":"workspace.membership.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/workspace-membership-lifecycle.v0.1.0.json"},
+    {"name":"workspace.provider_binding.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/workspace-provider-binding-lifecycle.v0.1.0.json"},
+    {"name":"workspace.materialization.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/workspace-materialization-lifecycle.v0.1.0.json"},
+    {"name":"session.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/session-lifecycle.v0.1.0.json"},
+    {"name":"session.attachment.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/session-attachment-lifecycle.v0.1.0.json"},
+    {"name":"checkpoint.request.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/checkpoint-request-lifecycle.v0.1.0.json"},
+    {"name":"restore.request.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/restore-request-lifecycle.v0.1.0.json"},
+    {"name":"restore.run.lifecycle","version":"0.1.0","repository_path":"state-machines/phase-0b/restore-run-lifecycle.v0.1.0.json"}
+  ],
+  "superseded_candidate_records": [
+    {"catalog_id":"urn:ptah:schema-catalog:workspace:0.1.0","reason":"omitted outbox, reconnect cursor and Workspace import package schemas"},
+    {"repository_path":"state-machines/phase-0b/workspace-session-lifecycle.v0.1.0.json","reason":"competed with neutral session.lifecycle for the same runtime.session entity kind; file removed"}
+  ]
+}
