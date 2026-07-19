@@ -1,0 +1,26 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:device-session-capability-snapshot:0.1.1",
+  "title":"Ptah Device Session Capability Snapshot",
+  "description":"Corrected capability snapshot preserving per-interface Connection epoch and Provider revision/generation evidence.",
+  "x-ptah-schema-name":"domain.device-session-capability-snapshot",
+  "x-ptah-schema-version":"0.1.1",
+  "x-ptah-maturity":"candidate",
+  "x-ptah-supersedes":"urn:ptah:schema:domain:device-session-capability-snapshot:0.1.0",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","device_session_ref","device_ref","device_profile_revision_ref","connection_bindings","capability_entries","observed_at","valid_until","evidence_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"device.session_capability_snapshot"}}}]},
+    "device_session_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "device_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "device_profile_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "connection_bindings":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["binding_key","interface_ref","connection_ref","connection_epoch","provider_revision_ref","provider_instance_ref","provider_generation","provider_capability_snapshot_ref"],"properties":{"binding_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},"interface_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"connection_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"connection_epoch":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},"provider_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"provider_instance_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"provider_generation":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},"provider_capability_snapshot_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}}}}},
+    "capability_entries":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["capability_ref","availability","binding_keys","evidence_refs"],"properties":{"capability_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"availability":{"type":"string","enum":["available","degraded","blocked","unavailable","unknown"]},"binding_keys":{"type":"array","minItems":1,"items":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},"uniqueItems":true},"scope":{"type":"array","items":{"type":"string","maxLength":512},"uniqueItems":true},"condition_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}}}}},
+    "observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
