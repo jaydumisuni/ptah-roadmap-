@@ -1,0 +1,20 @@
+{
+  "state_machine_name":"build.cache_record.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["build.cache_record"],
+  "states":[
+    {"name":"available","description":"Cache bytes/metadata are available for fresh eligibility decisions.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Producer and verification evidence exist."]},
+    {"name":"stale","description":"Cache remains historical but is not ordinarily eligible for reuse.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Staleness reason and affected identity dimension exist."]},
+    {"name":"quarantined","description":"Cache is isolated because integrity, privacy or provenance is disputed.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Quarantine reason/evidence exist."]},
+    {"name":"evicted","description":"Reusable bytes were removed while canonical provenance/history remains.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Eviction and post-delete evidence exist."]},
+    {"name":"revoked","description":"Reuse is forbidden by authority/policy even if bytes remain.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Revocation authority and scope exist."]}
+  ],
+  "initial_states":["available"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"available","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Producer identity, exact inputs/output and verification exist."],"required_evidence_kinds":["receipt","object_revision"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"mark_stale","from_states":["available","quarantined"],"to_state":"stale","transition_class":"normal","authority_classes":["ptah_control_plane","organization_policy"],"side_effecting":false,"required_preconditions":["Input/toolchain/environment/policy/generation drift is recorded."],"required_evidence_kinds":["receipt","verification"],"required_receipt_proof_levels":[]},
+    {"transition_name":"quarantine","from_states":["available","stale"],"to_state":"quarantined","transition_class":"administrative","authority_classes":["ptah_control_plane","security_reviewer","organization_policy"],"side_effecting":false,"required_preconditions":["Integrity/privacy/provenance concern exists."],"required_evidence_kinds":["receipt","finding"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"restore_available","from_states":["stale","quarantined"],"to_state":"available","transition_class":"normal","authority_classes":["ptah_control_plane","organization_policy"],"side_effecting":false,"required_preconditions":["Fresh validation resolves the blocking condition."],"required_evidence_kinds":["receipt","verification"],"required_receipt_proof_levels":["output_verified"]},
+    {"transition_name":"evict","from_states":["available","stale","quarantined"],"to_state":"evicted","transition_class":"administrative","authority_classes":["ptah_control_plane","storage_policy"],"side_effecting":true,"required_preconditions":["Canonical Object/Artifact/Receipt records remain and deletion policy permits byte removal."],"required_evidence_kinds":["receipt","deletion_verification"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"revoke","from_states":["available","stale","quarantined"],"to_state":"revoked","transition_class":"administrative","authority_classes":["organization_policy","security_reviewer"],"side_effecting":false,"required_preconditions":["Revocation scope and reason exist."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["accepted"]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
