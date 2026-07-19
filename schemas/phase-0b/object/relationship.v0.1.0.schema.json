@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:relationship:0.1.0",
+  "title": "Ptah Relationship Identity",
+  "description": "Stable identity and current projection for a first-class Ptah relationship.",
+  "x-ptah-schema-name": "core.relationship",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "relationship_contract_version", "current_revision_ref", "revision_refs", "lifecycle", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "core.relationship" } } }
+      ]
+    },
+    "relationship_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "current_revision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "revision_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "lifecycle": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stateProjection" },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
