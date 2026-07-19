@@ -1,0 +1,21 @@
+{
+  "state_machine_name": "facility.lifecycle",
+  "state_machine_version": "0.1.0",
+  "subject_entity_kinds": ["core.facility"],
+  "states": [
+    {"name":"draft","description":"Facility contract exists but is not approved for use.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Owning authority and initial contract revision are recorded."]},
+    {"name":"active","description":"Facility contract is approved for compatible Provider implementations.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Approved immutable Facility Revision and policy are recorded."]},
+    {"name":"deprecated","description":"Facility remains readable/usable under policy while a replacement or retirement path is preferred.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Deprecation reason, replacement guidance and compatibility window are recorded."]},
+    {"name":"retired","description":"No new Facility Instances or dispatches may be created; history remains retained.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Replacement/retention policy and active-instance reconciliation are recorded."]}
+  ],
+  "initial_states": ["draft"],
+  "transitions": [
+    {"transition_name":"register_draft","from_states":[null],"to_state":"draft","transition_class":"normal","authority_classes":["facility_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Stable Facility identity and first immutable Revision exist."],"required_evidence_kinds":["receipt","facility_revision"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"activate","from_states":["draft","deprecated"],"to_state":"active","transition_class":"administrative","authority_classes":["facility_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Contract review, compatibility and proof requirements are approved."],"required_evidence_kinds":["receipt","review","verdict"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"deprecate","from_states":["active"],"to_state":"deprecated","transition_class":"administrative","authority_classes":["facility_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Reason, replacement and compatibility/expiry policy are recorded."],"required_evidence_kinds":["receipt","policy"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"retire","from_states":["draft","active","deprecated"],"to_state":"retired","transition_class":"administrative","authority_classes":["facility_owner","organization_policy","ptah_control_plane"],"side_effecting":false,"required_preconditions":["New use is blocked; active instances and retained history are reconciled."],"required_evidence_kinds":["receipt","reconciliation"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy": "reject",
+  "migration_policy": {"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},
+  "extensions": {}
+}
