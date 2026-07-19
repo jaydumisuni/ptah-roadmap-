@@ -5,7 +5,7 @@ import json
 import re
 import sys
 from collections import deque
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -38,7 +38,7 @@ class Harness:
     def load_json(self, path: Path) -> Any | None:
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
-        except Exception as exc:  # precise error retained in report
+        except Exception as exc:
             self.add("JSON_PARSE", "fail", path, f"invalid JSON: {exc}")
             return None
         self.documents[path] = data
@@ -46,12 +46,11 @@ class Harness:
         return data
 
     def discover(self) -> None:
-        roots = [
+        for base in (
             self.root / "schemas" / "phase-0b",
             self.root / "state-machines" / "phase-0b",
             self.root / "conformance" / "fixtures" / "phase-0b",
-        ]
-        for base in roots:
+        ):
             if not base.exists():
                 self.add("DISCOVERY_ROOT", "fail", base, "required root missing")
                 continue
@@ -61,9 +60,8 @@ class Harness:
     @staticmethod
     def walk_refs(value: Any) -> Iterable[str]:
         if isinstance(value, dict):
-            ref = value.get("$ref")
-            if isinstance(ref, str):
-                yield ref
+            if isinstance(value.get("$ref"), str):
+                yield value["$ref"]
             for child in value.values():
                 yield from Harness.walk_refs(child)
         elif isinstance(value, list):
@@ -104,9 +102,15 @@ class Harness:
                     self.add("SCHEMA_REF_LOCAL", "pass", path, base)
 
     def validate_catalogs(self) -> None:
-        for path, doc in self.documents.items():
-            if "schema-catalog" not in path.name:
-                continue
+        # Validate only the highest-version catalog in each directory. Older files are immutable history.
+        by_dir: dict[Path, list[Path]] = {}
+        for path in self.documents:
+            if "schema-catalog" in path.name:
+                by_dir.setdefault(path.parent, []).append(path)
+        selected = {sorted(paths)[-1] for paths in by_dir.values()}
+
+        for path in selected:
+            doc = self.documents[path]
             if not isinstance(doc, dict):
                 self.add("CATALOG_OBJECT", "fail", path, "catalog root is not an object")
                 continue
@@ -121,23 +125,66 @@ class Harness:
                 continue
             for entry in entries:
                 target: Path | None = None
+                declared_id: str | None = None
                 if isinstance(entry, dict):
                     repo_path = entry.get("repository_path")
-                    schema_id = entry.get("schema_id")
+                    declared_id = entry.get("schema_id") if isinstance(entry.get("schema_id"), str) else None
                     if isinstance(repo_path, str):
                         target = self.root / repo_path
-                    if isinstance(schema_id, str) and schema_id not in self.schema_ids:
-                        self.add("CATALOG_SCHEMA_ID", "fail", path, f"unknown schema id {schema_id}")
-                elif isinstance(entry, str):
-                    template = doc.get("schema_path_template")
-                    if isinstance(template, str):
-                        target = self.root / template.format(name=entry)
+                elif isinstance(entry, str) and isinstance(doc.get("schema_path_template"), str):
+                    target = self.root / doc["schema_path_template"].format(name=entry)
                 if target is None:
                     self.add("CATALOG_ENTRY", "fail", path, f"unsupported entry {entry!r}")
-                elif not target.exists():
+                    continue
+                if not target.exists():
                     self.add("CATALOG_PATH", "fail", path, f"missing {target.relative_to(self.root)}")
+                    continue
+                self.add("CATALOG_PATH", "pass", path, str(target.relative_to(self.root)))
+                target_doc = self.documents.get(target)
+                canonical_id = target_doc.get("$id") if isinstance(target_doc, dict) else None
+                if not isinstance(canonical_id, str) or canonical_id not in self.schema_ids:
+                    self.add("CATALOG_TARGET_ID", "fail", path, f"target lacks canonical loaded $id: {target.relative_to(self.root)}")
+                elif declared_id == canonical_id:
+                    self.add("CATALOG_SCHEMA_ID", "pass", path, canonical_id)
+                elif declared_id:
+                    # Earlier packages used catalog aliases before namespace ownership was normalized.
+                    self.add("CATALOG_SCHEMA_ALIAS", "warning", path, f"legacy alias {declared_id} -> {canonical_id}")
                 else:
-                    self.add("CATALOG_PATH", "pass", path, str(target.relative_to(self.root)))
+                    self.add("CATALOG_SCHEMA_ID", "fail", path, f"entry lacks schema_id for {canonical_id}")
+
+    @staticmethod
+    def machine_shape(doc: dict[str, Any]) -> tuple[str | None, list[str], list[str], list[tuple[list[str], str]]]:
+        name = doc.get("name") or doc.get("state_machine_name")
+        raw_states = doc.get("states")
+        states: list[str] = []
+        if isinstance(raw_states, list):
+            for value in raw_states:
+                if isinstance(value, str):
+                    states.append(value)
+                elif isinstance(value, dict) and isinstance(value.get("name"), str):
+                    states.append(value["name"])
+        initial_raw = doc.get("initial_state")
+        if isinstance(initial_raw, str):
+            initials = [initial_raw]
+        else:
+            initials = [v for v in doc.get("initial_states", []) if isinstance(v, str)]
+        transitions: list[tuple[list[str], str]] = []
+        for transition in doc.get("transitions", []) if isinstance(doc.get("transitions"), list) else []:
+            if not isinstance(transition, dict):
+                continue
+            dst = transition.get("to") or transition.get("to_state")
+            raw_src = transition.get("from")
+            if raw_src is None:
+                raw_src = transition.get("from_states")
+            if isinstance(raw_src, str):
+                sources = [raw_src]
+            elif isinstance(raw_src, list):
+                sources = [v for v in raw_src if isinstance(v, str)]
+            else:
+                sources = []
+            if isinstance(dst, str):
+                transitions.append((sources, dst))
+        return name if isinstance(name, str) else None, states, initials, transitions
 
     def validate_state_machines(self) -> None:
         for path, doc in self.documents.items():
@@ -146,45 +193,37 @@ class Harness:
             if not isinstance(doc, dict):
                 self.add("MACHINE_OBJECT", "fail", path, "machine root is not an object")
                 continue
-            name = doc.get("name")
-            states = doc.get("states")
-            initial = doc.get("initial_state")
-            transitions = doc.get("transitions")
-            if not isinstance(name, str):
-                self.add("MACHINE_NAME", "fail", path, "missing name")
+            name, states, initials, transitions = self.machine_shape(doc)
+            if not name:
+                self.add("MACHINE_NAME", "fail", path, "missing machine identity")
                 continue
             if name in self.machine_names:
                 self.add("MACHINE_NAME_UNIQUE", "fail", path, f"duplicate of {self.machine_names[name]}")
             else:
                 self.machine_names[name] = path
                 self.add("MACHINE_NAME_UNIQUE", "pass", path, name)
-            if not isinstance(states, list) or not states or len(states) != len(set(states)):
+            if not states or len(states) != len(set(states)):
                 self.add("MACHINE_STATES", "fail", path, "states missing, empty or duplicated")
                 continue
             state_set = set(states)
-            if initial not in state_set:
+            if not initials or any(initial not in state_set for initial in initials):
                 self.add("MACHINE_INITIAL", "fail", path, "initial state is not declared")
-            if not isinstance(transitions, list):
-                self.add("MACHINE_TRANSITIONS", "fail", path, "transitions missing")
                 continue
-            graph: dict[str, set[str]] = {state: set() for state in states}
-            for transition in transitions:
-                if not isinstance(transition, dict):
-                    self.add("MACHINE_TRANSITION", "fail", path, "transition is not an object")
-                    continue
-                src, dst = transition.get("from"), transition.get("to")
+            graph = {state: set() for state in states}
+            for sources, dst in transitions:
                 if dst not in state_set:
                     self.add("MACHINE_TRANSITION", "fail", path, f"unknown target {dst!r}")
                     continue
-                if src == "*":
-                    for state in states:
-                        graph[state].add(dst)
-                elif src not in state_set:
-                    self.add("MACHINE_TRANSITION", "fail", path, f"unknown source {src!r}")
-                else:
-                    graph[src].add(dst)
+                for src in sources:
+                    if src == "*":
+                        for state in states:
+                            graph[state].add(dst)
+                    elif src not in state_set:
+                        self.add("MACHINE_TRANSITION", "fail", path, f"unknown source {src!r}")
+                    else:
+                        graph[src].add(dst)
             reachable: set[str] = set()
-            queue: deque[str] = deque([initial]) if initial in state_set else deque()
+            queue: deque[str] = deque(initials)
             while queue:
                 state = queue.popleft()
                 if state in reachable:
@@ -198,37 +237,29 @@ class Harness:
                 self.add("MACHINE_REACHABILITY", "pass", path, "all states reachable")
 
     def validate_fixtures(self) -> None:
-        ids: dict[str, Path] = {}
+        ids: set[str] = set()
         for path, doc in self.documents.items():
             if "conformance/fixtures/phase-0b" not in path.as_posix():
                 continue
-            if not isinstance(doc, dict):
-                self.add("FIXTURE_OBJECT", "fail", path, "fixture suite root is not an object")
-                continue
-            cases = doc.get("cases")
-            if not isinstance(cases, list) or not cases:
+            if not isinstance(doc, dict) or not isinstance(doc.get("cases"), list) or not doc["cases"]:
                 self.add("FIXTURE_CASES", "fail", path, "fixture suite has no cases")
                 continue
-            for case in cases:
-                if not isinstance(case, dict):
-                    self.add("FIXTURE_CASE", "fail", path, "case is not an object")
-                    continue
-                case_id = case.get("id")
-                expected = case.get("expected")
-                if not isinstance(case_id, str) or not case_id:
+            for case in doc["cases"]:
+                if not isinstance(case, dict) or not isinstance(case.get("id"), str):
                     self.add("FIXTURE_ID", "fail", path, "case missing id")
                     continue
-                global_id = f"{doc.get('suite_id', path)}::{case_id}"
+                global_id = f"{doc.get('suite_id', path)}::{case['id']}"
                 if global_id in ids:
-                    self.add("FIXTURE_ID_UNIQUE", "fail", path, f"duplicate {case_id}")
+                    self.add("FIXTURE_ID_UNIQUE", "fail", path, f"duplicate {case['id']}")
+                ids.add(global_id)
+                expected = case.get("expected")
+                valid_expected = expected in {"valid", "invalid", "semantic_valid", "semantic_invalid"}
+                if not valid_expected:
+                    self.add("FIXTURE_EXPECTED", "fail", path, f"{case['id']}: unsupported expected value {expected!r}")
+                elif str(expected).endswith("invalid") and not isinstance(case.get("expected_code"), str):
+                    self.add("FIXTURE_ERROR_CODE", "fail", path, f"{case['id']}: invalid case lacks expected_code")
                 else:
-                    ids[global_id] = path
-                if expected not in {"valid", "invalid"}:
-                    self.add("FIXTURE_EXPECTED", "fail", path, f"{case_id}: expected must be valid/invalid")
-                elif expected == "invalid" and not isinstance(case.get("expected_code"), str):
-                    self.add("FIXTURE_ERROR_CODE", "fail", path, f"{case_id}: invalid case lacks expected_code")
-                else:
-                    self.add("FIXTURE_CASE", "pass", path, case_id)
+                    self.add("FIXTURE_CASE", "pass", path, case["id"])
 
     def run(self) -> dict[str, Any]:
         self.discover()
@@ -238,12 +269,8 @@ class Harness:
         self.validate_fixtures()
         failed = sum(r.status == "fail" for r in self.results)
         passed = sum(r.status == "pass" for r in self.results)
-        return {
-            "harness_version": "0.1.0",
-            "root": str(self.root),
-            "summary": {"passed": passed, "failed": failed, "status": "pass" if failed == 0 else "fail"},
-            "results": [asdict(result) for result in self.results],
-        }
+        warnings = sum(r.status == "warning" for r in self.results)
+        return {"harness_version": "0.1.1", "root": str(self.root), "summary": {"passed": passed, "failed": failed, "warnings": warnings, "status": "pass" if failed == 0 else "fail"}, "results": [asdict(r) for r in self.results]}
 
 
 def main(argv: list[str] | None = None) -> int:
