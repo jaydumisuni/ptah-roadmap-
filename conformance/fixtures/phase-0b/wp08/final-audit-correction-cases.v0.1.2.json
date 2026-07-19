@@ -1,0 +1,33 @@
+{
+  "suite_id":"ptah.conformance.wp08-final-audit-correction.0.1.2",
+  "fixture_version":"0.1.2",
+  "fixture_class":"cross_record_scenarios",
+  "execution_status":"specification_only_until_wp13",
+  "cases":[
+    {"id":"C01_VALID_CLAIM_TO_REVIEWED_RESULT","expected":"valid","setup":"A vendor/package Firmware Compatibility Claim is retained as evidence and separately evaluated against exact live Device/Profile/Interface/Connection/Provider context.","assertions":["Claim immutable","Compatibility Result separate","physical authority absent from Claim"]},
+    {"id":"C02_INVALID_CLAIM_AS_MUTATION_AUTHORITY","expected":"invalid","expected_code":"FIRMWARE_COMPATIBILITY_CLAIM_NOT_AUTHORITY","setup":"A model/chipset/tool support Claim directly authorizes a physical write.","assertions":["reviewed Compatibility Result required","Mutation Authorization required"]},
+    {"id":"C03_VALID_CONTRADICTORY_CLAIMS","expected":"valid","setup":"Vendor and tool Claims disagree for the same package/device family.","assertions":["both Claims retained","review records conflict","no silent winner"]},
+    {"id":"C04_INVALID_CLAIM_REWRITTEN_AS_RESULT","expected":"invalid","expected_code":"CLAIM_RESULT_IDENTITY_COLLAPSE","setup":"A broad source Claim is mutated in place into an exact Compatibility Result.","assertions":["new Result required","source Claim preserved"]},
+
+    {"id":"P01_VALID_DEVICE_PROTOCOL_PROJECTION","expected":"valid","setup":"One ADB/Fastboot/META protocol interaction maps to exact WP02 Activity, Operation and new Attempt while retaining Device/Session/Interface/Connection/Provider context.","assertions":["WP02 Operation canonical","Attempt canonical","protocol projection separately addressable"]},
+    {"id":"P02_INVALID_PROTOCOL_OPERATION_REPLACES_WP02","expected":"invalid","expected_code":"DEVICE_PROTOCOL_OPERATION_NOT_CANONICAL_EXECUTION","setup":"Device Protocol Operation ID replaces WP02 Operation or Attempt identity.","assertions":["exact WP02 references required"]},
+    {"id":"P03_VALID_FIRMWARE_CROSSLINK","expected":"valid","setup":"A Device Protocol Operation links to one specialist Firmware Operation for a write stage.","assertions":["records distinct","shared WP02 correlation exact","scopes retained"]},
+    {"id":"P04_INVALID_FIRMWARE_PROTOCOL_COLLAPSE","expected":"invalid","expected_code":"FIRMWARE_AND_PROTOCOL_OPERATION_COLLAPSED","setup":"Firmware Operation and Device Protocol Operation are represented by one generic record without Plan/Authorization/Verification separation.","assertions":["two typed projections required where both scopes apply"]},
+    {"id":"P05_INVALID_ACK_AS_VERIFIED","expected":"invalid","expected_code":"PROTOCOL_ACK_NOT_VERIFIED_POSTCONDITION","setup":"Backend acknowledgement moves Device Protocol Operation directly to completed_verified.","assertions":["verification record required"]},
+    {"id":"P06_VALID_ACKNOWLEDGED_LIMITED","expected":"valid","setup":"Policy permits acknowledgement-only completion under a narrow explicit limitation.","assertions":["completed_acknowledged","authority retained","no verified claim"]},
+    {"id":"P07_INVALID_RETRY_ATTEMPT_REUSE","expected":"invalid","expected_code":"DEVICE_PROTOCOL_RETRY_REUSES_ATTEMPT","setup":"A protocol retry reuses the previous WP02 Attempt or nonce.","assertions":["new Attempt required"]},
+    {"id":"P08_INVALID_STALE_CONTEXT","expected":"invalid","expected_code":"DEVICE_PROTOCOL_CONTEXT_STALE","setup":"Protocol execution uses an old Connection epoch, Provider generation, Lease or fence.","assertions":["fenced","new eligibility/context required"]},
+
+    {"id":"R01_VALID_RECOVERY_0_1_1","expected":"valid","setup":"An uncertain physical operation opens lifecycle-bearing Recovery with exact previous epoch/generation, reacquires a new context, reconciles state and concludes safe_to_retry_new_attempt.","assertions":["old context retained","new context distinct","new Attempt required"]},
+    {"id":"R02_INVALID_LEGACY_RECOVERY_AUTO_UPGRADE","expected":"invalid","expected_code":"RECOVERY_MIGRATION_EVIDENCE_INSUFFICIENT","setup":"A 0.1.0 Recovery record without lifecycle or prior/new generation evidence is relabelled 0.1.1.","assertions":["manual review or preserve legacy required"]},
+    {"id":"R03_INVALID_RECOVERY_STALE_AUTHORITY","expected":"invalid","expected_code":"RECOVERY_REUSES_STALE_AUTHORITY","setup":"Recovery resumes using the previous Session, Lease, fence or Provider generation after reconnect.","assertions":["new current authority required"]},
+    {"id":"R04_INVALID_SAFE_RETRY_WITHOUT_RECONCILIATION","expected":"invalid","expected_code":"RECOVERY_SAFE_RETRY_UNPROVEN","setup":"Recovery declares safe_to_retry_new_attempt without proving whether the prior effect occurred.","assertions":["reconciliation evidence required"]},
+    {"id":"R05_VALID_INCONCLUSIVE_RECOVERY","expected":"valid","setup":"Evidence remains insufficient to prove physical state.","assertions":["inconclusive retained","no success claim","manual intervention allowed"]},
+    {"id":"R06_INVALID_RECOVERY_REWRITES_ORIGINAL","expected":"invalid","expected_code":"RECOVERY_CANNOT_REWRITE_ORIGINAL_OPERATION","setup":"Recovery overwrites original uncertain Operation/Receipts with a successful state.","assertions":["new Recovery record required","original history immutable"]},
+
+    {"id":"G01_VALID_CATALOG_0_1_2","expected":"valid","setup":"Catalog 0.1.2 resolves 47 unique schemas and 15 unique lifecycle machines offline.","assertions":["all paths exist","all URNs unique","all machine names unique"]},
+    {"id":"G02_INVALID_CATALOG_0_1_1_AS_FINAL","expected":"invalid","expected_code":"WP08_ACTIVE_KIND_OR_LIFECYCLE_MISSING","setup":"Catalog 0.1.1 is treated as final despite missing registered Claim, Protocol Operation and Recovery lifecycle contracts.","assertions":["0.1.2 required"]},
+    {"id":"G03_INVALID_DUPLICATE_DEVICE_LEASE","expected":"invalid","expected_code":"DEVICE_LEASE_DUPLICATES_RUNTIME_LEASE","setup":"A new device.lease entity is introduced alongside runtime.lease.","assertions":["reuse runtime.lease"]},
+    {"id":"G04_INVALID_DUPLICATE_DECOMPOSITION","expected":"invalid","expected_code":"DOMAIN_DECOMPOSITION_DUPLICATES_OBJECT_RUN","setup":"A second canonical Domain decomposition-run identity replaces object.decomposition_run.","assertions":["reuse object.decomposition_run"]}
+  ]
+}
