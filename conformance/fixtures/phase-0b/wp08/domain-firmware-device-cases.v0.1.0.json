@@ -1,0 +1,68 @@
+{
+  "suite_id":"ptah.conformance.domain-firmware-device.0.1.0",
+  "fixture_version":"0.1.0",
+  "fixture_class":"cross_record_scenarios",
+  "execution_status":"specification_only_until_wp13",
+  "cases":[
+    {"id":"D01_VALID_DETECTOR_CONFLICT","expected":"valid","setup":"Filename and magic/structure detectors disagree over one Object Revision; both observations are retained and a Classification Decision selects one bounded route.","assertions":["observations immutable","conflict retained","classification separate"]},
+    {"id":"D02_INVALID_FILENAME_AS_TRUTH","expected":"invalid","expected_code":"FILENAME_HINT_NOT_AUTHORITATIVE","setup":"Filename/extension alone becomes accepted source type.","assertions":["evidence-backed observation required"]},
+    {"id":"D03_VALID_POLYGLOT_ROUTES","expected":"valid","setup":"One polyglot Object Revision is compatible with two Pack Revisions.","assertions":["Pack routes distinct","source Object stable","outputs linked separately"]},
+    {"id":"D04_INVALID_OBSERVATION_OVERWRITE","expected":"invalid","expected_code":"CONFLICTING_OBSERVATION_LOST","setup":"A newer detector result deletes a conflicting prior observation.","assertions":["append new observation/decision","history retained"]},
+    {"id":"D05_VALID_BUDGETED_DECOMPOSITION","expected":"valid","setup":"Recursive decomposition reaches depth and expansion limits after producing valid children.","assertions":["children retained","Coverage budget_exhausted","unknown gaps explicit"]},
+    {"id":"D06_INVALID_PARTIAL_AS_COMPLETE","expected":"invalid","expected_code":"DECOMPOSITION_COVERAGE_OVERCLAIM","setup":"Partial output is labelled complete_for_requested_scope.","assertions":["Coverage corrected or run rejected"]},
+    {"id":"D07_VALID_PACK_REPLACEMENT","expected":"valid","setup":"Replacement parser Pack/Provider creates competing derived revisions.","assertions":["source Object identity stable","new Run/Attempts","old outputs retained"]},
+    {"id":"D08_INVALID_BACKEND_ID_CANONICAL","expected":"invalid","expected_code":"BACKEND_ALIAS_NOT_CANONICAL","setup":"Parser job ID replaces Pack, Run or Object identity.","assertions":["scoped Alias required"]},
+    {"id":"D09_INVALID_STALE_PACK_COMPATIBILITY","expected":"invalid","expected_code":"DOMAIN_COMPATIBILITY_STALE","setup":"Provider generation changes after Pack Compatibility is issued.","assertions":["compatibility re-evaluation required"]},
+    {"id":"D10_VALID_DOMAIN_RETRY","expected":"valid","setup":"One Domain Operation retries after a transient failure.","assertions":["same logical Operation","new Attempt/nonce","all Receipts retained"]},
+
+    {"id":"K01_VALID_FIRMWARE_CLAIM_REVIEW","expected":"valid","setup":"Vendor/package Compatibility Claim is evaluated against exact live Device context and yields a separate Compatibility Result.","assertions":["claim not authority","result generation-bound"]},
+    {"id":"K02_INVALID_CLAIM_AS_WRITE_AUTHORITY","expected":"invalid","expected_code":"FIRMWARE_CLAIM_NOT_WRITE_AUTHORITY","setup":"Vendor model/chipset claim directly authorizes physical write.","assertions":["reviewed Compatibility Result and Authorization required"]},
+    {"id":"K03_VALID_STATIC_ONLY_COMPATIBILITY","expected":"valid","setup":"Package is compatible_for_static_analysis but not for physical write.","assertions":["inventory permitted","mutation blocked"]},
+    {"id":"K04_INVALID_STATIC_TO_WRITE_ESCALATION","expected":"invalid","expected_code":"COMPATIBILITY_STRENGTH_INSUFFICIENT","setup":"Static-analysis compatibility is reused for device_write.","assertions":["exact stronger result required"]},
+    {"id":"K05_VALID_EXACT_OPERATION_PLAN","expected":"valid","setup":"Immutable Plan binds package/manifest/device/profile/interface/connection/provider/tool/source/target/retry/readback context.","assertions":["Plan digest stable","all context exact"]},
+    {"id":"K06_INVALID_PLAN_CONTEXT_DRIFT","expected":"invalid","expected_code":"FIRMWARE_PLAN_CONTEXT_DRIFT","setup":"Connection epoch, Profile Revision or Provider generation changes after Plan creation.","assertions":["new Plan/Compatibility/Authorization required"]},
+    {"id":"K07_VALID_PROTOCOL_STAGE_SEPARATION","expected":"valid","setup":"Handshake, loader acceptance, write acknowledgement and read-back are recorded as distinct stage observations.","assertions":["proof levels remain separate"]},
+    {"id":"K08_INVALID_ACK_AS_VERIFIED","expected":"invalid","expected_code":"ACKNOWLEDGEMENT_NOT_PHYSICAL_VERIFICATION","setup":"Write acknowledgement is promoted to completed_verified without Operation Verification.","assertions":["read-back or explicit bounded exception required"]},
+    {"id":"K09_VALID_READBACK_DIGEST","expected":"valid","setup":"Critical ranges are read back and actual digests match expected Plan digests.","assertions":["Operation completed_verified","Verification exact"]},
+    {"id":"K10_INVALID_MISMATCHED_READBACK_SUCCESS","expected":"invalid","expected_code":"READBACK_MISMATCH_CANNOT_SUCCEED","setup":"One critical range digest mismatches but operation reports success.","assertions":["mismatch/failed/uncertain outcome required"]},
+
+    {"id":"B01_VALID_REQUIRED_BACKUP","expected":"valid","setup":"Policy-required exact ranges are backed up, hashed, verified, durably located and linked to a restoration Recipe before destructive authorization.","assertions":["backup lifecycle verified","coverage sufficient"]},
+    {"id":"B02_INVALID_BACKUP_EXISTS_ONLY","expected":"invalid","expected_code":"BACKUP_NOT_VERIFIED_OR_DURABLE","setup":"A local temporary dump exists but lacks verification or durable Location.","assertions":["destructive authorization blocked"]},
+    {"id":"B03_INVALID_BACKUP_SCOPE_GAP","expected":"invalid","expected_code":"BACKUP_REQUIRED_RANGE_MISSING","setup":"Backup omits a policy-required partition/range.","assertions":["authorization blocked or narrow exception required"]},
+    {"id":"B04_VALID_SCOPED_EXCEPTION","expected":"valid","setup":"Emergency recovery uses a narrow expiring Mutation Exception with exact ranges, authority and compensating controls.","assertions":["scope cannot expand","limitations retained"]},
+    {"id":"B05_INVALID_GLOBAL_EXCEPTION","expected":"invalid","expected_code":"MUTATION_EXCEPTION_OVERBROAD","setup":"A generic permanent exception disables all backup/read-back requirements.","assertions":["reject"]},
+
+    {"id":"I01_VALID_DISK_IMAGE_IDENTITY","expected":"valid","setup":"Stable Disk Image role references one WP03 Object and multiple interpreted Image Revisions.","assertions":["byte identity remains WP03","interpretations revisioned"]},
+    {"id":"I02_INVALID_SECOND_BYTE_IDENTITY","expected":"invalid","expected_code":"DISK_ROLE_NOT_CONTENT_IDENTITY","setup":"Disk Image Revision digest is treated as a second canonical Content identity.","assertions":["WP03 Content/Object Revision remains canonical"]},
+    {"id":"I03_VALID_GPT_PRIMARY_BACKUP","expected":"valid","setup":"GPT primary and backup copies, CRCs, table ranges and partitions agree.","assertions":["both copies retained","validation passed"]},
+    {"id":"I04_INVALID_OUT_OF_BOUNDS_PARTITION","expected":"invalid","expected_code":"PARTITION_OUT_OF_IMAGE_BOUNDS","setup":"Partition byte range exceeds exact logical image size.","assertions":["validation failed"]},
+    {"id":"I05_INVALID_HIDDEN_OVERLAP","expected":"invalid","expected_code":"UNDECLARED_EXTENT_OVERLAP","setup":"Partition/extents overlap without intentional-overlap evidence.","assertions":["invalid overlap retained"]},
+    {"id":"I06_VALID_SPARSE_EXTENT_GAPS","expected":"valid","setup":"Android sparse holes and zero extents are explicitly represented.","assertions":["logical coverage explicit","physical bytes distinct"]},
+    {"id":"I07_INVALID_IMAGE_BACKING_ESCAPE","expected":"invalid","expected_code":"UNTRUSTED_BACKING_PATH_NOT_ALLOWLISTED","setup":"Image metadata selects an arbitrary host backing path.","assertions":["allowlisted Object reference required"]},
+
+    {"id":"F01_VALID_ISOLATED_READONLY_INSPECTION","expected":"valid","setup":"Untrusted filesystem opens read_only in an isolated Provider with allowlisted backing Objects and cleanup evidence.","assertions":["host mutation absent","Mount Session closed cleanly"]},
+    {"id":"F02_INVALID_READONLY_UPGRADE","expected":"invalid","expected_code":"READONLY_SESSION_CANNOT_MUTATE","setup":"Read-only Mount Session performs a direct write without new authorization/target.","assertions":["blocked"]},
+    {"id":"F03_VALID_WRITABLE_OVERLAY","expected":"valid","setup":"Writable changes target a separate overlay Artifact under explicit authority.","assertions":["source Object preserved","overlay provenance retained"]},
+    {"id":"F04_INVALID_UNCLEAN_UNMOUNT_SUCCESS","expected":"invalid","expected_code":"MOUNT_CLEANUP_UNPROVEN","setup":"Session is marked closed successfully without cleanup/unmount evidence.","assertions":["quarantine or cleanup failure state required"]},
+
+    {"id":"V01_VALID_REENUMERATION","expected":"valid","setup":"Device changes from ADB to Fastboot and creates new Interface incarnation and Connection epoch.","assertions":["Device identity stable","old epoch fenced"]},
+    {"id":"V02_INVALID_SERIAL_AS_DEVICE_ID","expected":"invalid","expected_code":"TRANSIENT_ALIAS_NOT_DEVICE_IDENTITY","setup":"ADB/USB serial or bus path is used as canonical Device identity.","assertions":["scoped Alias/evidence only"]},
+    {"id":"V03_INVALID_STALE_EPOCH_MUTATION","expected":"invalid","expected_code":"DEVICE_CONNECTION_EPOCH_STALE","setup":"Physical operation dispatches after Device re-enumeration using old epoch.","assertions":["fenced"]},
+    {"id":"V04_INVALID_STALE_PROVIDER_GENERATION","expected":"invalid","expected_code":"DEVICE_PROVIDER_GENERATION_STALE","setup":"Provider restarts and an old capability snapshot authorizes work.","assertions":["new snapshot and eligibility required"]},
+    {"id":"V05_INVALID_EXPIRED_LEASE","expected":"invalid","expected_code":"DEVICE_LEASE_OR_FENCE_INVALID","setup":"Device ownership Lease/fence expires before dispatch/completion.","assertions":["mutation blocked or outcome reconciled"]},
+    {"id":"V06_VALID_PROTOCOL_PROJECTION","expected":"valid","setup":"Device Protocol Operation maps one protocol interaction to exact WP02 Operation and new Attempts; firmware aggregate is linked separately.","assertions":["no duplicate logical identity","stage evidence retained"]},
+    {"id":"V07_INVALID_ATTEMPT_REUSE","expected":"invalid","expected_code":"PHYSICAL_RETRY_REUSES_ATTEMPT","setup":"Retry reuses prior Attempt ID/nonce.","assertions":["new Attempt required"]},
+    {"id":"V08_VALID_STREAM_DEGRADATION","expected":"valid","setup":"Video Stream becomes unavailable while shell/log Streams and Device Session remain active.","assertions":["degradation scoped","Session not falsely failed"]},
+    {"id":"V09_INVALID_STALE_SCREEN_CONTEXT","expected":"invalid","expected_code":"SCREEN_CONTEXT_STALE","setup":"Semantic action uses Screen Context from old connection/display/provider generation.","assertions":["reacquire context required"]},
+    {"id":"V10_INVALID_RAW_PRIVATE_EXPORT","expected":"invalid","expected_code":"DEVICE_PRIVATE_DATA_EXPORT_PROHIBITED","setup":"Raw credentials, keys, calibration/NV data or protected identifiers enter a public ordinary record.","assertions":["reject/redact/security incident path"]},
+
+    {"id":"R01_VALID_DISCONNECT_RECOVERY","expected":"valid","setup":"Disconnect during non-idempotent write creates uncertain state and a lifecycle-bound Recovery Run on a new connection epoch.","assertions":["old context retained","reconciliation required","no blind retry"]},
+    {"id":"R02_INVALID_BLIND_RETRY","expected":"invalid","expected_code":"UNCERTAIN_PHYSICAL_EFFECT_NOT_RECONCILED","setup":"System retries immediately after disconnect without checking whether effect occurred.","assertions":["recovery/reconciliation required"]},
+    {"id":"R03_VALID_SAFE_NEW_RETRY","expected":"valid","setup":"Recovery proves duplicate effect absent and permits retry with a new Attempt and current authority.","assertions":["new Attempt","new epoch/generation binding"]},
+    {"id":"R04_INVALID_RECOVERY_REUSES_STALE_AUTHORITY","expected":"invalid","expected_code":"RECOVERY_STALE_AUTHORITY","setup":"Recovery uses previous Session/Lease/fence after reconnect.","assertions":["new current authority required"]},
+    {"id":"R05_VALID_INCONCLUSIVE_RECOVERY","expected":"valid","setup":"Available evidence cannot prove physical state.","assertions":["inconclusive retained","manual intervention possible","no success claim"]},
+
+    {"id":"X01_VALID_FULL_BACKEND_REPLACEMENT","expected":"valid","setup":"Pack parser, mount backend and Device transport Provider are replaced.","assertions":["Pack/Object/Device identity stable","new compatibility/Sessions/Runs/Attempts","old proof retained"]},
+    {"id":"X02_INVALID_NEGATIVE_HISTORY_DELETE","expected":"invalid","expected_code":"NEGATIVE_EVIDENCE_IMMUTABLE","setup":"Unsupported/failed/inconclusive records are deleted to present success.","assertions":["history restored/rejection"]}
+  ]
+}
