@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:domain:firmware-package:0.1.0",
+  "title":"Ptah Firmware Package Role",
+  "x-ptah-schema-name":"domain.firmware-package",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","object_revision_ref","content_digest_refs","package_type","source_record_refs","manifest_refs","created_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"firmware.package"}}}]},
+    "object_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "content_digest_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "package_type":{"type":"string","enum":["apple_ipsw","apple_ota","mtk_scatter_package","unisoc_pac","unisoc_p5c_unknown","qualcomm_rawprogram_package","samsung_odin_package","android_update_payload","android_sparse_image","android_super_image","android_partition_image","vendor_firmware_container","unknown_firmware_container","other_registered"]},
+    "source_record_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "catalogue_or_vendor_claims":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["claim_key","value","source_ref"],"properties":{"claim_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{1,127}$"},"value":{"type":"string","minLength":1,"maxLength":4096},"source_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"confidence":{"type":"number","minimum":0,"maximum":1}}}},
+    "manifest_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "component_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "signature_or_catalogue_verification_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "created_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
