@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:storage:location-observation:0.1.0",
+  "title": "Ptah Storage Location Observation",
+  "description": "Immutable observed provider/location availability and health evidence.",
+  "x-ptah-schema-name": "storage.location-observation",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "observation_contract_version", "location_ref", "observed_lifecycle_state", "observed_health_state", "provider_aliases", "observed_size", "provider_digest_claims", "observer_ref", "observer_version", "observed_at", "receipt_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "storage.location_observation" } } }
+      ]
+    },
+    "observation_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "location_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "observed_lifecycle_state": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/locationLifecycleState" },
+    "observed_health_state": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/locationHealthState" },
+    "provider_aliases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["alias_kind", "alias_value"],
+        "properties": {
+          "alias_kind": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "alias_value": { "type": "string", "minLength": 1, "maxLength": 8192 }
+        }
+      }
+    },
+    "observed_size": {
+      "oneOf": [
+        { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        { "type": "null" }
+      ]
+    },
+    "provider_digest_claims": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/qualifiedDigest" },
+      "uniqueItems": true
+    },
+    "observer_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "observer_version": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "observed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "receipt_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
