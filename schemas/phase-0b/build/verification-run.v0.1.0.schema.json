@@ -1,0 +1,29 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:verification-run:0.1.0",
+  "title":"Ptah Provenance Verification Run",
+  "x-ptah-schema-name":"build.verification-run",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","lifecycle","proof_domain","subject_refs","protocol_or_policy_refs","verifier_revision_ref","activity_ref","operation_ref","attempt_ref","started_at","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"provenance.verification_run"}}}]},
+    "lifecycle":{"$ref":"urn:ptah:schema:build:definitions:0.1.0#/$defs/stateProjection"},
+    "proof_domain":{"$ref":"urn:ptah:schema:build:definitions:0.1.0#/$defs/proofDomain"},
+    "subject_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "protocol_or_policy_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "verifier_revision_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "requirement_results":{"type":"array","items":{"$ref":"urn:ptah:schema:build:definitions:0.1.0#/$defs/requirementResult"}},
+    "decision":{"type":"string","enum":["passed","passed_with_conditions","failed","inconclusive","blocked","cancelled"]},
+    "activity_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "operation_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "attempt_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "receipt_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "started_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "completed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
