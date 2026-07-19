@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:storage:location:0.1.0",
+  "title": "Ptah Storage Location",
+  "description": "One backend-specific materialization/replica for exact Content, with independent lifecycle, health and verification projections.",
+  "x-ptah-schema-name": "storage.location",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "location_contract_version", "content_ref", "location_kind", "replica_role", "backend_ref", "connection_ref", "backend_aliases", "stored_size_claim", "provider_digest_claims", "lifecycle", "health_state", "verification_state", "observation_refs", "verification_refs", "receipt_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "storage.location" } } }
+      ]
+    },
+    "location_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "content_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "revision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "location_kind": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/locationKind" },
+    "replica_role": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/replicaRole" },
+    "backend_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "connection_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "backend_aliases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["alias_kind", "alias_value"],
+        "properties": {
+          "alias_kind": { "type": "string", "enum": ["path", "object_key", "etag", "provider_version", "oci_digest", "oci_tag", "volume_id", "snapshot_id", "transfer_id", "other"] },
+          "alias_value": { "type": "string", "minLength": 1, "maxLength": 8192 }
+        }
+      }
+    },
+    "stored_size_claim": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "provider_digest_claims": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/qualifiedDigest" },
+      "uniqueItems": true
+    },
+    "encryption_or_wrapper_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "lifecycle": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stateProjection" },
+    "health_state": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/locationHealthState" },
+    "verification_state": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/locationVerificationState" },
+    "last_observed_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "last_verified_at": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime" },
+    "observation_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "verification_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "repair_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  }
+}
