@@ -7,13 +7,14 @@
   "x-ptah-maturity": "candidate",
   "type": "object",
   "additionalProperties": false,
-  "required": ["envelope", "activity_ref", "operation_ref", "node_ref", "node_generation", "provider_instance_ref", "provider_generation", "facility_revision_ref", "operation_key", "evaluated_at", "valid_until", "decision", "node_capability_snapshot_ref", "node_resource_snapshot_ref", "provider_capability_snapshot_ref", "authorization_refs", "hard_constraint_results", "policy_ref", "evidence_refs", "limitations", "extensions"],
+  "required": ["envelope", "activity_ref", "operation_ref", "provider_instance_ref", "provider_generation", "facility_revision_ref", "operation_key", "evaluated_at", "valid_until", "decision", "provider_capability_snapshot_ref", "authorization_refs", "hard_constraint_results", "policy_ref", "evidence_refs", "limitations", "extensions"],
   "properties": {
     "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "runtime.dispatch_eligibility"}}}]},
     "activity_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "operation_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "node_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "node_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "remote_service_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "provider_instance_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
     "provider_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
     "facility_revision_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
@@ -33,5 +34,11 @@
     "receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
     "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
     "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
-  }
+  },
+  "allOf": [
+    {"oneOf": [
+      {"required": ["node_ref", "node_generation", "node_capability_snapshot_ref", "node_resource_snapshot_ref"], "not": {"required": ["remote_service_ref"]}},
+      {"required": ["remote_service_ref"], "not": {"anyOf": [{"required": ["node_ref"]}, {"required": ["node_generation"]}, {"required": ["node_capability_snapshot_ref"]}, {"required": ["node_resource_snapshot_ref"]}]}}
+    ]}
+  ]
 }
