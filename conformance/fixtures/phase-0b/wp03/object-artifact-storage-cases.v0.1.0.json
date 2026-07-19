@@ -1,0 +1,190 @@
+{
+  "suite_id": "ptah.conformance.object-storage.0.1.0",
+  "fixture_version": "0.1.0",
+  "fixture_class": "cross_record_scenarios",
+  "execution_status": "specification_only_until_wp13",
+  "cases": [
+    {
+      "id": "O01_VALID_IDENTICAL_BYTES_DISTINCT_OBJECTS",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:object:content:0.1.0", "urn:ptah:schema:object:object:0.1.0", "urn:ptah:schema:object:revision:0.1.0"],
+      "setup": "Two independent source Objects and original Revisions have identical verified SHA-256 bytes inside one authorized Workspace deduplication scope.",
+      "assertions": ["Object IDs differ", "Revision IDs differ", "Content reference may be shared", "source and authority records remain distinct", "no cross-scope equality disclosure"]
+    },
+    {
+      "id": "O02_VALID_NEW_IMMUTABLE_REVISION",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:object:object:0.1.0", "urn:ptah:schema:object:revision:0.1.0"],
+      "setup": "One Object receives a second Revision with new Content and the first Revision as parent.",
+      "assertions": ["Object ID stable", "new Revision ID", "prior Revision unchanged", "current revision projection advances", "parent lineage retained"]
+    },
+    {
+      "id": "O03_INVALID_PATH_AS_CONTENT_IDENTITY",
+      "expected": "invalid",
+      "expected_code": "ALIAS_USED_AS_CANONICAL_IDENTITY",
+      "schemas": ["urn:ptah:schema:object:content:0.1.0"],
+      "setup": "Importer attempts to use /workspace/file.bin or cloud/object/key as canonical Content identity.",
+      "assertions": ["reject canonical identity", "retain path/key only as Location alias"]
+    },
+    {
+      "id": "O04_INVALID_REVISION_MUTATED_IN_PLACE",
+      "expected": "invalid",
+      "expected_code": "IMMUTABLE_REVISION_REWRITE",
+      "schemas": ["urn:ptah:schema:object:revision:0.1.0"],
+      "setup": "Existing Revision ID is resubmitted with changed content_ref or parent_revision_refs.",
+      "assertions": ["reject rewrite", "require new superseding Revision"]
+    },
+    {
+      "id": "O05_VALID_HASH_DISAGREEMENT_RETAINED",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:object:hash-observation:0.1.0", "urn:ptah:schema:object:content:0.1.0"],
+      "setup": "Two qualified whole-content observations disagree.",
+      "assertions": ["retain both observations", "do not silently replace canonical digest", "mark dispute/inconclusive until verification policy resolves"]
+    },
+    {
+      "id": "D01_VALID_COMPETING_DETECTORS",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:object:detector-observation:0.1.0", "urn:ptah:schema:object:classification-decision:0.1.0"],
+      "setup": "Extension says ZIP; magic says ZIP; specialist parser says APK; another parser reports malformed resources.",
+      "assertions": ["all observations retained", "selected route is separate decision", "limitations preserved"]
+    },
+    {
+      "id": "D02_INVALID_SELECTED_CLASSIFICATION_WITHOUT_ROUTE",
+      "expected": "invalid",
+      "expected_code": "SELECTED_CLASSIFICATION_MISSING_ROUTE",
+      "schemas": ["urn:ptah:schema:object:classification-decision:0.1.0"],
+      "setup": "outcome=selected but selected_type or selected_route is null.",
+      "assertions": ["schema rejects specimen"]
+    },
+    {
+      "id": "R01_VALID_OVERLAPPING_REGIONS",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:object:relationship:0.1.0", "urn:ptah:schema:object:relationship-revision:0.1.0"],
+      "setup": "Two embedded/carved child relationships overlap the same source byte range.",
+      "assertions": ["both relationships retained", "no forced non-overlapping tree", "each locator/provenance remains exact"]
+    },
+    {
+      "id": "R02_INVALID_ENDPOINT_CHANGE_IN_PLACE",
+      "expected": "invalid",
+      "expected_code": "IMMUTABLE_RELATIONSHIP_REVISION_REWRITE",
+      "schemas": ["urn:ptah:schema:object:relationship-revision:0.1.0"],
+      "setup": "Existing Relationship Revision changes subject, object or relationship_type.",
+      "assertions": ["reject rewrite", "require new Relationship Revision"]
+    },
+    {
+      "id": "V01_INVALID_VIEW_PROMOTED_TO_ORIGINAL",
+      "expected": "invalid",
+      "expected_code": "DERIVED_CONTENT_CANNOT_REPLACE_ORIGINAL",
+      "schemas": ["urn:ptah:schema:object:view:0.1.0", "urn:ptah:schema:object:revision:0.1.0"],
+      "setup": "Decompiler output is relabeled original_source and used to replace the original Revision.",
+      "assertions": ["reject replacement", "retain decompiled_view origin", "create distinct serialized Revision if materialized"]
+    },
+    {
+      "id": "X01_VALID_PARTIAL_BUDGET_EXHAUSTED_RUN",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:object:decomposition-run:0.1.0"],
+      "setup": "Nested archive reaches child-count or expansion budget after producing verified children.",
+      "assertions": ["outcome=budget_exhausted", "complete_claim=false", "partial children retained", "skipped scope and unknown gaps recorded"]
+    },
+    {
+      "id": "X02_INVALID_COMPLETE_WITH_INCOMPLETE_COVERAGE",
+      "expected": "invalid",
+      "expected_code": "COMPLETE_OUTCOME_WITHOUT_COMPLETE_COVERAGE",
+      "schemas": ["urn:ptah:schema:object:decomposition-run:0.1.0"],
+      "setup": "outcome=complete while coverage.complete_claim=false.",
+      "assertions": ["schema rejects specimen"]
+    },
+    {
+      "id": "A01_VALID_PROMOTED_NOT_VERIFIED",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:object:artifact:0.1.0"],
+      "setup": "Artifact lifecycle=promoted while verification/review/acceptance are pending or not requested.",
+      "assertions": ["promotion does not infer verification", "promotion does not infer acceptance", "release remains separate"]
+    },
+    {
+      "id": "A02_INVALID_PROMOTION_WITHOUT_RECEIPTS",
+      "expected": "invalid",
+      "expected_code": "MISSING_ARTIFACT_PROMOTION_RECEIPT",
+      "schemas": ["urn:ptah:schema:object:artifact:0.1.0"],
+      "setup": "Artifact is promoted without exact production correlation or promotion Receipts.",
+      "assertions": ["reject promotion"]
+    },
+    {
+      "id": "A03_INVALID_PUBLIC_RELEASE_CONFIDENTIAL_ENVELOPE",
+      "expected": "invalid",
+      "expected_code": "PUBLIC_RELEASE_PRIVACY_MISMATCH",
+      "schemas": ["urn:ptah:schema:object:artifact-release:0.1.0"],
+      "setup": "Release envelope audience=public while privacy_class=confidential.",
+      "assertions": ["schema rejects specimen"]
+    },
+    {
+      "id": "A04_INVALID_PUBLIC_RELEASE_RESTRICTED_REFERENCE",
+      "expected": "invalid",
+      "expected_code": "PUBLIC_RELEASE_RESTRICTED_REFERENCE",
+      "schemas": ["urn:ptah:schema:object:artifact-release:0.1.0"],
+      "setup": "Public release manifest includes a restricted source Revision or private consumer evidence.",
+      "assertions": ["semantic harness rejects export", "excluded reason must be recorded"]
+    },
+    {
+      "id": "S01_VALID_AVAILABLE_UNVERIFIED_LOCATION",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:storage:location:0.1.0"],
+      "setup": "Location lifecycle=available, health=healthy, verification=unverified.",
+      "assertions": ["do not infer verified Content", "fresh verification may be scheduled"]
+    },
+    {
+      "id": "S02_VALID_MISSING_REPLICA_CONTENT_RETAINED",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:storage:location:0.1.0", "urn:ptah:schema:storage:location-observation:0.1.0"],
+      "setup": "One Location is missing while another verified Location materializes the same Content.",
+      "assertions": ["missing Location record retained", "Content/Object remain available through other Location", "repair may be planned"]
+    },
+    {
+      "id": "S03_INVALID_VERIFIED_REPAIR_WITHOUT_POST_CHECK",
+      "expected": "invalid",
+      "expected_code": "REPAIR_VERIFICATION_MISSING",
+      "schemas": ["urn:ptah:schema:storage:repair:0.1.0"],
+      "setup": "outcome=repaired_and_verified with no post_repair_verification_refs.",
+      "assertions": ["schema rejects specimen"]
+    },
+    {
+      "id": "G01_INVALID_AUTHORIZED_DELETION_WITH_BLOCKERS",
+      "expected": "invalid",
+      "expected_code": "DELETION_AUTHORIZED_WITH_BLOCKERS",
+      "schemas": ["urn:ptah:schema:storage:deletion-decision:0.1.0"],
+      "setup": "decision_state=authorized while blocking_refs or legal_hold_refs are non-empty.",
+      "assertions": ["schema rejects specimen"]
+    },
+    {
+      "id": "G02_INVALID_EXECUTED_DELETION_WITHOUT_RECEIPT",
+      "expected": "invalid",
+      "expected_code": "DELETION_EXECUTION_RECEIPT_MISSING",
+      "schemas": ["urn:ptah:schema:storage:deletion-decision:0.1.0"],
+      "setup": "decision_state=executed with no execution_receipt_refs.",
+      "assertions": ["schema rejects specimen"]
+    },
+    {
+      "id": "G03_INVALID_SHARED_CONTENT_PHYSICAL_DELETE",
+      "expected": "invalid",
+      "expected_code": "CONTENT_STILL_REFERENCED",
+      "schemas": ["urn:ptah:schema:storage:deletion-decision:0.1.0"],
+      "setup": "delete_content_bytes requested while retained Object Revision, Artifact Release or backup references remain.",
+      "assertions": ["semantic harness blocks deletion", "replica-only deletion may be separately evaluated"]
+    },
+    {
+      "id": "M01_VALID_BACKEND_REPLACEMENT",
+      "expected": "valid",
+      "schemas": ["urn:ptah:schema:storage:location:0.1.0", "urn:ptah:schema:object:content:0.1.0"],
+      "setup": "Content is moved from local CAS to S3/R2 or OCI and old Location is retired.",
+      "assertions": ["Content/Object/Revision/Artifact IDs unchanged", "new Location identity", "verification history retained", "provider aliases remain noncanonical"]
+    },
+    {
+      "id": "M02_INVALID_SILENT_OBJECT_MERGE_BY_DIGEST",
+      "expected": "invalid",
+      "expected_code": "LOGICAL_OBJECTS_MERGED_BY_CONTENT_ONLY",
+      "schemas": ["urn:ptah:schema:object:object:0.1.0", "urn:ptah:schema:object:content:0.1.0"],
+      "setup": "Migration merges two distinct logical Objects solely because their Content digest matches.",
+      "assertions": ["reject merge", "Content may be shared only within authorized scope"]
+    }
+  ]
+}
