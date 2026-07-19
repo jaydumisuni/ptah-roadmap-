@@ -1,0 +1,26 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:reproduction-comparison:0.1.0",
+  "title":"Ptah Build Reproduction Comparison",
+  "x-ptah-schema-name":"build.reproduction-comparison",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","original_build_run_ref","reproduction_run_ref","comparison_protocol_ref","subject_comparisons","comparison_class","compared_at","evidence_refs","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"proof.comparison"}}}]},
+    "original_build_run_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "reproduction_run_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "comparison_protocol_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "subject_comparisons":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["original_subject_ref","reproduced_subject_ref","comparison_method","result","evidence_refs"],"properties":{"original_subject_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"reproduced_subject_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"comparison_method":{"type":"string","enum":["byte_digest","structured_semantic","functional_protocol","tolerance_metric","manual_review","other_registered"]},"result":{"type":"string","enum":["identical","equivalent","accepted_variance","different","inconclusive","blocked"]},"tolerance_or_metric":{"type":"string","maxLength":2048},"difference_artifact_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},"limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}}}}},
+    "comparison_class":{"$ref":"urn:ptah:schema:build:definitions:0.1.0#/$defs/comparisonClass"},
+    "known_nondeterminism":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "review_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "verdict_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "compared_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
