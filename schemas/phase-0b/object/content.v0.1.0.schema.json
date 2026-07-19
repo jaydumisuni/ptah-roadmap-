@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:content:0.1.0",
+  "title": "Ptah Content Record",
+  "description": "Exact byte identity and authorized deduplication scope, separate from logical Object identity and storage Location.",
+  "x-ptah-schema-name": "object.content",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "content_contract_version", "canonical_digest", "additional_digests", "byte_size", "content_encoding", "deduplication_scope", "hash_observation_refs", "verification_receipt_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "object.content" } } }
+      ]
+    },
+    "content_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "canonical_digest": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/qualifiedDigest" },
+    "additional_digests": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/qualifiedDigest" },
+      "uniqueItems": true
+    },
+    "byte_size": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+    "content_encoding": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/contentEncoding" },
+    "media_type_claim": { "type": "string", "maxLength": 512 },
+    "deduplication_scope": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/deduplicationScope" },
+    "deduplication_scope_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "hash_observation_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "verification_receipt_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "collision_or_ambiguity_notes": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "deduplication_scope": { "enum": ["organization_trust_domain", "deployment_trust_domain"] } }, "required": ["deduplication_scope"] },
+      "then": { "required": ["deduplication_scope_ref"] }
+    }
+  ]
+}
