@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:runtime:node-capability-snapshot:0.1.0",
+  "title": "Ptah Node Capability Snapshot",
+  "x-ptah-schema-name": "runtime.node-capability-snapshot",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "node_ref", "node_generation", "connection_epoch", "snapshot_outcome", "agent_revision", "observed_at", "valid_until", "platform", "capability_claim_refs", "capability_verification_refs", "provider_revision_refs", "observation_refs", "receipt_refs", "limitations", "extensions"],
+  "properties": {
+    "envelope": {"allOf": [{"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"}, {"properties": {"entity_kind": {"const": "core.node_capability_snapshot"}}}]},
+    "node_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "node_generation": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "connection_epoch": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger"},
+    "snapshot_outcome": {"type": "string", "enum": ["complete", "partial", "failed"]},
+    "agent_revision": {"type": "string", "minLength": 1, "maxLength": 256},
+    "observed_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["os_family", "architecture"],
+      "properties": {
+        "os_family": {"type": "string", "enum": ["linux", "windows", "macos", "android", "ios", "other"]},
+        "os_name": {"type": "string", "maxLength": 256},
+        "os_version": {"type": "string", "maxLength": 256},
+        "kernel_name": {"type": "string", "maxLength": 256},
+        "kernel_version": {"type": "string", "maxLength": 256},
+        "architecture": {"type": "string", "enum": ["x86_64", "aarch64", "armv7", "riscv64", "other"]},
+        "architecture_detail": {"type": "string", "maxLength": 256}
+      }
+    },
+    "virtualization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "virtualization_mode": {"type": "string", "enum": ["bare_metal", "virtual_machine", "container", "unknown"]},
+        "hypervisor": {"type": "string", "maxLength": 256},
+        "nested_virtualization": {"type": "string", "enum": ["unknown", "unsupported", "disabled", "available"]},
+        "kvm_or_platform_hypervisor": {"type": "string", "enum": ["unknown", "unavailable", "available"]},
+        "cgroup_mode": {"type": "string", "maxLength": 64},
+        "namespace_modes": {"type": "array", "items": {"type": "string", "maxLength": 64}, "uniqueItems": true},
+        "lsm_modes": {"type": "array", "items": {"type": "string", "maxLength": 64}, "uniqueItems": true},
+        "seccomp_mode": {"type": "string", "maxLength": 64}
+      }
+    },
+    "cpu_feature_keys": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9_.-]{1,127}$"}, "uniqueItems": true},
+    "network_interface_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "device_or_accelerator_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "checkpoint_compatibility_keys": {"type": "array", "items": {"type": "string", "pattern": "^[a-zA-Z0-9_.:-]{1,256}$"}, "uniqueItems": true},
+    "capability_claim_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "capability_verification_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "explicitly_unavailable_capability_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "provider_revision_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "observation_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "receipt_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true},
+    "errors": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
