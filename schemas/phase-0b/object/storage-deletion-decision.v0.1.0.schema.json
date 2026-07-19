@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:storage:deletion-decision:0.1.0",
+  "title": "Ptah Storage Deletion Decision",
+  "description": "Immutable reference/retention analysis and authorized physical-deletion decision.",
+  "x-ptah-schema-name": "storage.deletion-decision",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "decision_contract_version", "target_content_ref", "target_location_refs", "requested_action", "decision_state", "reference_analysis", "retention_analysis", "legal_hold_refs", "blocking_refs", "authority_ref", "policy_ref", "dry_run_receipt_refs", "execution_receipt_refs", "consequences", "limitations", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        { "$ref": "urn:ptah:schema:common:entity-envelope:0.1.0" },
+        { "properties": { "entity_kind": { "const": "storage.deletion_decision" } } }
+      ]
+    },
+    "decision_contract_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+    "target_content_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "target_location_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "requested_action": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/deletionAction" },
+    "decision_state": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/deletionDecisionState" },
+    "reference_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["retained_object_revision_refs", "retained_artifact_refs", "retained_release_refs", "retained_backup_refs", "proof_or_receipt_refs", "remaining_verified_location_refs"],
+      "properties": {
+        "retained_object_revision_refs": { "type": "array", "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }, "uniqueItems": true },
+        "retained_artifact_refs": { "type": "array", "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }, "uniqueItems": true },
+        "retained_release_refs": { "type": "array", "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }, "uniqueItems": true },
+        "retained_backup_refs": { "type": "array", "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }, "uniqueItems": true },
+        "proof_or_receipt_refs": { "type": "array", "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }, "uniqueItems": true },
+        "remaining_verified_location_refs": { "type": "array", "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }, "uniqueItems": true }
+      }
+    },
+    "retention_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy_refs", "retain_until_satisfied", "bytes_deletable_when_unreferenced"],
+      "properties": {
+        "policy_refs": { "type": "array", "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }, "uniqueItems": true },
+        "retain_until_satisfied": { "type": "boolean" },
+        "bytes_deletable_when_unreferenced": { "type": "boolean" }
+      }
+    },
+    "legal_hold_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "blocking_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "authority_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "policy_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "dry_run_receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "execution_receipt_refs": {
+      "type": "array",
+      "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+      "uniqueItems": true
+    },
+    "consequences": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "supersedes_decision_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+    "limitations": { "$ref": "urn:ptah:schema:object:definitions:0.1.0#/$defs/stringList" },
+    "extensions": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "decision_state": { "const": "authorized" } }, "required": ["decision_state"] },
+      "then": {
+        "properties": {
+          "blocking_refs": { "maxItems": 0 },
+          "legal_hold_refs": { "maxItems": 0 },
+          "dry_run_receipt_refs": { "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "decision_state": { "const": "executed" } }, "required": ["decision_state"] },
+      "then": { "properties": { "execution_receipt_refs": { "minItems": 1 } } }
+    }
+  ]
+}
