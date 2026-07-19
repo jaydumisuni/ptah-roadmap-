@@ -213,3 +213,9 @@ Full decision: `decisions/ADR-0022-WORKSPACE-SESSION-CHECKPOINT-RESTORE-RECOVERY
 **ACCEPTED.** `ptah.transfer` `0.1.0` separates Transfer Request/Run/Manifest/Progress/Verification; Sync Relationship/Cursor/Run/Conflict/Resolution; and Backup Policy/Snapshot/Verification/Prune/Restore. Provider acknowledgement is not Content acceptance, sync is not backup, and restored storage is not Workspace/application recovery.
 
 Full decision: `decisions/ADR-0023-TRANSFER-SYNC-CONFLICT-BACKUP-RESTORE-BOUNDARY.md`.
+
+### D-039 — Recipe, Build, provenance, SBOM, signature and verification remain separate
+
+**ACCEPTED.** `ptah.build` / `ptah.provenance` catalog `0.1.1` separates Recipe/Revision/Proposal/Acceptance/Readiness/Compatibility/Plan/Run/Step, cache and secret evidence, produced output identity, SBOM coverage, attestation/signature creation and verification, trust/transparency policy, proof domains and independent reproduction. `build_completed`, a cache hit, a signed statement or a Proof Bundle cannot become release acceptance.
+
+Full decision: `decisions/ADR-0024-RECIPE-BUILD-PROVENANCE-SBOM-SIGNATURE-VERIFICATION-BOUNDARY.md`.
