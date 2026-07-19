@@ -1,0 +1,28 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:transfer:backup-prune-decision:0.1.0",
+  "title":"Ptah Backup Prune Decision",
+  "x-ptah-schema-name":"transfer.backup-prune-decision","x-ptah-schema-version":"0.1.0","x-ptah-maturity":"candidate",
+  "type":"object","additionalProperties":false,
+  "required":["envelope","backup_policy_ref","repository_ref","authority_ref","evaluated_at","candidate_snapshot_or_chunk_refs","retained_dependency_refs","retention_results","legal_hold_results","copy_and_failure_domain_results","dry_run_impact_manifest_ref","decision","evidence_refs","limitations","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"backup.prune_decision"}}}]},
+    "backup_policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "repository_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "authority_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "evaluated_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "candidate_snapshot_or_chunk_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "retained_dependency_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "retention_results":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["subject_ref","result","evidence_refs"],"properties":{"subject_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"result":{"type":"string","enum":["eligible","retain","unknown"]},"evidence_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true}}}},
+    "legal_hold_results":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["subject_ref","result"],"properties":{"subject_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"result":{"type":"string","enum":["clear","held","unknown"]},"policy_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}}}},
+    "copy_and_failure_domain_results":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["requirement_key","result","evidence_refs"],"properties":{"requirement_key":{"type":"string","pattern":"^[a-z][a-z0-9_.-]{2,127}$"},"result":{"type":"string","enum":["satisfied","unsatisfied","unknown"]},"evidence_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true}}}},
+    "dry_run_impact_manifest_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "decision":{"type":"string","enum":["approved","rejected","partial","manual_review_required"]},
+    "deletion_activity_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "post_prune_verification_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "receipt_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
