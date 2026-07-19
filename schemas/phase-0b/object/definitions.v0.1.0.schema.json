@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:object:definitions:0.1.0",
+  "title": "Ptah Object, Artifact and Storage Definitions",
+  "description": "Shared candidate definitions for Phase 0B WP03 schemas.",
+  "x-ptah-schema-name": "object.definitions",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "$defs": {
+    "qualifiedDigestText": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*:[0-9a-f]+$"
+    },
+    "qualifiedDigest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "digest"],
+      "properties": {
+        "algorithm": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+        "algorithm_profile": { "type": "string", "maxLength": 128 },
+        "digest": { "type": "string", "pattern": "^[0-9a-f]+$", "minLength": 16 },
+        "byte_scope": { "type": "string", "enum": ["whole_content", "decoded_content", "stored_representation", "chunk", "range", "provider_claim"] },
+        "offset": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "length": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" }
+      }
+    },
+    "deduplicationScope": {
+      "type": "string",
+      "enum": ["object_only", "workspace", "organization_trust_domain", "deployment_trust_domain", "public_content"]
+    },
+    "contentEncoding": {
+      "type": "string",
+      "enum": ["raw", "compressed", "encrypted", "wrapped", "sparse", "encoded", "unknown"]
+    },
+    "revisionRole": {
+      "type": "string",
+      "enum": ["original", "imported", "captured", "edited", "generated", "normalized", "converted", "rebuilt", "restored", "merged", "recovered", "tombstone"]
+    },
+    "originClass": {
+      "type": "string",
+      "enum": ["original_source", "uploaded_original", "captured_original", "recovered_embedded_source", "decoded_resource", "generated", "decompiled_view", "disassembly_view", "human_edited_derivative", "restored_copy", "unknown"]
+    },
+    "hashObservationOutcome": {
+      "type": "string",
+      "enum": ["observed", "verified", "mismatch", "unsupported", "inconclusive", "corrupt_input"]
+    },
+    "detectorEvidenceClass": {
+      "type": "string",
+      "enum": ["extension_hint", "filename_hint", "metadata_hint", "magic_signature", "container_structure", "parser_validated", "embedded_signature", "text_encoding", "model_classification", "caller_assertion", "runtime_observation"]
+    },
+    "detectorOutcome": {
+      "type": "string",
+      "enum": ["identified", "unknown", "ambiguous", "polyglot", "encrypted", "malformed", "truncated", "unsupported", "opaque", "error"]
+    },
+    "classificationOutcome": {
+      "type": "string",
+      "enum": ["selected", "ambiguous", "deferred", "rejected", "unsupported", "manual_review_required"]
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locator_kind"],
+      "properties": {
+        "locator_kind": { "type": "string", "enum": ["byte_range", "logical_path", "page_box", "stream_index", "track_index", "frame_index", "section_id", "segment_id", "resource_id", "class_id", "method_id", "timeline_range", "json_pointer", "unknown"] },
+        "offset": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "length": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "path": { "type": "string", "maxLength": 8192 },
+        "page": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/positiveInteger" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number", "minimum": 0 },
+        "height": { "type": "number", "minimum": 0 },
+        "index": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "identifier": { "type": "string", "maxLength": 4096 },
+        "start_seconds": { "type": "number", "minimum": 0 },
+        "duration_seconds": { "type": "number", "minimum": 0 },
+        "json_pointer": { "type": "string", "maxLength": 8192 }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["coverage_class", "complete_claim"],
+      "properties": {
+        "coverage_class": { "type": "string", "enum": ["none", "sampled", "partial", "bounded_complete", "complete", "unknown"] },
+        "complete_claim": { "type": "boolean" },
+        "processed_units": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "total_units_claimed": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "processed_bytes": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "total_bytes_claimed": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "skipped_scope": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4096 } },
+        "unknown_gaps": { "type": "array", "items": { "$ref": "#/$defs/locator" } },
+        "limitations": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4096 } }
+      }
+    },
+    "decompositionLevel": {
+      "type": "string",
+      "enum": ["L0_registered", "L1_detected", "L2_inventoried", "L3_decomposed", "L4_enriched", "L5_transformed", "L6_rebuilt", "L7_verified"]
+    },
+    "decompositionOutcome": {
+      "type": "string",
+      "enum": ["complete", "partial", "locked_encrypted", "credential_required", "wrong_credential", "unsupported_encryption", "malformed", "truncated", "parser_error", "parser_crash", "timeout", "budget_exhausted", "unsupported_format", "opaque", "cancelled", "failed"]
+    },
+    "artifactLifecycleState": {
+      "type": "string",
+      "enum": ["draft", "promoted", "superseded", "tombstoned"]
+    },
+    "verificationProjectionState": {
+      "type": "string",
+      "enum": ["not_requested", "pending", "verified", "failed", "inconclusive", "stale"]
+    },
+    "reviewProjectionState": {
+      "type": "string",
+      "enum": ["not_requested", "pending", "passed", "failed", "conditional", "inconclusive"]
+    },
+    "acceptanceProjectionState": {
+      "type": "string",
+      "enum": ["not_requested", "pending", "accepted", "rejected", "conditional", "expired"]
+    },
+    "releaseAction": {
+      "type": "string",
+      "enum": ["publish", "withdraw", "revoke", "supersede"]
+    },
+    "locationKind": {
+      "type": "string",
+      "enum": ["local_cas", "workspace_file", "s3_object", "r2_object", "oci_blob", "oci_manifest", "drive_export", "provider_volume", "backup_repository", "transfer_landing", "cache", "other"]
+    },
+    "replicaRole": {
+      "type": "string",
+      "enum": ["primary", "replica", "archive", "backup", "export", "cache", "landing", "quarantine"]
+    },
+    "locationLifecycleState": {
+      "type": "string",
+      "enum": ["declared", "materializing", "available", "retiring", "deleted"]
+    },
+    "locationHealthState": {
+      "type": "string",
+      "enum": ["unknown", "healthy", "degraded", "missing", "corrupt"]
+    },
+    "locationVerificationState": {
+      "type": "string",
+      "enum": ["unverified", "verifying", "verified", "failed", "stale"]
+    },
+    "storageVerificationOutcome": {
+      "type": "string",
+      "enum": ["verified", "size_mismatch", "digest_mismatch", "missing", "unreadable", "permission_denied", "provider_error", "inconclusive"]
+    },
+    "deletionAction": {
+      "type": "string",
+      "enum": ["retain", "delete_location", "delete_content_bytes", "quarantine", "manual_review"]
+    },
+    "deletionDecisionState": {
+      "type": "string",
+      "enum": ["proposed", "blocked", "authorized", "executed", "failed", "expired", "superseded"]
+    },
+    "stateProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_machine_name", "state_machine_version", "current_state", "state_sequence"],
+      "properties": {
+        "state_machine_name": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z][a-z0-9_-]*)+$" },
+        "state_machine_version": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/semver" },
+        "current_state": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "state_sequence": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/nonNegativeInteger" },
+        "last_transition_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" }
+      }
+    },
+    "productionCorrelation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["activity_ref", "operation_ref", "attempt_ref", "receipt_refs"],
+      "properties": {
+        "activity_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+        "operation_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+        "attempt_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+        "receipt_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+          "uniqueItems": true
+        },
+        "facility_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+        "provider_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+        "node_ref": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+        "recipe_or_protocol_refs": {
+          "type": "array",
+          "items": { "$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "stringList": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 4096 }
+    }
+  }
+}
