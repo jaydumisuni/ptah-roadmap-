@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ptah:schema:domain:firmware-compatibility-claim:0.1.0",
+  "title": "Ptah Firmware Compatibility Claim",
+  "x-ptah-schema-name": "domain.firmware-compatibility-claim",
+  "x-ptah-schema-version": "0.1.0",
+  "x-ptah-maturity": "candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope", "subject_refs", "claimant_ref", "claim_scope", "target_claims", "claimed_operations", "confidence", "issued_at", "evidence_refs", "extensions"],
+  "properties": {
+    "envelope": {
+      "allOf": [
+        {"$ref": "urn:ptah:schema:common:entity-envelope:0.1.0"},
+        {"properties": {"entity_kind": {"const": "firmware.compatibility_claim"}}}
+      ]
+    },
+    "subject_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+      "uniqueItems": true
+    },
+    "claimant_ref": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "claimant_type": {"type": "string", "enum": ["vendor", "package_author", "tool", "importer", "detector", "operator", "other_registered"]},
+    "claim_scope": {"type": "string", "enum": ["package", "manifest", "component", "executable_asset", "toolchain", "device_family", "other_registered"]},
+    "target_claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_type", "value"],
+        "properties": {
+          "claim_type": {"type": "string", "enum": ["manufacturer", "brand", "model", "board", "soc", "hwid", "storage", "layout", "security_state", "rollback_state", "protocol", "firmware_build", "other_registered"]},
+          "value": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "condition_refs": {"type": "array", "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"}, "uniqueItems": true}
+        }
+      }
+    },
+    "claimed_operations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "urn:ptah:schema:domain:definitions:0.1.0#/$defs/mutationClass"},
+      "uniqueItems": true
+    },
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "valid_from": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "valid_until": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "issued_at": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+      "uniqueItems": true
+    },
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1, "maxLength": 4096}},
+    "extensions": {"$ref": "urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  }
+}
