@@ -1,0 +1,42 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:ptah:schema:build:transparency-evidence:0.1.0",
+  "title":"Ptah Provenance Transparency Evidence",
+  "x-ptah-schema-name":"build.transparency-evidence",
+  "x-ptah-schema-version":"0.1.0",
+  "x-ptah-maturity":"candidate",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["envelope","subject_ref","subject_digest_refs","transparency_mode","service_or_authority_ref","entry_or_timestamp_refs","verification_protocol_ref","trusted_root_refs","observed_at","verification_result","privacy_policy_refs","evidence_refs","limitations","extensions"],
+  "properties":{
+    "envelope":{"allOf":[{"$ref":"urn:ptah:schema:common:entity-envelope:0.1.0"},{"properties":{"entity_kind":{"const":"provenance.transparency_evidence"}}}]},
+    "subject_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "subject_digest_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "transparency_mode":{"type":"string","enum":["public_log","private_log","timestamp_authority","offline_no_log","not_used","other_registered"]},
+    "service_or_authority_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "service_revision_or_checkpoint_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "entry_or_timestamp_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "entry_body_digest_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "integrated_or_timestamped_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "inclusion_proof_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "log_integrity_or_checkpoint_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "verification_protocol_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "trusted_root_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "observed_at":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/utcDateTime"},
+    "verification_result":{"type":"string","enum":["valid","valid_with_limitations","invalid","unavailable","inconclusive","not_applicable"]},
+    "online_availability":{"type":"string","enum":["available","unavailable","not_required","unknown"]},
+    "privacy_policy_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "identity_disclosure_acknowledgement_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "activity_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "operation_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "attempt_ref":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},
+    "receipt_refs":{"type":"array","items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "evidence_refs":{"type":"array","minItems":1,"items":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/entityRef"},"uniqueItems":true},
+    "limitations":{"type":"array","items":{"type":"string","minLength":1,"maxLength":4096}},
+    "extensions":{"$ref":"urn:ptah:schema:common:definitions:0.1.0#/$defs/extensions"}
+  },
+  "allOf":[
+    {"if":{"properties":{"transparency_mode":{"const":"public_log"}},"required":["transparency_mode"]},"then":{"required":["identity_disclosure_acknowledgement_ref"]}},
+    {"if":{"properties":{"transparency_mode":{"const":"offline_no_log"}},"required":["transparency_mode"]},"then":{"properties":{"entry_or_timestamp_refs":{"minItems":0}},"not":{"required":["identity_disclosure_acknowledgement_ref"]}}}
+  ]
+}
