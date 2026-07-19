@@ -1,0 +1,20 @@
+{
+  "state_machine_name":"device.interface.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["device.interface"],
+  "states":[
+    {"name":"observed","description":"Interface incarnation is known but not claimed/ready.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Transport/mode/provider evidence exists."]},
+    {"name":"claimed","description":"Provider holds the interface under current generation.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Claim/permission evidence exists."]},
+    {"name":"ready","description":"Interface is ready for declared capability scope.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Protocol/capability evidence exists."]},
+    {"name":"degraded","description":"Interface remains partially usable.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Degradation evidence exists."]},
+    {"name":"disconnected","description":"Current incarnation lost continuity; history remains.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Disconnect/epoch-end evidence exists."]},
+    {"name":"failed","description":"Interface became unusable because of provider/permission/protocol failure.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Failure evidence exists."]}
+  ],
+  "initial_states":["observed"],
+  "transitions":[
+    {"transition_name":"create","from_states":[null],"to_state":"observed","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Transport/mode/provider evidence exists."],"required_evidence_kinds":["receipt","device_observation"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"claim","from_states":["observed","degraded"],"to_state":"claimed","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Permissions and current Provider generation allow claim."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"mark_ready","from_states":["claimed","degraded"],"to_state":"ready","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Protocol/capability readiness evidence exists."],"required_evidence_kinds":["receipt","capability_snapshot"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"degrade","from_states":["claimed","ready"],"to_state":"degraded","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Partial capability/quality evidence exists."],"required_evidence_kinds":["receipt"],"required_receipt_proof_levels":[]},
+    {"transition_name":"disconnect","from_states":["observed","claimed","ready","degraded"],"to_state":"disconnected","transition_class":"recovery","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Transport continuity ended and epoch closed."],"required_evidence_kinds":["receipt","connection_observation"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"fail","from_states":["observed","claimed","ready","degraded"],"to_state":"failed","transition_class":"failure","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Terminal incarnation failure exists."],"required_evidence_kinds":["receipt","error"],"required_receipt_proof_levels":["operation_completed"]}
+  ],"unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
