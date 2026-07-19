@@ -1,0 +1,19 @@
+{
+  "state_machine_name":"sync.conflict.lifecycle","state_machine_version":"0.1.0","subject_entity_kinds":["sync.conflict"],
+  "states":[
+    {"name":"open","description":"Conflict exists and no accepted resolution is applied.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Competing subjects/evidence and conflict kind are recorded."]},
+    {"name":"under_review","description":"Authorized review or merge analysis is in progress.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Reviewer/Activity and policy are recorded."]},
+    {"name":"resolved","description":"An accepted resolution decision and resulting revisions/mappings/tombstones are recorded.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Resolution and follow-up verification exist."]},
+    {"name":"postponed","description":"Conflict remains unresolved by explicit decision and blocks/limits affected scope.","terminal":false,"proof_dimension":"lifecycle","entry_requirements":["Postpone reason, expiry/review date and affected scope exist."]},
+    {"name":"superseded","description":"Conflict is replaced by another conflict identity after split/reclassification while history remains.","terminal":true,"proof_dimension":"lifecycle","entry_requirements":["Successor relationship and evidence exist."]}
+  ],
+  "initial_states":["open"],
+  "transitions":[
+    {"transition_name":"detect","from_states":[null],"to_state":"open","transition_class":"normal","authority_classes":["provider","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Conflict evidence/subjects are frozen."],"required_evidence_kinds":["receipt","evidence"],"required_receipt_proof_levels":["output_created"]},
+    {"transition_name":"begin_review","from_states":["open","postponed"],"to_state":"under_review","transition_class":"normal","authority_classes":["workspace_owner","human_operator","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Reviewer/merge Activity and policy exist."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"resolve","from_states":["open","under_review","postponed"],"to_state":"resolved","transition_class":"normal","authority_classes":["workspace_owner","human_operator","organization_policy","ptah_control_plane"],"side_effecting":true,"required_preconditions":["Resolution decision, new/selected revision or mapping and follow-up verification exist."],"required_evidence_kinds":["receipt","conflict_resolution","review"],"required_receipt_proof_levels":["operation_completed"]},
+    {"transition_name":"postpone","from_states":["open","under_review"],"to_state":"postponed","transition_class":"administrative","authority_classes":["workspace_owner","human_operator","ptah_control_plane"],"side_effecting":false,"required_preconditions":["Reason/review deadline and blocked/limited scope are retained."],"required_evidence_kinds":["receipt","review"],"required_receipt_proof_levels":["accepted"]},
+    {"transition_name":"supersede","from_states":["open","under_review","postponed"],"to_state":"superseded","transition_class":"administrative","authority_classes":["ptah_control_plane","human_operator"],"side_effecting":false,"required_preconditions":["Successor conflict(s) preserve all competing evidence."],"required_evidence_kinds":["receipt","relationship"],"required_receipt_proof_levels":["operation_completed"]}
+  ],
+  "unknown_state_policy":"reject","migration_policy":{"state_mapping_required_for_breaking_change":true,"unmapped_state_behavior":"manual_review","migration_definition_refs":[]},"extensions":{}
+}
