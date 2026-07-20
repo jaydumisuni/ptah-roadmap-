@@ -1,6 +1,6 @@
 # ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
-Status: proposed — frozen catalogs and generated bindings complete; runtime dependencies, host proof, licence acceptance and closure review remain open
+Status: proposed — Rust dependencies, distributed backend artifacts, signers and host collector complete; pinned-host package proof, durable retention, licence acceptance and closure review remain open
 
 ## Context
 
@@ -18,7 +18,9 @@ Adopt the selections recorded in the following Phase 0C records as the baseline 
 - `work-packages/PHASE-0C-06-CI-EXACT-HEAD-ACCEPTANCE-GATE.md`;
 - `work-packages/PHASE-0C-08-NONCLAIMING-SCAFFOLD-EVIDENCE-REVIEW.md`;
 - `work-packages/PHASE-0C-09-IMMUTABLE-ACTION-AND-FROZEN-CONFORMANCE-EVIDENCE.md`;
-- `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`.
+- `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;
+- `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`;
+- `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`.
 
 The selected baseline is:
 
@@ -100,6 +102,50 @@ Exact-head runs `29727701958`, `29727701960` and `29727701999` passed the catalo
 
 The generated crate provides metadata and lookup bindings only. It does not implement Ptah runtime behavior.
 
+## Merged runtime dependency, backend signer and host-collector evidence
+
+`Ptah-space` PR `#6` was tested at exact head:
+
+```text
+bc12885ce41844b05481628543219c3a8d3574ba
+```
+
+and squash-merged at:
+
+```text
+c2cd803b5e5c50787b3d8c2d24392d693afdbb3c
+```
+
+The merged evidence closes the candidate/evidence sub-gates for:
+
+- ten exact direct Rust dependencies and final `Cargo.lock`;
+- 99 resolved packages, 81 registry packages and zero Git dependencies;
+- cargo-deny advisory, ban, licence and source policy;
+- authoritative digests for all nine selected distributed/source backend artifacts;
+- reproducible Playwright Chromium version `148.0.7778.96`, revision `1223` and installed-tree digest;
+- pinned signing authorities and successful cryptographic verification for Node.js, runc, Git and libarchive;
+- implementation of the fail-closed eighteen-capability host collector and realistic Ubuntu identity finalizer;
+- exact-head host, dependency, backend, signer, source, Rust, Browser, frozen-contract, generated-binding and WP13 workflows;
+- review regression coverage for malformed locks, realistic host identity and malformed blocker records.
+
+The final `Cargo.lock` SHA-256 is:
+
+```text
+d68a06272d417d67049c7879570e3735607166ce1e7eff58e43df21e20c9117a
+```
+
+The locked Playwright Chromium installed-tree SHA-256 is:
+
+```text
+953a2e9c1fb18d1e698f0903a62c23c835264e939cdd08a85c41d57719a5de7a
+```
+
+All eight final workflows passed at the exact candidate head. The backend-signature workflow's first attempt retained an upstream libarchive HTTP `504` as negative evidence. The independent immutable artifact lane had passed the same lock, and the unchanged-lock retry completed all four cryptographic checks.
+
+A generic hosted Ubuntu report remains `proof_eligible: false` unless the exact point release, architecture and `6.8.0-136-generic` kernel identity match. The selected distributed artifact evidence does not replace the installed package manifest and package-artifact proof required from the real pinned host.
+
+Every merged evidence record keeps runtime implementation unauthorized.
+
 ## Conditions before acceptance
 
 ### Completed at candidate/evidence level
@@ -110,7 +156,7 @@ The generated crate provides metadata and lookup bindings only. It does not impl
 4. implementation task graph mapped to WP14 proof obligations;
 5. required CI and immutable exact-head evidence shape;
 6. a merged non-claiming Rust/Browser workspace scaffold;
-7. exact empty Rust and Playwright npm locks for the scaffold;
+7. exact Playwright npm lock and final Rust `Cargo.lock`;
 8. passing source-policy, Rust and Browser scaffold jobs;
 9. immutable GitHub Action commit pins;
 10. passing frozen WP13 unit, structural and semantic conformance from `Ptah-space`;
@@ -119,7 +165,16 @@ The generated crate provides metadata and lookup bindings only. It does not impl
 13. deterministic offline generated metadata bindings;
 14. generated manifest, index, Rust-module and output-tree digests;
 15. two independent byte-identical generation runs;
-16. generated Rust formatting, Clippy, compilation and tests at the same exact head.
+16. generated Rust formatting, Clippy, compilation and tests at the same exact head;
+17. minimal exact Rust crate/features graph selection;
+18. registry source/checksum inventory and zero-Git-dependency enforcement;
+19. cargo-deny advisory, ban, licence and source policy;
+20. authoritative identity and digest verification for all nine selected distributed/source artifacts;
+21. reproducible Playwright Chromium revision and installed-tree lock;
+22. stable signer locks and cryptographic verification for Node.js, runc, Git and libarchive;
+23. fail-closed host capability collector and realistic Ubuntu identity finalizer;
+24. exact-head dependency, backend, signer and host-collector workflows;
+25. review regressions for malformed lock, host identity and blocker data.
 
 ### Still open
 
@@ -127,13 +182,12 @@ This ADR remains proposed until all of the following are complete:
 
 1. the owner accepts the Apache-2.0 public/private boundary;
 2. `Ptah-space` adds the accepted public `LICENSE`, final `NOTICE` and contribution/security boundary;
-3. every selected external Rust crate, system package and distributed binary/source artifact has an exact lock, authoritative hash/signature, licence inventory and advisory review;
-4. the host capability collector is implemented and a report is produced on the pinned host image revision;
-5. CI runs dependency policy at the exact candidate commit;
-6. final accepted reports are retained in a durable proof Location beyond temporary workflow artifact expiry;
-7. a Phase 0C closure review confirms no frozen contract was weakened;
-8. this ADR is changed to accepted;
-9. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
+3. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+4. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host;
+5. final accepted reports are retained in a durable proof Location beyond temporary workflow artifact expiry;
+6. a Phase 0C closure review confirms no frozen contract was weakened;
+7. this ADR is changed to accepted;
+8. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
 
 ## Consequences
 
@@ -144,7 +198,7 @@ This ADR remains proposed until all of the following are complete:
 - concrete implementation may not weaken any frozen Phase 0B identity, lifecycle, migration or proof boundary;
 - security updates or dependency rebases create new Host/Provider revisions and require the relevant proof rerun;
 - generated bindings are metadata only and cannot authorize T01 runtime work;
-- the current scaffold, catalog lock and binding evidence do not authorize T01 runtime work;
+- the current scaffold, catalog lock, generated bindings, dependency graph, backend artifacts, signer proofs and host-collector evidence do not authorize T01 runtime work;
 - failure of any open condition leaves implementation unauthorized.
 
 ## Acceptance form
@@ -154,6 +208,7 @@ When the open conditions pass, the acceptance change must record:
 - exact `Ptah-space` commit;
 - exact dependency and host-lock digests;
 - generated binding input/output digests;
+- installed host package manifest and package-artifact digests;
 - CI workflow/report and durable evidence digests;
 - WP13 exact-head result;
 - Phase 0C closure review;

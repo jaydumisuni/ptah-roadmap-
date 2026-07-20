@@ -1,0 +1,84 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "ptah.phase0c.runtime_dependency_backend_host_evidence",
+  "reviewed_at": "2026-07-20",
+  "implementation_repository": "jaydumisuni/Ptah-space",
+  "pull_request": 6,
+  "exact_tested_head": "bc12885ce41844b05481628543219c3a8d3574ba",
+  "merge_commit": "c2cd803b5e5c50787b3d8c2d24392d693afdbb3c",
+  "runtime_implementation_authorized": false,
+  "workflow_runs": {
+    "backend_artifacts": 29753904165,
+    "scaffold_and_frozen_conformance": 29753904248,
+    "frozen_contract_lock": 29753904209,
+    "generated_contract_bindings": 29753904343,
+    "signer_lock_boundary": 29753904295,
+    "host_capabilities": 29753904322,
+    "rust_dependency_policy": 29753904225,
+    "backend_signatures": 29753904185
+  },
+  "accepted_artifacts": {
+    "static_backends": {
+      "id": 8465773509,
+      "sha256": "3f9321ae3dd7c8b75e896e0617c8c0a5aeacffa10ae9d861aa3a6e2f722f0030"
+    },
+    "playwright_browser": {
+      "id": 8465777588,
+      "sha256": "8bdf6aaea0a5b12835c1ad3a85389585de36ba684609b75b5a7b6b55b9cdf74b"
+    },
+    "rust_scaffold": {
+      "id": 8465784889,
+      "sha256": "1ca20cd3f1f2545e0e0afa6448f5cbb267dc74247239caddec200c780de48c0c"
+    },
+    "browser_scaffold": {
+      "id": 8465772620,
+      "sha256": "47231c5b95aa7a9e3105edd0932d3e0439e5fc745d1274d236661dcb246aea63"
+    },
+    "source_policy": {
+      "id": 8465767734,
+      "sha256": "80c8e9ea5789f95d79ed0754ba23013b558b700a41622edb591c35f0e38603be"
+    },
+    "frozen_conformance": {
+      "id": 8465775702,
+      "sha256": "6284ad270f3de2f30624053a9e309a02dfabae7d62c98f8950dde1afce7afa3a"
+    },
+    "frozen_contract_lock": {
+      "id": 8465769568,
+      "sha256": "37e0b35c974f5eca2478dd9b4dafeea8a42cad855df38e520f852b7dab13dcaf"
+    },
+    "generated_contract_bindings": {
+      "id": 8465770240,
+      "sha256": "ca98a8cdc6c0d407f3ca678c324aa30faa84c9305262ebc6c6e850a33c0b8af3"
+    },
+    "signing_lock": {
+      "id": 8465768371,
+      "sha256": "5f3a7b44c55083de45859cf4ee4229869939f262436bdec4b48728e91469b666"
+    },
+    "host_capabilities": {
+      "id": 8465769622,
+      "sha256": "de7e0bc3ed839fbd8b940b5663df59343c5522671d7a9df5e3896f6e343cf395"
+    },
+    "rust_dependency_policy": {
+      "id": 8465841717,
+      "sha256": "83375db163158dfab55f3f50290e76c57f154919e4df2b2319f1f11723641725"
+    },
+    "backend_signatures_successful_retry": {
+      "id": 8465852502,
+      "sha256": "8b0c63152ec23db0ea7af3555cbf918297b792bf49944acf9580a611e117cb02"
+    }
+  },
+  "retained_negative_evidence": {
+    "backend_signatures_http_504_attempt": {
+      "id": 8465790976,
+      "sha256": "ae90e01762f9721bae05ad82a8e78e3f845cfb93f3641ceb38b2d490935c51ed"
+    }
+  },
+  "remaining_blockers": [
+    "proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and 6.8.0-136-generic host",
+    "installed Ubuntu package manifest and package-artifact digests from the pinned host",
+    "durable final evidence retention beyond temporary workflow artifacts",
+    "owner acceptance of the Apache-2.0 public/private boundary and final public notice files",
+    "Phase 0C closure consistency review",
+    "ADR-0033 acceptance and explicit runtime authorization"
+  ]
+}

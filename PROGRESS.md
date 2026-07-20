@@ -15,7 +15,7 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 - [x] donor, internal-workload and licence recovery;
 - [x] requirement closure and consistency review;
-- [x] public/private boundary;
+- [x] public/private boundary recorded;
 - [x] ADR-0017 accepted;
 - [x] frozen at `7d2dffee48f1400ba1cf88823343f09a3895ad33`.
 
@@ -87,10 +87,10 @@ Selection/evidence package merge:
 ## Non-claiming implementation scaffold
 
 - [x] 17 non-publishable Rust package boundaries merged;
-- [x] empty third-party Rust dependency lock committed;
+- [x] initial empty third-party Rust dependency lock committed as non-claiming scaffold evidence;
 - [x] private Browser scaffold and npm lock committed;
 - [x] candidate cargo-deny policy committed;
-- [x] host capability collector explicitly remains nonfunctional;
+- [x] initial host capability collector placeholder recorded as deliberately nonfunctional;
 - [x] no-build and no-private-gateway guards merged;
 - [x] initial exact-head scaffold workflow passed;
 - [x] scaffold merge `ff26fa93d1b60781b49f33f5d1758680e1282d5f`.
@@ -133,15 +133,35 @@ Selection/evidence package merge:
 - [x] source/Rust/Browser/frozen-WP13 workflow run `29727701999` passed;
 - [x] binding package merge `f45c96e3f667b463042b6a8b714066236fde703d`.
 
+## Runtime dependency, backend signer and host-collector evidence
+
+- [x] minimal exact Rust crate/features graph selected: ten direct crates;
+- [x] final `Cargo.lock` committed with 99 resolved packages, 81 registry packages and zero Git dependencies;
+- [x] crates.io sources and checksums recorded;
+- [x] cargo-deny advisory, ban, licence and source policy passed at the exact candidate head;
+- [x] nine selected distributed/source backend artifacts locked and verified against authoritative identities;
+- [x] Playwright Chromium version `148.0.7778.96`, revision `1223` and installed-tree digest locked and reproduced;
+- [x] Node.js, runc, Git and libarchive signing authorities pinned;
+- [x] all four selected backend signatures cryptographically verified;
+- [x] fail-closed host capability collector implemented for eighteen required capabilities;
+- [x] realistic Ubuntu point-release and frozen-kernel identity finalizer implemented;
+- [x] malformed contract-lock and malformed-blocker paths fail with controlled evidence diagnostics;
+- [x] all eight workflows passed at exact head `bc12885ce41844b05481628543219c3a8d3574ba`;
+- [x] negative HTTP `504` signature-attempt evidence retained and successful unchanged-lock retry passed;
+- [x] implementation evidence squash-merged as `c2cd803b5e5c50787b3d8c2d24392d693afdbb3c`;
+- [x] runtime authorization remained false in every accepted record.
+
 ## Active Phase 0C closure work
 
-- [-] select the minimal external Rust crate/features graph;
-- [ ] produce the final runtime `Cargo.lock`;
-- [ ] run crate licence and advisory policy;
-- [ ] lock authoritative hashes/signatures for every installed/distributed backend artifact;
-- [ ] implement the host capability collector;
-- [ ] produce a real host report from the pinned image/kernel revision;
-- [ ] add dependency-policy evidence to exact-head CI;
+- [x] select the minimal external Rust crate/features graph;
+- [x] produce the final runtime-candidate `Cargo.lock`;
+- [x] run crate licence, advisory, ban and source policy;
+- [x] lock authoritative hashes for every selected distributed/source backend artifact;
+- [x] pin and cryptographically verify Node.js, runc, Git and libarchive signing authorities;
+- [x] implement the host capability collector and identity finalizer;
+- [x] add dependency, backend, signer and host-collector evidence to exact-head CI;
+- [ ] produce a proof-eligible report from the exact pinned Ubuntu image/kernel revision;
+- [ ] record the exact installed package manifest and package-artifact digests from that host;
 - [ ] persist final evidence beyond temporary CI artifact retention;
 - [?] owner acceptance of Apache License 2.0 and the public/private contribution boundary;
 - [ ] add accepted public `LICENSE`, `NOTICE`, contribution and security files;
@@ -153,6 +173,7 @@ Selection/evidence package merge:
 
 - [x] scaffold remains non-claiming;
 - [x] generated bindings remain metadata-only;
+- [x] dependency, backend, signer and host evidence remain non-authorizing;
 - [x] no Node, Workspace, Activity, Provider or UI runtime is claimed;
 - [x] no public licence is claimed before owner acceptance;
 - [x] donor/workload identity remains outside Ptah Core;
