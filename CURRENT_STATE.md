@@ -3,9 +3,9 @@
 **Last updated:** 2026-07-20  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-02 — frozen-contract lock, generated bindings, runtime dependency evidence and host capability proof  
+**Active work unit:** 0C-03 — runtime dependency evidence, host capability proof and licence closure  
 **Runtime implementation:** NOT AUTHORIZED  
-**Production dependency/backend selection:** CANDIDATE SET RECORDED — FINAL EVIDENCE OPEN  
+**Production dependency/backend selection:** CANDIDATE SET RECORDED — RUNTIME LOCK AND HOST EVIDENCE OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
@@ -68,9 +68,9 @@ These packages define implementation boundaries. They are not evidence that the 
 
 ---
 
-## Phase 0C candidate decisions now recorded
+## Phase 0C candidate decisions and evidence now recorded
 
-The following records are merged:
+The following records are merged or awaiting this evidence-sync merge:
 
 - `work-packages/PHASE-0C-01-FIRST-SLICE-SELECTION-PROPOSAL.md`;
 - `work-packages/PHASE-0C-02-HOST-BASELINE-PIN.md`;
@@ -81,13 +81,8 @@ The following records are merged:
 - `work-packages/PHASE-0C-07-REAL-WORKLOAD-CANDIDATE-REGISTRY.md`;
 - `work-packages/PHASE-0C-08-NONCLAIMING-SCAFFOLD-EVIDENCE-REVIEW.md`;
 - `work-packages/PHASE-0C-09-IMMUTABLE-ACTION-AND-FROZEN-CONFORMANCE-EVIDENCE.md`;
+- `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;
 - proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.
-
-Selection/evidence merge before the latest hardening:
-
-```text
-79e83be0c340e871521d574719cdf6d20d52f4c9
-```
 
 ### Candidate first-slice baseline
 
@@ -109,45 +104,62 @@ Concrete tools remain replaceable backends. They may not redefine canonical Ptah
 
 ## Merged non-claiming implementation scaffold
 
-`jaydumisuni/Ptah-space` contains a Phase 0C scaffold merged at:
+The initial scaffold merged at:
 
 ```text
 ff26fa93d1b60781b49f33f5d1758680e1282d5f
 ```
 
-The initial exact tested scaffold head:
-
-```text
-2f1fcedaa398254e5fa4b82583675a08755fa953
-```
-
-passed workflow run `29717770393` for:
-
-- the explicit no-build boundary;
-- Rust `1.97.1` formatting, Clippy and workspace tests;
-- locked Browser Provider npm installation, syntax and tests.
-
-The evidence-hardening head:
-
-```text
-900153ea3bf38a6c8f6f13e89e7bab2f7b22f5fc
-```
-
-passed workflow run `29717942201` for:
-
-- exact pull-request-head source-policy/no-build checks;
-- Rust formatting, Clippy, tests and locked metadata;
-- Browser locked installation, syntax, tests and dependency inventory;
-- frozen WP13 unit, structural and semantic conformance using local files;
-- per-lane report retention under immutable Action commit pins.
-
-The hardening merged at:
+Evidence hardening merged at:
 
 ```text
 23fc97ff0acd2b219990411ec4fb84d8a8c0a567
 ```
 
+Exact head `900153ea3bf38a6c8f6f13e89e7bab2f7b22f5fc` passed workflow run `29717942201` for source policy, Rust, Browser and frozen WP13 conformance under immutable Action pins.
+
 The scaffold contains package boundaries, locks and CI only. It is not a Ptah runtime.
+
+---
+
+## Merged frozen catalog and generated binding closure
+
+`Ptah-space` PR `#5` was tested at exact head:
+
+```text
+33043eaadb0f074d8867cb8ce999f16ea4c06a8b
+```
+
+and merged at:
+
+```text
+f45c96e3f667b463042b6a8b714066236fde703d
+```
+
+The accepted lock state is:
+
+```text
+frozen_catalogs_and_bindings_locked_runtime_dependencies_open
+```
+
+The lock records:
+
+- fourteen frozen catalog paths, URNs and original-byte digests;
+- catalog-set SHA-256 `f0668a5f5d5c68cabf623176608c627a94482faa4f4460e4f0fe0f0969d7c64d`;
+- final binding generator version `0.3.0`;
+- manifest SHA-256 `63fd0cb0fd4ef172271aa7a114e74bb24c0a9e70cc247faeff1db95f7a67d97d`;
+- catalog-index SHA-256 `0f97e222d9baf9f90721d2a30dd2b31920b53489ae343b0430cc9089c8fdaf9c`;
+- Rust-module SHA-256 `748e87f1a8cf2ed20d694aa716dd8f18b7ea4b3016372386202aeeaff687ae50`;
+- output-tree SHA-256 `8f3355e0eac19715ea34e06ea227a826ac727d2e5b9ebf231a672927350c8db2`;
+- fourteen catalogs, 346 canonical schemas and 99 lifecycle machines.
+
+Exact-head workflow runs passed:
+
+- catalog lock: `29727701958`;
+- independent generated bindings: `29727701960`;
+- source policy, Rust, Browser and frozen WP13 conformance: `29727701999`.
+
+The generated crate provides metadata and lookup bindings only. It does not implement or authorize runtime behavior.
 
 ---
 
@@ -158,16 +170,14 @@ Implementation remains unauthorized until all of the following are merged and re
 1. owner acceptance of the Apache-2.0 public/private boundary;
 2. final public `LICENSE`, `NOTICE`, contribution and security boundary;
 3. exact external Rust crate, system package and binary/source locks with hashes/signatures, licence inventory and advisory review;
-4. complete frozen public catalog inventory in `Ptah-space/contracts/upstream-lock.json` by path, URN and digest;
-5. reproducible offline generated bindings and output-tree digest;
-6. an implemented host capability collector and a real report from the pinned host image revision;
-7. CI for dependency policy and frozen-contract generation at the exact candidate commit;
-8. durable retention of final Phase 0C evidence beyond temporary CI artifact expiry;
-9. a Phase 0C closure review proving no frozen contract was weakened;
-10. acceptance of ADR-0033;
-11. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+4. an implemented host capability collector and a real report from the pinned host image revision;
+5. dependency-policy CI at the exact candidate commit;
+6. durable retention of final Phase 0C evidence beyond temporary CI artifact expiry;
+7. a Phase 0C closure review proving no frozen contract was weakened;
+8. acceptance of ADR-0033;
+9. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
 
-The source-policy, Rust, Browser and frozen-WP13 scaffold lanes are now complete. They do not close dependency policy, binding generation, real host evidence or WP14 runtime proofs.
+The frozen catalog, generated binding, source-policy, Rust, Browser and frozen-WP13 lanes are complete. They do not close runtime dependency policy, installed backend evidence, real host capability evidence or any WP14 runtime proof.
 
 ### Required first vertical slice after authorization
 
@@ -194,8 +204,8 @@ Allowed during the remainder of Phase 0C:
 
 - licence and contribution decisions;
 - exact dependency and host evidence;
-- frozen catalog locking and generated bindings;
-- non-claiming repository/CI scaffolding;
+- dependency-policy wiring;
+- non-claiming repository/CI preparation;
 - executable proof-plan preparation;
 - WP13 integration and contract-conformance maintenance;
 - Phase 0C closure review.
@@ -216,11 +226,11 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 
 ## Immediate continuation order
 
-1. Populate and verify the frozen public catalog lock in `Ptah-space`.
-2. Generate Rust contract bindings offline and record input/output digests.
-3. Select the minimal external Rust crate set and produce exact licence/advisory evidence.
+1. Select the minimal external Rust crate/features graph.
+2. Produce the final runtime `Cargo.lock`, licence inventory and advisory evidence.
+3. Lock authoritative hashes/signatures for installed or distributed backend artifacts.
 4. Implement and run the host capability collector on the pinned image revision.
-5. Add dependency-policy and frozen-contract-generation evidence to `Ptah-space` CI.
+5. Add dependency-policy evidence to exact-head CI.
 6. Persist final acceptance evidence in a durable Location.
 7. Complete the Apache-2.0 owner decision and public/private notice boundary.
 8. Conduct the Phase 0C closure review.

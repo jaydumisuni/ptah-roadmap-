@@ -1,6 +1,6 @@
 # ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
-Status: proposed — selection, scaffold and frozen-conformance evidence substantially complete; runtime implementation remains unauthorized
+Status: proposed — frozen catalogs and generated bindings complete; runtime dependencies, host proof, licence acceptance and closure review remain open
 
 ## Context
 
@@ -17,7 +17,8 @@ Adopt the selections recorded in the following Phase 0C records as the baseline 
 - `work-packages/PHASE-0C-05-WP14-IMPLEMENTATION-TASK-AND-PROOF-MAP.md`;
 - `work-packages/PHASE-0C-06-CI-EXACT-HEAD-ACCEPTANCE-GATE.md`;
 - `work-packages/PHASE-0C-08-NONCLAIMING-SCAFFOLD-EVIDENCE-REVIEW.md`;
-- `work-packages/PHASE-0C-09-IMMUTABLE-ACTION-AND-FROZEN-CONFORMANCE-EVIDENCE.md`.
+- `work-packages/PHASE-0C-09-IMMUTABLE-ACTION-AND-FROZEN-CONFORMANCE-EVIDENCE.md`;
+- `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`.
 
 The selected baseline is:
 
@@ -70,6 +71,35 @@ The hardening merged at:
 
 This evidence proves only the repository/toolchain scaffold and frozen-contract conformance gate. It does not prove a Ptah runtime.
 
+## Merged frozen-catalog and generated-binding evidence
+
+The frozen catalog and generated binding package was tested at exact head:
+
+```text
+33043eaadb0f074d8867cb8ce999f16ea4c06a8b
+```
+
+and merged at:
+
+```text
+f45c96e3f667b463042b6a8b714066236fde703d
+```
+
+The accepted lock records:
+
+- fourteen active catalog paths, canonical URNs and original-byte digests;
+- catalog-set SHA-256 `f0668a5f5d5c68cabf623176608c627a94482faa4f4460e4f0fe0f0969d7c64d`;
+- final binding generator `ptah-phase0c-contract-bindings-final` version `0.3.0`;
+- generated manifest SHA-256 `63fd0cb0fd4ef172271aa7a114e74bb24c0a9e70cc247faeff1db95f7a67d97d`;
+- generated catalog-index SHA-256 `0f97e222d9baf9f90721d2a30dd2b31920b53489ae343b0430cc9089c8fdaf9c`;
+- generated Rust-module SHA-256 `748e87f1a8cf2ed20d694aa716dd8f18b7ea4b3016372386202aeeaff687ae50`;
+- output-tree SHA-256 `8f3355e0eac19715ea34e06ea227a826ac727d2e5b9ebf231a672927350c8db2`;
+- fourteen catalogs, 346 canonical schemas and 99 lifecycle machines.
+
+Exact-head runs `29727701958`, `29727701960` and `29727701999` passed the catalog lock, two independent byte-identical generations, source-policy/no-build guard, Browser scaffold, Rust formatting/Clippy/tests and frozen WP13 unit/structural/semantic conformance.
+
+The generated crate provides metadata and lookup bindings only. It does not implement Ptah runtime behavior.
+
 ## Conditions before acceptance
 
 ### Completed at candidate/evidence level
@@ -84,7 +114,12 @@ This evidence proves only the repository/toolchain scaffold and frozen-contract 
 8. passing source-policy, Rust and Browser scaffold jobs;
 9. immutable GitHub Action commit pins;
 10. passing frozen WP13 unit, structural and semantic conformance from `Ptah-space`;
-11. retained exact-head artifact IDs and digests.
+11. retained exact-head artifact IDs and digests;
+12. complete frozen public catalog inventory by path, URN, size and original-byte digest;
+13. deterministic offline generated metadata bindings;
+14. generated manifest, index, Rust-module and output-tree digests;
+15. two independent byte-identical generation runs;
+16. generated Rust formatting, Clippy, compilation and tests at the same exact head.
 
 ### Still open
 
@@ -93,14 +128,12 @@ This ADR remains proposed until all of the following are complete:
 1. the owner accepts the Apache-2.0 public/private boundary;
 2. `Ptah-space` adds the accepted public `LICENSE`, final `NOTICE` and contribution/security boundary;
 3. every selected external Rust crate, system package and distributed binary/source artifact has an exact lock, authoritative hash/signature, licence inventory and advisory review;
-4. the frozen public catalog set is fully populated in `contracts/upstream-lock.json` by path, URN and digest;
-5. generated bindings reproduce offline and their output-tree digest is recorded;
-6. the host capability collector is implemented and a report is produced on the pinned host image revision;
-7. CI runs dependency policy and frozen-contract generation at the exact candidate commit;
-8. final accepted reports are retained in a durable proof Location beyond temporary workflow artifact expiry;
-9. a Phase 0C closure review confirms no frozen contract was weakened;
-10. this ADR is changed to accepted;
-11. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
+4. the host capability collector is implemented and a report is produced on the pinned host image revision;
+5. CI runs dependency policy at the exact candidate commit;
+6. final accepted reports are retained in a durable proof Location beyond temporary workflow artifact expiry;
+7. a Phase 0C closure review confirms no frozen contract was weakened;
+8. this ADR is changed to accepted;
+9. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
 
 ## Consequences
 
@@ -110,7 +143,8 @@ This ADR remains proposed until all of the following are complete:
 - public Ptah Core remains separate from private THETECHGUY Domain Packs and restricted recovery adapters;
 - concrete implementation may not weaken any frozen Phase 0B identity, lifecycle, migration or proof boundary;
 - security updates or dependency rebases create new Host/Provider revisions and require the relevant proof rerun;
-- the current scaffold and conformance evidence do not authorize T01 runtime work;
+- generated bindings are metadata only and cannot authorize T01 runtime work;
+- the current scaffold, catalog lock and binding evidence do not authorize T01 runtime work;
 - failure of any open condition leaves implementation unauthorized.
 
 ## Acceptance form

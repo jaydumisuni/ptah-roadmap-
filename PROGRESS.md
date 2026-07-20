@@ -90,7 +90,6 @@ Selection/evidence package merge:
 - [x] empty third-party Rust dependency lock committed;
 - [x] private Browser scaffold and npm lock committed;
 - [x] candidate cargo-deny policy committed;
-- [x] incomplete frozen-contract lock explicitly marked incomplete;
 - [x] host capability collector explicitly remains nonfunctional;
 - [x] no-build and no-private-gateway guards merged;
 - [x] initial exact-head scaffold workflow passed;
@@ -114,18 +113,35 @@ Selection/evidence package merge:
 - [x] passing workflow run `29717942201`;
 - [x] hardening merge `23fc97ff0acd2b219990411ec4fb84d8a8c0a567`.
 
+## Frozen catalog and generated binding closure
+
+- [x] all fourteen frozen public catalogs locked by path, canonical URN and original-byte SHA-256;
+- [x] catalog-set SHA-256 recorded as `f0668a5f5d5c68cabf623176608c627a94482faa4f4460e4f0fe0f0969d7c64d`;
+- [x] 346 canonical schema bindings generated offline;
+- [x] 99 lifecycle-machine bindings generated offline;
+- [x] legacy catalog identifiers retained only as aliases;
+- [x] generated manifest SHA-256 recorded;
+- [x] generated catalog-index SHA-256 recorded;
+- [x] generated Rust-module SHA-256 recorded;
+- [x] generated output-tree SHA-256 `8f3355e0eac19715ea34e06ea227a826ac727d2e5b9ebf231a672927350c8db2` recorded;
+- [x] two independent generated trees proved byte-identical;
+- [x] generated Rust formatting, Clippy, compilation and tests passed;
+- [x] no-build guard accepts the binding-locked state and still rejects runtime claims;
+- [x] exact tested head `33043eaadb0f074d8867cb8ce999f16ea4c06a8b`;
+- [x] catalog-lock workflow run `29727701958` passed;
+- [x] binding-generation workflow run `29727701960` passed;
+- [x] source/Rust/Browser/frozen-WP13 workflow run `29727701999` passed;
+- [x] binding package merge `f45c96e3f667b463042b6a8b714066236fde703d`.
+
 ## Active Phase 0C closure work
 
-- [-] populate `Ptah-space/contracts/upstream-lock.json` with every frozen public catalog, path, URN and digest;
-- [ ] generate Rust contract bindings offline;
-- [ ] record generated output-tree digest and reproducibility evidence;
 - [-] select the minimal external Rust crate/features graph;
 - [ ] produce the final runtime `Cargo.lock`;
 - [ ] run crate licence and advisory policy;
 - [ ] lock authoritative hashes/signatures for every installed/distributed backend artifact;
 - [ ] implement the host capability collector;
 - [ ] produce a real host report from the pinned image/kernel revision;
-- [ ] add dependency-policy and contract-generation jobs to exact-head CI;
+- [ ] add dependency-policy evidence to exact-head CI;
 - [ ] persist final evidence beyond temporary CI artifact retention;
 - [?] owner acceptance of Apache License 2.0 and the public/private contribution boundary;
 - [ ] add accepted public `LICENSE`, `NOTICE`, contribution and security files;
@@ -136,6 +152,7 @@ Selection/evidence package merge:
 ## No-build boundary
 
 - [x] scaffold remains non-claiming;
+- [x] generated bindings remain metadata-only;
 - [x] no Node, Workspace, Activity, Provider or UI runtime is claimed;
 - [x] no public licence is claimed before owner acceptance;
 - [x] donor/workload identity remains outside Ptah Core;
