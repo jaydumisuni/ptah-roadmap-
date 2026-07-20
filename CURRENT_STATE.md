@@ -3,7 +3,7 @@
 **Last updated:** 2026-07-20  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-02 — frozen-contract lock, generated bindings, dependency evidence and host capability proof  
+**Active work unit:** 0C-02 — frozen-contract lock, generated bindings, runtime dependency evidence and host capability proof  
 **Runtime implementation:** NOT AUTHORIZED  
 **Production dependency/backend selection:** CANDIDATE SET RECORDED — FINAL EVIDENCE OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
@@ -80,9 +80,10 @@ The following records are merged:
 - `work-packages/PHASE-0C-06-CI-EXACT-HEAD-ACCEPTANCE-GATE.md`;
 - `work-packages/PHASE-0C-07-REAL-WORKLOAD-CANDIDATE-REGISTRY.md`;
 - `work-packages/PHASE-0C-08-NONCLAIMING-SCAFFOLD-EVIDENCE-REVIEW.md`;
+- `work-packages/PHASE-0C-09-IMMUTABLE-ACTION-AND-FROZEN-CONFORMANCE-EVIDENCE.md`;
 - proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.
 
-Selection/evidence merge:
+Selection/evidence merge before the latest hardening:
 
 ```text
 79e83be0c340e871521d574719cdf6d20d52f4c9
@@ -97,8 +98,8 @@ Selection/evidence merge:
 - native Linux PTY/process supervision;
 - containerd `2.3.1` with runc `1.4.2` behind an OCI Provider boundary;
 - Node.js `24.18.0`, Playwright `1.60.0` and its pinned Chromium build for the first Browser Provider;
-- hardened Git process adapter;
-- libarchive first decomposition adapter;
+- hardened Git `2.55.0` process adapter;
+- libarchive `3.8.7` first decomposition adapter;
 - repository-owned resumable transfer and local content-addressed storage;
 - Apache License 2.0 as the proposed public Ptah-owned source licence, pending owner acceptance.
 
@@ -108,13 +109,13 @@ Concrete tools remain replaceable backends. They may not redefine canonical Ptah
 
 ## Merged non-claiming implementation scaffold
 
-`jaydumisuni/Ptah-space` now contains a Phase 0C scaffold merged at:
+`jaydumisuni/Ptah-space` contains a Phase 0C scaffold merged at:
 
 ```text
 ff26fa93d1b60781b49f33f5d1758680e1282d5f
 ```
 
-The exact tested scaffold head:
+The initial exact tested scaffold head:
 
 ```text
 2f1fcedaa398254e5fa4b82583675a08755fa953
@@ -125,6 +126,26 @@ passed workflow run `29717770393` for:
 - the explicit no-build boundary;
 - Rust `1.97.1` formatting, Clippy and workspace tests;
 - locked Browser Provider npm installation, syntax and tests.
+
+The evidence-hardening head:
+
+```text
+900153ea3bf38a6c8f6f13e89e7bab2f7b22f5fc
+```
+
+passed workflow run `29717942201` for:
+
+- exact pull-request-head source-policy/no-build checks;
+- Rust formatting, Clippy, tests and locked metadata;
+- Browser locked installation, syntax, tests and dependency inventory;
+- frozen WP13 unit, structural and semantic conformance using local files;
+- per-lane report retention under immutable Action commit pins.
+
+The hardening merged at:
+
+```text
+23fc97ff0acd2b219990411ec4fb84d8a8c0a567
+```
 
 The scaffold contains package boundaries, locks and CI only. It is not a Ptah runtime.
 
@@ -140,10 +161,13 @@ Implementation remains unauthorized until all of the following are merged and re
 4. complete frozen public catalog inventory in `Ptah-space/contracts/upstream-lock.json` by path, URN and digest;
 5. reproducible offline generated bindings and output-tree digest;
 6. an implemented host capability collector and a real report from the pinned host image revision;
-7. implementation-repository CI for dependency policy, frozen-contract generation, WP13 and Phase 0C closure checks;
-8. a Phase 0C closure review proving no frozen contract was weakened;
-9. acceptance of ADR-0033;
-10. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+7. CI for dependency policy and frozen-contract generation at the exact candidate commit;
+8. durable retention of final Phase 0C evidence beyond temporary CI artifact expiry;
+9. a Phase 0C closure review proving no frozen contract was weakened;
+10. acceptance of ADR-0033;
+11. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+
+The source-policy, Rust, Browser and frozen-WP13 scaffold lanes are now complete. They do not close dependency policy, binding generation, real host evidence or WP14 runtime proofs.
 
 ### Required first vertical slice after authorization
 
@@ -170,7 +194,7 @@ Allowed during the remainder of Phase 0C:
 
 - licence and contribution decisions;
 - exact dependency and host evidence;
-- generated frozen-contract bindings;
+- frozen catalog locking and generated bindings;
 - non-claiming repository/CI scaffolding;
 - executable proof-plan preparation;
 - WP13 integration and contract-conformance maintenance;
@@ -196,7 +220,8 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 2. Generate Rust contract bindings offline and record input/output digests.
 3. Select the minimal external Rust crate set and produce exact licence/advisory evidence.
 4. Implement and run the host capability collector on the pinned image revision.
-5. Wire WP13 and Phase 0C closure checks into `Ptah-space` CI.
-6. Complete the Apache-2.0 owner decision and public/private notice boundary.
-7. Conduct the Phase 0C closure review.
-8. Accept ADR-0033 and authorize runtime only if every blocker passes.
+5. Add dependency-policy and frozen-contract-generation evidence to `Ptah-space` CI.
+6. Persist final acceptance evidence in a durable Location.
+7. Complete the Apache-2.0 owner decision and public/private notice boundary.
+8. Conduct the Phase 0C closure review.
+9. Accept ADR-0033 and authorize runtime only if every blocker passes.
