@@ -3,9 +3,9 @@
 **Last updated:** 2026-07-20  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-03 — runtime dependency evidence, host capability proof and licence closure  
+**Active work unit:** 0C-04 — pinned-host package proof, durable evidence and licence closure  
 **Runtime implementation:** NOT AUTHORIZED  
-**Production dependency/backend selection:** CANDIDATE SET RECORDED — RUNTIME LOCK AND HOST EVIDENCE OPEN  
+**Production dependency/backend selection:** EXACT RUST AND DISTRIBUTED ARTIFACT LOCKS MERGED — PINNED HOST PACKAGE PROOF OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
@@ -82,6 +82,8 @@ The following records are merged or awaiting this evidence-sync merge:
 - `work-packages/PHASE-0C-08-NONCLAIMING-SCAFFOLD-EVIDENCE-REVIEW.md`;
 - `work-packages/PHASE-0C-09-IMMUTABLE-ACTION-AND-FROZEN-CONFORMANCE-EVIDENCE.md`;
 - `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;
+- `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`;
+- `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`;
 - proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.
 
 ### Candidate first-slice baseline
@@ -163,21 +165,52 @@ The generated crate provides metadata and lookup bindings only. It does not impl
 
 ---
 
+## Merged runtime dependency, backend signer and host-collector evidence
+
+`Ptah-space` PR `#6` was tested at exact head:
+
+```text
+bc12885ce41844b05481628543219c3a8d3574ba
+```
+
+and squash-merged at:
+
+```text
+c2cd803b5e5c50787b3d8c2d24392d693afdbb3c
+```
+
+The accepted evidence records:
+
+- ten exact direct Rust dependencies, 99 resolved packages, 81 crates.io packages and zero Git dependencies;
+- final `Cargo.lock` SHA-256 `d68a06272d417d67049c7879570e3735607166ce1e7eff58e43df21e20c9117a`;
+- passing cargo-deny advisory, ban, licence and source policy;
+- nine authoritative distributed/source backend artifact identities and digests;
+- Playwright `1.60.0` Chromium `148.0.7778.96`, revision `1223`, installed-tree SHA-256 `953a2e9c1fb18d1e698f0903a62c23c835264e939cdd08a85c41d57719a5de7a`;
+- pinned and verified signing authorities for Node.js, runc, Git and libarchive;
+- a fail-closed collector for all eighteen required host capabilities and conditional AppArmor evidence;
+- realistic Ubuntu base/point-release, architecture and frozen-kernel matching;
+- exact-head dependency, backend, signer, host, source, Rust, Browser, contract, binding and WP13 evidence.
+
+All eight final workflows passed at the exact candidate head. The backend-signature lane retained a first-attempt upstream HTTP `504` as negative evidence; the unchanged lock and successful retry completed all four cryptographic checks.
+
+The hosted collector report validates required capability observation but remains non-proof because generic runner identity does not match the frozen `6.8.0-136-generic` host. No evidence record authorizes runtime implementation.
+
+---
+
 ## Active Phase 0C blockers
 
 Implementation remains unauthorized until all of the following are merged and reviewed:
 
 1. owner acceptance of the Apache-2.0 public/private boundary;
 2. final public `LICENSE`, `NOTICE`, contribution and security boundary;
-3. exact external Rust crate, system package and binary/source locks with hashes/signatures, licence inventory and advisory review;
-4. an implemented host capability collector and a real report from the pinned host image revision;
-5. dependency-policy CI at the exact candidate commit;
-6. durable retention of final Phase 0C evidence beyond temporary CI artifact expiry;
-7. a Phase 0C closure review proving no frozen contract was weakened;
-8. acceptance of ADR-0033;
-9. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+3. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+4. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host;
+5. durable retention of final Phase 0C evidence beyond temporary CI artifact expiry;
+6. a Phase 0C closure review proving no frozen contract was weakened;
+7. acceptance of ADR-0033;
+8. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
 
-The frozen catalog, generated binding, source-policy, Rust, Browser and frozen-WP13 lanes are complete. They do not close runtime dependency policy, installed backend evidence, real host capability evidence or any WP14 runtime proof.
+The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector and frozen-WP13 lanes are complete. They do not close installed pinned-host package proof, durable retention, governance acceptance or any WP14 runtime proof.
 
 ### Required first vertical slice after authorization
 
@@ -203,9 +236,9 @@ The first authorized slice must demonstrate, at minimum:
 Allowed during the remainder of Phase 0C:
 
 - licence and contribution decisions;
-- exact dependency and host evidence;
-- dependency-policy wiring;
-- non-claiming repository/CI preparation;
+- exact pinned-host and installed-package evidence;
+- durable proof-location preparation;
+- non-claiming repository and CI maintenance;
 - executable proof-plan preparation;
 - WP13 integration and contract-conformance maintenance;
 - Phase 0C closure review.
@@ -226,12 +259,10 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 
 ## Immediate continuation order
 
-1. Select the minimal external Rust crate/features graph.
-2. Produce the final runtime `Cargo.lock`, licence inventory and advisory evidence.
-3. Lock authoritative hashes/signatures for installed or distributed backend artifacts.
-4. Implement and run the host capability collector on the pinned image revision.
-5. Add dependency-policy evidence to exact-head CI.
-6. Persist final acceptance evidence in a durable Location.
-7. Complete the Apache-2.0 owner decision and public/private notice boundary.
-8. Conduct the Phase 0C closure review.
-9. Accept ADR-0033 and authorize runtime only if every blocker passes.
+1. Install or recover the exact frozen Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
+2. Run the accepted capability collector and identity finalizer on that host.
+3. Record the complete installed package manifest and package-artifact digests.
+4. Persist final accepted reports in a durable proof Location beyond CI retention.
+5. Complete the Apache-2.0 owner decision and public/private notice boundary.
+6. Conduct the Phase 0C closure consistency review.
+7. Accept ADR-0033 and authorize runtime only if every blocker passes.
