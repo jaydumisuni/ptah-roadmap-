@@ -1,0 +1,306 @@
+name: Phase 0C runtime evidence control sync
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+
+jobs:
+  synchronize-control-book:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.head_ref == 'phase-0c-runtime-evidence-sync'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out exact evidence branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: phase-0c-runtime-evidence-sync
+          fetch-depth: 0
+
+      - name: Synchronize ADR and control book
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_between(text: str, start: str, end: str, replacement: str) -> str:
+              start_index = text.index(start)
+              end_index = text.index(end, start_index)
+              return text[:start_index] + replacement.rstrip() + "\n\n" + text[end_index:]
+
+          current_path = Path("CURRENT_STATE.md")
+          current = current_path.read_text(encoding="utf-8")
+          current = current.replace(
+              "**Active work unit:** 0C-03 — runtime dependency evidence, host capability proof and licence closure",
+              "**Active work unit:** 0C-04 — pinned-host package proof, durable evidence and licence closure",
+              1,
+          )
+          current = current.replace(
+              "**Production dependency/backend selection:** CANDIDATE SET RECORDED — RUNTIME LOCK AND HOST EVIDENCE OPEN",
+              "**Production dependency/backend selection:** EXACT RUST AND DISTRIBUTED ARTIFACT LOCKS MERGED — PINNED HOST PACKAGE PROOF OPEN",
+              1,
+          )
+          current = current.replace(
+              "- `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;\n",
+              "- `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;\n- `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`;\n",
+              1,
+          )
+          runtime_section = '''## Merged runtime dependency, backend signer and host-collector evidence
+
+`Ptah-space` PR `#6` was tested at exact head:
+
+```text
+bc12885ce41844b05481628543219c3a8d3574ba
+```
+
+and squash-merged at:
+
+```text
+c2cd803b5e5c50787b3d8c2d24392d693afdbb3c
+```
+
+The accepted evidence records:
+
+- ten exact direct Rust dependencies, 99 resolved packages, 81 crates.io packages and zero Git dependencies;
+- final `Cargo.lock` SHA-256 `d68a06272d417d67049c7879570e3735607166ce1e7eff58e43df21e20c9117a`;
+- passing cargo-deny advisory, ban, licence and source policy;
+- nine authoritative distributed/source backend artifact identities and digests;
+- Playwright `1.60.0` Chromium `148.0.7778.96`, revision `1223`, installed-tree SHA-256 `953a2e9c1fb18d1e698f0903a62c23c835264e939cdd08a85c41d57719a5de7a`;
+- pinned and verified signing authorities for Node.js, runc, Git and libarchive;
+- a fail-closed collector for all eighteen required host capabilities and conditional AppArmor evidence;
+- realistic Ubuntu base/point-release, architecture and frozen-kernel matching;
+- exact-head dependency, backend, signer, host, source, Rust, Browser, contract, binding and WP13 evidence.
+
+All eight final workflows passed at the exact candidate head. A first backend-signature attempt retained a temporary upstream HTTP `504` as negative evidence; the unchanged lock and successful retry completed all four cryptographic checks.
+
+The hosted collector report validates required capability observation but remains non-proof because generic runner identity does not match the frozen `6.8.0-136-generic` host. No evidence record authorizes runtime implementation.
+
+---'''
+          current = current.replace(
+              "## Active Phase 0C blockers",
+              runtime_section + "\n\n## Active Phase 0C blockers",
+              1,
+          )
+          blockers = '''## Active Phase 0C blockers
+
+Implementation remains unauthorized until all of the following are merged and reviewed:
+
+1. owner acceptance of the Apache-2.0 public/private boundary;
+2. final public `LICENSE`, `NOTICE`, contribution and security boundary;
+3. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+4. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host;
+5. durable retention of final Phase 0C evidence beyond temporary CI artifact expiry;
+6. a Phase 0C closure review proving no frozen contract was weakened;
+7. acceptance of ADR-0033;
+8. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+
+The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector and frozen-WP13 lanes are complete. They do not close installed pinned-host package proof, durable retention, governance acceptance or any WP14 runtime proof.
+
+'''
+          current = replace_between(
+              current,
+              "## Active Phase 0C blockers",
+              "### Required first vertical slice after authorization",
+              blockers,
+          )
+          continuation = '''## Immediate continuation order
+
+1. Install or recover the exact frozen Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
+2. Run the accepted capability collector and identity finalizer on that host.
+3. Record the complete installed package manifest and package-artifact digests.
+4. Persist final accepted reports in a durable proof Location beyond CI retention.
+5. Complete the Apache-2.0 owner decision and public/private notice boundary.
+6. Conduct the Phase 0C closure consistency review.
+7. Accept ADR-0033 and authorize runtime only if every blocker passes.
+'''
+          current = current[: current.index("## Immediate continuation order")] + continuation
+          current_path.write_text(current, encoding="utf-8")
+
+          progress_path = Path("PROGRESS.md")
+          progress = progress_path.read_text(encoding="utf-8")
+          evidence_section = '''## Runtime dependency, backend signer and host-collector evidence
+
+- [x] minimal exact Rust crate/features graph selected: ten direct crates;
+- [x] final `Cargo.lock` committed with 99 resolved packages, 81 registry packages and zero Git dependencies;
+- [x] crates.io sources and checksums recorded;
+- [x] cargo-deny advisory, ban, licence and source policy passed at the exact candidate head;
+- [x] nine selected distributed/source backend artifacts locked and verified against authoritative identities;
+- [x] Playwright Chromium revision and installed-tree digest locked and reproduced;
+- [x] Node.js, runc, Git and libarchive signing authorities pinned;
+- [x] all four selected backend signatures cryptographically verified;
+- [x] fail-closed host capability collector implemented for eighteen required capabilities;
+- [x] realistic Ubuntu point-release and frozen-kernel identity finalizer implemented;
+- [x] malformed contract-lock and malformed-blocker paths fail with controlled evidence diagnostics;
+- [x] all eight workflows passed at exact head `bc12885ce41844b05481628543219c3a8d3574ba`;
+- [x] implementation evidence squash-merged as `c2cd803b5e5c50787b3d8c2d24392d693afdbb3c`;
+- [x] runtime authorization remained false in every accepted record.
+
+'''
+          progress = progress.replace(
+              "## Active Phase 0C closure work",
+              evidence_section + "## Active Phase 0C closure work",
+              1,
+          )
+          active = '''## Active Phase 0C closure work
+
+- [x] select the minimal external Rust crate/features graph;
+- [x] produce the final runtime-candidate `Cargo.lock`;
+- [x] run crate licence, advisory, ban and source policy;
+- [x] lock authoritative hashes for every selected distributed/source backend artifact;
+- [x] pin and cryptographically verify Node.js, runc, Git and libarchive signing authorities;
+- [x] implement the host capability collector and identity finalizer;
+- [x] add dependency, backend, signer and host-collector evidence to exact-head CI;
+- [ ] produce a proof-eligible report from the exact pinned Ubuntu image/kernel revision;
+- [ ] record the exact installed package manifest and package-artifact digests from that host;
+- [ ] persist final evidence beyond temporary CI artifact retention;
+- [?] owner acceptance of Apache License 2.0 and the public/private contribution boundary;
+- [ ] add accepted public `LICENSE`, `NOTICE`, contribution and security files;
+- [ ] conduct the Phase 0C closure consistency review;
+- [ ] accept ADR-0033;
+- [ ] change `CURRENT_STATE.md` to `Runtime implementation: AUTHORIZED`.
+
+'''
+          progress = replace_between(
+              progress,
+              "## Active Phase 0C closure work",
+              "## No-build boundary",
+              active,
+          )
+          progress_path.write_text(progress, encoding="utf-8")
+
+          adr_path = Path("decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md")
+          adr = adr_path.read_text(encoding="utf-8")
+          adr = adr.replace(
+              "Status: proposed — frozen catalogs and generated bindings complete; runtime dependencies, host proof, licence acceptance and closure review remain open",
+              "Status: proposed — Rust dependencies, distributed backend artifacts, signers and host collector complete; pinned-host package proof, durable retention, licence acceptance and closure review remain open",
+              1,
+          )
+          adr = adr.replace(
+              "- `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`.\n",
+              "- `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;\n- `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`.\n",
+              1,
+          )
+          adr_evidence = '''## Merged runtime dependency, backend signer and host-collector evidence
+
+`Ptah-space` PR `#6` was tested at exact head:
+
+```text
+bc12885ce41844b05481628543219c3a8d3574ba
+```
+
+and squash-merged at:
+
+```text
+c2cd803b5e5c50787b3d8c2d24392d693afdbb3c
+```
+
+The merged evidence closes the candidate/evidence sub-gates for:
+
+- ten exact direct Rust dependencies and final `Cargo.lock`;
+- 99 resolved packages, 81 registry packages and zero Git dependencies;
+- cargo-deny advisory, ban, licence and source policy;
+- authoritative digests for all nine selected distributed/source backend artifacts;
+- reproducible Playwright Chromium revision `1223` and installed-tree digest;
+- pinned signing authorities and successful cryptographic verification for Node.js, runc, Git and libarchive;
+- implementation of the fail-closed eighteen-capability host collector and realistic Ubuntu identity finalizer;
+- exact-head host, dependency, backend, signer, source, Rust, Browser, frozen-contract, generated-binding and WP13 workflows.
+
+A generic hosted Ubuntu report remains `proof_eligible: false` unless the exact point release, architecture and `6.8.0-136-generic` kernel identity match. The selected distributed artifact evidence does not replace the installed package manifest and package-artifact proof required from the real pinned host.
+
+Every merged evidence record keeps runtime implementation unauthorized.
+
+'''
+          adr = adr.replace(
+              "## Conditions before acceptance",
+              adr_evidence + "## Conditions before acceptance",
+              1,
+          )
+          completed = '''### Completed at candidate/evidence level
+
+1. exact host image, kernel line and capability requirements;
+2. direct external dependency version and licence candidates;
+3. implementation repository and source layout;
+4. implementation task graph mapped to WP14 proof obligations;
+5. required CI and immutable exact-head evidence shape;
+6. a merged non-claiming Rust/Browser workspace scaffold;
+7. exact Playwright npm lock and final Rust `Cargo.lock`;
+8. passing source-policy, Rust and Browser scaffold jobs;
+9. immutable GitHub Action commit pins;
+10. passing frozen WP13 unit, structural and semantic conformance from `Ptah-space`;
+11. retained exact-head artifact IDs and digests;
+12. complete frozen public catalog inventory by path, URN, size and original-byte digest;
+13. deterministic offline generated metadata bindings;
+14. generated manifest, index, Rust-module and output-tree digests;
+15. two independent byte-identical generation runs;
+16. generated Rust formatting, Clippy, compilation and tests at the same exact head;
+17. minimal exact Rust crate/features graph selection;
+18. registry source/checksum inventory and zero-Git-dependency enforcement;
+19. cargo-deny advisory, ban, licence and source policy;
+20. authoritative identity and digest verification for all nine selected distributed/source artifacts;
+21. reproducible Playwright Chromium revision and installed-tree lock;
+22. stable signer locks and cryptographic verification for Node.js, runc, Git and libarchive;
+23. fail-closed host capability collector and realistic Ubuntu identity finalizer;
+24. exact-head dependency, backend, signer and host-collector workflows;
+25. review regressions for malformed lock, host identity and blocker data.
+
+'''
+          adr = replace_between(
+              adr,
+              "### Completed at candidate/evidence level",
+              "### Still open",
+              completed,
+          )
+          still_open = '''### Still open
+
+This ADR remains proposed until all of the following are complete:
+
+1. the owner accepts the Apache-2.0 public/private boundary;
+2. `Ptah-space` adds the accepted public `LICENSE`, final `NOTICE` and contribution/security boundary;
+3. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+4. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host;
+5. final accepted reports are retained in a durable proof Location beyond temporary workflow artifact expiry;
+6. a Phase 0C closure review confirms no frozen contract was weakened;
+7. this ADR is changed to accepted;
+8. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
+
+'''
+          adr = replace_between(adr, "### Still open", "## Consequences", still_open)
+          adr = adr.replace(
+              "- the current scaffold, catalog lock and binding evidence do not authorize T01 runtime work;",
+              "- the current scaffold, catalog lock, generated bindings, dependency graph, backend artifacts, signer proofs and host-collector evidence do not authorize T01 runtime work;",
+              1,
+          )
+          adr_path.write_text(adr, encoding="utf-8")
+
+          Path(".github/workflows/phase0c-runtime-evidence-sync.yml").unlink()
+          PY
+
+      - name: Validate non-authorizing synchronization
+        run: |
+          grep -F "PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md" CURRENT_STATE.md PROGRESS.md decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
+          grep -F "**Runtime implementation:** NOT AUTHORIZED" CURRENT_STATE.md
+          grep -F "Status: proposed" decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
+          grep -F "Runtime implementation remains unauthorized" work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md
+          if grep -Fq "**Runtime implementation:** AUTHORIZED" CURRENT_STATE.md; then
+            echo "Runtime was authorized prematurely" >&2
+            exit 1
+          fi
+          git diff --check
+
+      - name: Commit synchronized control book
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+        run: |
+          git add \
+            CURRENT_STATE.md \
+            PROGRESS.md \
+            decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md \
+            .github/workflows/phase0c-runtime-evidence-sync.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Phase 0C: synchronize runtime evidence into ADR-0033"
+          git push origin "HEAD:${HEAD_BRANCH}"
