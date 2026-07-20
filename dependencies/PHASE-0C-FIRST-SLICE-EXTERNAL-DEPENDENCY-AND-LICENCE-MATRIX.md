@@ -1,6 +1,6 @@
 # Phase 0C — First-slice external dependency and licence matrix
 
-Status: candidate pin set — owner licence decision and Rust crate lock remain open
+Status: candidate external pin set — scaffold locks reviewed; runtime crate and installed-binary evidence remain open
 
 Verified on: 2026-07-20
 
@@ -12,22 +12,71 @@ Verified on: 2026-07-20
 4. Executing an external program does not transfer its licence to Ptah-owned source, but redistribution and linked-library obligations still apply.
 5. No donor source is copied into Ptah merely because a compatible licence exists.
 6. Every replacement must preserve stable Ptah identity, migration history, Receipts and WP14 proof results.
+7. GitHub Actions are pinned separately in `dependencies/PHASE-0C-GITHUB-ACTION-IMMUTABLE-PINS.md`.
 
 ## Pin matrix
 
 | Component | Candidate pin | First-slice role | Licence boundary | Integration boundary | Replacement path |
 |---|---:|---|---|---|---|
 | Ubuntu Server | 24.04.4 LTS amd64 ISO, SHA-256 `e907d92eeec9df64163a7e454cbc8d7755e8ddc7ed42f99dbc80c40f1a138433` | First Linux Node installation source | Distribution aggregate; retain package-specific copyright/licence records | Host OS only; Ptah contracts do not expose Ubuntu package identity | Another Linux host satisfying the same capability profile |
-| Rust toolchain | 1.97.1 stable | Ptah-owned Node/control implementation toolchain | Rust is primarily MIT OR Apache-2.0, with separately identified portions | Pinned by `rust-toolchain.toml`; compiler identity retained as Build evidence | Later stable Rust after exact-head proof rerun |
+| Rust toolchain | 1.97.1 stable | Ptah-owned Node/control implementation toolchain | Rust is primarily MIT OR Apache-2.0, with separately identified portions | Pinned by the implementation scaffold; compiler identity retained as Build evidence | Later stable Rust after exact-head proof rerun |
 | SQLite | 3.53.3 | One-Node durable ledger behind repository-owned storage interface | Core deliverable is public domain; build tooling may carry separate terms | Embedded through a Rust database adapter; SQLite row IDs never become Ptah IDs | PostgreSQL or another ledger implementation |
 | containerd | 2.3.1 LTS | Local OCI container lifecycle Provider | Code Apache-2.0; repository documentation includes CC-BY-4.0 material | External daemon/API; containerd IDs remain Aliases | Another OCI-compatible runtime Provider |
 | runc | 1.4.2 stable | Low-level OCI runtime used beneath containerd | Apache-2.0; official static binaries include separately noticed LGPL-2.1 libseccomp material | External runtime selected/configured by containerd; never called canonical identity | Another OCI runtime implementation |
 | Node.js | 24.18.0 LTS | Supported runtime for the Playwright Browser adapter | MIT plus bundled third-party notices | Adapter runtime only; Node process IDs remain transient evidence | Later supported Node LTS or non-Node Browser Provider |
 | Playwright | 1.60.0 | First interactive Browser Provider | Apache-2.0; downloaded browser artifacts retain their own notices | Adapter process/API; Browser/Profile/Page/Frame identity remains Ptah-owned | Another Browser Provider |
-| Playwright Chromium | 148.0.7778.96 | Browser binary paired with Playwright 1.60.0 | Chromium and bundled components retain upstream licences/notices | Exact browser revision recorded as Provider generation evidence | Browser revision update or another browser engine |
+| Playwright Chromium | 148.0.7778.96 candidate paired with Playwright 1.60.0 | Browser executable for the first interactive Provider | Chromium and bundled components retain upstream licences/notices | Exact downloaded executable digest must become Provider-generation evidence | Browser revision update or another browser engine |
 | Git | 2.55.0 | Hardened clone/mirror adapter | GPL-2.0; execute as a separate program, retain source/offers when redistribution requires them | CLI subprocess with protocol, hook and submodule policy; Git object IDs are evidence, not Ptah Object IDs | libgit2 or another hardened Git Provider |
 | libarchive | 3.8.8 | First archive decomposition backend | New BSD / BSD-2-Clause family; retain notices | Library or isolated adapter; parser output creates derived records and never replaces source truth | Format-specific Domain Pack adapters |
 | Python | 3.11 for frozen WP13 workflow; 3.12 host candidate | Contract-conformance tooling only | Python Software Foundation licence plus bundled notices | Tooling boundary; not part of Ptah runtime identity | Later supported Python after harness verification |
+
+## Scaffold lock evidence
+
+Implementation repository: `jaydumisuni/Ptah-space`
+
+Canonical non-claiming scaffold merge:
+
+`ff26fa93d1b60781b49f33f5d1758680e1282d5f`
+
+Evidence-hardening merge:
+
+`23fc97ff0acd2b219990411ec4fb84d8a8c0a567`
+
+### Rust workspace
+
+The Phase 0C scaffold currently defines 17 Ptah-owned package boundaries:
+
+- `ptah-contracts`;
+- `ptah-identifiers`;
+- `ptah-ledger`;
+- `ptah-events`;
+- `ptah-receipts`;
+- `ptah-node-agent`;
+- `ptah-activity-runtime`;
+- `ptah-workspace`;
+- `ptah-object-store`;
+- `ptah-transfer`;
+- `ptah-provider-api`;
+- `ptah-checkpoint`;
+- `ptah-node`;
+- `ptah-control`;
+- `container-oci`;
+- `git-cli`;
+- `decomposition-libarchive`.
+
+All are version `0.0.0-phase0c`, `publish = false`, use Rust `1.97.1`, forbid unsafe code at workspace level and contain no third-party Rust dependencies in the committed `Cargo.lock`.
+
+This closes the scaffold graph review. It does not select the runtime crate graph. The first SQLite, async runtime, UUID, serialization, tracing, PTY, HTTP or container client dependency requires an amended lock and review.
+
+### Browser scaffold
+
+The Browser package is private, requires Node.js `24.18.0` and locks Playwright `1.60.0` through `package-lock.json`. The scaffold CI uses `npm ci --ignore-scripts`, so it validates the package graph without downloading or executing the Browser binary installer.
+
+Therefore the npm package graph is pinned, but the Chromium executable digest and component notices remain open.
+
+### GitHub Actions
+
+The accepted exact action commits, licences, run ID and artifact digests are recorded in `PHASE-0C-GITHUB-ACTION-IMMUTABLE-PINS.md`.
 
 ## Official verification sources
 
@@ -51,7 +100,7 @@ Ubuntu is a distribution of many independently licensed packages. The implementa
 
 ### Rust and crate graph
 
-Rust 1.97.1 is the compiler/toolchain pin. The direct Rust crate graph is not accepted by this file. It must be generated in `Ptah-space`, committed through `Cargo.lock`, reviewed with licence/advisory tooling and recorded in a separate Phase 0C crate-lock decision before ADR-0033 acceptance.
+Rust 1.97.1 and the zero-external-dependency package scaffold are pinned. The runtime crate graph is not accepted by this file. It must be introduced deliberately in `Ptah-space`, committed through `Cargo.lock`, reviewed with licence/advisory tooling and recorded in a Phase 0C runtime crate-lock decision before ADR-0033 acceptance.
 
 ### SQLite
 
@@ -74,7 +123,7 @@ A successful containerd/runc API acknowledgement is not proof that the workload 
 
 ### Playwright and Chromium
 
-Playwright 1.60.0 identifies a tested browser set and reports Chromium 148.0.7778.96. The browser install directory and executable digest must be retained. Playwright IDs, CDP session IDs and OS process IDs remain transient Aliases/evidence.
+Playwright 1.60.0 identifies the candidate browser set and package graph. The browser install directory, exact executable version, digest and third-party notices must be retained after an approved Browser installation step. Playwright IDs, CDP session IDs and OS process IDs remain transient Aliases/evidence.
 
 ### Git
 
@@ -100,9 +149,10 @@ A selected-version change requires:
 This record does not yet close:
 
 - the public Ptah licence choice;
-- the direct Rust crate and feature lock;
-- exact Ubuntu package versions after installation;
-- exact downloaded browser executable digest;
+- the runtime Rust crate and feature lock;
+- exact Ubuntu package and kernel versions after installation;
+- exact installed SQLite, containerd, runc, Git and libarchive binary/library digests;
+- exact downloaded Chromium executable digest and notices;
 - redistribution decisions for runtime binaries and browser assets.
 
 Those remain Phase 0C blockers.
