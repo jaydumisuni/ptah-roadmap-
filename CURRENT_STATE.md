@@ -3,9 +3,9 @@
 **Last updated:** 2026-07-20  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-01 — first vertical-slice implementation selection  
+**Active work unit:** 0C-02 — frozen-contract lock, generated bindings, dependency evidence and host capability proof  
 **Runtime implementation:** NOT AUTHORIZED  
-**Production dependency/backend selection:** IN REVIEW  
+**Production dependency/backend selection:** CANDIDATE SET RECORDED — FINAL EVIDENCE OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
@@ -68,19 +68,84 @@ These packages define implementation boundaries. They are not evidence that the 
 
 ---
 
-## Active Phase 0C decisions
+## Phase 0C candidate decisions now recorded
 
-Phase 0C must complete all of the following before implementation authorization:
+The following records are merged:
 
-1. select and pin the Linux host baseline;
-2. select the public Ptah licence and contribution boundary;
-3. approve the implementation repository and source layout;
-4. select the exact first implementations behind the frozen neutral contracts;
-5. approve the first vertical-slice delivery plan;
-6. bind that plan to the WP14 proof plan and WP13 exact-head conformance;
-7. record explicit implementation authorization in this file.
+- `work-packages/PHASE-0C-01-FIRST-SLICE-SELECTION-PROPOSAL.md`;
+- `work-packages/PHASE-0C-02-HOST-BASELINE-PIN.md`;
+- `work-packages/PHASE-0C-03-DIRECT-DEPENDENCY-LICENCE-RECORD.md`;
+- `work-packages/PHASE-0C-04-SOURCE-LAYOUT-AND-BOUNDARY-ACCEPTANCE.md`;
+- `work-packages/PHASE-0C-05-WP14-IMPLEMENTATION-TASK-AND-PROOF-MAP.md`;
+- `work-packages/PHASE-0C-06-CI-EXACT-HEAD-ACCEPTANCE-GATE.md`;
+- `work-packages/PHASE-0C-07-REAL-WORKLOAD-CANDIDATE-REGISTRY.md`;
+- `work-packages/PHASE-0C-08-NONCLAIMING-SCAFFOLD-EVIDENCE-REVIEW.md`;
+- proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.
 
-### Required first vertical slice
+Selection/evidence merge:
+
+```text
+79e83be0c340e871521d574719cdf6d20d52f4c9
+```
+
+### Candidate first-slice baseline
+
+- Ubuntu Server 24.04.4 LTS amd64 image pinned by SHA-256;
+- Noble GA 6.8 generic kernel line;
+- Rust `1.97.1` primary Node/control toolchain;
+- SQLite `3.53.3` behind a repository-owned ledger boundary;
+- native Linux PTY/process supervision;
+- containerd `2.3.1` with runc `1.4.2` behind an OCI Provider boundary;
+- Node.js `24.18.0`, Playwright `1.60.0` and its pinned Chromium build for the first Browser Provider;
+- hardened Git process adapter;
+- libarchive first decomposition adapter;
+- repository-owned resumable transfer and local content-addressed storage;
+- Apache License 2.0 as the proposed public Ptah-owned source licence, pending owner acceptance.
+
+Concrete tools remain replaceable backends. They may not redefine canonical Ptah identity, lifecycle or proof. Backend IDs remain Aliases.
+
+---
+
+## Merged non-claiming implementation scaffold
+
+`jaydumisuni/Ptah-space` now contains a Phase 0C scaffold merged at:
+
+```text
+ff26fa93d1b60781b49f33f5d1758680e1282d5f
+```
+
+The exact tested scaffold head:
+
+```text
+2f1fcedaa398254e5fa4b82583675a08755fa953
+```
+
+passed workflow run `29717770393` for:
+
+- the explicit no-build boundary;
+- Rust `1.97.1` formatting, Clippy and workspace tests;
+- locked Browser Provider npm installation, syntax and tests.
+
+The scaffold contains package boundaries, locks and CI only. It is not a Ptah runtime.
+
+---
+
+## Active Phase 0C blockers
+
+Implementation remains unauthorized until all of the following are merged and reviewed:
+
+1. owner acceptance of the Apache-2.0 public/private boundary;
+2. final public `LICENSE`, `NOTICE`, contribution and security boundary;
+3. exact external Rust crate, system package and binary/source locks with hashes/signatures, licence inventory and advisory review;
+4. complete frozen public catalog inventory in `Ptah-space/contracts/upstream-lock.json` by path, URN and digest;
+5. reproducible offline generated bindings and output-tree digest;
+6. an implemented host capability collector and a real report from the pinned host image revision;
+7. implementation-repository CI for dependency policy, frozen-contract generation, WP13 and Phase 0C closure checks;
+8. a Phase 0C closure review proving no frozen contract was weakened;
+9. acceptance of ADR-0033;
+10. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+
+### Required first vertical slice after authorization
 
 The first authorized slice must demonstrate, at minimum:
 
@@ -97,32 +162,29 @@ The first authorized slice must demonstrate, at minimum:
 - checkpoint, restart and reconnect;
 - exact Receipts, generation evidence and negative-path retention.
 
-### Selection rule
-
-Concrete tools are replaceable backends. They may not redefine canonical Ptah identity, lifecycle or proof. Backend IDs remain Aliases. A selected dependency must have a pinned version, licence decision, integration boundary, replacement strategy and proof cases.
-
 ---
 
 ## No-build boundary
 
-Allowed during Phase 0C:
+Allowed during the remainder of Phase 0C:
 
-- implementation-selection ADRs;
 - licence and contribution decisions;
-- source/repository layout;
-- pinned dependency evaluation;
-- build scaffolding that does not claim runtime completion;
+- exact dependency and host evidence;
+- generated frozen-contract bindings;
+- non-claiming repository/CI scaffolding;
 - executable proof-plan preparation;
-- contract-conformance maintenance.
+- WP13 integration and contract-conformance maintenance;
+- Phase 0C closure review.
 
 Not yet allowed:
 
 - claiming the Ptah runtime or UI is implemented;
 - deploying production Nodes, Providers or Workspaces;
-- selecting a backend without a pinned licence/exit record;
+- adding runtime functionality under the name of scaffolding;
 - weakening the frozen WP14 proof burden;
 - bypassing WP13 conformance;
-- reusing donor source outside its accepted licence and extraction boundary.
+- reusing donor source outside its accepted licence and extraction boundary;
+- authorizing implementation without the accepted ADR and exact evidence.
 
 Implementation becomes authorized only when a Phase 0C acceptance ADR and an explicit `Runtime implementation: AUTHORIZED` entry are merged into this file.
 
@@ -130,9 +192,11 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 
 ## Immediate continuation order
 
-1. Read `decisions/ADR-0032-PHASE-0B-FREEZE-PHASE-0C-ENTRY.md`.
-2. Read `work-packages/PHASE-0B-FREEZE-READINESS-REVIEW.md`.
-3. Read `conformance/phase-0b/WP14-FIRST-VERTICAL-SLICE-PROOF-PLAN.md`.
-4. Produce the Phase 0C Linux, licence, layout and backend-selection record.
-5. Run exact-head conformance on any contract-affecting change.
-6. Do not start runtime implementation until authorization is explicitly merged here.
+1. Populate and verify the frozen public catalog lock in `Ptah-space`.
+2. Generate Rust contract bindings offline and record input/output digests.
+3. Select the minimal external Rust crate set and produce exact licence/advisory evidence.
+4. Implement and run the host capability collector on the pinned image revision.
+5. Wire WP13 and Phase 0C closure checks into `Ptah-space` CI.
+6. Complete the Apache-2.0 owner decision and public/private notice boundary.
+7. Conduct the Phase 0C closure review.
+8. Accept ADR-0033 and authorize runtime only if every blocker passes.
