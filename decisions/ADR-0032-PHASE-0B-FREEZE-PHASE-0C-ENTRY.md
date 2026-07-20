@@ -1,6 +1,7 @@
 # ADR-0032 — Phase 0B freeze and Phase 0C entry
 
-Status: proposed pending control-book merge
+Status: accepted  
+Accepted by merge: `dc2db457f1705d0cba80f17ab76e5e93f808aee0`
 
 ## Context
 
