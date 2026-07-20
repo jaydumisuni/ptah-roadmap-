@@ -4,234 +4,149 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 - `[ ]` Not started
 - `[-]` Active
-- `[?]` Blocked/unresolved
+- `[?]` Blocked or unresolved
 - `[x]` Completed and evidenced
 
 ---
 
 # Phase 0A — Donor recovery and requirement closure
 
-**Status:** COMPLETE AND FROZEN AT `7d2dffee48f1400ba1cf88823343f09a3895ad33`
+**Status:** COMPLETE AND FROZEN
 
-- [x] Private roadmap repository and public/private separation.
-- [x] Master roadmap, Current State, progress and recovery rules.
-- [x] Requirement Closure Matrix and donor/internal-record structure.
-- [x] All v1 requirement clusters closed for Phase 0B contract design.
-- [x] Linux semantic completion, parked-item audit and cross-requirement consistency review.
-- [x] ADR-0017 accepted; Phase 0A frozen.
-
-Evidence:
-
-- `work-packages/PHASE-0A-CROSS-REQUIREMENT-CONSISTENCY-REVIEW.md`
-- `work-packages/PHASE-0B-ENTRY-CONTRACT-PROOF-INPUTS.md`
-- `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`
+- [x] donor, internal-workload and licence recovery;
+- [x] requirement closure and consistency review;
+- [x] public/private boundary;
+- [x] ADR-0017 accepted;
+- [x] frozen at `7d2dffee48f1400ba1cf88823343f09a3895ad33`.
 
 ---
 
 # Phase 0B — Contracts, migrations, conformance and proof design
 
-**Status:** ACTIVE — IMPLEMENTATION STILL NOT AUTHORIZED
+**Status:** COMPLETE AND FROZEN
 
-## 0B-WP01 — Common identity, versioning and typed families
+- [x] WP01 — Common identity, versioning and typed families;
+- [x] WP02 — Activity, Operation, Attempt, Event, Receipt and proof;
+- [x] WP03 — Object, Revision, View, Artifact and storage;
+- [x] WP04 — Node, Facility, Provider, capability and health;
+- [x] WP05 — Workspace, Session, checkpoint and recovery;
+- [x] WP06 — Transfer, synchronization, conflict, backup and restore;
+- [x] WP07 — Recipe, Build, provenance, SBOM, signature and verification;
+- [x] WP08 — Domain Pack, firmware, disk, filesystem and Device;
+- [x] WP09 — Application, Browser, semantic UI and Shell;
+- [x] WP10 — Knowledge, Data, Package and Plugin;
+- [x] WP11 — Isolation, placement, reservation, Lease and secure grants;
+- [x] WP12 — Security, Finding, Claim, Evidence, remediation and reproduction;
+- [x] WP13 — executable cross-contract conformance;
+- [x] WP14 — golden/negative corpus and first-slice proof-plan freeze;
+- [x] all active schemas versioned and locally traceable;
+- [x] lifecycle machines explicit and namespaced;
+- [x] directional migrations and backend-replacement rules defined;
+- [x] lawful positive, negative and adversarial fixtures pinned;
+- [x] privacy, audience, redaction and retention represented;
+- [x] WP13 found and forced correction of real cross-package defects;
+- [x] WP13 exact-head unit, structural and semantic gates passed;
+- [x] WP14 exact-head conformance passed;
+- [x] ADR-0032 accepted;
+- [x] frozen at `dc2db457f1705d0cba80f17ab76e5e93f808aee0`.
 
-**Status:** CANDIDATE COMPLETE.
+Key implementation-proof checkpoints:
 
-- [x] UUIDv7 canonical identity and scoped Alias/public-remapping rules.
-- [x] controlled entity-kind and identity/authority registries.
-- [x] JSON Schema 2020-12, absolute Ptah URNs and local catalog.
-- [x] common Entity Envelope.
-- [x] typed families and namespaced/versioned state machines.
-- [x] directional migration/compatibility and privacy/retention rules.
-- [x] consolidated safety net, fixtures and ADR-0018.
+- WP13 merge: `261b3e4a71657898643271a1625e14560a5bc769`;
+- WP14 merge: `fef387c4f074af7fcf86f2d99f7f9b7637e91f88`.
 
-Evidence:
-
-- `schemas/phase-0b/common/schema-catalog.v0.1.0.json`
-- `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`
-
-## 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof
-
-**Status:** CANDIDATE COMPLETE.
-
-- [x] Activity Request, Activity, Operation and Attempt separation.
-- [x] retry/idempotency and uncertain-side-effect handling.
-- [x] exact generation, epoch and nonce correlation.
-- [x] dependencies, cancellation, Events and delivery attempts.
-- [x] immutable Receipts and bounded proof claims.
-- [x] Review, Verdict and authoritative external-result separation.
-- [x] six lifecycle machines and active catalog `0.1.1`.
-- [x] migration, safety net, fixtures and ADR-0019.
-
-Evidence:
-
-- `schemas/phase-0b/activity/schema-catalog.v0.1.1.json`
-- `decisions/ADR-0019-ACTIVITY-OPERATION-ATTEMPT-EVENT-RECEIPT-PROOF-BOUNDARY.md`
-
-## 0B-WP03 — Object, Revision, View, Artifact and storage
-
-**Status:** CANDIDATE COMPLETE.
-
-- [x] Content byte identity, qualified hashes and deduplication scope.
-- [x] durable Object and immutable Object Revision.
-- [x] plural detector observations and Relationship history.
-- [x] child/View/Preview/Derivative and bounded decomposition separation.
-- [x] Artifact promotion versus review/verification/acceptance/release.
-- [x] Storage Location lifecycle/health/verification and safe deletion.
-- [x] 20 active schemas, five lifecycle machines, migration, safety net, fixtures and ADR-0020.
-
-Evidence:
-
-- `schemas/phase-0b/object/schema-catalog.v0.1.0.json`
-- `decisions/ADR-0020-OBJECT-REVISION-VIEW-ARTIFACT-STORAGE-BOUNDARY.md`
-
-## 0B-WP04 — Node, Facility, Provider, capability and health
-
-**Status:** CANDIDATE COMPLETE.
-
-- [x] stable Node identity, generation and connection epoch.
-- [x] immutable capability/resource evidence and freshness.
-- [x] Facility/Revision/Instance and Provider/Revision/Instance separation.
-- [x] truthful local Node-backed and remote-service Provider locality.
-- [x] lifecycle, reachability, readiness, health and pressure separation.
-- [x] operation-scoped dependency degradation and expiring Dispatch Eligibility.
-- [x] 19 schemas and six lifecycle machines in runtime catalog `0.1.2`.
-- [x] migration, safety net, fixtures and ADR-0021/0021A/0021B.
-
-Evidence:
-
-- `schemas/phase-0b/runtime/schema-catalog.v0.1.2.json`
-- `decisions/ADR-0021B-WP04-FINAL-CATALOG-CORRECTION.md`
-
-## 0B-WP05 — Workspace, Session, checkpoint, restore and recovery
-
-**Status:** CANDIDATE COMPLETE.
-
-- [x] stable Workspace identity and immutable Workspace Revision.
-- [x] Membership/Provider Binding/Materialization separation.
-- [x] typed Session and Session Attachment/control separation.
-- [x] Journal/outbox/cursor reconstruction boundaries.
-- [x] Checkpoint Request/Component/Bundle/Verification separation.
-- [x] target-specific Restore Compatibility and new-generation Restore Run.
-- [x] runtime restore versus application Recovery Verification.
-- [x] explicit Export/Import identity, privacy, authority and provenance.
-- [x] 19 schemas and nine lifecycle machines in workspace catalog `0.1.0`.
-- [x] migration, safety net, fixtures, WP05 package and ADR-0022.
-
-Evidence:
-
-- `schemas/phase-0b/workspace/schema-catalog.v0.1.0.json`
-- `work-packages/PHASE-0B-WP05-WORKSPACE-SESSION-CHECKPOINT-RECOVERY.md`
-- `decisions/ADR-0022-WORKSPACE-SESSION-CHECKPOINT-RESTORE-RECOVERY-BOUNDARY.md`
-
-## 0B-WP06 — Transfer, synchronization, conflict, backup and storage restore
-
-**Status:** CANDIDATE COMPLETE.
-
-- [x] Transfer Request/Run/Attempt/Manifest/Progress/Verification separation.
-- [x] safe resume and uncertain finalize/commit/delete handling.
-- [x] Sync Relationship/Cursor/Run/Conflict/Resolution separation.
-- [x] Backup Policy/Snapshot/Verification/Prune/Restore separation.
-- [x] sync/replica/checkpoint/export/backup separation.
-- [x] storage restore versus WP05 Workspace/application recovery.
-- [x] 18 schemas and seven lifecycle machines in transfer catalog `0.1.0`.
-- [x] migration, safety net, fixtures, WP06 package and ADR-0023.
-
-Evidence:
-
-- `schemas/phase-0b/transfer/schema-catalog.v0.1.0.json`
-- `work-packages/PHASE-0B-WP06-TRANSFER-SYNC-CONFLICT-BACKUP.md`
-- `decisions/ADR-0023-TRANSFER-SYNC-CONFLICT-BACKUP-RESTORE-BOUNDARY.md`
-
-## 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification
-
-**Status:** CANDIDATE COMPLETE.
-
-- [x] Recipe, immutable Revision, Proposal, Acceptance, Readiness and Backend Compatibility.
-- [x] backend-neutral Recipe versus backend-specific Compiled Plan.
-- [x] Build Run/Step mapped to WP02 Operation/Attempt identity.
-- [x] exact input/material resolution and mutable/volatile classifications.
-- [x] Cache Record/Use and no cache-as-execution/reproduction rule.
-- [x] Secret Access, expiry, cleanup, redaction and leakage evidence.
-- [x] Output Declaration and exact produced-byte/Object Output Record.
-- [x] Artifact promotion/release separate from Build completion.
-- [x] Package Observation, SBOM Coverage and immutable SBOM Document.
-- [x] Trust Policy and public/private/offline Transparency Evidence.
-- [x] Attestation/Signature creation versus independent Verification.
-- [x] Proof Bundle domains/authority and release-acceptance separation.
-- [x] Reproduction Request/Run and byte/functional Comparison.
-- [x] entity-kind overlap correction for Step/SBOM identities.
-- [x] 30 active schemas and nine lifecycle machines in catalog `0.1.1`.
-- [x] migration, safety net, fixtures, WP07 package and ADR-0024.
-
-Evidence:
-
-- `schemas/phase-0b/build/schema-catalog.v0.1.1.json`
-- `work-packages/PHASE-0B-WP07-RECIPE-BUILD-PROVENANCE.md`
-- `decisions/ADR-0024-RECIPE-BUILD-PROVENANCE-SBOM-SIGNATURE-VERIFICATION-BOUNDARY.md`
-
-## 0B-WP08 — Domain Pack, firmware, disk and Device contracts
-
-**Status:** ACTIVE.
-
-- [-] recover and normalize frozen Domain Pack/Object/firmware/disk/Device requirements.
-- [ ] define Domain Pack identity, immutable Revision, capabilities and compatibility.
-- [ ] define detector/classification, Inventory, Decomposition and coverage.
-- [ ] define Validation, Compare, Rebuild and Execute recipes/runs.
-- [ ] define firmware Package/Manifest/Component and target/tool compatibility.
-- [ ] define disk image/partition table/partition/filesystem and read-only mount Sessions.
-- [ ] separate static analysis/transformation from physical Device mutation.
-- [ ] define Device/Interface/Connection/Session/Stream/Screen Context identity.
-- [ ] define Lease/fencing, Provider/connection generations and protocol-stage evidence.
-- [ ] define backup/destructive-action approval/write/read-back/cleanup proof.
-- [ ] define partial/unsupported/uncertain outcomes and safe retry/reconciliation.
-- [ ] commit schemas, lifecycle machines, catalog, migration, fixtures and safety net.
-- [ ] accept WP08 package and ADR-0025 only after consistency review.
+Phase 0B completion defines implementation laws. It does not prove a Ptah runtime exists.
 
 ---
 
-# Ordered work packages
+# Phase 0C — First vertical-slice approval
 
-- [x] 0B-WP01 — Common identity, versioning and typed-family conventions.
-- [x] 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof.
-- [x] 0B-WP03 — Object, Revision, View, Artifact and storage relationships.
-- [x] 0B-WP04 — Node, Facility, Provider, capability and health.
-- [x] 0B-WP05 — Workspace, Session, checkpoint and recovery.
-- [x] 0B-WP06 — Transfer, sync, conflict and backup.
-- [x] 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification.
-- [-] 0B-WP08 — Domain Pack, firmware, disk and Device contracts.
-- [ ] 0B-WP09 — Application, Browser, semantic UI and Shell contracts.
-- [ ] 0B-WP10 — Knowledge, data, Package and Plugin contracts.
-- [ ] 0B-WP11 — Isolation, placement, reservation, lease and secure grants.
-- [ ] 0B-WP12 — Security, Finding, Claim, Evidence and reproduction contracts.
-- [ ] 0B-WP13 — Cross-contract migrations and executable conformance harness.
-- [ ] 0B-WP14 — Golden/negative corpus and proof-plan freeze.
-- [ ] Phase 0B review/freeze and Phase 0C readiness decision.
+**Status:** ACTIVE — RUNTIME IMPLEMENTATION NOT AUTHORIZED
 
-## Cross-cutting Phase 0B gates
+## Candidate selections and architecture records
 
-- [-] every schema versioned and traceable — WP01–WP07 complete; remaining domains pending.
-- [-] state machines/transitions explicit and namespaced — WP01–WP07 complete; remaining domains pending.
-- [-] saved records/sessions have migration paths — WP01–WP07 complete; remaining domains pending.
-- [-] permissions, audience, privacy and redaction represented — WP01–WP07 mapped; remaining domains pending.
-- [x] Provider/Facility candidate contracts defined — executable conformance deferred.
-- [-] lawful positive/negative fixtures pinned — WP01–WP07 committed; remaining corpus pending.
-- [-] proof plans name exact Receipts/Evidence — WP01–WP07 complete; remaining domains pending.
-- [-] backend replacement testable — identity/runtime/storage/Workspace/transfer/Build layers complete; remaining domains pending.
-- [-] online and later local Nodes use the same contracts — candidate contracts neutral; executable proof pending.
-- [-] private consumer knowledge absent from public schemas — WP01–WP07 neutral; full audit pending.
-- [ ] public licence/dependency strategy ready for Phase 0C.
-- [ ] first vertical slice selectable without identity/proof ambiguity.
+- [x] implementation repository selected: `jaydumisuni/Ptah-space`;
+- [x] Ubuntu Server 24.04.4 amd64 image pinned by SHA-256;
+- [x] Noble GA 6.8 kernel line and mandatory capability requirements recorded;
+- [x] Rust `1.97.1` selected for Node/control implementation;
+- [x] SQLite `3.53.3` candidate selected behind repository-owned ledger boundary;
+- [x] containerd `2.3.1` and runc `1.4.2` candidates selected behind OCI Provider boundary;
+- [x] Node.js `24.18.0`, Playwright `1.60.0` and candidate Chromium build selected;
+- [x] hardened Git `2.55.0` process adapter candidate selected;
+- [x] libarchive `3.8.7` decomposition candidate selected;
+- [x] source layout and public/private boundary recorded;
+- [x] T00–T13 mapped to WP14 proof obligations;
+- [x] exact-head CI acceptance shape recorded;
+- [x] real workload candidates registered without promoting them into Ptah Core;
+- [-] ADR-0033 remains proposed.
+
+Selection/evidence package merge:
+
+`79e83be0c340e871521d574719cdf6d20d52f4c9`
+
+## Non-claiming implementation scaffold
+
+- [x] 17 non-publishable Rust package boundaries merged;
+- [x] empty third-party Rust dependency lock committed;
+- [x] private Browser scaffold and npm lock committed;
+- [x] candidate cargo-deny policy committed;
+- [x] incomplete frozen-contract lock explicitly marked incomplete;
+- [x] host capability collector explicitly remains nonfunctional;
+- [x] no-build and no-private-gateway guards merged;
+- [x] initial exact-head scaffold workflow passed;
+- [x] scaffold merge `ff26fa93d1b60781b49f33f5d1758680e1282d5f`.
+
+## Hardened exact-head scaffold evidence
+
+- [x] checkout Action pinned to `de0fac2e4500dabe0009e67214ff5f5447ce83dd`;
+- [x] setup-python Action pinned to `a309ff8b426b58ec0e2a45f0f869d46889d02405`;
+- [x] setup-node Action pinned to `48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e`;
+- [x] upload-artifact Action pinned to `043fb46d1a93c77aae656e7c1c64a875d1fc6a0a`;
+- [x] exact pull-request head checked out and verified in reports;
+- [x] source-policy/no-build job passed;
+- [x] Rust formatting, Clippy, tests and locked metadata passed;
+- [x] Browser locked install, syntax, tests and dependency inventory passed;
+- [x] frozen WP13 harness unit tests passed from `Ptah-space`;
+- [x] frozen structural conformance passed from local files;
+- [x] frozen semantic fixtures passed from local files;
+- [x] four digest-addressed artifacts retained;
+- [x] exact tested head `900153ea3bf38a6c8f6f13e89e7bab2f7b22f5fc`;
+- [x] passing workflow run `29717942201`;
+- [x] hardening merge `23fc97ff0acd2b219990411ec4fb84d8a8c0a567`.
+
+## Active Phase 0C closure work
+
+- [-] populate `Ptah-space/contracts/upstream-lock.json` with every frozen public catalog, path, URN and digest;
+- [ ] generate Rust contract bindings offline;
+- [ ] record generated output-tree digest and reproducibility evidence;
+- [-] select the minimal external Rust crate/features graph;
+- [ ] produce the final runtime `Cargo.lock`;
+- [ ] run crate licence and advisory policy;
+- [ ] lock authoritative hashes/signatures for every installed/distributed backend artifact;
+- [ ] implement the host capability collector;
+- [ ] produce a real host report from the pinned image/kernel revision;
+- [ ] add dependency-policy and contract-generation jobs to exact-head CI;
+- [ ] persist final evidence beyond temporary CI artifact retention;
+- [?] owner acceptance of Apache License 2.0 and the public/private contribution boundary;
+- [ ] add accepted public `LICENSE`, `NOTICE`, contribution and security files;
+- [ ] conduct the Phase 0C closure consistency review;
+- [ ] accept ADR-0033;
+- [ ] change `CURRENT_STATE.md` to `Runtime implementation: AUTHORIZED`.
+
+## No-build boundary
+
+- [x] scaffold remains non-claiming;
+- [x] no Node, Workspace, Activity, Provider or UI runtime is claimed;
+- [x] no public licence is claimed before owner acceptance;
+- [x] donor/workload identity remains outside Ptah Core;
+- [x] WP13 and WP14 proof burdens remain unchanged;
+- [ ] runtime implementation authorized.
 
 ---
-
-# Phase 0C — First vertical slice approval
-
-- [ ] Select Linux host and exact components.
-- [ ] Select public project licence and dependency/source layout.
-- [ ] Approve implementation proof plan.
-- [ ] Record implementation authorization in `CURRENT_STATE.md`.
 
 # Implementation phases
+
+No implementation phase may begin or be ticked before Phase 0C authorization.
 
 - [ ] Phase 1 — Concurrent one-Node substrate.
 - [ ] Phase 2 — Intake and transfer.
@@ -242,7 +157,7 @@ Evidence:
 - [ ] Phase 7 — Human Workspace shell.
 - [ ] Phase 8 — Session Vault.
 - [ ] Phase 9 — Applications and devices.
-- [ ] Phase 10 — Knowledge, data, search, recipes and plugins.
+- [ ] Phase 10 — Knowledge, data, search, Recipes and Plugins.
 - [ ] Phase 11 — Provenance and security workloads.
 - [ ] Phase 12 — Distributed Ptah.
 - [ ] Phase 13 — OS readiness.
