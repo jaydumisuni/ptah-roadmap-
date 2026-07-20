@@ -1,307 +1,138 @@
 # Ptah Current State
 
-**Last updated:** 2026-07-19  
-**Overall status:** ACTIVE PLANNING — PHASE 0A FROZEN; PHASE 0B ACTIVE  
-**Current phase:** Phase 0B — contracts, migrations, conformance and proof design  
-**Active work package:** 0B-WP08 — Domain Pack, firmware, disk and Device contracts  
-**Runtime implementation:** NOT STARTED  
-**Dependency selection:** NOT STARTED  
+**Last updated:** 2026-07-20  
+**Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
+**Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
+**Active work unit:** 0C-01 — first vertical-slice implementation selection  
+**Runtime implementation:** NOT AUTHORIZED  
+**Production dependency/backend selection:** IN REVIEW  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
 
-# Frozen Phase 0A checkpoint
+## Frozen checkpoints
 
-Phase 0A is complete and frozen at:
+### Phase 0A donor and requirement closure
+
+Frozen checkpoint:
 
 ```text
 7d2dffee48f1400ba1cf88823343f09a3895ad33
 ```
 
-Freeze decision:
+Decision:
 
 - `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`
 
-All current v1 requirements are closed for contract design. That closure does not authorize implementation.
+### Phase 0B contract and proof closure
+
+Phase 0B is frozen by:
+
+- WP01 through WP14 candidate packages;
+- exact local schema catalogs and namespaced lifecycle machines;
+- directional migration and backend-replacement rules;
+- positive, negative and adversarial fixtures;
+- the offline WP13 structural and semantic conformance harness;
+- the WP14 lawful golden/negative corpus and first vertical-slice proof plan;
+- `work-packages/PHASE-0B-FREEZE-READINESS-REVIEW.md`;
+- `decisions/ADR-0032-PHASE-0B-FREEZE-PHASE-0C-ENTRY.md`.
+
+Freeze merge:
+
+```text
+dc2db457f1705d0cba80f17ab76e5e93f808aee0
+```
+
+WP13 and WP14 exact-head workflows passed unit, structural and semantic conformance before merge. Contract changes after this checkpoint require a versioned schema/lifecycle change, migration, fixtures, conformance evidence and a reopening ADR.
 
 ---
 
-# Phase 0B completed candidate packages
+## Completed Phase 0B packages
 
-## 0B-WP01 — Common identity, versioning and typed families
+1. WP01 — Common identity, versioning and typed families
+2. WP02 — Activity, Operation, Attempt, Event, Receipt and proof
+3. WP03 — Object, Revision, View, Artifact and storage
+4. WP04 — Node, Facility, Provider, capability and health
+5. WP05 — Workspace, Session, checkpoint, restore and recovery
+6. WP06 — Transfer, synchronization, conflict, backup and restore
+7. WP07 — Recipe, Build, provenance, SBOM, signature and verification
+8. WP08 — Domain Pack, firmware, disk, filesystem and Device
+9. WP09 — Application, Browser, semantic UI and Shell
+10. WP10 — Knowledge, Data, Package and Plugin
+11. WP11 — Isolation, placement, reservation, Lease and secure grants
+12. WP12 — Security, Finding, Claim, Evidence, remediation and reproduction
+13. WP13 — executable cross-contract conformance
+14. WP14 — golden/negative corpus and proof-plan freeze
 
-**Status:** CANDIDATE COMPLETE — downstream use approved; implementation freeze deferred.
-
-Accepted candidate:
-
-- `ptah.common` `0.1.0`;
-- `schemas/phase-0b/common/schema-catalog.v0.1.0.json`;
-- `decisions/ADR-0018-COMMON-IDENTITY-VERSIONING-TYPED-FAMILY-BOUNDARY.md`.
-
-Key boundaries:
-
-- UUIDv7 canonical identities and scoped Aliases;
-- JSON Schema 2020-12 with absolute local URN catalogs;
-- typed families and namespaced/versioned state machines;
-- directional migrations and explicit privacy/retention/deletion;
-- structural validation never replaces semantic conformance.
-
-## 0B-WP02 — Activity, Operation, Attempt, Event, Receipt and proof
-
-**Status:** CANDIDATE COMPLETE — downstream use approved; executable conformance deferred.
-
-Accepted candidate:
-
-- `ptah.activity` `0.1.0` with corrected request schemas `0.1.1`;
-- `schemas/phase-0b/activity/schema-catalog.v0.1.1.json`;
-- `decisions/ADR-0019-ACTIVITY-OPERATION-ATTEMPT-EVENT-RECEIPT-PROOF-BOUNDARY.md`.
-
-Key boundaries:
-
-- Activity Request, Activity, Operation and physical Attempt remain separate;
-- every retry gets new Attempt/nonce/generation evidence;
-- Event/telemetry are not proof;
-- Receipt, Review, Verdict, caller acceptance and external authoritative result remain separate;
-- stale, duplicate, contradictory and wrong-generation evidence is reconciled explicitly.
-
-## 0B-WP03 — Object, Revision, View, Artifact and storage
-
-**Status:** CANDIDATE COMPLETE — downstream use approved; executable graph/storage conformance deferred.
-
-Accepted candidate:
-
-- `ptah.object` / `ptah.storage` `0.1.0`;
-- `schemas/phase-0b/object/schema-catalog.v0.1.0.json`;
-- `decisions/ADR-0020-OBJECT-REVISION-VIEW-ARTIFACT-STORAGE-BOUNDARY.md`.
-
-Key boundaries:
-
-- Content owns exact bytes; Object owns logical/source identity; Revision owns one immutable version;
-- detector/relationship evidence remains plural;
-- children, Views, Previews and Derivatives never replace originals;
-- Artifact promotion, Release, storage Location, health and verification remain separate;
-- tombstone, Location deletion and shared Content-byte deletion are different receipted acts.
-
-## 0B-WP04 — Node, Facility, Provider, capability and health
-
-**Status:** CANDIDATE COMPLETE — downstream use approved; executable runtime conformance deferred.
-
-Accepted candidate:
-
-- `ptah.runtime` `0.1.2`;
-- 19 record schemas and six active lifecycle machines;
-- `schemas/phase-0b/runtime/schema-catalog.v0.1.2.json`;
-- ADR-0021 plus ADR-0021A/0021B corrections.
-
-Key boundaries:
-
-- Node, Facility, Provider definition/revision/instance/generation remain separate;
-- heartbeat, lifecycle, reachability, readiness, health, pressure and capability evidence remain separate;
-- local Providers bind exact Node evidence; remote Providers use truthful remote-service identity;
-- Dispatch Eligibility is operation-specific, exact-generation-bound and expiring;
-- Provider/backend/locality replacement fences stale work/evidence.
-
-## 0B-WP05 — Workspace, Session, checkpoint, restore and recovery
-
-**Status:** CANDIDATE COMPLETE — downstream use approved; executable recovery conformance deferred.
-
-Accepted candidate:
-
-- `ptah.workspace` `0.1.0`;
-- 19 schemas and nine lifecycle machines;
-- `schemas/phase-0b/workspace/schema-catalog.v0.1.0.json`;
-- `decisions/ADR-0022-WORKSPACE-SESSION-CHECKPOINT-RESTORE-RECOVERY-BOUNDARY.md`;
-- `work-packages/PHASE-0B-WP05-WORKSPACE-SESSION-CHECKPOINT-RECOVERY.md`.
-
-Key boundaries:
-
-- Workspace survives Revision, Provider, Materialization, Session, client and layout changes;
-- detaching a client does not stop runtime;
-- Checkpoint Request, Component, Bundle, integrity Verification and target Compatibility remain separate;
-- restore creates new Activities/Attempts/generations;
-- `restored_runtime` is not application recovery;
-- uncertain external effects survive crash/restore until reconciled.
-
-## 0B-WP06 — Transfer, synchronization, conflict, backup and storage restore
-
-**Status:** CANDIDATE COMPLETE — downstream use approved; executable transfer/backup conformance deferred.
-
-Accepted candidate:
-
-- `ptah.transfer` `0.1.0`;
-- 18 schemas and seven lifecycle machines;
-- `schemas/phase-0b/transfer/schema-catalog.v0.1.0.json`;
-- `decisions/ADR-0023-TRANSFER-SYNC-CONFLICT-BACKUP-RESTORE-BOUNDARY.md`;
-- `work-packages/PHASE-0B-WP06-TRANSFER-SYNC-CONFLICT-BACKUP.md`.
-
-Key boundaries:
-
-- Transfer Request/Run/Attempt/Manifest/Progress/Verification remain separate;
-- Provider acknowledgement does not create accepted Content/Object/Location truth;
-- Sync Relationship/Cursor/Run/Conflict/Resolution remain separate;
-- Backup Policy/Snapshot/Verification/Prune/Restore remain separate;
-- sync, replica, checkpoint, export and backup are not interchangeable;
-- `restored_storage` does not mean Workspace/application recovery.
-
-## 0B-WP07 — Recipe, Build, provenance, SBOM, signature and verification
-
-**Status:** CANDIDATE COMPLETE — downstream use approved; executable Build/provenance conformance deferred.
-
-Accepted candidate:
-
-- `ptah.build` / `ptah.provenance` catalog `0.1.1`;
-- 30 active schemas and nine lifecycle machines;
-- `schemas/phase-0b/build/schema-catalog.v0.1.1.json`;
-- `contracts/phase-0b/common/ENTITY-KIND-REGISTRY-WP07-CORRECTION-0.1.1.md`;
-- `work-packages/PHASE-0B-WP07-RECIPE-BUILD-PROVENANCE.md`;
-- `decisions/ADR-0024-RECIPE-BUILD-PROVENANCE-SBOM-SIGNATURE-VERIFICATION-BOUNDARY.md`.
-
-Key boundaries:
-
-1. Recipe, immutable Revision, Proposal, Acceptance, Readiness, Backend Compatibility, Plan, Run and Step remain separate.
-2. backend/job/path IDs remain Aliases; Recipe identity survives backend replacement.
-3. Build Step maps Recipe `step_key` to WP02 Operations/Attempts; retries never reuse Attempt identity.
-4. exact materials, mutable/volatile inputs, cache identity and secret access are explicit.
-5. Cache Use is not execution or independent reproduction.
-6. Build Output Record binds exact producer Attempt/generations to Content/Object Revision/digests.
-7. paths/tags/coordinates never become output or Artifact identity.
-8. Build completion is separate from export, SBOM, attestation, signing, verification, review, reproduction and release acceptance.
-9. Package Observation, SBOM Coverage and immutable SBOM Document remain separate.
-10. Attestation, Signature, Transparency Evidence and their Verifications remain separate.
-11. valid cryptography proves identity/integrity only under exact Trust Policy, not functionality or acceptance.
-12. Proof Bundle preserves distinct proof domains/authority; it is not a universal verdict.
-13. Reproduction requires a new Run/Activities/Attempts and explicit byte/functional Comparison.
-14. draft overlapping `build.step_run` and `provenance.sbom_revision` identities are removed by correction `0.1.1`.
+These packages define implementation boundaries. They are not evidence that the Ptah runtime already exists.
 
 ---
 
-# Active work — 0B-WP08
+## Active Phase 0C decisions
 
-## Domain Pack, firmware, disk and Device contracts
+Phase 0C must complete all of the following before implementation authorization:
 
-WP08 must turn the frozen Object decomposition, Domain Pack, firmware/disk/filesystem and Device architecture plus WP01–WP07 into exact candidate contracts without selecting parser, flasher, device-control or filesystem backends.
+1. select and pin the Linux host baseline;
+2. select the public Ptah licence and contribution boundary;
+3. approve the implementation repository and source layout;
+4. select the exact first implementations behind the frozen neutral contracts;
+5. approve the first vertical-slice delivery plan;
+6. bind that plan to the WP14 proof plan and WP13 exact-head conformance;
+7. record explicit implementation authorization in this file.
 
-### Required entities and boundaries
+### Required first vertical slice
 
-- Domain Pack identity, immutable Pack Revision, capability declarations and compatibility;
-- detection claims, confidence, coverage and conflicting detector results;
-- Inventory, Decomposition, Validation, Compare, Rebuild and Execute recipes/runs;
-- progressive/budgeted decomposition and retained unknown gaps;
-- firmware Package, Manifest, Component, target compatibility and tool/loader/programmer evidence;
-- disk/block image, partition table, partition, filesystem and mount/inspection Sessions;
-- read-only/static analysis versus state-changing transformation/write;
-- Device stable identity, Interface incarnation, Connection epoch and Provider generation;
-- Device Session, Lease/fencing, protocol stage and physical Operation/Attempt;
-- display/log/input Streams and Screen Context boundaries;
-- immutable backup before destructive device operations;
-- protocol acknowledgement versus write/read-back verification;
-- recovery/cleanup and partial/uncertain physical outcomes;
-- migration, backend replacement and cross-platform/device-family extension.
+The first authorized slice must demonstrate, at minimum:
 
-### Core questions WP08 must resolve
+- one Linux Node;
+- one persistent Workspace;
+- canonical Object registration;
+- concurrent Activities and multiple terminals;
+- upload and resumable download;
+- Git clone or mirror;
+- one container execution path;
+- one interactive Browser path;
+- one decomposition adapter;
+- Artifact registration;
+- checkpoint, restart and reconnect;
+- exact Receipts, generation evidence and negative-path retention.
 
-1. generic Domain Pack contract versus format/family-specific revisions;
-2. detector observation versus accepted classification/compatibility;
-3. inventory/decomposition outputs versus source Object truth;
-4. child/partition/component identity across parser changes;
-5. static transformation versus physical mutation authority;
-6. firmware target compatibility versus Device presence/identity;
-7. Device identity versus transient USB/ADB/Fastboot/META/DIAG/interface aliases;
-8. connection epoch, Provider generation, Lease/fence and physical retry safety;
-9. vendor protocol stages, loaders/programmers and exact target evidence;
-10. acknowledgement versus verified physical state;
-11. required backup, destructive-action approval and post-operation read-back;
-12. unsupported/opaque/partial formats and devices without false success;
-13. Domain Pack/backend replacement without Object/Device identity loss.
+### Selection rule
 
-### Minimum proof cases
-
-- two detectors disagree without destroying either observation;
-- bounded decomposition produces useful partial children and explicit unknown gaps;
-- parser/version replacement preserves source Object identity and creates new derived revisions;
-- disk/partition/filesystem hierarchy retains exact offsets/ranges and overlap checks;
-- read-only mount/inspection cannot silently become writable;
-- firmware compatibility binds exact package/component/Device/tool revisions;
-- disconnected/re-enumerated Device advances interface/connection generation;
-- stale Lease/fence/Provider evidence cannot mutate the Device;
-- protocol acknowledgement without read-back cannot become verified success;
-- destructive operation is blocked without required immutable backup and approval;
-- disconnect during non-idempotent write produces uncertain state and reconciliation, not blind retry;
-- unsupported family/tool path remains explicit negative capability evidence;
-- replacement Domain Pack/Provider preserves canonical Object/Device history.
-
-### Required outputs
-
-- normative Domain Pack/firmware/disk/Device conventions;
-- entity-kind supplements/corrections where required;
-- candidate schemas and local catalog;
-- namespaced lifecycle state machines;
-- migration/compatibility record;
-- positive/negative fixtures;
-- consolidated safety net;
-- WP08 work-package record and ADR-0025 if review accepts the boundary.
+Concrete tools are replaceable backends. They may not redefine canonical Ptah identity, lifecycle or proof. Backend IDs remain Aliases. A selected dependency must have a pinned version, licence decision, integration boundary, replacement strategy and proof cases.
 
 ---
 
-# Ordered Phase 0B sequence
+## No-build boundary
 
-1. WP01 common identity/versioning/typed families — **CANDIDATE COMPLETE**
-2. WP02 Activity/Operation/Attempt/Event/Receipt/proof — **CANDIDATE COMPLETE**
-3. WP03 Object/Revision/View/Artifact/storage — **CANDIDATE COMPLETE**
-4. WP04 Node/Facility/Provider/capability/health — **CANDIDATE COMPLETE**
-5. WP05 Workspace/Session/checkpoint/recovery — **CANDIDATE COMPLETE**
-6. WP06 transfer/sync/conflict/backup — **CANDIDATE COMPLETE**
-7. WP07 Recipe/Build/provenance/SBOM/signature/verification — **CANDIDATE COMPLETE**
-8. WP08 Domain Pack/firmware/disk/Device — **ACTIVE**
-9. WP09 Application/Browser/semantic UI/Shell
-10. WP10 knowledge/data/Package/Plugin
-11. WP11 isolation/placement/reservation/lease/secure grants
-12. WP12 security/Finding/Claim/Evidence/reproduction
-13. WP13 migrations and executable conformance harness
-14. WP14 golden/negative corpus and proof-plan freeze
-15. Phase 0B review/freeze and Phase 0C readiness decision
+Allowed during Phase 0C:
 
----
+- implementation-selection ADRs;
+- licence and contribution decisions;
+- source/repository layout;
+- pinned dependency evaluation;
+- build scaffolding that does not claim runtime completion;
+- executable proof-plan preparation;
+- contract-conformance maintenance.
 
-# Parked/restricted items
+Not yet allowed:
 
-Phase 0A parked/restricted items remain non-blocking with recorded reopening criteria, including `.P5C`, shared POSIX filesystems, MiniRouter licence, Dify modified licence, Ponytail/non-GNOME Wayland completion, unaudited private device source, prototype repositories without clear licences/proof, missing `amertoglu16` source and the final public Ptah project licence.
+- claiming the Ptah runtime or UI is implemented;
+- deploying production Nodes, Providers or Workspaces;
+- selecting a backend without a pinned licence/exit record;
+- weakening the frozen WP14 proof burden;
+- bypassing WP13 conformance;
+- reusing donor source outside its accepted licence and extraction boundary.
 
----
-
-# No-build boundary
-
-Allowed now:
-
-- contracts, schemas and state machines;
-- migration/compatibility design;
-- conformance and lawful fixture design;
-- proof plans and public/private export boundaries.
-
-Not allowed yet:
-
-- runtime or UI implementation;
-- donor-source reuse;
-- production dependency/backend selection;
-- deployment of Nodes, Providers, Workspaces, build/device workers, registries or signing infrastructure;
-- presenting candidate contracts as built or proven.
-
-Implementation begins only after Phase 0C approval is recorded here.
+Implementation becomes authorized only when a Phase 0C acceptance ADR and an explicit `Runtime implementation: AUTHORIZED` entry are merged into this file.
 
 ---
 
-# Chat continuation instruction
+## Immediate continuation order
 
-Read this file first, then:
-
-1. `decisions/ADR-0024-RECIPE-BUILD-PROVENANCE-SBOM-SIGNATURE-VERIFICATION-BOUNDARY.md`;
-2. `work-packages/PHASE-0B-WP07-RECIPE-BUILD-PROVENANCE.md`;
-3. `schemas/phase-0b/build/schema-catalog.v0.1.1.json`;
-4. `decisions/ADR-0007-OBJECT-GRAPH-DECOMPOSITION-DERIVATIVE-BOUNDARY.md`;
-5. `decisions/ADR-0008-DISK-FIRMWARE-DEVICE-OPERATION-BOUNDARY.md`;
-6. `decisions/ADR-0009-DEVICE-SESSION-DISPLAY-INPUT-SEMANTIC-UI-BOUNDARY.md`;
-7. the relevant Phase 0A WP05/WP06/WP07 Domain Pack, firmware/disk and Device donor/internal records;
-8. ADR-0018 through ADR-0024;
-9. `MASTER_ROADMAP.md`, `PROGRESS.md`, `DECISIONS.md`, `REQUIREMENT_CLOSURE_MATRIX.md`.
-
-Do not restart donor research or implementation from conversational memory.
+1. Read `decisions/ADR-0032-PHASE-0B-FREEZE-PHASE-0C-ENTRY.md`.
+2. Read `work-packages/PHASE-0B-FREEZE-READINESS-REVIEW.md`.
+3. Read `conformance/phase-0b/WP14-FIRST-VERTICAL-SLICE-PROOF-PLAN.md`.
+4. Produce the Phase 0C Linux, licence, layout and backend-selection record.
+5. Run exact-head conformance on any contract-affecting change.
+6. Do not start runtime implementation until authorization is explicitly merged here.
