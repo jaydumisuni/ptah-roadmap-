@@ -83,6 +83,14 @@ Verifier conclusion: primary findings supported. Frozen donor register's source-
 - prohibited inheritance: source code while unlicensed, competition identity as Ptah identity, router as global scheduler/reasoning/security authority, benchmark score as universal quality truth;
 - replacement/exit strategy: reimplement only independently derived, rights-cleared ideas behind Ptah evaluation contracts, or wait for explicit compatible licensing.
 
+## Contradiction and supersession
+
+- the older donor queue correctly identified MiniRouter as unresolved/blocked for source reuse;
+- current source resolves the canonical identity as `mini-router/minirouter` and confirms active development;
+- current source does not resolve the rights problem: the inspected root still has no `LICENSE`, package metadata still declares no licence, and adaptation lineage remains explicit;
+- therefore the current canonical-source evidence supersedes only the earlier identity uncertainty, not the source-reuse block;
+- no accepted Ptah architecture decision is superseded or reopened by this record.
+
 ## Reopening criteria
 
 Source reuse may be reconsidered only when:
