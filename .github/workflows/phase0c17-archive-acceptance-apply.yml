@@ -1,0 +1,88 @@
+name: Phase 0C-17 Tenfold Archive Acceptance Apply
+
+on:
+  pull_request:
+    paths:
+      - "tools/apply_phase0c17_archive_acceptance.py"
+      - ".github/workflows/phase0c17-archive-acceptance-apply.yml"
+
+permissions:
+  contents: write
+
+env:
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  accept-archive-formation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact acceptance branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Verify exact starting head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Apply guarded archive acceptance
+        run: python3 tools/apply_phase0c17_archive_acceptance.py
+
+      - name: Run accepted-state regressions and validator
+        run: |
+          python3 tools/test_check_archive_formation.py -v
+          python3 tools/check_archive_formation.py --repo-root .
+
+      - name: Verify accepted boundary
+        run: |
+          expected=$(cat <<'EOF'
+          AI_HANDOFF.md
+          CURRENT_STATE.md
+          DECISIONS.md
+          PROGRESS.md
+          archive/CAMPAIGN-001-FORMATION-MANIFEST.md
+          decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md
+          master-plan-index.json
+          planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md
+          tools/check_archive_formation.py
+          tools/test_check_archive_formation.py
+          work-packages/PHASE-0C-17-TENFOLD-ARCHIVE-FORMATION.md
+          EOF
+          )
+          actual=$(git diff --name-only | sort)
+          test "$actual" = "$(printf '%s\n' "$expected" | sort)"
+          grep -Fq 'Status: accepted' decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md
+          grep -Fq 'Version: 1.0.0' planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md
+          grep -Fq 'AF01 is READY but not started' CURRENT_STATE.md
+          grep -Fq '**Runtime implementation:** NOT AUTHORIZED' CURRENT_STATE.md
+          ! grep -Fq '**Runtime implementation:** AUTHORIZED' CURRENT_STATE.md
+          grep -Fq 'Status: proposed' decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
+          grep -Fq '**Status:** COMPLETE AND FROZEN' DONOR_RECOVERY.md
+
+      - name: Commit accepted authority records
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            AI_HANDOFF.md \
+            CURRENT_STATE.md \
+            DECISIONS.md \
+            PROGRESS.md \
+            archive/CAMPAIGN-001-FORMATION-MANIFEST.md \
+            decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md \
+            master-plan-index.json \
+            planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md \
+            tools/check_archive_formation.py \
+            tools/test_check_archive_formation.py \
+            work-packages/PHASE-0C-17-TENFOLD-ARCHIVE-FORMATION.md
+          git commit -m "Accept tenfold archive formation authority"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
