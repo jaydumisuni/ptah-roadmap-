@@ -164,7 +164,7 @@
   },
   "operational_protocols": {
     "tenfold_archive_formation": {
-      "status": "accepted_operational_protocol_af01_complete_af02_ready",
+      "status": "accepted_operational_protocol_af01_complete_af02_active",
       "source_branch": "main",
       "pull_request": 26,
       "protocol": "planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md",
@@ -207,9 +207,16 @@
       "af01_acceptance_record": "archive/campaign-001/af01/ACCEPTANCE.md",
       "blocked_archive_record_count": 1,
       "completed_formation_count": 1,
-      "af02_status": "ready_not_started",
-      "af02_started": false,
-      "af02_authorized": false
+      "af02_status": "active",
+      "af02_started": true,
+      "af02_authorized": true,
+      "af01_acceptance_merge": "ea2424bb5bc2bdb698bfc1bf389601457abd3c89",
+      "af02_mission": "archive/campaign-001/af02/MISSION.md",
+      "af02_accepted_archive_record_count": 0,
+      "af02_remaining_evidence_count": 10,
+      "af03_status": "not_started",
+      "af03_started": false,
+      "af03_authorized": false
     }
   }
 }

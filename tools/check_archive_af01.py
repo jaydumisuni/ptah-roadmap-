@@ -161,7 +161,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(result_md, "Status: ACCEPTED COMPLETE", "result accepted state")
     require(acceptance, "Status: ACCEPTED EVIDENCE RECORD", "acceptance record state")
     require(acceptance, CANDIDATE_MERGE, "AF01 candidate merge evidence")
-    require(acceptance, "AF02: READY / NOT STARTED", "AF02 next state")
+    require(acceptance, "operative AF01 acceptance merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`", "AF01 operative merge")
+    require(acceptance, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "AF02 subsequent active state")
     require(result_md, "MiniRouter", "blocked record narrative")
     require(result_md, "no root `LICENSE`", "MiniRouter licence block")
 
@@ -264,9 +265,9 @@ def validate_repo(root: Path) -> dict[str, Any]:
     if af01_ids != list(EXPECTED):
         raise ValidationError(f"campaign manifest AF01 order mismatch: {af01_ids}")
     require(manifest, "- status: ACCEPTED COMPLETE", "manifest AF01 accepted state")
-    require(manifest, "- status: READY / NOT STARTED", "manifest AF02 ready state")
+    require(manifest, "- status: ACTIVE", "manifest AF02 active state")
     require(current_state, "AF01: ACCEPTED COMPLETE", "current AF01 accepted state")
-    require(current_state, "AF02: READY / NOT STARTED", "current AF02 ready state")
+    require(current_state, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "current AF02 active state")
     require(donor_register, "**Status:** COMPLETE AND FROZEN", "frozen Phase 0A")
     if "**Status:** REOPENED" in donor_register or "Phase 0A reopened" in donor_register:
         raise ValidationError("Phase 0A was reopened")
