@@ -164,6 +164,20 @@ Selection/evidence package merge:
 - [x] owner-acceptance change squash-merged as `3ce7d4251db0b6ba3f145385ad7ad8dc09276393`;
 - [x] runtime implementation remained unauthorized.
 
+## AI Project Workspace behavioural donor and Hunter bridge candidate
+
+- [x] ChatGPT Projects, project memory, Library, Work, Canvas and Scheduled Tasks recorded from official public documentation as behavioural sources only;
+- [x] code reuse fixed at none and OpenAI excluded as a runtime dependency;
+- [x] `ptah.workspace.ai_project.v1` candidate profile recorded over sixteen existing Ptah primitives;
+- [x] fourteen behaviours mapped with zero frozen-contract extensions;
+- [x] hidden provider memory and implicit global tool access explicitly rejected;
+- [x] bounded context, source authority, Workspace isolation, Facility Grants and model-independent handoff requirements recorded;
+- [x] Hunter–Ptah bridge responsibilities and candidate-to-truth promotion boundary recorded;
+- [x] ten positive/negative fixtures and ten adversarial validator regressions passed;
+- [x] all ten workflows passed at exact head `2a2c28d17abd9ad52c8d850f8bbcdba57074194e`;
+- [x] donor/profile package squash-merged as `d05653c5948727b58ead91088447d0b8ac4d9d9b`;
+- [x] candidate remains non-operative, non-blocking and runtime implementation remains unauthorized.
+
 ## Active Phase 0C closure work
 
 - [x] select the minimal external Rust crate/features graph;
@@ -190,6 +204,7 @@ Selection/evidence package merge:
 - [x] no Node, Workspace, Activity, Provider or UI runtime is claimed;
 - [x] accepted public Apache-2.0 governance does not authorize runtime implementation;
 - [x] donor/workload identity remains outside Ptah Core;
+- [x] AI Project Workspace donor/profile remains non-operative and provider-independent;
 - [x] WP13 and WP14 proof burdens remain unchanged;
 - [ ] runtime implementation authorized.
 

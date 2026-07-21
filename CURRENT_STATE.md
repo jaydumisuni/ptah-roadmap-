@@ -87,6 +87,7 @@ The following records are merged or awaiting this evidence-sync merge:
 - `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`;
 - `work-packages/PHASE-0C-13-DURABLE-PINNED-HOST-RETENTION-READINESS.md`;
 - `work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md`;
+- `work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md`;
 - proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.
 
 ### Candidate first-slice baseline
@@ -318,6 +319,39 @@ This closes the Apache-2.0 owner decision and operative public repository govern
 
 ---
 
+## Merged AI Project Workspace behavioural donor and Hunter bridge candidate
+
+`Ptah-space` PR `#14` was tested at exact head:
+
+```text
+2a2c28d17abd9ad52c8d850f8bbcdba57074194e
+```
+
+and squash-merged at:
+
+```text
+d05653c5948727b58ead91088447d0b8ac4d9d9b
+```
+
+The merged non-operative design package records:
+
+- OpenAI ChatGPT Projects and Work as a public-documentation behavioural donor only;
+- no OpenAI source-code reuse, proprietary implementation claim or runtime dependency;
+- profile identity `ptah.workspace.ai_project.v1`;
+- sixteen existing Ptah primitives composed into a human-and-agent project Workspace;
+- fourteen donor behaviours: four directly covered, eight covered by profile composition, zero Core extensions and two rejected patterns;
+- explicit rejection of hidden provider memory and implicit global tool access;
+- a Hunter–Ptah bridge where Ptah owns durable truth and Grants while Hunter coordinates through bounded context packets;
+- ten positive/negative proof fixtures for isolation, authority, provider replacement, scheduled access, handoff and Artifact lineage;
+- ten fail-closed regressions and exact-head evidence under immutable Action pins;
+- a corrected public README licence statement while retaining the non-claiming runtime boundary.
+
+All ten exact-head workflows passed, including the new AI Project Workspace candidate lane, source/no-build, Rust policy, frozen contracts, generated bindings, host, licence, backend artifact, backend signature and signer-lock gates.
+
+This candidate is a non-blocking future composition design. It neither closes nor adds an ADR-0033 acceptance condition, changes a frozen WP01–WP14 contract, implements a Workspace/context runtime or authorizes Hunter integration.
+
+---
+
 ## Active Phase 0C blockers
 
 Implementation remains unauthorized until all of the following are merged and reviewed:
@@ -355,6 +389,7 @@ The first authorized slice must demonstrate, at minimum:
 Allowed during the remainder of Phase 0C:
 
 - accepted licence, contribution, security and third-party-notice boundary maintenance;
+- non-operative behavioural donor, Workspace-profile and Hunter-bridge maintenance;
 - exact physical pinned-host and installed-package evidence;
 - durable proof-location preparation and pending retention review;
 - non-claiming repository and CI maintenance;
