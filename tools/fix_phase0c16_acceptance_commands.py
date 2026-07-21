@@ -54,12 +54,25 @@ for relative in ("CURRENT_STATE.md", "AI_HANDOFF.md"):
 
 validator = ROOT / "tools/check_master_plan_closure.py"
 text = validator.read_text(encoding="utf-8")
-old = 'require_text(handoff, "Safest next action", "AI handoff next action")'
-new = 'require_text(handoff, "Exact next action", "AI handoff next action")'
-if text.count(old) != 1:
-    raise SystemExit(
-        f"accepted validator: expected one old handoff heading assertion, found {text.count(old)}"
-    )
-validator.write_text(text.replace(old, new, 1), encoding="utf-8")
+validator_replacements = (
+    (
+        'require_text(handoff, "Safest next action", "AI handoff next action")',
+        'require_text(handoff, "Exact next action", "AI handoff next action")',
+        "handoff heading",
+    ),
+    (
+        'require_text(adr33, "the complete `MASTER_PLAN.md`", "ADR-0033 acceptance condition")',
+        'require_text(adr33, "accepted Master Plan and implementation roadmap version `1.0.0`", "ADR-0033 completed planning condition")',
+        "ADR-0033 planning condition",
+    ),
+)
+for old, new, label in validator_replacements:
+    count = text.count(old)
+    if count != 1:
+        raise SystemExit(
+            f"accepted validator: expected one old {label} assertion, found {count}"
+        )
+    text = text.replace(old, new, 1)
+validator.write_text(text, encoding="utf-8")
 
-print("accepted records and accepted-state handoff validation repaired")
+print("accepted records and accepted-state validation repaired")
