@@ -39,7 +39,7 @@ jobs:
           python3 tools/test_check_archive_af02.py -v 2>&1 \
             | tee conformance/reports/archive-campaign-001-af02/regressions.txt
 
-      - name: Validate AF02 candidate closure
+      - name: Validate AF02 accepted closure
         run: |
           set -o pipefail
           python3 tools/check_archive_af02.py \
@@ -79,8 +79,8 @@ jobs:
           )
           if not evidence["exact_head_match"]:
               raise SystemExit("AF02 did not test the exact head")
-          if evidence["status"] != "candidate_complete_valid_non_authorizing":
-              raise SystemExit("AF02 candidate validation status is invalid")
+          if evidence["status"] != "accepted_complete_valid_non_authorizing":
+              raise SystemExit("AF02 accepted validation status is invalid")
           expected_values = {
               "record_count": 10,
               "accepted_archive_record_count": 10,
@@ -89,6 +89,8 @@ jobs:
               "verifier_worker_count": 10,
               "checkpoint_count": 2,
               "remaining_evidence_count": 0,
+              "af03_ready": True,
+              "af03_started": False,
           }
           for key, value in expected_values.items():
               if evidence.get(key) != value:
