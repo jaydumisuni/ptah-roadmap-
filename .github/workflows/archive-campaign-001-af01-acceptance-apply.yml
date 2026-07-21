@@ -1,0 +1,82 @@
+name: Archive Campaign 001 AF01 Acceptance Apply
+
+on:
+  pull_request:
+    paths:
+      - "tools/apply_archive_af01_acceptance_sync.py"
+      - ".github/workflows/archive-campaign-001-af01-acceptance-apply.yml"
+
+permissions:
+  contents: write
+
+env:
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  synchronize-af01-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact acceptance branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Verify exact starting head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Apply guarded AF01 acceptance synchronization
+        run: python3 tools/apply_archive_af01_acceptance_sync.py
+
+      - name: Run accepted-state AF01 validation
+        run: |
+          python3 tools/test_check_archive_af01.py -v
+          python3 tools/check_archive_af01.py --repo-root .
+
+      - name: Verify synchronized boundary
+        run: |
+          expected=$(cat <<'EOF'
+          .github/workflows/archive-campaign-001-af01.yml
+          AI_HANDOFF.md
+          CURRENT_STATE.md
+          PROGRESS.md
+          archive/CAMPAIGN-001-FORMATION-MANIFEST.md
+          master-plan-index.json
+          tools/check_archive_af01.py
+          tools/test_check_archive_af01.py
+          EOF
+          )
+          actual=$(git diff --name-only | sort)
+          test "$actual" = "$(printf '%s\n' "$expected" | sort)"
+          grep -Fq 'AF01: ACCEPTED COMPLETE' CURRENT_STATE.md
+          grep -Fq 'AF02: READY / NOT STARTED' CURRENT_STATE.md
+          grep -Fq 'Status: accepted campaign backlog' archive/CAMPAIGN-001-FORMATION-MANIFEST.md
+          grep -Fq 'Status: proposed' decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
+          grep -Fq '**Status:** COMPLETE AND FROZEN' DONOR_RECOVERY.md
+          grep -Fq '**Runtime implementation:** NOT AUTHORIZED' CURRENT_STATE.md
+          ! grep -Fq '**Runtime implementation:** AUTHORIZED' CURRENT_STATE.md
+
+      - name: Commit synchronized AF01 acceptance authority
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            .github/workflows/archive-campaign-001-af01.yml \
+            AI_HANDOFF.md \
+            CURRENT_STATE.md \
+            PROGRESS.md \
+            archive/CAMPAIGN-001-FORMATION-MANIFEST.md \
+            master-plan-index.json \
+            tools/check_archive_af01.py \
+            tools/test_check_archive_af01.py
+          git commit -m "Accept Campaign 001 AF01 closure"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
