@@ -424,13 +424,15 @@ Campaign 001 progress:
 - AF01: ACCEPTED COMPLETE;
 - accepted archive records: 9;
 - blocked completed outcomes: 1 (`D047` MiniRouter source reuse);
-- AF02: READY / NOT STARTED;
+- AF02: ACTIVE / ZERO RECORDS ACCEPTED;
+- AF02 mission: `archive/campaign-001/af02/MISSION.md`;
+- AF01 operative acceptance merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`;
 - AF01 candidate exact head: `f60e340cb856d50e88b4279147a933d838fce759`;
 - AF01 workflow run/artifact: `29862087745` / `8507695005`;
 - AF01 candidate merge: `0a35a8a904bdf235fa4989ea05b684443d5a879a`;
 - AF01 acceptance record: `archive/campaign-001/af01/ACCEPTANCE.md`.
 
-AF02 readiness does not start evidence collection or authorize source reuse. The archive campaign does not replace P01 as the active implementation-authorization work, reopen Phase 0A, accept ADR-0033 or authorize runtime implementation.
+AF02 evidence collection is active under its accepted twenty-private mission, with zero records accepted. This archive authorization does not grant source reuse, start AF03, replace P01 as the active implementation-authorization work, reopen Phase 0A, accept ADR-0033 or authorize runtime implementation.
 
 ---
 

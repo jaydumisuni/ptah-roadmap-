@@ -20,7 +20,9 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 - completed formations: 1
 - accepted archive records: 9
 - blocked completed outcomes: 1
-- next formation: AF02 READY / NOT STARTED
+- active formation: AF02
+- AF02 accepted archive records: 0
+- AF02 remaining evidence: 10
 
 ## AF01
 
@@ -49,9 +51,12 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF02
 
-- status: READY / NOT STARTED
+- status: ACTIVE
 - private count: 20
 - assigned records: 10
+- accepted archive records: 0
+- remaining evidence: 10
+- mission: `archive/campaign-001/af02/MISSION.md`
 - reserve pairs: 0
 
 | Record | Source | Class/family | Primary | Verifier |

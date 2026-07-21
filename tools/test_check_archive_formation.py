@@ -50,9 +50,13 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         self.assertEqual(result["blocked_archive_record_count"], 1)
         self.assertEqual(result["completed_formation_count"], 1)
         self.assertEqual(result["af01_status"], "accepted_complete")
-        self.assertEqual(result["af02_status"], "ready_not_started")
-        self.assertFalse(result["af02_started"])
-        self.assertFalse(result["af02_authorized"])
+        self.assertEqual(result["af02_status"], "active")
+        self.assertTrue(result["af02_started"])
+        self.assertTrue(result["af02_authorized"])
+        self.assertEqual(result["af02_accepted_archive_record_count"], 0)
+        self.assertEqual(result["af02_remaining_evidence_count"], 10)
+        self.assertFalse(result["af03_started"])
+        self.assertFalse(result["af03_authorized"])
         self.assertFalse(result["runtime_implementation_authorized"])
 
     def test_sergeant_pin_cannot_drift(self) -> None:
@@ -264,11 +268,19 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         (root / "archive/campaign-001/af01/ACCEPTANCE.md").unlink()
         self.assert_invalid(root)
 
-    def test_af02_cannot_start_implicitly(self) -> None:
+    def test_af02_cannot_stop_implicitly(self) -> None:
         root = self.make_repo()
         path = root / "master-plan-index.json"
         value = json.loads(path.read_text(encoding="utf-8"))
-        value["operational_protocols"]["tenfold_archive_formation"]["af02_started"] = True
+        value["operational_protocols"]["tenfold_archive_formation"]["af02_started"] = False
+        path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+        self.assert_invalid(root)
+
+    def test_af03_cannot_start_implicitly(self) -> None:
+        root = self.make_repo()
+        path = root / "master-plan-index.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["operational_protocols"]["tenfold_archive_formation"]["af03_started"] = True
         path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
         self.assert_invalid(root)
 

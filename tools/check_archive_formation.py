@@ -142,14 +142,14 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(progress, "## Tenfold archive formation — accepted", "progress archive section")
     require(progress, "200 private slots allocated", "progress force count")
     require(progress, "AF01 completed ten paired source reviews", "progress AF01 accepted state")
-    require(progress, "AF02 is READY / NOT STARTED", "progress AF02 ready state")
+    require(progress, "AF02 is ACTIVE", "progress AF02 active state")
 
     require(current_state, "P01", "active P01 physical-host work")
     require(current_state, "## Accepted Phase 0C-17 tenfold archive formation", "current archive acceptance")
     require(current_state, "ADR-0035: ACCEPTED", "current accepted ADR")
     require(current_state, "AF01: ACCEPTED COMPLETE", "current AF01 accepted state")
-    require(current_state, "AF02: READY / NOT STARTED", "current AF02 ready state")
-    require(current_state, "does not replace P01", "current P01 boundary")
+    require(current_state, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "current AF02 active state")
+    require(current_state, "replace P01 as the active implementation-authorization work", "current P01 boundary")
     require(current_state, "**Runtime implementation:** NOT AUTHORIZED", "runtime non-authorization")
     if "**Runtime implementation:** AUTHORIZED" in current_state:
         raise ValidationError("runtime implementation became authorized")
@@ -157,7 +157,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(handoff, "## Accepted cross-cutting archive formation", "handoff archive acceptance")
     require(handoff, "ADR-0035: ACCEPTED", "handoff accepted ADR")
     require(handoff, "AF01: ACCEPTED COMPLETE", "handoff AF01 accepted state")
-    require(handoff, "AF02: READY / NOT STARTED", "handoff AF02 ready state")
+    require(handoff, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "handoff AF02 active state")
     require(handoff, "Campaign 001 covers 98 source obligations", "handoff campaign scope")
     require(handoff, "P01 physical-host closure remains the exact next authorization action", "handoff P01 boundary")
 
@@ -166,7 +166,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(acceptance_record, "accepted archive record count `0`", "initial zero accepted archive records")
     require(af01_acceptance, "Status: ACCEPTED EVIDENCE RECORD", "AF01 acceptance record state")
     require(af01_acceptance, "0a35a8a904bdf235fa4989ea05b684443d5a879a", "AF01 candidate merge")
-    require(af01_acceptance, "AF02: READY / NOT STARTED", "AF01 next formation state")
+    require(af01_acceptance, "operative AF01 acceptance merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`", "AF01 operative merge")
+    require(af01_acceptance, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "AF02 subsequent state")
 
     require(adr0033, "Status: proposed", "ADR-0033 proposed state")
     if re.search(r"^Status:\s+accepted", adr0033, re.MULTILINE | re.IGNORECASE):
@@ -183,7 +184,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     if not isinstance(archive_index, dict):
         raise ValidationError("archive protocol missing from machine index")
     expected_index = {
-        "status": "accepted_operational_protocol_af01_complete_af02_ready",
+        "status": "accepted_operational_protocol_af01_complete_af02_active",
         "source_branch": "main",
         "pull_request": 26,
         "protocol": str(PROTOCOL),
@@ -212,9 +213,15 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "accepted_archive_record_count": 9,
         "blocked_archive_record_count": 1,
         "completed_formation_count": 1,
-        "af02_status": "ready_not_started",
-        "af02_started": False,
-        "af02_authorized": False,
+        "af02_status": "active",
+        "af02_started": True,
+        "af02_authorized": True,
+        "af02_mission": "archive/campaign-001/af02/MISSION.md",
+        "af02_accepted_archive_record_count": 0,
+        "af02_remaining_evidence_count": 10,
+        "af03_status": "not_started",
+        "af03_started": False,
+        "af03_authorized": False,
         "accepted_state_exact_head": "b96b84d17cf03e905bd0b1baf3c46b8aec09334a",
         "accepted_state_workflow_run": "29855000427",
         "accepted_state_artifact_id": "8504901567",
@@ -229,6 +236,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "af01_candidate_validation_report_sha256": "4a8cf20f3aacf8628c1de1b774cc93018705d0aa256a65208a8abf4311edc691",
         "af01_candidate_merge": "0a35a8a904bdf235fa4989ea05b684443d5a879a",
         "af01_acceptance_record": str(AF01_ACCEPTANCE),
+        "af01_acceptance_merge": "ea2424bb5bc2bdb698bfc1bf389601457abd3c89",
     }
     for key, value in expected_index.items():
         if archive_index.get(key) != value:
@@ -247,7 +255,9 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "completed formations: 1",
         "accepted archive records: 9",
         "blocked completed outcomes: 1",
-        "next formation: AF02 READY / NOT STARTED",
+        "active formation: AF02",
+        "AF02 accepted archive records: 0",
+        "AF02 remaining evidence: 10",
     ):
         require(manifest, token, "manifest invariant")
 
@@ -324,9 +334,14 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "blocked_archive_record_count": 1,
         "completed_formation_count": 1,
         "af01_status": "accepted_complete",
-        "af02_status": "ready_not_started",
-        "af02_started": False,
-        "af02_authorized": False,
+        "af02_status": "active",
+        "af02_started": True,
+        "af02_authorized": True,
+        "af02_accepted_archive_record_count": 0,
+        "af02_remaining_evidence_count": 10,
+        "af03_status": "not_started",
+        "af03_started": False,
+        "af03_authorized": False,
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
