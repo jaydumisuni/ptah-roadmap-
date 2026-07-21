@@ -1,8 +1,8 @@
 # Ptah Space — Complete Master Plan
 
-Status: candidate master plan for review — runtime implementation remains unauthorized
+Status: accepted product and operating authority — runtime implementation remains unauthorized
 
-Version: 1.0-candidate
+Version: 1.0.0
 
 Recorded: 2026-07-21
 
@@ -16,7 +16,7 @@ This document defines what Ptah is intended to become, who it serves, what it mu
 
 It is the product and operating plan. The dependency-ordered delivery programme is maintained separately in `IMPLEMENTATION_ROADMAP.md`.
 
-The older `MASTER_ROADMAP.md` remains historical architecture and phase source material until this candidate is reviewed and accepted. Once accepted, this document becomes the primary product-plan authority and `IMPLEMENTATION_ROADMAP.md` becomes the primary delivery-sequencing authority.
+The older `MASTER_ROADMAP.md` remains retained historical architecture and phase source material. Under accepted ADR-0034, this document is the primary product and operating authority and `IMPLEMENTATION_ROADMAP.md` is the primary delivery-sequencing authority.
 
 ## 2. Executive definition
 
@@ -660,11 +660,11 @@ A roadmap change records the problem, evidence, affected phases, dependency chan
 
 ## 23. Current closure state
 
-Recovered requirements and decisions: complete for master-plan drafting.
+Recovered requirements and decisions: accepted through Phase 0C-16.
 
-Master Plan: this candidate requires review and acceptance.
+Master Plan: accepted as version `1.0.0` through ADR-0034 and merge `2c24f9e6b0fc98d5e03605596db75d7495796353`.
 
-Detailed implementation roadmap: must be derived and reviewed with this plan.
+Detailed implementation roadmap: accepted as version `1.0.0`; Programme P01 is the active pre-runtime gate.
 
 WP01–WP14 contracts: frozen.
 

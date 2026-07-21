@@ -187,13 +187,12 @@ Selection/evidence package merge:
 - [x] physical-host through ADR-0033 and authorization procedure recorded;
 - [x] durable `AI_HANDOFF.md` and `master-plan-index.json` created;
 - [x] proposed ADR-0034 and Phase 0C-16 evidence package created;
-- [-] repair stale control-book records and run exact-head consistency validation;
-- [ ] review and merge Phase 0C-16;
-- [ ] accept ADR-0034 in the reviewed Phase 0C-16 merge.
+- [x] stale control-book records repaired and exact-head consistency validation passed;
+- [x] Phase 0C-16 reviewed and merged as `2c24f9e6b0fc98d5e03605596db75d7495796353`;
+- [x] ADR-0034 accepted; Master Plan and implementation roadmap version `1.0.0` are operative authorities.
 
 ## Active Phase 0C closure work
 
-- [-] review and merge the complete Master Plan and implementation roadmap closure package;
 - [x] select the minimal external Rust crate/features graph;
 - [x] produce the final runtime-candidate `Cargo.lock`;
 - [x] run crate licence, advisory, ban and source policy;
@@ -230,8 +229,8 @@ No runtime package may become READY or ACTIVE before Phase 0C authorization.
 
 ## Programme P00 — Planning and authorization
 
-- [-] P00 — Master-plan authority closure.
-- [?] P01 — Physical-host and ADR-0033 closure; blocked on the exact external host after P00 merge.
+- [x] P00 — Master-plan authority closure.
+- [?] P01 — Physical-host and ADR-0033 closure; active and blocked on the exact external host.
 
 ## Programme A — Online Ptah Alpha
 

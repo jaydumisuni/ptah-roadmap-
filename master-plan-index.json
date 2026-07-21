@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "record_type": "ptah.master_plan_index",
-  "status": "candidate_master_plan_closure_active",
+  "status": "accepted_master_plan_authority_physical_host_open",
   "recorded_at": "2026-07-21",
   "roadmap_repository": "jaydumisuni/ptah-roadmap-",
   "implementation_repository": "jaydumisuni/Ptah-space",
-  "planning_branch": "phase0c-master-plan-roadmap-closure",
+  "planning_branch": "main",
   "phase": "0C",
-  "active_work_unit": "P00-master-plan-authority-closure",
+  "active_work_unit": "P01-physical-host-and-ADR-0033-closure",
   "runtime_implementation_authorized": false,
   "authority_order": [
     "accepted_adrs_and_owner_decisions",
@@ -37,34 +37,38 @@
   "plan_documents": {
     "requirements_and_decisions": {
       "path": "planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md",
-      "status": "complete_for_master_plan_review",
-      "checkpoint_commit": "a413dd010e248419514b50e8297154719f00fc91"
+      "status": "accepted",
+      "checkpoint_commit": "a413dd010e248419514b50e8297154719f00fc91",
+      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353"
     },
     "master_plan": {
       "path": "MASTER_PLAN.md",
-      "status": "candidate_review_required",
-      "version": "1.0-candidate",
-      "checkpoint_commit": "566a166054f894a7bb9cf37d33b558c9da481e24"
+      "status": "accepted",
+      "version": "1.0.0",
+      "checkpoint_commit": "566a166054f894a7bb9cf37d33b558c9da481e24",
+      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353"
     },
     "implementation_roadmap": {
       "path": "IMPLEMENTATION_ROADMAP.md",
-      "status": "candidate_review_required",
-      "version": "1.0-candidate",
-      "checkpoint_commit": "57453b2b074cdea7cd905f0a5331d2edb7d707a0"
+      "status": "accepted",
+      "version": "1.0.0",
+      "checkpoint_commit": "57453b2b074cdea7cd905f0a5331d2edb7d707a0",
+      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353"
     },
     "reconciliation": {
       "path": "planning/MASTER-PLAN-RECONCILIATION.md",
-      "status": "candidate_review_required",
-      "checkpoint_commit": "85ded1c782ddd83e030319a2088b03c90054444c"
+      "status": "accepted",
+      "checkpoint_commit": "85ded1c782ddd83e030319a2088b03c90054444c",
+      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353"
     },
     "authorization_closure": {
       "path": "planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md",
-      "status": "procedure_ready_external_host_open",
+      "status": "procedure_ready_physical_host_open",
       "checkpoint_commit": "27e8b09109455f234867f05a65f6cff2b0563496"
     },
     "handoff": {
       "path": "AI_HANDOFF.md",
-      "status": "active_recovery_entry",
+      "status": "active_recovery_entry_physical_host_open",
       "checkpoint_commit": "34a206449d4403e4ebf913475ffa8e846b1bf9ff"
     }
   },
@@ -82,12 +86,12 @@
     {
       "id": "P00",
       "name": "Master-plan authority closure",
-      "status": "active"
+      "status": "complete"
     },
     {
       "id": "P01",
       "name": "Physical-host and ADR-0033 closure",
-      "status": "blocked_external_physical_host"
+      "status": "active_blocked_external_physical_host"
     },
     {
       "id": "A",
@@ -121,7 +125,6 @@
     }
   ],
   "authorization_blockers": [
-    "review_and_merge_master_plan_closure",
     "proof_eligible_exact_physical_host_bundle",
     "installed_package_and_package_artifact_acceptance",
     "durable_host_bundle_commit_and_acceptance",
@@ -136,5 +139,16 @@
     "proof_command": "python3 tools/run_pinned_host_proof.py --repo-root . --output evidence/phase0c/pinned-host-candidate",
     "retention_command": "python3 tools/retain_verified_pinned_host_evidence.py --repo-root . --bundle-dir evidence/phase0c/pinned-host-candidate --output-dir evidence/phase0c/pinned-host-durable-candidate"
   },
-  "next_action": "Complete control-book repair, Phase 0C-16 evidence, ADR-0034 and exact-head validation on the planning branch; then review and merge the master-plan closure package."
+  "next_action": "Run the pinned-host proof kit on the exact Ubuntu Server 24.04.4 LTS / x86_64 / 6.8.0-136-generic physical host from the selected clean reviewed Ptah-space commit.",
+  "acceptance_source_branch": "phase0c-master-plan-acceptance",
+  "acceptance_evidence": {
+    "candidate_exact_head": "37d23449fda9a426f56ee8b09042dda91587a6d1",
+    "candidate_workflow_run": "29842137511",
+    "candidate_artifact_id": "8499790872",
+    "candidate_artifact_digest": "sha256:82d6b452777e2c5e60c4d08bf88dd2c848d6b2570650b70a4eede633c8065d9f",
+    "candidate_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
+    "adr_0034_accepted": true,
+    "phase0c_16_accepted": true,
+    "runtime_implementation_authorized": false
+  }
 }

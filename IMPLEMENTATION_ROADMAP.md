@@ -1,8 +1,8 @@
 # Ptah Space — Detailed Implementation Roadmap
 
-Status: candidate delivery authority derived from `MASTER_PLAN.md` — runtime implementation remains unauthorized
+Status: accepted delivery authority derived from `MASTER_PLAN.md` — runtime implementation remains unauthorized
 
-Version: 1.0-candidate
+Version: 1.0.0
 
 Recorded: 2026-07-21
 
@@ -12,7 +12,7 @@ This roadmap converts the Ptah Master Plan into dependency-ordered, evidence-gat
 
 It does not authorize runtime work by itself. Runtime work begins only after:
 
-1. this roadmap and the Master Plan are reviewed and accepted;
+1. this accepted roadmap and Master Plan remain authoritative;
 2. physical pinned-host evidence is produced, reviewed and durably retained;
 3. the Phase 0C closure consistency review passes;
 4. ADR-0033 is accepted;
@@ -77,7 +77,7 @@ Adapter work may proceed in parallel only after the identity, ledger, Activity a
 
 ## P00 — Master-plan authority closure
 
-Status: ACTIVE on planning branch.
+Status: COMPLETE — accepted through Phase 0C-16 and ADR-0034.
 
 Deliver:
 
@@ -1023,9 +1023,9 @@ Security or dependency changes that affect runtime identity create new Provider/
 
 # 7. Current programme state
 
-P00 Master-plan authority closure: ACTIVE.
+P00 Master-plan authority closure: COMPLETE.
 
-P01 Physical-host and ADR-0033 closure: BLOCKED on the actual pinned host.
+P01 Physical-host and ADR-0033 closure: ACTIVE and BLOCKED on access to the actual pinned host.
 
 Programme A runtime packages: PLANNED and NOT AUTHORIZED.
 

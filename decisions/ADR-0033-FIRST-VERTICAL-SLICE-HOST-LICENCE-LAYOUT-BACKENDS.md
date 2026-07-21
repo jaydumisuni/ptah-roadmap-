@@ -1,6 +1,6 @@
 # ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
-Status: proposed — dependency, backend, signer, proof, retention and licence governance complete; Master Plan acceptance, physical pinned-host result, package/retention acceptance and closure review remain open
+Status: proposed — Master Plan and governance complete; physical pinned-host result, package/retention acceptance and closure review remain open
 
 ## Context
 
@@ -286,19 +286,21 @@ All nine exact-head workflows passed. This closes the licence/public-private gov
 37. exact official root licence and machine-readable copy;
 38. operative NOTICE, contribution, security and REUSE source-annotation boundary;
 39. third-party NOTICE review and private/trademark exclusions;
-40. exact-head adversarial coverage for the operative licence acceptance.
+40. exact-head adversarial coverage for the operative licence acceptance;
+41. accepted Master Plan and implementation roadmap version `1.0.0`;
+42. accepted WP01–WP14 and Phase 0C reconciliation with zero current Core extensions;
+43. accepted durable human/AI handoff and save-as-you-go authority through ADR-0034.
 
 ### Still open
 
 This ADR remains proposed until all of the following are complete:
 
-1. the complete `MASTER_PLAN.md`, `IMPLEMENTATION_ROADMAP.md`, reconciliation and durable handoff are accepted through Phase 0C-16 and ADR-0034;
-2. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
-3. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host and accepted by review;
-4. that host's exact source bundle is independently verified, durably committed and explicitly accepted through its review record;
-5. a Phase 0C closure review confirms no frozen contract was weakened;
-6. this ADR is changed to accepted;
-7. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
+1. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+2. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host and accepted by review;
+3. that host's exact source bundle is independently verified, durably committed and explicitly accepted through its review record;
+4. a Phase 0C closure review confirms no frozen contract was weakened;
+5. this ADR is changed to accepted;
+6. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
 
 ## Consequences
 

@@ -294,12 +294,18 @@ Evidence: `work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDG
 
 ---
 
+## Phase 0C accepted planning authority
+
+### D-050 — Master Plan, implementation roadmap and durable handoff have separate authorities
+
+**ACCEPTED.** `MASTER_PLAN.md` version `1.0.0` is the product and operating authority; `IMPLEMENTATION_ROADMAP.md` version `1.0.0` is the delivery-sequencing authority; frozen WP01–WP14 remain technical contract authority; `CURRENT_STATE.md` selects the exact current work; `AI_HANDOFF.md` and `master-plan-index.json` provide durable recovery. Phase 0C-16 candidate `37d23449fda9a426f56ee8b09042dda91587a6d1` passed exact-head validation and merged as `2c24f9e6b0fc98d5e03605596db75d7495796353`. Runtime implementation remains unauthorized.
+
+Full decision: `decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md`.
+
+---
+
 ## Current proposed decisions
 
 ### ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
-**PROPOSED.** Selection and tooling evidence is substantially complete, but the accepted Master Plan/roadmap, physical pinned-host result, package/retention acceptance and final closure review remain open.
-
-### ADR-0034 — Master Plan, implementation roadmap and durable handoff authority
-
-**PROPOSED.** Establishes separate product-plan, delivery-roadmap, current-state and recovery authorities with save-as-you-go checkpoints. It may be accepted with Phase 0C-16 after exact-head review.
+**PROPOSED.** Master Plan/roadmap authority is complete. The physical pinned-host result, package and retention acceptance, final Phase 0C closure review and explicit runtime authorization remain open.

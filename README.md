@@ -76,6 +76,6 @@ After every substantial Ptah work session:
 
 ## Current position
 
-Phase 0A donor closure and Phase 0B contracts are frozen. Phase 0C is active. The Master Plan and detailed implementation roadmap closure package is under review. Physical pinned-host evidence, ADR-0033 acceptance and explicit runtime authorization remain open.
+Phase 0A donor closure and Phase 0B contracts are frozen. The Master Plan and detailed implementation roadmap version `1.0.0` are accepted through ADR-0034 and Phase 0C-16. Phase 0C Programme P01 is active: physical pinned-host evidence, package/retention acceptance, ADR-0033 and explicit runtime authorization remain open.
 
 **Runtime implementation is NOT AUTHORIZED.**

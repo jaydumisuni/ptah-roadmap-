@@ -119,17 +119,17 @@ def validate(root: Path) -> dict[str, Any]:
     wp16 = read_text(root, "work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md")
     index = read_json(root, "master-plan-index.json")
 
-    require_text(current, "**Active work unit:** 0C-16", "CURRENT_STATE")
+    require_text(current, "**Active work unit:** 0C-04 / P01", "CURRENT_STATE")
     require_text(current, "**Runtime implementation:** NOT AUTHORIZED", "CURRENT_STATE")
     require_absent(current, "**Runtime implementation:** AUTHORIZED", "CURRENT_STATE")
     require_text(current, EXPECTED_PROOF_COMMAND, "CURRENT_STATE proof command")
     require_text(current, EXPECTED_RETENTION_COMMAND, "CURRENT_STATE retention command")
-    require_text(current, "acceptance of the complete Master Plan", "CURRENT_STATE blockers")
+    require_absent(current, "acceptance of the complete Master Plan", "CURRENT_STATE closed planning blocker")
     require_text(current, "acceptance of ADR-0033", "CURRENT_STATE blockers")
 
     require(index.get("record_type") == "ptah.master_plan_index", "master-plan index record type mismatch")
     require(index.get("phase") == "0C", "master-plan index phase mismatch")
-    require(index.get("active_work_unit") == "P00-master-plan-authority-closure", "master-plan index active work mismatch")
+    require(index.get("active_work_unit") == "P01-physical-host-and-ADR-0033-closure", "master-plan index active work mismatch")
     require(index.get("runtime_implementation_authorized") is False, "master-plan index cannot authorize runtime")
     host = index.get("physical_host_target")
     require(isinstance(host, dict), "physical host target missing from master-plan index")
@@ -138,12 +138,12 @@ def validate(root: Path) -> dict[str, Any]:
     require(host.get("proof_command") == EXPECTED_PROOF_COMMAND.replace(" \\\n  ", " "), "index proof command mismatch")
     require(host.get("retention_command") == EXPECTED_RETENTION_COMMAND.replace(" \\\n  ", " "), "index retention command mismatch")
     blockers = index.get("authorization_blockers")
-    require(isinstance(blockers, list) and len(blockers) == 7, "authorization blocker set must contain seven entries")
-    require("review_and_merge_master_plan_closure" in blockers, "planning closure blocker missing")
+    require(isinstance(blockers, list) and len(blockers) == 6, "authorization blocker set must contain six entries")
+    require("review_and_merge_master_plan_closure" not in blockers, "closed planning blocker remains active")
     require("ADR_0033_acceptance" in blockers, "ADR-0033 blocker missing")
 
-    require_text(master, "Version: 1.0-candidate", "MASTER_PLAN")
-    require_text(master, "Status: candidate master plan for review", "MASTER_PLAN")
+    require_text(master, "Version: 1.0.0", "MASTER_PLAN")
+    require_text(master, "Status: accepted product and operating authority", "MASTER_PLAN")
     for heading in [
         "## 3. Problem Ptah solves",
         "## 5. Intended users and participants",
@@ -162,7 +162,8 @@ def validate(root: Path) -> dict[str, Any]:
         require_text(master, role, "MASTER_PLAN roles")
     require_text(master, "Runtime implementation: **NOT AUTHORIZED**", "MASTER_PLAN boundary")
 
-    require_text(roadmap, "Version: 1.0-candidate", "IMPLEMENTATION_ROADMAP")
+    require_text(roadmap, "Version: 1.0.0", "IMPLEMENTATION_ROADMAP")
+    require_text(roadmap, "Status: accepted delivery authority", "IMPLEMENTATION_ROADMAP")
     positions(roadmap, ["## P00 —", "## P01 —", "# PROGRAMME A —"], "programme critical order")
     positions(roadmap, [f"## {package} —" for package in EXPECTED_PROGRAMME_A], "Programme A packages")
     positions(
@@ -217,13 +218,13 @@ def validate(root: Path) -> dict[str, Any]:
         heading = f"# {number}. {title}"
         require(memory.count(heading) == 1, f"MEMORY_PROTOCOL heading invalid: {heading}")
     require_text(memory, "durably checkpointed before the full task is complete", "save-as-you-go rule")
-    require_text(handoff, "phase0c-master-plan-roadmap-closure", "AI handoff branch")
+    require_text(handoff, "2c24f9e6b0fc98d5e03605596db75d7495796353", "AI handoff accepted merge")
     require_text(handoff, "Runtime implementation: NOT AUTHORIZED", "AI handoff boundary")
-    require_text(handoff, "Safest next action", "AI handoff next action")
+    require_text(handoff, "Exact next action", "AI handoff next action")
 
     for decision in [f"D-{i:03d}" for i in range(40, 50)]:
         require_text(decisions, decision, "DECISIONS completion")
-    require_text(decisions, "ADR-0034", "DECISIONS proposed plan authority")
+    require_text(decisions, "D-050", "DECISIONS accepted plan authority")
     require_text(donors, "COMPLETE AND FROZEN", "DONOR_RECOVERY status")
     require_absent(donors, "FINAL CONSISTENCY REVIEW ACTIVE", "DONOR_RECOVERY stale status")
     require_text(historical, "Historical Architecture and Phase Roadmap", "MASTER_ROADMAP status")
@@ -231,10 +232,10 @@ def validate(root: Path) -> dict[str, Any]:
 
     require_text(adr33, "Status: proposed", "ADR-0033 status")
     require_text(adr33, "PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md", "ADR-0033 planning condition")
-    require_text(adr33, "the complete `MASTER_PLAN.md`", "ADR-0033 acceptance condition")
-    require_text(adr34, "Status: proposed", "ADR-0034 status")
+    require_text(adr33, "accepted Master Plan and implementation roadmap version `1.0.0`", "ADR-0033 completed planning condition")
+    require_text(adr34, "Status: accepted", "ADR-0034 status")
     require_text(adr34, "Save-as-you-go rule", "ADR-0034 handoff authority")
-    require_text(wp16, "Status: candidate under review", "Phase 0C-16 status")
+    require_text(wp16, "Status: accepted", "Phase 0C-16 status")
     require_text(wp16, "Runtime implementation remains **NOT AUTHORIZED**", "Phase 0C-16 boundary")
     require_text(closure, EXPECTED_PROOF_COMMAND, "physical closure proof command")
     require_text(closure, EXPECTED_RETENTION_COMMAND, "physical closure retention command")
@@ -247,7 +248,7 @@ def validate(root: Path) -> dict[str, Any]:
     positions(progress, [f"A{i:02d} —" for i in range(1, 16)], "PROGRESS Programme A")
     for programme in ["Programme B", "Programme C", "Programme D", "Programme E", "Programme F"]:
         require_text(progress, programme, "PROGRESS later programme")
-    require_text(recovery, "Recovered requirements and decisions: COMPLETE FOR MASTER-PLAN DRAFTING", "recovery checkpoint")
+    require_text(recovery, "Recovered requirements and decisions: ACCEPTED THROUGH PHASE 0C-16", "recovery checkpoint")
     require_text(recovery, "Runtime implementation: NOT AUTHORIZED", "recovery boundary")
 
     report_files: dict[str, dict[str, Any]] = {}
@@ -261,9 +262,9 @@ def validate(root: Path) -> dict[str, Any]:
     return {
         "schema_version": "1.0.0",
         "record_type": "ptah.phase0c.master_plan_closure_validation",
-        "status": "candidate_valid_non_authorizing",
-        "master_plan_version": "1.0-candidate",
-        "implementation_roadmap_version": "1.0-candidate",
+        "status": "accepted_plan_authority_non_authorizing",
+        "master_plan_version": "1.0.0",
+        "implementation_roadmap_version": "1.0.0",
         "frozen_work_package_count": len(EXPECTED_WPS),
         "phase0c_record_count": len(EXPECTED_PHASE0C),
         "programme_a_package_count": len(EXPECTED_PROGRAMME_A),

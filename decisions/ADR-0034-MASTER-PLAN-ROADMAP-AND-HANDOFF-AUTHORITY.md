@@ -1,6 +1,6 @@
 # ADR-0034 — Master Plan, implementation roadmap and durable handoff authority
 
-Status: proposed — review with Phase 0C-16 master-plan closure
+Status: accepted — Master Plan, implementation roadmap and durable handoff are operative authorities
 
 Recorded: 2026-07-21
 
@@ -116,6 +116,28 @@ An accepted change must update the affected authority records together:
 
 Frozen contract changes additionally require a versioned reopening ADR, migration, fixtures and conformance evidence.
 
+## Acceptance evidence
+
+Phase 0C-16 candidate exact head:
+
+```text
+37d23449fda9a426f56ee8b09042dda91587a6d1
+```
+
+Candidate closure workflow run: `29842137511`.
+
+Retained artifact: `8499790872` with archive digest `sha256:82d6b452777e2c5e60c4d08bf88dd2c848d6b2570650b70a4eede633c8065d9f`.
+
+The candidate passed twelve positive/adversarial regressions, standalone validation over seventeen authority files, complete WP01–WP14 and Phase 0C-01–16 mapping, P00/P01 and A01–A15 ordering, exact physical-host target/command checks and non-authorization checks.
+
+Candidate squash merge:
+
+```text
+2c24f9e6b0fc98d5e03605596db75d7495796353
+```
+
+Direct review found no unresolved review threads or changed-file boundary violations. CodeRabbit review was requested but rate-limited and produced no findings.
+
 ## Consequences
 
 - Product planning and implementation sequencing are no longer conflated.
@@ -127,7 +149,7 @@ Frozen contract changes additionally require a versioned reopening ADR, migratio
 
 ## Acceptance conditions
 
-This ADR may be accepted when:
+This ADR is accepted because:
 
 1. the recovered requirement/decision ledger is reviewed;
 2. `MASTER_PLAN.md` covers product and operational scope;

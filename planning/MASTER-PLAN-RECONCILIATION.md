@@ -1,6 +1,6 @@
 # Ptah Master Plan reconciliation
 
-Status: candidate reconciliation — runtime implementation remains unauthorized
+Status: accepted reconciliation under Phase 0C-16 — runtime implementation remains unauthorized
 
 Recorded: 2026-07-21
 

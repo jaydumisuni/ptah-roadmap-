@@ -56,7 +56,7 @@ class MasterPlanClosureTests(unittest.TestCase):
 
     def test_valid_candidate_passes(self) -> None:
         report = validate(self.make_repo())
-        self.assertEqual(report["status"], "candidate_valid_non_authorizing")
+        self.assertEqual(report["status"], "accepted_plan_authority_non_authorizing")
         self.assertFalse(report["runtime_implementation_authorized"])
         self.assertEqual(report["programme_a_package_count"], 15)
 
@@ -122,6 +122,12 @@ class MasterPlanClosureTests(unittest.TestCase):
         root = self.make_repo()
         path = root / "AI_HANDOFF.md"
         self.replace(path, "Runtime implementation: NOT AUTHORIZED", "Runtime implementation: AUTHORIZED")
+        self.assert_invalid(root)
+
+    def test_adr0034_must_be_accepted(self) -> None:
+        root = self.make_repo()
+        path = root / "decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md"
+        self.replace(path, "Status: accepted", "Status: proposed")
         self.assert_invalid(root)
 
     def test_adr0034_requires_save_as_you_go_authority(self) -> None:
