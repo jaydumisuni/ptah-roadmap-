@@ -1,0 +1,46 @@
+name: Phase 0C-16 exact host tuple repair
+
+on:
+  pull_request:
+    paths:
+      - "tools/add_phase0c16_exact_host_tuple.py"
+      - ".github/workflows/phase0c16-exact-host-tuple.yml"
+
+permissions:
+  contents: write
+
+env:
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  add-exact-host-tuple:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out exact planning branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Verify exact starting head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Add exact host tuple
+        run: python3 tools/add_phase0c16_exact_host_tuple.py
+
+      - name: Verify only closure record changed
+        run: |
+          git add planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md
+          test "$(git diff --cached --name-only)" = "planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md"
+          grep -F 'Exact target tuple: Ubuntu Server 24.04.4 LTS | x86_64 | 6.8.0-136-generic' planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md
+
+      - name: Commit exact host tuple
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Record exact Phase 0C physical host tuple"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
