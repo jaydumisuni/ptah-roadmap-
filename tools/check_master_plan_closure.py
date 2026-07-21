@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import re
 from pathlib import Path
 from typing import Any
 
@@ -120,7 +119,6 @@ def validate(root: Path) -> dict[str, Any]:
     wp16 = read_text(root, "work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md")
     index = read_json(root, "master-plan-index.json")
 
-    # Non-authorization and current state.
     require_text(current, "**Active work unit:** 0C-16", "CURRENT_STATE")
     require_text(current, "**Runtime implementation:** NOT AUTHORIZED", "CURRENT_STATE")
     require_absent(current, "**Runtime implementation:** AUTHORIZED", "CURRENT_STATE")
@@ -144,7 +142,6 @@ def validate(root: Path) -> dict[str, Any]:
     require("review_and_merge_master_plan_closure" in blockers, "planning closure blocker missing")
     require("ADR_0033_acceptance" in blockers, "ADR-0033 blocker missing")
 
-    # Master Plan scope.
     require_text(master, "Version: 1.0-candidate", "MASTER_PLAN")
     require_text(master, "Status: candidate master plan for review", "MASTER_PLAN")
     for heading in [
@@ -165,7 +162,6 @@ def validate(root: Path) -> dict[str, Any]:
         require_text(master, role, "MASTER_PLAN roles")
     require_text(master, "Runtime implementation: **NOT AUTHORIZED**", "MASTER_PLAN boundary")
 
-    # Detailed roadmap order and uniqueness.
     require_text(roadmap, "Version: 1.0-candidate", "IMPLEMENTATION_ROADMAP")
     positions(roadmap, ["## P00 —", "## P01 —", "# PROGRAMME A —"], "programme critical order")
     positions(roadmap, [f"## {package} —" for package in EXPECTED_PROGRAMME_A], "Programme A packages")
@@ -184,17 +180,19 @@ def validate(root: Path) -> dict[str, Any]:
     require_text(roadmap, "A14 — Human Alpha control surface", "roadmap human surface")
     require_text(roadmap, "A15 — Exact-head Online Ptah Alpha acceptance", "roadmap Alpha gate")
 
-    # Frozen contract and Phase 0C reconciliation.
     for wp in EXPECTED_WPS:
         require_text(reconciliation, wp, "reconciliation WP coverage")
     for record in EXPECTED_PHASE0C:
         require_text(reconciliation, record, "reconciliation Phase 0C coverage")
     require_text(reconciliation, "introduces no new canonical Core entity", "reconciliation conclusion")
-    require_text(reconciliation, "requires no immediate WP01–WP14 reopening", "reconciliation conclusion")
+    require_text(
+        reconciliation,
+        "No current plan item requires reopening WP01–WP14 before implementation authorization",
+        "reconciliation conclusion",
+    )
     for task in [f"I{i:03d}" for i in range(1, 15)]:
         require_text(reconciliation, task, "first-slice task reconciliation")
 
-    # Recovery protocol and handoff.
     recovery_tokens = [
         "1. `AI_HANDOFF.md`",
         "2. `CURRENT_STATE.md`",
@@ -223,7 +221,6 @@ def validate(root: Path) -> dict[str, Any]:
     require_text(handoff, "Runtime implementation: NOT AUTHORIZED", "AI handoff boundary")
     require_text(handoff, "Safest next action", "AI handoff next action")
 
-    # Decision and historical authority repair.
     for decision in [f"D-{i:03d}" for i in range(40, 50)]:
         require_text(decisions, decision, "DECISIONS completion")
     require_text(decisions, "ADR-0034", "DECISIONS proposed plan authority")
@@ -232,7 +229,6 @@ def validate(root: Path) -> dict[str, Any]:
     require_text(historical, "Historical Architecture and Phase Roadmap", "MASTER_ROADMAP status")
     require_text(historical, "superseded as primary planning authority", "MASTER_ROADMAP authority")
 
-    # ADR and closure boundaries.
     require_text(adr33, "Status: proposed", "ADR-0033 status")
     require_text(adr33, "PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md", "ADR-0033 planning condition")
     require_text(adr33, "the complete `MASTER_PLAN.md`", "ADR-0033 acceptance condition")
@@ -246,7 +242,6 @@ def validate(root: Path) -> dict[str, Any]:
         require_text(closure, value, "physical closure host target")
     require_text(closure, "Owner intent cannot replace missing evidence", "physical closure fail-closed rule")
 
-    # Progress and planning recovery.
     require_text(progress, "P00 — Master-plan authority closure", "PROGRESS P00")
     require_text(progress, "P01 — Physical-host and ADR-0033 closure", "PROGRESS P01")
     positions(progress, [f"A{i:02d} —" for i in range(1, 16)], "PROGRESS Programme A")
