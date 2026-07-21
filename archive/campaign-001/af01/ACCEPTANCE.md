@@ -67,12 +67,12 @@ AF02 was started only after AF01 acceptance merged:
 
 ```text
 AF01: ACCEPTED COMPLETE
-AF02: ACTIVE / ZERO RECORDS ACCEPTED
-AF02 mission: archive/campaign-001/af02/MISSION.md
-AF02 base: ea2424bb5bc2bdb698bfc1bf389601457abd3c89
+AF02: ACCEPTED COMPLETE
+AF02 candidate merge: 58d89dfd1d5348cc8423222e3aff256ee041dce2
+AF03: READY / NOT STARTED
 ```
 
-AF02 activation does not grant source reuse, accept any AF02 record, alter P01 implementation authorization work or start AF03.
+AF02 acceptance does not grant dependency adoption, alter P01 implementation authorization work or start AF03.
 
 ## Preserved boundaries
 

@@ -17,12 +17,10 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 - allocated privates: 200
 - coverage: one primary archivist and one independent verifier per obligation
 - private verdict authority: none
-- completed formations: 1
-- accepted archive records: 9
+- completed formations: 2
+- accepted archive records: 19
 - blocked completed outcomes: 1
-- active formation: AF02
-- AF02 accepted archive records: 0
-- AF02 remaining evidence: 10
+- next formation: AF03 READY / NOT STARTED
 
 ## AF01
 
@@ -51,12 +49,14 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF02
 
-- status: ACTIVE
+- status: ACCEPTED COMPLETE
 - private count: 20
 - assigned records: 10
-- accepted archive records: 0
-- remaining evidence: 10
-- mission: `archive/campaign-001/af02/MISSION.md`
+- accepted archive records: 10
+- blocked completed outcomes: 0
+- remaining evidence: 0
+- result: `archive/campaign-001/af02/RESULT.json`
+- acceptance: `archive/campaign-001/af02/ACCEPTANCE.md`
 - reserve pairs: 0
 
 | Record | Source | Class/family | Primary | Verifier |
@@ -74,6 +74,7 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF03
 
+- status: READY / NOT STARTED
 - private count: 20
 - assigned records: 10
 - reserve pairs: 0

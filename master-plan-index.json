@@ -164,7 +164,7 @@
   },
   "operational_protocols": {
     "tenfold_archive_formation": {
-      "status": "accepted_operational_protocol_af01_complete_af02_active",
+      "status": "accepted_operational_protocol_af02_complete_af03_ready",
       "source_branch": "main",
       "pull_request": 26,
       "protocol": "planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md",
@@ -190,7 +190,7 @@
       "adr_0035_accepted": true,
       "phase0c_17_complete": true,
       "af01_status": "accepted_complete",
-      "accepted_archive_record_count": 9,
+      "accepted_archive_record_count": 19,
       "accepted_state_exact_head": "b96b84d17cf03e905bd0b1baf3c46b8aec09334a",
       "accepted_state_workflow_run": "29855000427",
       "accepted_state_artifact_id": "8504901567",
@@ -206,17 +206,24 @@
       "af01_candidate_merge": "0a35a8a904bdf235fa4989ea05b684443d5a879a",
       "af01_acceptance_record": "archive/campaign-001/af01/ACCEPTANCE.md",
       "blocked_archive_record_count": 1,
-      "completed_formation_count": 1,
-      "af02_status": "active",
+      "completed_formation_count": 2,
+      "af02_status": "accepted_complete",
       "af02_started": true,
       "af02_authorized": true,
       "af01_acceptance_merge": "ea2424bb5bc2bdb698bfc1bf389601457abd3c89",
       "af02_mission": "archive/campaign-001/af02/MISSION.md",
-      "af02_accepted_archive_record_count": 0,
-      "af02_remaining_evidence_count": 10,
-      "af03_status": "not_started",
+      "af02_accepted_archive_record_count": 10,
+      "af02_remaining_evidence_count": 0,
+      "af03_status": "ready_not_started",
       "af03_started": false,
-      "af03_authorized": false
+      "af03_authorized": false,
+      "af02_candidate_exact_head": "b710574b99269647cdd9029db5a2b217642aa344",
+      "af02_candidate_workflow_run": "29875542752",
+      "af02_candidate_artifact_id": "8512821506",
+      "af02_candidate_artifact_digest": "sha256:78c5b702aa6025f088e2c54002bbe84fead003c92e0bb98ec18fcd0220b1d81c",
+      "af02_candidate_validation_report_sha256": "e18dac8a154547deb30c4482027b10c40dd892fd8a1024cba78f7366b44c6fd9",
+      "af02_candidate_merge": "58d89dfd1d5348cc8423222e3aff256ee041dce2",
+      "af02_acceptance_record": "archive/campaign-001/af02/ACCEPTANCE.md"
     }
   }
 }

@@ -13,11 +13,19 @@ CHECKPOINT_05 = Path("archive/campaign-001/af02/CHECKPOINT-05.md")
 CHECKPOINT_10 = Path("archive/campaign-001/af02/CHECKPOINT-10.md")
 RESULT_JSON = Path("archive/campaign-001/af02/RESULT.json")
 RESULT_MD = Path("archive/campaign-001/af02/RESULT.md")
+ACCEPTANCE = Path("archive/campaign-001/af02/ACCEPTANCE.md")
 MANIFEST = Path("archive/CAMPAIGN-001-FORMATION-MANIFEST.md")
 DONOR_REGISTER = Path("DONOR_RECOVERY.md")
 CURRENT_STATE = Path("CURRENT_STATE.md")
 MASTER_INDEX = Path("master-plan-index.json")
 ADR0033 = Path("decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md")
+
+CANDIDATE_HEAD = "b710574b99269647cdd9029db5a2b217642aa344"
+CANDIDATE_RUN = "29875542752"
+CANDIDATE_ARTIFACT = "8512821506"
+CANDIDATE_DIGEST = "sha256:78c5b702aa6025f088e2c54002bbe84fead003c92e0bb98ec18fcd0220b1d81c"
+CANDIDATE_REPORT = "e18dac8a154547deb30c4482027b10c40dd892fd8a1024cba78f7366b44c6fd9"
+CANDIDATE_MERGE = "58d89dfd1d5348cc8423222e3aff256ee041dce2"
 
 EXPECTED: dict[str, dict[str, str]] = {
     "D062": {"source": "aza-ali/awesome-ai-product-management", "branch": "main", "commit": "b0f971eb38f6f76e5762f0bab5d92df394370b73", "outcome": "accepted_for_archive_research_navigation_only", "primary": "AF02-P01", "verifier": "AF02-V01", "path": "archive/campaign-001/af02/records/D062-AWESOME-AI-PRODUCT-MANAGEMENT.md"},
@@ -54,6 +62,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     checkpoint05 = read(root, CHECKPOINT_05)
     checkpoint10 = read(root, CHECKPOINT_10)
     result_md = read(root, RESULT_MD)
+    acceptance = read(root, ACCEPTANCE)
     result = json.loads(read(root, RESULT_JSON))
     manifest = read(root, MANIFEST)
     donor_register = read(root, DONOR_REGISTER)
@@ -61,14 +70,17 @@ def validate_repo(root: Path) -> dict[str, Any]:
     master_index = json.loads(read(root, MASTER_INDEX))
     adr0033 = read(root, ADR0033)
 
-    require(mission, "Status: CANDIDATE COMPLETE", "mission candidate state")
+    require(mission, "Status: ACCEPTED COMPLETE", "mission accepted state")
     require(mission, "accepted for archive: 10", "mission accepted count")
     require(mission, "remaining in evidence collection: 0", "mission remaining count")
-    require(mission, "AF03 is not authorized", "AF03 boundary")
+    require(mission, "AF03 is READY / NOT STARTED", "AF03 ready boundary")
     require(checkpoint05, "first five records reconciled", "checkpoint 05 state")
     require(checkpoint10, "all ten assigned records reconciled", "checkpoint 10 state")
     require(checkpoint10, "accepted archive records: 10", "checkpoint 10 accepted count")
-    require(result_md, "CANDIDATE COMPLETE", "result candidate state")
+    require(result_md, "ACCEPTED COMPLETE", "result accepted state")
+    require(acceptance, "Status: ACCEPTED EVIDENCE RECORD", "acceptance state")
+    require(acceptance, CANDIDATE_MERGE, "candidate merge evidence")
+    require(acceptance, "AF03: READY / NOT STARTED", "AF03 next state")
     require(result_md, "public core development stopped", "Daytona lifecycle correction")
 
     expected_top = {
@@ -76,7 +88,14 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "record_type": "ptah.archive_campaign_formation_result",
         "campaign_id": "CAMPAIGN-001",
         "formation_id": "AF02",
-        "status": "candidate_complete_pending_exact_head_review",
+        "status": "accepted_complete_non_authorizing",
+        "candidate_exact_head": CANDIDATE_HEAD,
+        "candidate_workflow_run": CANDIDATE_RUN,
+        "candidate_artifact_id": CANDIDATE_ARTIFACT,
+        "candidate_artifact_digest": CANDIDATE_DIGEST,
+        "candidate_validation_report_sha256": CANDIDATE_REPORT,
+        "candidate_merge": CANDIDATE_MERGE,
+        "acceptance_record": str(ACCEPTANCE),
         "base_authority_commit": "ccde8b45b333bafed4f55512b3b4e3a39a709721",
         "protocol_version": "1.0.0",
         "assigned_record_count": 10,
@@ -91,6 +110,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
+        "af03_ready": True,
+        "af03_started": False,
         "af03_authorized": False,
     }
     for key, value in expected_top.items():
@@ -155,14 +176,17 @@ def validate_repo(root: Path) -> dict[str, Any]:
     af02_ids = re.findall(r"^\| `(D\d{3})` \|.*\| `AF02-P\d{2}` \| `AF02-V\d{2}` \|$", manifest, re.MULTILINE)
     if af02_ids != list(EXPECTED):
         raise ValidationError(f"campaign manifest AF02 order mismatch: {af02_ids}")
-    require(current_state, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "current AF02 active state")
+    require(current_state, "AF02: ACCEPTED COMPLETE", "current AF02 accepted state")
+    require(current_state, "AF03: READY / NOT STARTED", "current AF03 ready state")
 
     archive = master_index.get("operational_protocols", {}).get("tenfold_archive_formation", {})
-    if archive.get("af02_status") != "active" or archive.get("af02_started") is not True:
-        raise ValidationError("machine index AF02 is not active")
-    if archive.get("af02_accepted_archive_record_count") != 0:
-        raise ValidationError("control book pre-accepted AF02 records before closure")
-    if archive.get("af03_started") is not False or archive.get("af03_authorized") is not False:
+    if archive.get("af02_status") != "accepted_complete" or archive.get("af02_started") is not True:
+        raise ValidationError("machine index AF02 is not accepted complete")
+    if archive.get("af02_accepted_archive_record_count") != 10 or archive.get("af02_remaining_evidence_count") != 0:
+        raise ValidationError("machine index AF02 accepted counts are invalid")
+    if archive.get("completed_formation_count") != 2 or archive.get("accepted_archive_record_count") != 19:
+        raise ValidationError("campaign accepted totals are invalid")
+    if archive.get("af03_status") != "ready_not_started" or archive.get("af03_started") is not False or archive.get("af03_authorized") is not False:
         raise ValidationError("AF03 started before AF02 closure")
 
     require(donor_register, "**Status:** COMPLETE AND FROZEN", "frozen Phase 0A")
@@ -179,7 +203,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     return {
         "schema_version": "1.0.0",
         "record_type": "ptah.archive_campaign_af02_validation",
-        "status": "candidate_complete_valid_non_authorizing",
+        "status": "accepted_complete_valid_non_authorizing",
         "campaign_id": "CAMPAIGN-001",
         "formation_id": "AF02",
         "record_count": 10,
@@ -192,6 +216,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
+        "af03_ready": True,
+        "af03_started": False,
         "af03_authorized": False,
     }
 
