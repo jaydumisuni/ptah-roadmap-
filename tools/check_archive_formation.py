@@ -118,8 +118,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
         require(template, token, "archive template boundary")
 
     # Candidate states and non-authorizing boundary.
-    require(adr, "Status: proposed", "ADR-0035 proposed state")
-    require(work_package, "Status: candidate under review", "Phase 0C-17 candidate state")
+    require(adr, "Status: accepted", "ADR-0035 accepted state")
+    require(work_package, "Status: accepted and complete", "Phase 0C-17 accepted state")
     require(donor_register, "Status:** COMPLETE AND FROZEN", "frozen Phase 0A donor register")
     require(donor_register, "Tenfold archival-completeness rule", "donor archive protocol link")
     require(donor_register, "69 external and 29 internal", "donor campaign coverage")
@@ -131,22 +131,25 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(memory_protocol, "after five reconciled records", "memory five-record checkpoint")
     require(memory_protocol, "after ten accepted records", "memory ten-record checkpoint")
 
-    require(decisions, "### ADR-0035 — Tenfold archive formation and evidence promotion", "decision index entry")
-    require(decisions, "**PROPOSED.**", "ADR-0035 proposed index state")
-    require(progress, "## Tenfold archive formation candidate", "progress archive section")
+    require(decisions, "### D-051 — Tenfold archive formation separates parallel evidence from promotion authority", "accepted decision index entry")
+    require(decisions, "**ACCEPTED.**", "ADR-0035 accepted index state")
+    require(progress, "## Tenfold archive formation — accepted", "progress archive section")
     require(progress, "200 private slots allocated", "progress force count")
+    require(progress, "AF01 is READY but not started", "progress AF01 state")
     require(progress, "no source record is pre-ticked as archived", "progress earned-completion rule")
 
     require(current_state, "P01", "active P01 physical-host work")
-    require(current_state, "## Active Phase 0C-17 tenfold archive formation candidate", "current archive candidate")
-    require(current_state, "PR #26", "current archive PR")
+    require(current_state, "## Accepted Phase 0C-17 tenfold archive formation", "current archive acceptance")
+    require(current_state, "ADR-0035: ACCEPTED", "current accepted ADR")
+    require(current_state, "AF01 is READY but not started", "current AF01 state")
     require(current_state, "does not replace P01", "current P01 boundary")
     require(current_state, "**Runtime implementation:** NOT AUTHORIZED", "runtime non-authorization")
     if "**Runtime implementation:** AUTHORIZED" in current_state:
         raise ValidationError("runtime implementation became authorized")
 
-    require(handoff, "## Cross-cutting archive formation candidate", "handoff archive candidate")
-    require(handoff, "pull request: #26", "handoff archive PR")
+    require(handoff, "## Accepted cross-cutting archive formation", "handoff archive acceptance")
+    require(handoff, "ADR-0035: ACCEPTED", "handoff accepted ADR")
+    require(handoff, "AF01: READY / NOT STARTED", "handoff AF01 state")
     require(handoff, "Campaign 001 covers 98 source obligations", "handoff campaign scope")
     require(handoff, "P01 physical-host closure remains the exact next authorization action", "handoff P01 boundary")
 
@@ -165,8 +168,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
     if not isinstance(archive_index, dict):
         raise ValidationError("archive protocol missing from machine index")
     expected_index = {
-        "status": "candidate_under_review",
-        "source_branch": "phase0c-tenfold-archive-formation",
+        "status": "accepted_operational_protocol_af01_ready",
+        "source_branch": "main",
         "pull_request": 26,
         "protocol": str(PROTOCOL),
         "campaign_manifest": str(MANIFEST),
@@ -181,6 +184,17 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "assigned_record_count": 98,
         "phase_0a_reopened": False,
         "runtime_implementation_authorized": False,
+        "protocol_version": "1.0.0",
+        "candidate_exact_head": "58b577b6793ec28de084e6d712c3c1e88bfe2d3a",
+        "candidate_workflow_run": "29853954659",
+        "candidate_artifact_id": "8504497355",
+        "candidate_artifact_digest": "sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4",
+        "validation_report_sha256": "de38af1e63a76e02552e4f93ad2bac2d86d05239a77dc92cc27d794a8b9b010f",
+        "candidate_merge": "c4973cbf4d02a34f14a7aefa85b8e2ea7b392752",
+        "adr_0035_accepted": True,
+        "phase0c_17_complete": True,
+        "af01_status": "ready_not_started",
+        "accepted_archive_record_count": 0,
     }
     for key, value in expected_index.items():
         if archive_index.get(key) != value:
@@ -255,7 +269,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     result = {
         "schema_version": "1.0.0",
         "record_type": "ptah.phase0c.archive_formation_validation",
-        "status": "candidate_valid_non_authorizing",
+        "status": "accepted_valid_non_authorizing",
         "sergeant_source_commit": SERGEANT_COMMIT,
         "private_force_multiplier": 10,
         "minimum_private_force": 20,

@@ -191,18 +191,18 @@ Selection/evidence package merge:
 - [x] Phase 0C-16 reviewed and merged as `2c24f9e6b0fc98d5e03605596db75d7495796353`;
 - [x] ADR-0034 accepted; Master Plan and implementation roadmap version `1.0.0` are operative authorities.
 
-## Tenfold archive formation candidate
+## Tenfold archive formation — accepted
 
 - [x] Sergeant tenfold private-force source pinned at `44c8f47f4bb50a73ef3b4d81d7b849a5aab37dfd`;
-- [x] Ptah archive authority, pairing, promotion, privacy and save-point protocol written;
+- [x] Ptah archive authority, pairing, promotion, privacy and save-point protocol accepted as version `1.0.0`;
 - [x] 69 external and 29 internal obligations mapped into ten standard formations;
 - [x] 200 private slots allocated with one primary and one independent verifier per obligation;
-- [x] bounded archive-record template written;
-- [x] proposed ADR-0035 and Phase 0C-17 work package written;
-- [x] read-only validator and fifteen adversarial regressions added;
-- [-] exact-head workflow and direct review pending final synchronized head;
-- [ ] accept ADR-0035 and Phase 0C-17;
-- [ ] begin AF01 only through retained per-record evidence; no source record is pre-ticked as archived.
+- [x] bounded archive-record template accepted;
+- [x] candidate exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a` passed 21 regression cases and exact-head validation in run `29853954659`;
+- [x] retained artifact `8504497355` with digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`;
+- [x] exact fifteen-file boundary directly reviewed and candidate merged as `c4973cbf4d02a34f14a7aefa85b8e2ea7b392752`;
+- [x] ADR-0035 and Phase 0C-17 accepted;
+- [ ] AF01 is READY but not started; no source record is pre-ticked as archived.
 
 ## Active Phase 0C closure work
 

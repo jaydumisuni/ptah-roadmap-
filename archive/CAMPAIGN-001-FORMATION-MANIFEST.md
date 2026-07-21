@@ -1,6 +1,6 @@
 # Ptah Archive Campaign 001 — Formation Manifest
 
-Status: candidate backlog — no Phase 0A reopening and no runtime authorization
+Status: accepted campaign backlog — no source record pre-accepted, no Phase 0A reopening and no runtime authorization
 
 Recorded: 2026-07-21
 

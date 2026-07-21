@@ -42,7 +42,7 @@ class ArchiveFormationValidationTests(unittest.TestCase):
 
     def test_valid_candidate(self) -> None:
         result = validate_repo(self.make_repo())
-        self.assertEqual(result["status"], "candidate_valid_non_authorizing")
+        self.assertEqual(result["status"], "accepted_valid_non_authorizing")
         self.assertEqual(result["assigned_record_count"], 98)
         self.assertEqual(result["allocated_private_count"], 200)
         self.assertTrue(result["authority_sync_complete"])
@@ -200,7 +200,7 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         self.replace(
             root,
             Path("DECISIONS.md"),
-            "### ADR-0035 — Tenfold archive formation and evidence promotion",
+            "### D-051 — Tenfold archive formation separates parallel evidence from promotion authority",
             "### Archive idea without decision authority",
         )
         self.assert_invalid(root)
@@ -231,6 +231,26 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         )
         self.assert_invalid(root)
 
+
+    def test_accepted_adr0035_cannot_revert(self) -> None:
+        root = self.make_repo()
+        self.replace(
+            root,
+            Path("decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md"),
+            "Status: accepted",
+            "Status: proposed",
+        )
+        self.assert_invalid(root)
+
+    def test_af01_cannot_be_precompleted(self) -> None:
+        root = self.make_repo()
+        self.replace(
+            root,
+            Path("master-plan-index.json"),
+            '"accepted_archive_record_count": 0',
+            '"accepted_archive_record_count": 10',
+        )
+        self.assert_invalid(root)
 
 if __name__ == "__main__":
     unittest.main()

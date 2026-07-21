@@ -1,8 +1,8 @@
 # Ptah Tenfold Archive Formation Protocol
 
-Status: candidate operating protocol — no runtime implementation authorization
+Status: accepted operating protocol — no runtime implementation authorization
 
-Version: 1.0-candidate
+Version: 1.0.0
 
 Recorded: 2026-07-21
 
