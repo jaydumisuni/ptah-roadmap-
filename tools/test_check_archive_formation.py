@@ -40,12 +40,19 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             validate_repo(root)
 
-    def test_valid_candidate(self) -> None:
+    def test_valid_accepted_campaign_progress(self) -> None:
         result = validate_repo(self.make_repo())
         self.assertEqual(result["status"], "accepted_valid_non_authorizing")
         self.assertEqual(result["assigned_record_count"], 98)
         self.assertEqual(result["allocated_private_count"], 200)
         self.assertTrue(result["authority_sync_complete"])
+        self.assertEqual(result["accepted_archive_record_count"], 9)
+        self.assertEqual(result["blocked_archive_record_count"], 1)
+        self.assertEqual(result["completed_formation_count"], 1)
+        self.assertEqual(result["af01_status"], "accepted_complete")
+        self.assertEqual(result["af02_status"], "ready_not_started")
+        self.assertFalse(result["af02_started"])
+        self.assertFalse(result["af02_authorized"])
         self.assertFalse(result["runtime_implementation_authorized"])
 
     def test_sergeant_pin_cannot_drift(self) -> None:
@@ -242,14 +249,27 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         )
         self.assert_invalid(root)
 
-    def test_af01_cannot_be_precompleted(self) -> None:
+    def test_af01_accepted_count_cannot_drift(self) -> None:
         root = self.make_repo()
         self.replace(
             root,
             Path("master-plan-index.json"),
-            '"accepted_archive_record_count": 0',
+            '"accepted_archive_record_count": 9',
             '"accepted_archive_record_count": 10',
         )
+        self.assert_invalid(root)
+
+    def test_af01_acceptance_record_cannot_disappear(self) -> None:
+        root = self.make_repo()
+        (root / "archive/campaign-001/af01/ACCEPTANCE.md").unlink()
+        self.assert_invalid(root)
+
+    def test_af02_cannot_start_implicitly(self) -> None:
+        root = self.make_repo()
+        path = root / "master-plan-index.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["operational_protocols"]["tenfold_archive_formation"]["af02_started"] = True
+        path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
         self.assert_invalid(root)
 
 if __name__ == "__main__":
