@@ -39,27 +39,31 @@
       "path": "planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md",
       "status": "accepted",
       "checkpoint_commit": "a413dd010e248419514b50e8297154719f00fc91",
-      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353"
+      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
+      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
     },
     "master_plan": {
       "path": "MASTER_PLAN.md",
       "status": "accepted",
       "version": "1.0.0",
       "checkpoint_commit": "566a166054f894a7bb9cf37d33b558c9da481e24",
-      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353"
+      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
+      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
     },
     "implementation_roadmap": {
       "path": "IMPLEMENTATION_ROADMAP.md",
       "status": "accepted",
       "version": "1.0.0",
       "checkpoint_commit": "57453b2b074cdea7cd905f0a5331d2edb7d707a0",
-      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353"
+      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
+      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
     },
     "reconciliation": {
       "path": "planning/MASTER-PLAN-RECONCILIATION.md",
       "status": "accepted",
       "checkpoint_commit": "85ded1c782ddd83e030319a2088b03c90054444c",
-      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353"
+      "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
+      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
     },
     "authorization_closure": {
       "path": "planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md",
@@ -69,7 +73,8 @@
     "handoff": {
       "path": "AI_HANDOFF.md",
       "status": "active_recovery_entry_physical_host_open",
-      "checkpoint_commit": "34a206449d4403e4ebf913475ffa8e846b1bf9ff"
+      "checkpoint_commit": "34a206449d4403e4ebf913475ffa8e846b1bf9ff",
+      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
     }
   },
   "frozen_contracts": {
@@ -149,6 +154,11 @@
     "candidate_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
     "adr_0034_accepted": true,
     "phase0c_16_accepted": true,
-    "runtime_implementation_authorized": false
+    "runtime_implementation_authorized": false,
+    "accepted_state_exact_head": "5860b4bfe177aa375fb2fa4305d62dbe3d2141e1",
+    "accepted_state_workflow_run": "29844040274",
+    "accepted_state_artifact_id": "8500540358",
+    "accepted_state_artifact_digest": "sha256:6f5229fe850d8b6f6f083b09f2c5f53189f3edbf38d4f28b9d2878ab0c78862d",
+    "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
   }
 }
