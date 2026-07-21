@@ -1,11 +1,11 @@
 # Ptah Current State
 
-**Last updated:** 2026-07-20  
+**Last updated:** 2026-07-21  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-04 — pinned-host package proof, durable evidence and licence closure  
+**Active work unit:** 0C-04 — physical pinned-host proof, durable evidence and licence closure  
 **Runtime implementation:** NOT AUTHORIZED  
-**Production dependency/backend selection:** EXACT RUST AND DISTRIBUTED ARTIFACT LOCKS MERGED — PINNED HOST PACKAGE PROOF OPEN  
+**Production dependency/backend selection:** EXACT RUST, DISTRIBUTED ARTIFACT AND PROOF-TOOL LOCKS MERGED — PHYSICAL PINNED-HOST PROOF OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
@@ -84,6 +84,7 @@ The following records are merged or awaiting this evidence-sync merge:
 - `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;
 - `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`;
 - `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`;
+- `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`;
 - proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.
 
 ### Candidate first-slice baseline
@@ -197,6 +198,50 @@ The hosted collector report validates required capability observation but remain
 
 ---
 
+## Merged pinned-host proof integrity and package-artifact readiness
+
+The proof-integrity repair was tested in `Ptah-space` PR `#9` at exact head:
+
+```text
+4e871b2bad8c4054ef1e9a1245219fa231338458
+```
+
+and squash-merged at:
+
+```text
+b97c2defbba17d75e32cb0a02cda9bbb2b1c6649
+```
+
+The exact installed-package artifact evidence gate was tested in PR `#10` at exact head:
+
+```text
+74aef4b6a4ddebb7f2491fc0eb127d945ac05a14
+```
+
+and squash-merged at:
+
+```text
+50969c414b55460b6ff7a7d12fd7ae88f5ef5c0a
+```
+
+The merged tooling now:
+
+- accepts only the canonical `host/scripts/collect_capabilities.py` collector;
+- requires the capability report itself to pass before bundle eligibility;
+- proves clean unchanged Git state before and after collection while excluding only the fresh evidence output directory;
+- hashes retained hostname, machine ID and boot ID values;
+- records exact installed `dpkg` package/version/architecture identities;
+- resolves exact local APT binary-artifact `Filename`, `Size` and SHA-256 metadata in bounded batches;
+- fails closed on malformed identities, missing or conflicting digests, absent APT release/package index evidence, capability failures or repository changes;
+- emits `package-artifacts.json` and a `bundle-manifest.json` schema `0.3.0` with combined eligibility failures;
+- keeps `network_used: false` and `runtime_implementation_authorized: false` in the relevant records.
+
+All eight workflows passed at both exact heads. The final host workflow run `29811724538` checked out `74aef4b6a4ddebb7f2491fc0eb127d945ac05a14` and passed host, package-artifact and pinned-proof regression coverage.
+
+This closes proof-tool readiness only. No physical-host bundle has yet been produced or accepted.
+
+---
+
 ## Active Phase 0C blockers
 
 Implementation remains unauthorized until all of the following are merged and reviewed:
@@ -204,13 +249,13 @@ Implementation remains unauthorized until all of the following are merged and re
 1. owner acceptance of the Apache-2.0 public/private boundary;
 2. final public `LICENSE`, `NOTICE`, contribution and security boundary;
 3. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
-4. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host;
+4. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;
 5. durable retention of final Phase 0C evidence beyond temporary CI artifact expiry;
 6. a Phase 0C closure review proving no frozen contract was weakened;
 7. acceptance of ADR-0033;
 8. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
 
-The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector and frozen-WP13 lanes are complete. They do not close installed pinned-host package proof, durable retention, governance acceptance or any WP14 runtime proof.
+The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector, pinned-host proof-tool and frozen-WP13 lanes are complete. They do not close the physical pinned-host result, package acceptance, durable retention, governance acceptance or any WP14 runtime proof.
 
 ### Required first vertical slice after authorization
 
@@ -236,7 +281,7 @@ The first authorized slice must demonstrate, at minimum:
 Allowed during the remainder of Phase 0C:
 
 - licence and contribution decisions;
-- exact pinned-host and installed-package evidence;
+- exact physical pinned-host and installed-package evidence;
 - durable proof-location preparation;
 - non-claiming repository and CI maintenance;
 - executable proof-plan preparation;
@@ -260,9 +305,17 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 ## Immediate continuation order
 
 1. Install or recover the exact frozen Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
-2. Run the accepted capability collector and identity finalizer on that host.
-3. Record the complete installed package manifest and package-artifact digests.
-4. Persist final accepted reports in a durable proof Location beyond CI retention.
-5. Complete the Apache-2.0 owner decision and public/private notice boundary.
-6. Conduct the Phase 0C closure consistency review.
-7. Accept ADR-0033 and authorize runtime only if every blocker passes.
+2. From a clean reviewed `Ptah-space` commit, run:
+
+```bash
+python3 tools/run_pinned_host_proof.py \
+  --repo-root . \
+  --output evidence/phase0c/pinned-host-candidate
+```
+
+3. Require `proof_eligible: true` with empty host, capability, package-artifact and repository failure sets.
+4. Review and accept the complete installed package and package-artifact manifests.
+5. Persist the accepted bundle in a durable proof Location beyond CI retention.
+6. Complete the Apache-2.0 owner decision and public/private notice boundary.
+7. Conduct the Phase 0C closure consistency review.
+8. Accept ADR-0033 and authorize runtime only if every blocker passes.
