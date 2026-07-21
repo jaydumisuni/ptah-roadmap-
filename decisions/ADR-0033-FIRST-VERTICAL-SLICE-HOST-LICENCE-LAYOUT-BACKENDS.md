@@ -1,6 +1,6 @@
 # ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
-Status: proposed — Rust dependencies, distributed backend artifacts, signers and host collector complete; pinned-host package proof, durable retention, licence acceptance and closure review remain open
+Status: proposed — Rust dependencies, distributed backend artifacts, signers, host collector and physical-proof tooling complete; physical pinned-host result, package acceptance, durable retention, licence acceptance and closure review remain open
 
 ## Context
 
@@ -20,7 +20,8 @@ Adopt the selections recorded in the following Phase 0C records as the baseline 
 - `work-packages/PHASE-0C-09-IMMUTABLE-ACTION-AND-FROZEN-CONFORMANCE-EVIDENCE.md`;
 - `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;
 - `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`;
-- `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`.
+- `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`;
+- `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`.
 
 The selected baseline is:
 
@@ -146,6 +147,50 @@ A generic hosted Ubuntu report remains `proof_eligible: false` unless the exact 
 
 Every merged evidence record keeps runtime implementation unauthorized.
 
+## Merged pinned-host proof integrity and package-artifact readiness
+
+The proof-integrity repair was tested in `Ptah-space` PR `#9` at exact head:
+
+```text
+4e871b2bad8c4054ef1e9a1245219fa231338458
+```
+
+and squash-merged at:
+
+```text
+b97c2defbba17d75e32cb0a02cda9bbb2b1c6649
+```
+
+The exact installed-package artifact evidence gate was tested in PR `#10` at exact head:
+
+```text
+74aef4b6a4ddebb7f2491fc0eb127d945ac05a14
+```
+
+and squash-merged at:
+
+```text
+50969c414b55460b6ff7a7d12fd7ae88f5ef5c0a
+```
+
+The merged proof tooling now:
+
+- accepts only the canonical host-capability collector;
+- validates the capability report's own required-capability and pinned-host result;
+- records one clean unchanged exact Git commit before and after collection;
+- excludes only the fresh selected output directory from generated untracked-file evaluation;
+- hashes retained hostname, machine ID and boot ID values;
+- captures exact installed `dpkg` package/version/architecture identities;
+- resolves exact local APT binary-artifact `Filename`, `Size` and SHA-256 metadata in bounded queries;
+- requires both APT release metadata and package-index evidence;
+- fails closed on malformed package identities, missing or conflicting artifact records, absent index classes, capability failures or repository changes;
+- emits host, capability, installed-package, package-artifact, APT-source and aggregate bundle records;
+- preserves `network_used: false` for package-artifact collection and `runtime_implementation_authorized: false` throughout.
+
+All eight exact-head workflows passed for both PRs. Final host workflow run `29811724538` checked out `74aef4b6a4ddebb7f2491fc0eb127d945ac05a14` and passed the host collector, identity finalizer, package-artifact and pinned-host proof regressions.
+
+This evidence proves that the physical-host proof kit is ready and fail-closed. It does not prove that the real frozen host or its installed package boundary has passed.
+
 ## Conditions before acceptance
 
 ### Completed at candidate/evidence level
@@ -174,7 +219,12 @@ Every merged evidence record keeps runtime implementation unauthorized.
 22. stable signer locks and cryptographic verification for Node.js, runc, Git and libarchive;
 23. fail-closed host capability collector and realistic Ubuntu identity finalizer;
 24. exact-head dependency, backend, signer and host-collector workflows;
-25. review regressions for malformed lock, host identity and blocker data.
+25. review regressions for malformed lock, host identity and blocker data;
+26. canonical, privacy-preserving pinned-host bundle generation at one clean unchanged commit;
+27. exact installed-package inventory generation;
+28. local exact version/architecture APT artifact SHA-256 collection;
+29. fail-closed package-artifact and APT index completeness validation;
+30. exact-head integration coverage for the physical-host proof command.
 
 ### Still open
 
@@ -183,7 +233,7 @@ This ADR remains proposed until all of the following are complete:
 1. the owner accepts the Apache-2.0 public/private boundary;
 2. `Ptah-space` adds the accepted public `LICENSE`, final `NOTICE` and contribution/security boundary;
 3. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
-4. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host;
+4. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host and accepted by review;
 5. final accepted reports are retained in a durable proof Location beyond temporary workflow artifact expiry;
 6. a Phase 0C closure review confirms no frozen contract was weakened;
 7. this ADR is changed to accepted;
@@ -198,7 +248,7 @@ This ADR remains proposed until all of the following are complete:
 - concrete implementation may not weaken any frozen Phase 0B identity, lifecycle, migration or proof boundary;
 - security updates or dependency rebases create new Host/Provider revisions and require the relevant proof rerun;
 - generated bindings are metadata only and cannot authorize T01 runtime work;
-- the current scaffold, catalog lock, generated bindings, dependency graph, backend artifacts, signer proofs and host-collector evidence do not authorize T01 runtime work;
+- the current scaffold, catalog lock, generated bindings, dependency graph, backend artifacts, signer proofs, host collector and physical-proof tooling do not authorize T01 runtime work;
 - failure of any open condition leaves implementation unauthorized.
 
 ## Acceptance form
