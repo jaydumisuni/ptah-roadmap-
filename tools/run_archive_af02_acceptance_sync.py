@@ -25,6 +25,12 @@ patches = (
         '''replace_once("tools/check_archive_formation.py", '"accepted_archive_record_count": 9,', '"accepted_archive_record_count": 19,')''',
         '''replace_once("tools/check_archive_formation.py", '        "af01_status": "accepted_complete",\\n        "accepted_archive_record_count": 9,\\n        "blocked_archive_record_count": 1,', '        "af01_status": "accepted_complete",\\n        "accepted_archive_record_count": 19,\\n        "blocked_archive_record_count": 1,')''',
     ),
+    (
+        '''print("AF02 acceptance synchronization applied")''',
+        '''replace_once("tools/check_archive_af01.py", '    require(manifest, "- status: ACTIVE", "manifest AF02 active state")\\n    require(current_state, "AF01: ACCEPTED COMPLETE", "current AF01 accepted state")\\n    require(current_state, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "current AF02 active state")', '    require(manifest, "## AF02", "manifest AF02 section")\\n    require(manifest, "- status: ACCEPTED COMPLETE", "manifest AF02 accepted state")\\n    require(manifest, "## AF03", "manifest AF03 section")\\n    require(manifest, "- status: READY / NOT STARTED", "manifest AF03 ready state")\\n    require(current_state, "AF01: ACCEPTED COMPLETE", "current AF01 accepted state")\\n    require(current_state, "AF02: ACCEPTED COMPLETE", "current AF02 accepted state")\\n    require(current_state, "AF03: READY / NOT STARTED", "current AF03 ready state")')
+
+print("AF02 acceptance synchronization applied")''',
+    ),
 )
 
 for old, new in patches:
