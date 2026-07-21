@@ -36,6 +36,8 @@ Open:
 
 The machine must report:
 
+Exact target tuple: Ubuntu Server 24.04.4 LTS | x86_64 | 6.8.0-136-generic
+
 - Ubuntu Server `24.04.4 LTS`;
 - `/etc/os-release` with `ID=ubuntu` and base `VERSION_ID=24.04`;
 - architecture `x86_64`;
