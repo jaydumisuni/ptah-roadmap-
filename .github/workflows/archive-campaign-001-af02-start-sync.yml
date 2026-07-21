@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "tools/apply_archive_af02_start_sync.py"
+      - "tools/apply_archive_af02_start_sync_v2.py"
       - ".github/workflows/archive-campaign-001-af02-start-sync.yml"
 
 permissions:
@@ -35,7 +36,7 @@ jobs:
         run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
 
       - name: Apply guarded AF02 start synchronization
-        run: python3 tools/apply_archive_af02_start_sync.py
+        run: python3 tools/apply_archive_af02_start_sync_v2.py
 
       - name: Run synchronized validators
         run: |
