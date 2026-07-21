@@ -444,7 +444,9 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 4. From the selected clean reviewed `Ptah-space` commit, run:
 
 ```bash
-python3 tools/run_pinned_host_proof.py   --repo-root .   --output evidence/phase0c/pinned-host-candidate
+python3 tools/run_pinned_host_proof.py \
+  --repo-root . \
+  --output evidence/phase0c/pinned-host-candidate
 ```
 
 5. Require `proof_eligible: true` with empty host, capability, package-artifact and repository failure sets.
@@ -452,7 +454,10 @@ python3 tools/run_pinned_host_proof.py   --repo-root .   --output evidence/phase
 7. From the same exact clean commit, run:
 
 ```bash
-python3 tools/retain_verified_pinned_host_evidence.py   --repo-root .   --bundle-dir evidence/phase0c/pinned-host-candidate   --output-dir evidence/phase0c/pinned-host-durable-candidate
+python3 tools/retain_verified_pinned_host_evidence.py \
+  --repo-root . \
+  --bundle-dir evidence/phase0c/pinned-host-candidate \
+  --output-dir evidence/phase0c/pinned-host-durable-candidate
 ```
 
 8. Commit and explicitly accept the durable candidate and repository binding.
