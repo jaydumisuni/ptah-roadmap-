@@ -36,7 +36,11 @@ jobs:
         run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
 
       - name: Apply guarded AF02 acceptance synchronization
-        run: python3 tools/run_archive_af02_acceptance_sync.py
+        run: |
+          mkdir -p conformance/reports/archive-campaign-001-af02-acceptance-sync
+          set -o pipefail
+          python3 tools/run_archive_af02_acceptance_sync.py 2>&1 \
+            | tee conformance/reports/archive-campaign-001-af02-acceptance-sync/synchronizer.txt
 
       - name: Run synchronized validators
         run: |
@@ -107,5 +111,5 @@ jobs:
         with:
           name: archive-campaign-001-af02-acceptance-sync-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
           path: conformance/reports/archive-campaign-001-af02-acceptance-sync/
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 30
