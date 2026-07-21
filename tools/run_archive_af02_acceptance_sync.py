@@ -28,6 +28,8 @@ patches = (
     (
         '''print("AF02 acceptance synchronization applied")''',
         '''replace_once("tools/check_archive_af01.py", '    require(manifest, "- status: ACTIVE", "manifest AF02 active state")\\n    require(current_state, "AF01: ACCEPTED COMPLETE", "current AF01 accepted state")\\n    require(current_state, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "current AF02 active state")', '    require(manifest, "## AF02", "manifest AF02 section")\\n    require(manifest, "- status: ACCEPTED COMPLETE", "manifest AF02 accepted state")\\n    require(manifest, "## AF03", "manifest AF03 section")\\n    require(manifest, "- status: READY / NOT STARTED", "manifest AF03 ready state")\\n    require(current_state, "AF01: ACCEPTED COMPLETE", "current AF01 accepted state")\\n    require(current_state, "AF02: ACCEPTED COMPLETE", "current AF02 accepted state")\\n    require(current_state, "AF03: READY / NOT STARTED", "current AF03 ready state")')
+replace_once("tools/check_archive_formation.py", '    require(progress, "AF02 is ACTIVE", "progress AF02 active state")', '    require(progress, "AF02 completed ten paired source reviews", "progress AF02 accepted state")\\n    require(progress, "AF03 is READY / NOT STARTED", "progress AF03 ready state")')
+replace_once("tools/test_check_archive_formation.py", '            \'"accepted_archive_record_count": 9\',\\n            \'"accepted_archive_record_count": 10\',', '            \'"accepted_archive_record_count": 19\',\\n            \'"accepted_archive_record_count": 18\',')
 
 print("AF02 acceptance synchronization applied")''',
     ),
