@@ -1,0 +1,84 @@
+name: Archive Campaign 001 AF02 Start Sync
+
+on:
+  pull_request:
+    paths:
+      - "tools/apply_archive_af02_start_sync.py"
+      - ".github/workflows/archive-campaign-001-af02-start-sync.yml"
+
+permissions:
+  contents: write
+
+env:
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  synchronize-af02-start:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact AF02 branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Verify exact starting head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Apply guarded AF02 start synchronization
+        run: python3 tools/apply_archive_af02_start_sync.py
+
+      - name: Run synchronized validators
+        run: |
+          python3 tools/test_check_archive_formation.py -v
+          python3 tools/check_archive_formation.py --repo-root .
+          python3 tools/test_check_archive_af01.py -v
+          python3 tools/check_archive_af01.py --repo-root .
+
+      - name: Verify changed-file boundary
+        run: |
+          expected=$(cat <<'EOF'
+          AI_HANDOFF.md
+          CURRENT_STATE.md
+          PROGRESS.md
+          archive/CAMPAIGN-001-FORMATION-MANIFEST.md
+          master-plan-index.json
+          tools/check_archive_af01.py
+          tools/check_archive_formation.py
+          tools/test_check_archive_formation.py
+          EOF
+          )
+          actual=$(git diff --name-only | sort)
+          test "$actual" = "$(printf '%s\n' "$expected" | sort)"
+          grep -Fq 'AF02: ACTIVE / ZERO RECORDS ACCEPTED' CURRENT_STATE.md
+          grep -Fq 'AF02: ACTIVE / ZERO RECORDS ACCEPTED' AI_HANDOFF.md
+          grep -Fq 'status: ACTIVE' archive/CAMPAIGN-001-FORMATION-MANIFEST.md
+          grep -Fq '**Runtime implementation:** NOT AUTHORIZED' CURRENT_STATE.md
+          ! grep -Fq '**Runtime implementation:** AUTHORIZED' CURRENT_STATE.md
+          grep -Fq 'Status: proposed' decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
+          grep -Fq '**Status:** COMPLETE AND FROZEN' DONOR_RECOVERY.md
+
+      - name: Commit synchronized AF02 start state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            AI_HANDOFF.md \
+            CURRENT_STATE.md \
+            PROGRESS.md \
+            archive/CAMPAIGN-001-FORMATION-MANIFEST.md \
+            master-plan-index.json \
+            tools/check_archive_af01.py \
+            tools/check_archive_formation.py \
+            tools/test_check_archive_formation.py
+          git commit -m "Start Campaign 001 AF02"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
