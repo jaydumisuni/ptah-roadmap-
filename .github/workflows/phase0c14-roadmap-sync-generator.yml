@@ -67,9 +67,13 @@ jobs:
               raise SystemExit("canonical runtime block is missing")
           if "**Runtime implementation:** AUTHORIZED" in current:
               raise SystemExit("generator attempted runtime authorization")
+          for item in manifest["files"]:
+              text = (root / item["path"]).read_text(encoding="utf-8")
+              if "<<<<<<<" in text or ">>>>>>>" in text:
+                  raise SystemExit(f"merge marker found: {item['path']}")
           PY
 
-      - name: Apply verified files and remove temporary generator
+      - name: Stage verified control records
         run: |
           cp generated-sync/CURRENT_STATE.md CURRENT_STATE.md
           cp generated-sync/PROGRESS.md PROGRESS.md
@@ -77,13 +81,11 @@ jobs:
             decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
           cp generated-sync/work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md \
             work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md
-          git rm tools/generate_phase0c14_licence_sync.py
-          git rm .github/workflows/phase0c14-roadmap-sync-generator.yml
           rm -rf generated-sync
           git add CURRENT_STATE.md PROGRESS.md \
             decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md \
             work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md
-          git diff --cached --check
+          git diff --cached --stat
 
       - name: Commit verified roadmap synchronization
         run: |
