@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "tools/apply_phase0c17_archive_acceptance.py"
+      - "tools/apply_phase0c17_archive_acceptance_v2.py"
       - ".github/workflows/phase0c17-archive-acceptance-apply.yml"
 
 permissions:
@@ -38,7 +39,7 @@ jobs:
         run: |
           mkdir -p conformance/reports/archive-acceptance
           set -o pipefail
-          python3 tools/apply_phase0c17_archive_acceptance.py 2>&1 \
+          python3 tools/apply_phase0c17_archive_acceptance_v2.py 2>&1 \
             | tee conformance/reports/archive-acceptance/transform.txt
 
       - name: Run accepted-state regressions and validator
