@@ -31,7 +31,12 @@ Do not ask the owner to repeat information recoverable from these records.
 - exact-head workflow run: `29842137511`;
 - retained artifact: `8499790872`;
 - artifact archive digest: `sha256:82d6b452777e2c5e60c4d08bf88dd2c848d6b2570650b70a4eede633c8065d9f`;
-- candidate squash merge: `2c24f9e6b0fc98d5e03605596db75d7495796353`.
+- candidate squash merge: `2c24f9e6b0fc98d5e03605596db75d7495796353`;
+- accepted-state exact head: `5860b4bfe177aa375fb2fa4305d62dbe3d2141e1`;
+- permanent accepted-state workflow run: `29844040274`;
+- retained accepted-state artifact: `8500540358`;
+- accepted-state archive digest: `sha256:6f5229fe850d8b6f6f083b09f2c5f53189f3edbf38d4f28b9d2878ab0c78862d`;
+- operative authority acceptance merge: `66bd2410d4c777cd3fd3278107f40fe425e875e9`.
 
 The accepted programme is:
 

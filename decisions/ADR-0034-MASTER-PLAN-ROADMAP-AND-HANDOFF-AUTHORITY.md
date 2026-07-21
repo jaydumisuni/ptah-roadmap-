@@ -138,6 +138,25 @@ Candidate squash merge:
 
 Direct review found no unresolved review threads or changed-file boundary violations. CodeRabbit review was requested but rate-limited and produced no findings.
 
+Accepted-state exact head:
+
+```text
+5860b4bfe177aa375fb2fa4305d62dbe3d2141e1
+```
+
+Permanent accepted-state workflow run: `29844040274`.
+
+Retained accepted-state artifact: `8500540358` with archive digest `sha256:6f5229fe850d8b6f6f083b09f2c5f53189f3edbf38d4f28b9d2878ab0c78862d`.
+
+The accepted-state lane passed thirteen positive/adversarial regressions, standalone validation over seventeen durable authority files and all non-authorization checks.
+
+Operative authority acceptance merge:
+
+```text
+66bd2410d4c777cd3fd3278107f40fe425e875e9
+```
+
+
 ## Consequences
 
 - Product planning and implementation sequencing are no longer conflated.

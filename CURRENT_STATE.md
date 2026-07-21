@@ -370,6 +370,22 @@ Candidate squash merge:
 2c24f9e6b0fc98d5e03605596db75d7495796353
 ```
 
+Accepted-state exact head:
+
+```text
+5860b4bfe177aa375fb2fa4305d62dbe3d2141e1
+```
+
+Permanent accepted-state workflow run: `29844040274`.
+
+Retained accepted-state artifact: `8500540358` with archive digest `sha256:6f5229fe850d8b6f6f083b09f2c5f53189f3edbf38d4f28b9d2878ab0c78862d`.
+
+Operative authority acceptance merge:
+
+```text
+66bd2410d4c777cd3fd3278107f40fe425e875e9
+```
+
 ADR-0034 is accepted. `MASTER_PLAN.md` and `IMPLEMENTATION_ROADMAP.md` version `1.0.0` are operative authorities. No new Core entity or current WP01–WP14 reopening was required. This closes planning authority only and does not accept the physical host, packages, retention, ADR-0033 or runtime implementation.
 
 ---
