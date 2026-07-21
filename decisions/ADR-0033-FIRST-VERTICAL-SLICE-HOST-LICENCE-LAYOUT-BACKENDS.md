@@ -1,6 +1,6 @@
 # ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
-Status: proposed — Rust dependencies, distributed backend artifacts, signers, host collector and physical-proof tooling complete; physical pinned-host result, package acceptance, durable retention, licence acceptance and closure review remain open
+Status: proposed — Rust dependencies, distributed backend artifacts, signers, host collector, physical-proof and durable-retention tooling complete; physical pinned-host result, package and retention acceptance, licence acceptance and closure review remain open
 
 ## Context
 
@@ -21,7 +21,8 @@ Adopt the selections recorded in the following Phase 0C records as the baseline 
 - `work-packages/PHASE-0C-10-FROZEN-CATALOG-AND-GENERATED-BINDING-EVIDENCE.md`;
 - `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`;
 - `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`;
-- `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`.
+- `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`;
+- `work-packages/PHASE-0C-13-DURABLE-PINNED-HOST-RETENTION-READINESS.md`.
 
 The selected baseline is:
 
@@ -191,6 +192,36 @@ All eight exact-head workflows passed for both PRs. Final host workflow run `298
 
 This evidence proves that the physical-host proof kit is ready and fail-closed. It does not prove that the real frozen host or its installed package boundary has passed.
 
+## Merged durable pinned-host retention readiness
+
+The repository-bound retention lane was tested in `Ptah-space` PR `#11` at exact head:
+
+```text
+f0c1aafb58b33fcc8338081244996ced9260ce5c
+```
+
+and squash-merged at:
+
+```text
+49f6035a93bf704d775dc437e8a8b25c95145ae1
+```
+
+The merged retention tooling now:
+
+- independently re-verifies every source file, aggregate digest and cross-record proof condition;
+- requires exact host, capability, installed-package, package-artifact, APT-index and non-empty APT-source evidence;
+- binds the source bundle to the current clean exact repository commit and canonical collector bytes;
+- records the reviewed proof-runner digest;
+- rejects wrong commits, collector mismatch, authorizing records, symlinks, nested paths, overwrite attempts and unexpected repository changes;
+- preserves exact source bytes in a durable base64 candidate;
+- emits an exact repository binding;
+- emits a separate review record with `review_status: pending` and every physical-host, package, retention, ADR and runtime acceptance field `false`;
+- verifies the final durable directory contains exactly the expected four records and rechecks clean unchanged repository state.
+
+All eight exact-head workflows passed. Host workflow run `29813401728` checked out `f0c1aafb58b33fcc8338081244996ced9260ce5c` and passed the complete collection and retention regression suite.
+
+This evidence proves that a future physical-host bundle can be independently verified and durably prepared without conflating storage with acceptance. It does not prove or accept the real host, package boundary or retained bundle.
+
 ## Conditions before acceptance
 
 ### Completed at candidate/evidence level
@@ -224,7 +255,12 @@ This evidence proves that the physical-host proof kit is ready and fail-closed. 
 27. exact installed-package inventory generation;
 28. local exact version/architecture APT artifact SHA-256 collection;
 29. fail-closed package-artifact and APT index completeness validation;
-30. exact-head integration coverage for the physical-host proof command.
+30. exact-head integration coverage for the physical-host proof command;
+31. independent exact-byte and cross-record source-bundle verification;
+32. clean exact-repository and canonical collector binding before and after retention;
+33. deterministic durable candidate, repository binding and pending review record generation;
+34. fail-closed separation between durable storage and owner/reviewer acceptance;
+35. exact-head adversarial coverage for the full durable-retention path.
 
 ### Still open
 
@@ -234,7 +270,7 @@ This ADR remains proposed until all of the following are complete:
 2. `Ptah-space` adds the accepted public `LICENSE`, final `NOTICE` and contribution/security boundary;
 3. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
 4. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host and accepted by review;
-5. final accepted reports are retained in a durable proof Location beyond temporary workflow artifact expiry;
+5. that host's exact source bundle is independently verified, durably committed and explicitly accepted through its review record;
 6. a Phase 0C closure review confirms no frozen contract was weakened;
 7. this ADR is changed to accepted;
 8. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
@@ -248,7 +284,8 @@ This ADR remains proposed until all of the following are complete:
 - concrete implementation may not weaken any frozen Phase 0B identity, lifecycle, migration or proof boundary;
 - security updates or dependency rebases create new Host/Provider revisions and require the relevant proof rerun;
 - generated bindings are metadata only and cannot authorize T01 runtime work;
-- the current scaffold, catalog lock, generated bindings, dependency graph, backend artifacts, signer proofs, host collector and physical-proof tooling do not authorize T01 runtime work;
+- the current scaffold, catalog lock, generated bindings, dependency graph, backend artifacts, signer proofs, host collector, physical-proof tooling and durable-retention tooling do not authorize T01 runtime work;
+- durable retention does not equal evidence acceptance;
 - failure of any open condition leaves implementation unauthorized.
 
 ## Acceptance form
@@ -259,6 +296,8 @@ When the open conditions pass, the acceptance change must record:
 - exact dependency and host-lock digests;
 - generated binding input/output digests;
 - installed host package manifest and package-artifact digests;
+- source bundle, durable bundle and repository-binding digests;
+- explicit physical-host, package, artifact and retention review acceptance;
 - CI workflow/report and durable evidence digests;
 - WP13 exact-head result;
 - Phase 0C closure review;
