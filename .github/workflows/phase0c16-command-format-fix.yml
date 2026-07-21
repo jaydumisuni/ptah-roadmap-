@@ -1,0 +1,49 @@
+name: Phase 0C-16 command formatting repair
+
+on:
+  pull_request:
+    paths:
+      - "tools/fix_phase0c16_command_format.py"
+      - ".github/workflows/phase0c16-command-format-fix.yml"
+
+permissions:
+  contents: write
+
+env:
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  repair-command-format:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out exact planning branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Verify exact starting head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Apply narrow formatting repair
+        run: python3 tools/fix_phase0c16_command_format.py
+
+      - name: Verify only CURRENT_STATE changed
+        run: |
+          git add CURRENT_STATE.md
+          test "$(git diff --cached --name-only)" = "CURRENT_STATE.md"
+          grep -F 'python3 tools/run_pinned_host_proof.py \' CURRENT_STATE.md
+          grep -F 'python3 tools/retain_verified_pinned_host_evidence.py \' CURRENT_STATE.md
+          grep -F '**Runtime implementation:** NOT AUTHORIZED' CURRENT_STATE.md
+          ! grep -F '**Runtime implementation:** AUTHORIZED' CURRENT_STATE.md
+
+      - name: Commit repaired command formatting
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Repair Phase 0C-16 proof command formatting"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
