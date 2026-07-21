@@ -1,0 +1,115 @@
+name: Phase 0C-17 Tenfold Archive Formation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
+jobs:
+  archive-formation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact archive-formation head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_EXACT_SHA }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Verify exact checked-out head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Run adversarial archive regressions
+        run: |
+          mkdir -p conformance/reports/archive-formation
+          set -o pipefail
+          python3 tools/test_check_archive_formation.py -v 2>&1 \
+            | tee conformance/reports/archive-formation/regressions.txt
+
+      - name: Validate archive formation package
+        run: |
+          set -o pipefail
+          python3 tools/check_archive_formation.py \
+            --repo-root . \
+            --output conformance/reports/archive-formation/archive-formation-report.json \
+            2>&1 | tee conformance/reports/archive-formation/validator-output.txt
+
+      - name: Bind evidence to exact head
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          import subprocess
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          root = Path("conformance/reports/archive-formation")
+          report_path = root / "archive-formation-report.json"
+          report = json.loads(report_path.read_text(encoding="utf-8"))
+          expected = os.environ["PTAH_EXACT_SHA"]
+          checked_out = subprocess.run(
+              ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
+          ).stdout.strip()
+          evidence = {
+              "schema_version": "1.0.0",
+              "record_type": "ptah.phase0c.archive_formation_exact_head_evidence",
+              "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+              "implementation_commit": expected,
+              "checked_out_commit": checked_out,
+              "exact_head_match": checked_out == expected,
+              "validation_report_sha256": hashlib.sha256(report_path.read_bytes()).hexdigest(),
+              **report,
+          }
+          (root / "exact-head-evidence.json").write_text(
+              json.dumps(evidence, indent=2) + "\n", encoding="utf-8"
+          )
+          if not evidence["exact_head_match"]:
+              raise SystemExit("archive formation did not test the exact head")
+          if evidence["status"] != "candidate_valid_non_authorizing":
+              raise SystemExit("archive formation validation status is invalid")
+          expected_values = {
+              "private_force_multiplier": 10,
+              "minimum_private_force": 20,
+              "formation_count": 10,
+              "allocated_private_count": 200,
+              "assigned_record_count": 98,
+              "external_record_count": 69,
+              "internal_record_count": 29,
+              "primary_worker_slots": 100,
+              "verifier_worker_slots": 100,
+              "reserve_pair_count": 2,
+          }
+          for key, value in expected_values.items():
+              if evidence.get(key) != value:
+                  raise SystemExit(f"archive formation count mismatch: {key}")
+          for key in (
+              "phase_0a_reopened",
+              "adr_0033_accepted",
+              "runtime_implementation_authorized",
+          ):
+              if evidence.get(key) is not False:
+                  raise SystemExit(f"non-authorizing boundary violated: {key}")
+          PY
+
+      - name: Upload exact-head archive evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: phase-0c-17-archive-formation-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
+          path: conformance/reports/archive-formation/
+          if-no-files-found: error
+          retention-days: 30

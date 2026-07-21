@@ -309,3 +309,9 @@ Full decision: `decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md`
 ### ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
 **PROPOSED.** Master Plan/roadmap authority is complete. The physical pinned-host result, package and retention acceptance, final Phase 0C closure review and explicit runtime authorization remain open.
+
+### ADR-0035 — Tenfold archive formation and evidence promotion
+
+**PROPOSED.** Borrows Sergeant's pinned tenfold private-force rule for Ptah recovery campaigns: minimum twenty privates, one primary/verifier pair per ordinary archive record, complexity escalation, bounded evidence packets and officer-only promotion. Phase 0A remains frozen, P01 remains active and runtime implementation remains unauthorized.
+
+Full decision: `decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md`.

@@ -390,6 +390,30 @@ ADR-0034 is accepted. `MASTER_PLAN.md` and `IMPLEMENTATION_ROADMAP.md` version `
 
 ---
 
+## Active Phase 0C-17 tenfold archive formation candidate
+
+Branch and PR:
+
+```text
+phase0c-tenfold-archive-formation
+PR #26
+```
+
+The candidate borrows Sergeant's exact tenfold private-force rule from `jaydumisuni/Sergeant@44c8f47f4bb50a73ef3b4d81d7b849a5aab37dfd` and defines:
+
+- minimum twenty privates for two human-equivalent workers;
+- ten primary/verifier record pairs per standard formation;
+- adaptive escalation to 40/60/80–100/up to 120 privates for harder sources;
+- ten formations and 200 allocated privates for 98 initial archive obligations;
+- bounded evidence packets and Archive Officer promotion;
+- checkpoints after five and ten records;
+- public/private retention boundaries;
+- read-only exact-head validation and adversarial regressions.
+
+This candidate is cross-cutting recovery governance. It does not replace P01 as the active authorization work, reopen Phase 0A, mark the 98 records archived, accept ADR-0033 or authorize runtime implementation.
+
+---
+
 ## Active Phase 0C blockers
 
 Implementation remains unauthorized until all of the following are merged and reviewed:

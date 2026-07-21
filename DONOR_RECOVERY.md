@@ -66,6 +66,20 @@ Minimum implementation-donor inspection:
 
 Research catalogues, profiles and documentation tools use a lighter classification inspection, but can never close runtime requirements.
 
+## 2A. Tenfold archival-completeness rule
+
+Phase 0A remains complete and frozen. Large archival-completeness audits use:
+
+- `planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md`;
+- `archive/CAMPAIGN-001-FORMATION-MANIFEST.md`;
+- `archive/ARCHIVE-RECORD-TEMPLATE.md`.
+
+The first campaign maps 69 external and 29 internal source obligations into ten twenty-private formations. Each ordinary record receives one Primary Archivist and one Independent Verifier. The campaign reconciles existing donor records, exact current source and approved private records; it does not restart donor selection from zero.
+
+The uploaded donor pool list is a queue seed, not current authority. Previously unresolved source hints may have been resolved by later accepted records and must be reconciled rather than copied blindly.
+
+An archive record may be accepted as a trustworthy recovery record without adopting the donor, authorizing source reuse, changing Ptah architecture or reopening Phase 0A.
+
 ---
 
 # 3. Foundation-grade donor groups
