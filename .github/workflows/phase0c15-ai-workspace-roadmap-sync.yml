@@ -1,0 +1,120 @@
+name: Phase 0C-15 AI Workspace roadmap sync
+
+on:
+  pull_request:
+    paths:
+      - "tools/generate_phase0c15_ai_workspace_sync.py"
+      - ".github/workflows/phase0c15-ai-workspace-roadmap-sync.yml"
+
+permissions:
+  contents: write
+
+env:
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+
+jobs:
+  apply-roadmap-sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact generator branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Verify exact starting head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Generate guarded synchronization outputs
+        run: python tools/generate_phase0c15_ai_workspace_sync.py
+
+      - name: Verify manifest, blocker preservation and non-authorization
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path("generated-sync")
+          manifest = json.loads((root / "sync-manifest.json").read_text(encoding="utf-8"))
+          if manifest["source_commit"] != "11afadd2907f72a99c4cee57362a50195189e11f":
+              raise SystemExit("roadmap source commit changed")
+          if manifest["ptah_space_exact_head"] != "2a2c28d17abd9ad52c8d850f8bbcdba57074194e":
+              raise SystemExit("Ptah-space donor head changed")
+          if manifest["ptah_space_merge"] != "d05653c5948727b58ead91088447d0b8ac4d9d9b":
+              raise SystemExit("Ptah-space donor merge changed")
+          if manifest["adr_0033_conditions_changed"] is not False:
+              raise SystemExit("candidate cannot change ADR-0033 conditions")
+          if manifest["runtime_implementation_authorized"] is not False:
+              raise SystemExit("candidate cannot authorize runtime")
+          if len(manifest["files"]) != 3:
+              raise SystemExit("unexpected canonical file count")
+          expected_paths = {
+              "CURRENT_STATE.md",
+              "PROGRESS.md",
+              "work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md",
+          }
+          if {item["path"] for item in manifest["files"]} != expected_paths:
+              raise SystemExit("canonical output paths changed")
+          for item in manifest["files"]:
+              path = root / item["path"]
+              raw = path.read_bytes()
+              if len(raw) != item["size_bytes"]:
+                  raise SystemExit(f"size mismatch: {item['path']}")
+              if hashlib.sha256(raw).hexdigest() != item["sha256"]:
+                  raise SystemExit(f"digest mismatch: {item['path']}")
+
+          current = (root / "CURRENT_STATE.md").read_text(encoding="utf-8")
+          required = [
+              "**Runtime implementation:** NOT AUTHORIZED",
+              "1. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;",
+              "2. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;",
+              "3. generation, durable commit and explicit review acceptance of that physical-host evidence bundle;",
+              "4. a Phase 0C closure review proving no frozen contract was weakened;",
+              "5. acceptance of ADR-0033;",
+              "6. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.",
+              "python3 tools/run_pinned_host_proof.py",
+              "--output evidence/phase0c/pinned-host-candidate",
+          ]
+          for value in required:
+              if value not in current:
+                  raise SystemExit(f"required blocker or continuation text missing: {value}")
+          if "**Runtime implementation:** AUTHORIZED" in current:
+              raise SystemExit("candidate attempted runtime authorization")
+          if current.count("## Active Phase 0C blockers") != 1:
+              raise SystemExit("active blocker section changed unexpectedly")
+
+          progress = (root / "PROGRESS.md").read_text(encoding="utf-8")
+          if "- [ ] runtime implementation authorized." not in progress:
+              raise SystemExit("progress runtime authorization boundary changed")
+          if "- [ ] produce a proof-eligible report from the exact pinned Ubuntu image/kernel revision;" not in progress:
+              raise SystemExit("physical-host progress blocker changed")
+          PY
+
+      - name: Stage verified control records
+        run: |
+          cp generated-sync/CURRENT_STATE.md CURRENT_STATE.md
+          cp generated-sync/PROGRESS.md PROGRESS.md
+          cp generated-sync/work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md \
+            work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md
+          rm -rf generated-sync
+          git add CURRENT_STATE.md PROGRESS.md \
+            work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md
+          git diff --cached --stat
+
+      - name: Commit verified roadmap synchronization
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Record AI Project Workspace donor candidate"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
