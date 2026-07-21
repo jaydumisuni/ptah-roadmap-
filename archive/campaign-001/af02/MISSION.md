@@ -1,0 +1,77 @@
+# Campaign 001 — AF02 Archive Mission
+
+Status: ACTIVE — evidence collection started; no AF02 record accepted yet
+
+Started: 2026-07-21
+
+AF01 accepted closure merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`
+
+Base authority commit: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`
+
+Protocol: `planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md` version `1.0.0`
+
+Manifest: `archive/CAMPAIGN-001-FORMATION-MANIFEST.md`
+
+## Objective
+
+Reconcile and durably archive the ten AF02 external-public source obligations without reopening frozen Phase 0A, changing Ptah architecture, adopting source code without rights review, or authorizing runtime implementation.
+
+## Formation
+
+| Record | Source | Primary | Independent verifier |
+|---|---|---|---|
+| `D062` | Awesome AI Product Management | `AF02-P01` | `AF02-V01` |
+| `D066` | GitHub README Crisp Links | `AF02-P02` | `AF02-V02` |
+| `D002` | Daytona | `AF02-P03` | `AF02-V03` |
+| `D013` | E2B Desktop | `AF02-P04` | `AF02-V04` |
+| `D017` | Playwright MCP | `AF02-P05` | `AF02-V05` |
+| `D021` | ADBKit | `AF02-P06` | `AF02-V06` |
+| `D031` | Kata Containers | `AF02-P07` | `AF02-V07` |
+| `D036` | Moby | `AF02-P08` | `AF02-V08` |
+| `D043` | LlamaIndex | `AF02-P09` | `AF02-V09` |
+| `D048` | Ray | `AF02-P10` | `AF02-V10` |
+
+## Evidence obligations
+
+For each source:
+
+1. recover canonical repository identity and current default branch;
+2. pin an exact inspected commit;
+3. inspect repository metadata, licence and meaningful source/runtime evidence;
+4. compare current source with frozen Ptah donor decisions;
+5. retain verified capabilities, negative evidence and explicit limitations;
+6. distinguish research/documentation sources from implementation donors;
+7. preserve source, model, dataset, binary and transitive-rights boundaries;
+8. keep primary and independent-verifier observations distinguishable;
+9. assign only a bounded archive outcome;
+10. update campaign state only after retained evidence exists.
+
+## Authority boundary
+
+Formation workers may collect and challenge evidence. They may not:
+
+- adopt a donor as Ptah architecture authority;
+- treat curated links or README claims as executable proof;
+- modify WP01–WP14 or reopen Phase 0A;
+- authorize source reuse where rights are absent or unclear;
+- expose device, provider, model or customer-sensitive data;
+- start AF03;
+- accept ADR-0033 or authorize runtime implementation.
+
+## Save points
+
+- mission start: this commit;
+- checkpoint 1: after records `D062`, `D066`, `D002`, `D013` and `D017` are reconciled;
+- checkpoint 2: after records `D021`, `D031`, `D036`, `D043` and `D048` are reconciled;
+- formation closure: after exact-head validation and direct review.
+
+## Current counts
+
+- assigned records: 10
+- accepted for archive: 0
+- blocked: 0
+- parked: 0
+- superseded: 0
+- in evidence collection: 10
+
+AF02 is now started. No AF02 source record is pre-accepted. P01 remains the active implementation-authorization work outside this archive campaign.
