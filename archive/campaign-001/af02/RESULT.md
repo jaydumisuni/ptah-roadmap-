@@ -1,6 +1,6 @@
-# Campaign 001 — AF02 Candidate Closure Result
+# Campaign 001 — AF02 Accepted Closure Result
 
-Status: CANDIDATE COMPLETE — pending exact-head validation and direct review
+Status: ACCEPTED COMPLETE
 
 Recorded: 2026-07-21
 
@@ -58,18 +58,18 @@ This result does not:
 - accept ADR-0033;
 - authorize Ptah runtime implementation.
 
-## Acceptance gates
+## Accepted evidence
 
-AF02 may close when exact-head proof confirms:
+- candidate exact head: `b710574b99269647cdd9029db5a2b217642aa344`;
+- workflow run: `29875542752`;
+- retained artifact: `8512821506`;
+- artifact digest: `sha256:78c5b702aa6025f088e2c54002bbe84fead003c92e0bb98ec18fcd0220b1d81c`;
+- validation report SHA-256: `e18dac8a154547deb30c4482027b10c40dd892fd8a1024cba78f7366b44c6fd9`;
+- candidate merge: `58d89dfd1d5348cc8423222e3aff256ee041dce2`;
+- regression result: 33 passed;
+- exact-head identity matched;
+- direct review found zero unresolved threads.
 
-- all ten expected record files exist;
-- all IDs, sources, branches, commits, worker pairs and outcomes match `RESULT.json`;
-- ten accepted outcomes are retained;
-- both checkpoints exist;
-- no record remains in evidence collection;
-- Daytona's discontinuation/copyleft boundary remains explicit;
-- AF03 remains unauthorized;
-- Phase 0A remains frozen;
-- P01 remains active;
-- ADR-0033 remains proposed;
-- runtime implementation remains unauthorized.
+## Next formation
+
+AF03 is READY / NOT STARTED. It remains unstarted and unauthorized.

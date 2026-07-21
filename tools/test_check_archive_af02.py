@@ -20,6 +20,7 @@ from check_archive_af02 import (
     MISSION,
     RESULT_JSON,
     RESULT_MD,
+    ACCEPTANCE,
     ValidationError,
     validate_repo,
 )
@@ -31,6 +32,7 @@ REQUIRED = (
     CHECKPOINT_10,
     RESULT_JSON,
     RESULT_MD,
+    ACCEPTANCE,
     MANIFEST,
     DONOR_REGISTER,
     CURRENT_STATE,
@@ -82,11 +84,13 @@ class AF02ValidationTests(unittest.TestCase):
 
     def test_valid_candidate_closure(self) -> None:
         result = validate_repo(self.make_repo())
-        self.assertEqual(result["status"], "candidate_complete_valid_non_authorizing")
+        self.assertEqual(result["status"], "accepted_complete_valid_non_authorizing")
         self.assertEqual(result["record_count"], 10)
         self.assertEqual(result["accepted_archive_record_count"], 10)
         self.assertEqual(result["blocked_record_count"], 0)
         self.assertEqual(result["remaining_evidence_count"], 0)
+        self.assertTrue(result["af03_ready"])
+        self.assertFalse(result["af03_started"])
         self.assertFalse(result["af03_authorized"])
 
     def test_record_file_cannot_disappear(self) -> None:
@@ -161,7 +165,7 @@ class AF02ValidationTests(unittest.TestCase):
 
     def test_candidate_state_cannot_revert_to_active(self) -> None:
         root = self.make_repo()
-        self.replace(root, MISSION, "Status: CANDIDATE COMPLETE", "Status: ACTIVE")
+        self.replace(root, MISSION, "Status: ACCEPTED COMPLETE", "Status: CANDIDATE COMPLETE")
         self.assert_invalid(root)
 
     def test_daytona_discontinuation_cannot_disappear(self) -> None:
@@ -216,7 +220,7 @@ class AF02ValidationTests(unittest.TestCase):
 
     def test_control_book_cannot_preaccept_af02(self) -> None:
         root = self.make_repo()
-        self.mutate_index(root, lambda archive: archive.__setitem__("af02_accepted_archive_record_count", 10))
+        self.mutate_index(root, lambda archive: archive.__setitem__("af02_accepted_archive_record_count", 9))
         self.assert_invalid(root)
 
     def test_af03_cannot_start(self) -> None:

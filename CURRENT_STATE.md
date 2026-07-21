@@ -424,7 +424,8 @@ Campaign 001 progress:
 - AF01: ACCEPTED COMPLETE;
 - accepted archive records: 9;
 - blocked completed outcomes: 1 (`D047` MiniRouter source reuse);
-- AF02: ACTIVE / ZERO RECORDS ACCEPTED;
+- AF02: ACCEPTED COMPLETE
+AF03: READY / NOT STARTED;
 - AF02 mission: `archive/campaign-001/af02/MISSION.md`;
 - AF01 operative acceptance merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`;
 - AF01 candidate exact head: `f60e340cb856d50e88b4279147a933d838fce759`;

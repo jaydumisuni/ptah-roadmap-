@@ -162,7 +162,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(acceptance, "Status: ACCEPTED EVIDENCE RECORD", "acceptance record state")
     require(acceptance, CANDIDATE_MERGE, "AF01 candidate merge evidence")
     require(acceptance, "operative AF01 acceptance merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`", "AF01 operative merge")
-    require(acceptance, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "AF02 subsequent active state")
+    require(acceptance, "AF02: ACCEPTED COMPLETE", "AF02 subsequent accepted state")
+    require(acceptance, "AF03: READY / NOT STARTED", "AF03 subsequent ready state")
     require(result_md, "MiniRouter", "blocked record narrative")
     require(result_md, "no root `LICENSE`", "MiniRouter licence block")
 
@@ -265,9 +266,13 @@ def validate_repo(root: Path) -> dict[str, Any]:
     if af01_ids != list(EXPECTED):
         raise ValidationError(f"campaign manifest AF01 order mismatch: {af01_ids}")
     require(manifest, "- status: ACCEPTED COMPLETE", "manifest AF01 accepted state")
-    require(manifest, "- status: ACTIVE", "manifest AF02 active state")
+    require(manifest, "## AF02", "manifest AF02 section")
+    require(manifest, "- status: ACCEPTED COMPLETE", "manifest AF02 accepted state")
+    require(manifest, "## AF03", "manifest AF03 section")
+    require(manifest, "- status: READY / NOT STARTED", "manifest AF03 ready state")
     require(current_state, "AF01: ACCEPTED COMPLETE", "current AF01 accepted state")
-    require(current_state, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "current AF02 active state")
+    require(current_state, "AF02: ACCEPTED COMPLETE", "current AF02 accepted state")
+    require(current_state, "AF03: READY / NOT STARTED", "current AF03 ready state")
     require(donor_register, "**Status:** COMPLETE AND FROZEN", "frozen Phase 0A")
     if "**Status:** REOPENED" in donor_register or "Phase 0A reopened" in donor_register:
         raise ValidationError("Phase 0A was reopened")

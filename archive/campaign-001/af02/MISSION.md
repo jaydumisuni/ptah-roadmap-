@@ -1,6 +1,6 @@
 # Campaign 001 — AF02 Archive Mission
 
-Status: CANDIDATE COMPLETE — all records reconciled; pending exact-head validation and direct review
+Status: ACCEPTED COMPLETE
 
 Started: 2026-07-21
 
@@ -67,7 +67,7 @@ Formation workers did not:
 - checkpoint 2: `archive/campaign-001/af02/CHECKPOINT-10.md`;
 - machine result: `archive/campaign-001/af02/RESULT.json`;
 - human result: `archive/campaign-001/af02/RESULT.md`;
-- formation closure: pending exact-head validation and direct review.
+- accepted closure: `archive/campaign-001/af02/ACCEPTANCE.md`.
 
 ## Current counts
 
@@ -79,4 +79,4 @@ Formation workers did not:
 - superseded: 0
 - remaining in evidence collection: 0
 
-No record remains unexamined. AF03 is not authorized until AF02 closure is reviewed and merged. P01 remains the active implementation-authorization work outside this archive campaign.
+AF02 is accepted complete. AF03 is READY / NOT STARTED and remains unstarted and unauthorized. P01 remains the active implementation-authorization work outside this archive campaign.

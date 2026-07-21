@@ -56,7 +56,8 @@ protocol version: 1.0.0
 candidate merge: c4973cbf4d02a34f14a7aefa85b8e2ea7b392752
 operative acceptance merge: 40ca127c6d3054bda785061090acefaefcf4cd42
 AF01: ACCEPTED COMPLETE
-AF02: ACTIVE / ZERO RECORDS ACCEPTED
+AF02: ACCEPTED COMPLETE
+AF03: READY / NOT STARTED
 ```
 
 Read when doing archive/recovery work:
@@ -71,7 +72,7 @@ Candidate evidence: exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`, run `
 
 Accepted-state evidence: exact head `b96b84d17cf03e905bd0b1baf3c46b8aec09334a`, run `29855000427`, artifact `8504901567`, digest `sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2`. Operative merge: `40ca127c6d3054bda785061090acefaefcf4cd42`. Full record: `planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md`.
 
-Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. AF01 is accepted complete with nine accepted archive records and one completed MiniRouter source-reuse block. Evidence: exact head `f60e340cb856d50e88b4279147a933d838fce759`, run `29862087745`, artifact `8507695005`, candidate merge `0a35a8a904bdf235fa4989ea05b684443d5a879a`, acceptance record `archive/campaign-001/af01/ACCEPTANCE.md`. AF01 accepted closure merged as `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`. AF02 is active under `archive/campaign-001/af02/MISSION.md`, with ten records in evidence collection and zero accepted.
+Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. AF01 is accepted complete with nine accepted archive records and one completed MiniRouter source-reuse block. Evidence: exact head `f60e340cb856d50e88b4279147a933d838fce759`, run `29862087745`, artifact `8507695005`, candidate merge `0a35a8a904bdf235fa4989ea05b684443d5a879a`, acceptance record `archive/campaign-001/af01/ACCEPTANCE.md`. AF01 accepted closure merged as `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`. AF02 is accepted complete with ten accepted archive records and zero blocks. Evidence: exact head `b710574b99269647cdd9029db5a2b217642aa344`, run `29875542752`, artifact `8512821506`, candidate merge `58d89dfd1d5348cc8423222e3aff256ee041dce2`, acceptance record `archive/campaign-001/af02/ACCEPTANCE.md`. AF03 is READY / NOT STARTED.
 
 The campaign is an archive/recovery workflow, not proof that a 200-agent runtime exists and not runtime implementation authority.
 

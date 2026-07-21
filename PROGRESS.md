@@ -206,7 +206,11 @@ Selection/evidence package merge:
 - [x] AF01 candidate exact head `f60e340cb856d50e88b4279147a933d838fce759` passed 24 regression cases in run `29862087745`;
 - [x] AF01 retained artifact `8507695005` with digest `sha256:4ea6bf77131834b48b9e35ad5eb88538a87b6f376f2be4984f077eb3eeed1267`;
 - [x] AF01 candidate merged as `0a35a8a904bdf235fa4989ea05b684443d5a879a` and accepted closure recorded;
-- [-] AF02 is ACTIVE under `archive/campaign-001/af02/MISSION.md`; ten paired reviews are in evidence collection and zero AF02 records are accepted.
+- [x] AF02 completed ten paired source reviews with ten bounded archive acceptances and zero blocks;
+- [x] AF02 candidate exact head `b710574b99269647cdd9029db5a2b217642aa344` passed 33 adversarial regressions in run `29875542752`;
+- [x] AF02 retained artifact `8512821506` with digest `sha256:78c5b702aa6025f088e2c54002bbe84fead003c92e0bb98ec18fcd0220b1d81c`;
+- [x] AF02 candidate merged as `58d89dfd1d5348cc8423222e3aff256ee041dce2` and accepted closure recorded;
+- [ ] AF03 is READY / NOT STARTED; no AF03 source record is pre-ticked as archived.
 
 ## Active Phase 0C closure work
 

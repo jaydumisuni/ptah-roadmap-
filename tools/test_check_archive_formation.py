@@ -46,15 +46,15 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         self.assertEqual(result["assigned_record_count"], 98)
         self.assertEqual(result["allocated_private_count"], 200)
         self.assertTrue(result["authority_sync_complete"])
-        self.assertEqual(result["accepted_archive_record_count"], 9)
+        self.assertEqual(result["accepted_archive_record_count"], 19)
         self.assertEqual(result["blocked_archive_record_count"], 1)
-        self.assertEqual(result["completed_formation_count"], 1)
+        self.assertEqual(result["completed_formation_count"], 2)
         self.assertEqual(result["af01_status"], "accepted_complete")
-        self.assertEqual(result["af02_status"], "active")
+        self.assertEqual(result["af02_status"], "accepted_complete")
         self.assertTrue(result["af02_started"])
         self.assertTrue(result["af02_authorized"])
-        self.assertEqual(result["af02_accepted_archive_record_count"], 0)
-        self.assertEqual(result["af02_remaining_evidence_count"], 10)
+        self.assertEqual(result["af02_accepted_archive_record_count"], 10)
+        self.assertEqual(result["af02_remaining_evidence_count"], 0)
         self.assertFalse(result["af03_started"])
         self.assertFalse(result["af03_authorized"])
         self.assertFalse(result["runtime_implementation_authorized"])
@@ -258,7 +258,7 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         self.replace(
             root,
             Path("master-plan-index.json"),
-            '"accepted_archive_record_count": 9',
+            '"accepted_archive_record_count": 19',
             '"accepted_archive_record_count": 10',
         )
         self.assert_invalid(root)
