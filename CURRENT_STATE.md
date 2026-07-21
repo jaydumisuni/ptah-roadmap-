@@ -419,7 +419,18 @@ Accepted evidence:
 
 The operative rule uses minimum twenty privates for two human-equivalent workers, ten primary/verifier record pairs per ordinary formation, and adaptive escalation to 40/60/80–100/up to 120 privates for harder sources. Campaign 001 queues 98 obligations across ten formations and 200 slots.
 
-AF01 is READY but not started. This cross-cutting recovery protocol does not replace P01 as the active authorization work, reopen Phase 0A, mark records archived, accept ADR-0033 or authorize runtime implementation.
+Campaign 001 progress:
+
+- AF01: ACCEPTED COMPLETE;
+- accepted archive records: 9;
+- blocked completed outcomes: 1 (`D047` MiniRouter source reuse);
+- AF02: READY / NOT STARTED;
+- AF01 candidate exact head: `f60e340cb856d50e88b4279147a933d838fce759`;
+- AF01 workflow run/artifact: `29862087745` / `8507695005`;
+- AF01 candidate merge: `0a35a8a904bdf235fa4989ea05b684443d5a879a`;
+- AF01 acceptance record: `archive/campaign-001/af01/ACCEPTANCE.md`.
+
+AF02 readiness does not start evidence collection or authorize source reuse. The archive campaign does not replace P01 as the active implementation-authorization work, reopen Phase 0A, accept ADR-0033 or authorize runtime implementation.
 
 ---
 

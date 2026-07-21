@@ -9,6 +9,7 @@ import unittest
 from pathlib import Path
 
 from check_archive_af01 import (
+    ACCEPTANCE,
     ADR0033,
     CHECKPOINT_05,
     CHECKPOINT_10,
@@ -30,6 +31,7 @@ REQUIRED = (
     CHECKPOINT_10,
     RESULT_JSON,
     RESULT_MD,
+    ACCEPTANCE,
     MANIFEST,
     DONOR_REGISTER,
     CURRENT_STATE,
@@ -65,12 +67,14 @@ class AF01ValidationTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             validate_repo(root)
 
-    def test_valid_candidate(self) -> None:
+    def test_valid_accepted_closure(self) -> None:
         result = validate_repo(self.make_repo())
-        self.assertEqual(result["status"], "candidate_complete_valid_non_authorizing")
+        self.assertEqual(result["status"], "accepted_complete_valid_non_authorizing")
         self.assertEqual(result["record_count"], 10)
         self.assertEqual(result["accepted_archive_record_count"], 9)
         self.assertEqual(result["blocked_record_count"], 1)
+        self.assertTrue(result["af02_ready"])
+        self.assertFalse(result["af02_started"])
         self.assertFalse(result["af02_authorized"])
 
     def test_record_file_cannot_disappear(self) -> None:
@@ -192,9 +196,24 @@ class AF01ValidationTests(unittest.TestCase):
         self.mutate_result(root, lambda value: value.__setitem__("remaining_evidence_count", 1))
         self.assert_invalid(root)
 
-    def test_candidate_status_cannot_claim_acceptance_early(self) -> None:
+    def test_accepted_status_cannot_revert_to_candidate(self) -> None:
         root = self.make_repo()
-        self.mutate_result(root, lambda value: value.__setitem__("status", "accepted_complete"))
+        self.mutate_result(root, lambda value: value.__setitem__("status", "candidate_complete_pending_exact_head_review"))
+        self.assert_invalid(root)
+
+    def test_acceptance_record_cannot_disappear(self) -> None:
+        root = self.make_repo()
+        (root / ACCEPTANCE).unlink()
+        self.assert_invalid(root)
+
+    def test_af02_ready_cannot_be_removed(self) -> None:
+        root = self.make_repo()
+        self.mutate_result(root, lambda value: value.__setitem__("af02_ready", False))
+        self.assert_invalid(root)
+
+    def test_af02_cannot_start_during_af01_acceptance(self) -> None:
+        root = self.make_repo()
+        self.mutate_result(root, lambda value: value.__setitem__("af02_started", True))
         self.assert_invalid(root)
 
 

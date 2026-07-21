@@ -202,7 +202,11 @@ Selection/evidence package merge:
 - [x] retained artifact `8504497355` with digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`;
 - [x] exact fifteen-file boundary directly reviewed and candidate merged as `c4973cbf4d02a34f14a7aefa85b8e2ea7b392752`;
 - [x] ADR-0035 and Phase 0C-17 accepted;
-- [ ] AF01 is READY but not started; no source record is pre-ticked as archived.
+- [x] AF01 completed ten paired source reviews with nine accepted archive records and one completed MiniRouter source-reuse block;
+- [x] AF01 candidate exact head `f60e340cb856d50e88b4279147a933d838fce759` passed 24 regression cases in run `29862087745`;
+- [x] AF01 retained artifact `8507695005` with digest `sha256:4ea6bf77131834b48b9e35ad5eb88538a87b6f376f2be4984f077eb3eeed1267`;
+- [x] AF01 candidate merged as `0a35a8a904bdf235fa4989ea05b684443d5a879a` and accepted closure recorded;
+- [ ] AF02 is READY / NOT STARTED; no AF02 source record is pre-ticked as archived.
 
 ## Active Phase 0C closure work
 
