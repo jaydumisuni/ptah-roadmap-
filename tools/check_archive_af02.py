@@ -20,16 +20,16 @@ MASTER_INDEX = Path("master-plan-index.json")
 ADR0033 = Path("decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md")
 
 EXPECTED: dict[str, dict[str, str]] = {
-    "D062": {"source":"aza-ali/awesome-ai-product-management","branch":"main","commit":"b0f971eb38f6f76e5762f0bab5d92df394370b73","outcome":"accepted_for_archive_research_navigation_only","primary":"AF02-P01","verifier":"AF02-V01","path":"archive/campaign-001/af02/records/D062-AWESOME-AI-PRODUCT-MANAGEMENT.md"},
-    "D066": {"source":"aza-ali/github-readme-crisp-links","branch":"main","commit":"1503b45546a9b50777e5755aa2368be9297cf719","outcome":"accepted_for_archive_documentation_tool_only","primary":"AF02-P02","verifier":"AF02-V02","path":"archive/campaign-001/af02/records/D066-GITHUB-README-CRISP-LINKS.md"},
-    "D002": {"source":"daytonaio/daytona","branch":"main","commit":"ec4c21b2d597091ac09ecc278f3bcc172575a987","outcome":"accepted_for_archive_with_discontinuation_and_copyleft_restrictions","primary":"AF02-P03","verifier":"AF02-V03","path":"archive/campaign-001/af02/records/D002-DAYTONA.md"},
-    "D013": {"source":"e2b-dev/desktop","branch":"main","commit":"e4800ef873cacc0eeb91770a419b77de0ea26903","outcome":"accepted_for_archive_hosted_desktop_adapter_only","primary":"AF02-P04","verifier":"AF02-V04","path":"archive/campaign-001/af02/records/D013-E2B-DESKTOP.md"},
-    "D017": {"source":"microsoft/playwright-mcp","branch":"main","commit":"55679f5f3d4b4f3e2534ec0ce2fc5683ba2eaf3f","outcome":"accepted_for_archive_mcp_browser_adapter_only","primary":"AF02-P05","verifier":"AF02-V05","path":"archive/campaign-001/af02/records/D017-PLAYWRIGHT-MCP.md"},
-    "D021": {"source":"DeviceFarmer/adbkit","branch":"master","commit":"f474b57f6b1b1b41edd4abbfa1dd9bfad6420d6a","outcome":"accepted_for_archive_with_device_authority_restrictions","primary":"AF02-P06","verifier":"AF02-V06","path":"archive/campaign-001/af02/records/D021-ADBKIT.md"},
-    "D031": {"source":"kata-containers/kata-containers","branch":"main","commit":"809ab7d90f7dc8c10f51e5b0eef55b9bd33cdbc5","outcome":"accepted_for_archive_optional_isolation_backend","primary":"AF02-P07","verifier":"AF02-V07","path":"archive/campaign-001/af02/records/D031-KATA-CONTAINERS.md"},
-    "D036": {"source":"moby/moby","branch":"master","commit":"722d76e76b5363691379ab6fe0ccbc8111f49b0e","outcome":"accepted_for_archive_modular_engine_donor","primary":"AF02-P08","verifier":"AF02-V08","path":"archive/campaign-001/af02/records/D036-MOBY.md"},
-    "D043": {"source":"run-llama/llama_index","branch":"main","commit":"d88c2c9ed3cb057e056546c46800adaad16824d1","outcome":"accepted_for_archive_with_integration_and_knowledge_truth_restrictions","primary":"AF02-P09","verifier":"AF02-V09","path":"archive/campaign-001/af02/records/D043-LLAMAINDEX.md"},
-    "D048": {"source":"ray-project/ray","branch":"master","commit":"eae2ad02ebdd1b9698e1613f4ef3f683e4e8ebbb","outcome":"accepted_for_archive_with_distributed_authority_restrictions","primary":"AF02-P10","verifier":"AF02-V10","path":"archive/campaign-001/af02/records/D048-RAY.md"}
+    "D062": {"source": "aza-ali/awesome-ai-product-management", "branch": "main", "commit": "b0f971eb38f6f76e5762f0bab5d92df394370b73", "outcome": "accepted_for_archive_research_navigation_only", "primary": "AF02-P01", "verifier": "AF02-V01", "path": "archive/campaign-001/af02/records/D062-AWESOME-AI-PRODUCT-MANAGEMENT.md"},
+    "D066": {"source": "aza-ali/github-readme-crisp-links", "branch": "main", "commit": "1503b45546a9b50777e5755aa2368be9297cf719", "outcome": "accepted_for_archive_documentation_tool_only", "primary": "AF02-P02", "verifier": "AF02-V02", "path": "archive/campaign-001/af02/records/D066-GITHUB-README-CRISP-LINKS.md"},
+    "D002": {"source": "daytonaio/daytona", "branch": "main", "commit": "ec4c21b2d597091ac09ecc278f3bcc172575a987", "outcome": "accepted_for_archive_with_discontinuation_and_copyleft_restrictions", "primary": "AF02-P03", "verifier": "AF02-V03", "path": "archive/campaign-001/af02/records/D002-DAYTONA.md"},
+    "D013": {"source": "e2b-dev/desktop", "branch": "main", "commit": "e4800ef873cacc0eeb91770a419b77de0ea26903", "outcome": "accepted_for_archive_hosted_desktop_adapter_only", "primary": "AF02-P04", "verifier": "AF02-V04", "path": "archive/campaign-001/af02/records/D013-E2B-DESKTOP.md"},
+    "D017": {"source": "microsoft/playwright-mcp", "branch": "main", "commit": "55679f5f3d4b4f3e2534ec0ce2fc5683ba2eaf3f", "outcome": "accepted_for_archive_mcp_browser_adapter_only", "primary": "AF02-P05", "verifier": "AF02-V05", "path": "archive/campaign-001/af02/records/D017-PLAYWRIGHT-MCP.md"},
+    "D021": {"source": "DeviceFarmer/adbkit", "branch": "master", "commit": "f474b57f6b1b1b41edd4abbfa1dd9bfad6420d6a", "outcome": "accepted_for_archive_with_device_authority_restrictions", "primary": "AF02-P06", "verifier": "AF02-V06", "path": "archive/campaign-001/af02/records/D021-ADBKIT.md"},
+    "D031": {"source": "kata-containers/kata-containers", "branch": "main", "commit": "809ab7d90f7dc8c10f51e5b0eef55b9bd33cdbc5", "outcome": "accepted_for_archive_optional_isolation_backend", "primary": "AF02-P07", "verifier": "AF02-V07", "path": "archive/campaign-001/af02/records/D031-KATA-CONTAINERS.md"},
+    "D036": {"source": "moby/moby", "branch": "master", "commit": "722d76e76b5363691379ab6fe0ccbc8111f49b0e", "outcome": "accepted_for_archive_modular_engine_donor", "primary": "AF02-P08", "verifier": "AF02-V08", "path": "archive/campaign-001/af02/records/D036-MOBY.md"},
+    "D043": {"source": "run-llama/llama_index", "branch": "main", "commit": "d88c2c9ed3cb057e056546c46800adaad16824d1", "outcome": "accepted_for_archive_with_integration_and_knowledge_truth_restrictions", "primary": "AF02-P09", "verifier": "AF02-V09", "path": "archive/campaign-001/af02/records/D043-LLAMAINDEX.md"},
+    "D048": {"source": "ray-project/ray", "branch": "master", "commit": "eae2ad02ebdd1b9698e1613f4ef3f683e4e8ebbb", "outcome": "accepted_for_archive_with_distributed_authority_restrictions", "primary": "AF02-P10", "verifier": "AF02-V10", "path": "archive/campaign-001/af02/records/D048-RAY.md"},
 }
 
 
@@ -116,6 +116,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
         verifiers.append(record["verifier"])
         if not record["outcome"].startswith("accepted_for_archive"):
             raise ValidationError(f"unexpected non-accepted AF02 outcome: {record_id}")
+
         text = read(root, Path(record["path"]))
         require(text, f"# {record_id} —", f"{record_id} heading")
         require(text, expected["source"], f"{record_id} source")
@@ -127,12 +128,13 @@ def validate_repo(root: Path) -> dict[str, Any]:
         require(text, "## Contradiction and supersession", f"{record_id} contradiction")
         require(text, "## Bounded outcome", f"{record_id} bounded outcome")
 
+        require(manifest, f"`{expected['primary']}` | `{expected['verifier']}`", f"{record_id} exact manifest pair")
+
     if len(set(primaries)) != 10 or len(set(verifiers)) != 10:
         raise ValidationError("AF02 worker identity reused")
     if set(primaries).intersection(verifiers):
         raise ValidationError("AF02 primary/verifier identities overlap")
 
-    # Hard restrictions that may not be softened.
     daytona = read(root, Path(EXPECTED["D002"]["path"]))
     require(daytona, "public core development stopped in June 2026", "Daytona discontinuation")
     require(daytona, "v0.190.0", "Daytona public snapshot")
@@ -154,6 +156,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     if af02_ids != list(EXPECTED):
         raise ValidationError(f"campaign manifest AF02 order mismatch: {af02_ids}")
     require(current_state, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "current AF02 active state")
+
     archive = master_index.get("operational_protocols", {}).get("tenfold_archive_formation", {})
     if archive.get("af02_status") != "active" or archive.get("af02_started") is not True:
         raise ValidationError("machine index AF02 is not active")
