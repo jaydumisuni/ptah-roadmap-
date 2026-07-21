@@ -57,6 +57,12 @@ class AF02ValidationTests(unittest.TestCase):
         self.assertIn(old, text)
         path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
+    def replace_all(self, root: Path, relative: Path, old: str, new: str) -> None:
+        path = root / relative
+        text = path.read_text(encoding="utf-8")
+        self.assertIn(old, text)
+        path.write_text(text.replace(old, new), encoding="utf-8")
+
     def mutate_result(self, root: Path, mutator) -> None:
         path = root / RESULT_JSON
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -160,62 +166,52 @@ class AF02ValidationTests(unittest.TestCase):
 
     def test_daytona_discontinuation_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D002"]["path"])
-        self.replace(root, path, "public core development stopped in June 2026", "public core development continues")
+        self.replace_all(root, Path(EXPECTED["D002"]["path"]), "public core development stopped in June 2026", "public core development continues")
         self.assert_invalid(root)
 
     def test_daytona_snapshot_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D002"]["path"])
-        self.replace(root, path, "v0.190.0", "latest hosted release")
+        self.replace_all(root, Path(EXPECTED["D002"]["path"]), "v0.190.0", "latest hosted release")
         self.assert_invalid(root)
 
     def test_daytona_copyleft_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D002"]["path"])
-        self.replace(root, path, "AGPL-3.0", "permissive licence")
+        self.replace_all(root, Path(EXPECTED["D002"]["path"]), "AGPL-3.0", "permissive licence")
         self.assert_invalid(root)
 
     def test_adbkit_server_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D021"]["path"])
-        self.replace(root, path, "not an ADB server", "complete ADB server")
+        self.replace_all(root, Path(EXPECTED["D021"]["path"]), "not an ADB server", "complete ADB server")
         self.assert_invalid(root)
 
     def test_adbkit_authorization_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D021"]["path"])
-        self.replace(root, path, "explicit device/customer authorization", "implicit device access")
+        self.replace_all(root, Path(EXPECTED["D021"]["path"]), "explicit device/customer authorization", "implicit device access")
         self.assert_invalid(root)
 
     def test_moby_library_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D036"]["path"])
-        self.replace(root, path, "not intended as an imported Go library", "stable imported Go library")
+        self.replace_all(root, Path(EXPECTED["D036"]["path"]), "not intended as an imported Go library", "stable imported Go library")
         self.assert_invalid(root)
 
     def test_llama_integration_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D043"]["path"])
-        self.replace(root, path, "more than 300 separately packaged integrations", "one uniform trusted integration")
+        self.replace_all(root, Path(EXPECTED["D043"]["path"]), "more than 300 separately packaged integrations", "one uniform trusted integration")
         self.assert_invalid(root)
 
     def test_llama_truth_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D043"]["path"])
-        self.replace(root, path, "cannot automatically become canonical Ptah Object/Knowledge truth", "becomes canonical Ptah truth")
+        self.replace_all(root, Path(EXPECTED["D043"]["path"]), "cannot automatically become canonical Ptah Object/Knowledge truth", "becomes canonical Ptah truth")
         self.assert_invalid(root)
 
     def test_ray_scheduler_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D048"]["path"])
-        self.replace(root, path, "must not become Ptah's global scheduler", "becomes Ptah's global scheduler")
+        self.replace_all(root, Path(EXPECTED["D048"]["path"]), "must not become Ptah's global scheduler", "becomes Ptah's global scheduler")
         self.assert_invalid(root)
 
     def test_catalogue_linked_rights_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = Path(EXPECTED["D062"]["path"])
-        self.replace(root, path, "CC0 applies to the catalogue work", "CC0 applies to every linked work")
+        self.replace_all(root, Path(EXPECTED["D062"]["path"]), "CC0 applies to the catalogue work", "CC0 applies to every linked work")
         self.assert_invalid(root)
 
     def test_control_book_cannot_preaccept_af02(self) -> None:
@@ -245,12 +241,7 @@ class AF02ValidationTests(unittest.TestCase):
 
     def test_runtime_cannot_be_authorized(self) -> None:
         root = self.make_repo()
-        self.replace(
-            root,
-            CURRENT_STATE,
-            "**Runtime implementation:** NOT AUTHORIZED",
-            "**Runtime implementation:** AUTHORIZED",
-        )
+        self.replace(root, CURRENT_STATE, "**Runtime implementation:** NOT AUTHORIZED", "**Runtime implementation:** AUTHORIZED")
         self.assert_invalid(root)
 
     def test_manifest_pair_cannot_disappear(self) -> None:
