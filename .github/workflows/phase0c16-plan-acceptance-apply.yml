@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "tools/apply_phase0c16_plan_acceptance.py"
+      - "tools/fix_phase0c16_acceptance_commands.py"
       - ".github/workflows/phase0c16-plan-acceptance-apply.yml"
 
 permissions:
@@ -41,6 +42,8 @@ jobs:
           set -o pipefail
           python3 tools/apply_phase0c16_plan_acceptance.py 2>&1 \
             | tee conformance/reports/plan-acceptance/transform.txt
+          python3 tools/fix_phase0c16_acceptance_commands.py 2>&1 \
+            | tee conformance/reports/plan-acceptance/command-format.txt
 
       - name: Run accepted-state regressions and validator
         run: |
@@ -68,6 +71,10 @@ jobs:
           grep -F 'Status: proposed' decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
           grep -F '**Runtime implementation:** NOT AUTHORIZED' CURRENT_STATE.md
           ! grep -F '**Runtime implementation:** AUTHORIZED' CURRENT_STATE.md
+          grep -F 'python3 tools/run_pinned_host_proof.py \' CURRENT_STATE.md
+          grep -F 'python3 tools/run_pinned_host_proof.py \' AI_HANDOFF.md
+          grep -F 'python3 tools/retain_verified_pinned_host_evidence.py \' CURRENT_STATE.md
+          grep -F 'python3 tools/retain_verified_pinned_host_evidence.py \' AI_HANDOFF.md
           python3 - <<'PY'
           import json
           from pathlib import Path
