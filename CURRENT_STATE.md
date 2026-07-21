@@ -5,7 +5,7 @@
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
 **Active work unit:** 0C-04 — physical pinned-host proof, durable evidence and licence closure  
 **Runtime implementation:** NOT AUTHORIZED  
-**Production dependency/backend selection:** EXACT RUST, DISTRIBUTED ARTIFACT AND PROOF-TOOL LOCKS MERGED — PHYSICAL PINNED-HOST PROOF OPEN  
+**Production dependency/backend selection:** EXACT RUST, DISTRIBUTED ARTIFACT, PROOF AND RETENTION TOOL LOCKS MERGED — PHYSICAL PINNED-HOST PROOF OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
@@ -85,6 +85,7 @@ The following records are merged or awaiting this evidence-sync merge:
 - `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`;
 - `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`;
 - `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`;
+- `work-packages/PHASE-0C-13-DURABLE-PINNED-HOST-RETENTION-READINESS.md`;
 - proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.
 
 ### Candidate first-slice baseline
@@ -242,6 +243,37 @@ This closes proof-tool readiness only. No physical-host bundle has yet been prod
 
 ---
 
+## Merged durable pinned-host retention readiness
+
+`Ptah-space` PR `#11` was tested at exact head:
+
+```text
+f0c1aafb58b33fcc8338081244996ced9260ce5c
+```
+
+and squash-merged at:
+
+```text
+49f6035a93bf704d775dc437e8a8b25c95145ae1
+```
+
+The merged retention tooling now:
+
+- independently re-verifies the exact six-file physical-host source bundle before retention;
+- recomputes every file and aggregate digest plus host, capability, package, package-artifact, APT-index and APT-source proof conditions;
+- binds the candidate to current clean exact `HEAD`, canonical collector bytes and the reviewed proof-runner digest;
+- rejects malformed or authorizing records, wrong commits, collector mismatches, unexpected repository changes, symlinks, nested paths and overwrite attempts;
+- preserves exact source bytes in a durable base64 bundle;
+- emits a separate repository binding;
+- emits a review record with `review_status: pending` and every host, package, retention, ADR and runtime acceptance field `false`;
+- verifies the exact final four-file durable output and rechecks repository state after retention.
+
+All eight workflows passed at exact head `f0c1aafb58b33fcc8338081244996ced9260ce5c`. Host workflow run `29813401728` passed the host collector, identity finalizer, package-artifact, pinned-host proof, independent retention and exact-repository-binding regression suites.
+
+This closes durable-retention tooling readiness only. No real physical-host source bundle or durable candidate has been generated, committed or accepted.
+
+---
+
 ## Active Phase 0C blockers
 
 Implementation remains unauthorized until all of the following are merged and reviewed:
@@ -250,12 +282,12 @@ Implementation remains unauthorized until all of the following are merged and re
 2. final public `LICENSE`, `NOTICE`, contribution and security boundary;
 3. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
 4. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;
-5. durable retention of final Phase 0C evidence beyond temporary CI artifact expiry;
+5. generation, durable commit and explicit review acceptance of that physical-host evidence bundle;
 6. a Phase 0C closure review proving no frozen contract was weakened;
 7. acceptance of ADR-0033;
 8. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
 
-The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector, pinned-host proof-tool and frozen-WP13 lanes are complete. They do not close the physical pinned-host result, package acceptance, durable retention, governance acceptance or any WP14 runtime proof.
+The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector, pinned-host proof-tool, package-artifact, durable-retention and frozen-WP13 lanes are complete. They do not close the physical pinned-host result, package acceptance, actual retained-bundle acceptance, governance acceptance or any WP14 runtime proof.
 
 ### Required first vertical slice after authorization
 
@@ -282,7 +314,7 @@ Allowed during the remainder of Phase 0C:
 
 - licence and contribution decisions;
 - exact physical pinned-host and installed-package evidence;
-- durable proof-location preparation;
+- durable proof-location preparation and pending retention review;
 - non-claiming repository and CI maintenance;
 - executable proof-plan preparation;
 - WP13 integration and contract-conformance maintenance;
@@ -314,8 +346,18 @@ python3 tools/run_pinned_host_proof.py \
 ```
 
 3. Require `proof_eligible: true` with empty host, capability, package-artifact and repository failure sets.
-4. Review and accept the complete installed package and package-artifact manifests.
-5. Persist the accepted bundle in a durable proof Location beyond CI retention.
-6. Complete the Apache-2.0 owner decision and public/private notice boundary.
-7. Conduct the Phase 0C closure consistency review.
-8. Accept ADR-0033 and authorize runtime only if every blocker passes.
+4. Review the complete installed package and package-artifact manifests.
+5. From the same exact clean commit, run:
+
+```bash
+python3 tools/retain_verified_pinned_host_evidence.py \
+  --repo-root . \
+  --bundle-dir evidence/phase0c/pinned-host-candidate \
+  --output-dir evidence/phase0c/pinned-host-durable-candidate
+```
+
+6. Commit the durable candidate, repository binding and pending review record to a durable proof Location.
+7. Explicitly accept the host identity, installed packages, package artifacts and durable retention in reviewed evidence.
+8. Complete the Apache-2.0 owner decision and public/private notice boundary.
+9. Conduct the Phase 0C closure consistency review.
+10. Accept ADR-0033 and authorize runtime only if every blocker passes.
