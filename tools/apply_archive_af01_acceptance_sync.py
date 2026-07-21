@@ -29,17 +29,16 @@ def replace_once(path: Path, old: str, new: str, label: str) -> None:
 
 def sync_manifest() -> None:
     path = ROOT / "archive/CAMPAIGN-001-FORMATION-MANIFEST.md"
-    common = "- private count: 20\n- assigned records: 10\n- reserve pairs: 0"
     replace_once(
         path,
-        common,
-        "- status: ACCEPTED COMPLETE\n- private count: 20\n- assigned records: 10\n- accepted archive records: 9\n- blocked completed outcomes: 1\n- remaining evidence: 0\n- result: `archive/campaign-001/af01/RESULT.json`\n- acceptance: `archive/campaign-001/af01/ACCEPTANCE.md`\n- reserve pairs: 0",
+        "## AF01\n\n- private count: 20\n- assigned records: 10\n- reserve pairs: 0",
+        "## AF01\n\n- status: ACCEPTED COMPLETE\n- private count: 20\n- assigned records: 10\n- accepted archive records: 9\n- blocked completed outcomes: 1\n- remaining evidence: 0\n- result: `archive/campaign-001/af01/RESULT.json`\n- acceptance: `archive/campaign-001/af01/ACCEPTANCE.md`\n- reserve pairs: 0",
         "AF01 manifest status",
     )
     replace_once(
         path,
-        common,
-        "- status: READY / NOT STARTED\n- private count: 20\n- assigned records: 10\n- reserve pairs: 0",
+        "## AF02\n\n- private count: 20\n- assigned records: 10\n- reserve pairs: 0",
+        "## AF02\n\n- status: READY / NOT STARTED\n- private count: 20\n- assigned records: 10\n- reserve pairs: 0",
         "AF02 manifest status",
     )
     replace_once(
@@ -126,6 +125,20 @@ def sync_index() -> None:
 
 def sync_validator() -> None:
     path = ROOT / "tools/check_archive_af01.py"
+    text = path.read_text(encoding="utf-8")
+    prefix = (
+        'CANDIDATE_HEAD = "f60e340cb856d50e88b4279147a933d838fce759"\n'
+        'CANDIDATE_RUN = "29862087745"\n'
+        'CANDIDATE_ARTIFACT = "8507695005"\n'
+        'CANDIDATE_ARTIFACT_DIGEST = "sha256:4ea6bf77131834b48b9e35ad5eb88538a87b6f376f2be4984f077eb3eeed1267"\n'
+        'CANDIDATE_REPORT_DIGEST = "4a8cf20f3aacf8628c1de1b774cc93018705d0aa256a65208a8abf4311edc691"\n'
+        'CANDIDATE_MERGE = "0a35a8a904bdf235fa4989ea05b684443d5a879a"\n\n'
+    )
+    anchor = 'MISSION = Path("archive/campaign-001/af01/MISSION.md")\n'
+    if text.count(anchor) != 1:
+        raise SyncError("validator constant anchor missing or duplicated")
+    path.write_text(text.replace(anchor, prefix + anchor, 1), encoding="utf-8")
+
     replacements = (
         (
             'RESULT_MD = Path("archive/campaign-001/af01/RESULT.md")',
@@ -152,8 +165,8 @@ def sync_validator() -> None:
             '        "status": "accepted_complete_non_authorizing",\n        "candidate_exact_head": CANDIDATE_HEAD,\n        "candidate_workflow_run": CANDIDATE_RUN,\n        "candidate_artifact_id": CANDIDATE_ARTIFACT,\n        "candidate_artifact_digest": CANDIDATE_ARTIFACT_DIGEST,\n        "candidate_validation_report_sha256": CANDIDATE_REPORT_DIGEST,\n        "candidate_merge": CANDIDATE_MERGE,\n        "acceptance_record": str(ACCEPTANCE),',
         ),
         (
-            '        "af02_authorized": False,',
-            '        "af02_ready": True,\n        "af02_started": False,\n        "af02_authorized": False,',
+            '        "verifier_worker_count": 10,\n        "phase_0a_reopened": False,\n        "adr_0033_accepted": False,\n        "runtime_implementation_authorized": False,\n        "af02_authorized": False,',
+            '        "verifier_worker_count": 10,\n        "phase_0a_reopened": False,\n        "adr_0033_accepted": False,\n        "runtime_implementation_authorized": False,\n        "af02_ready": True,\n        "af02_started": False,\n        "af02_authorized": False,',
         ),
         (
             '    require(donor_register, "**Status:** COMPLETE AND FROZEN", "frozen Phase 0A")',
@@ -164,24 +177,10 @@ def sync_validator() -> None:
             '        "status": "accepted_complete_valid_non_authorizing",',
         ),
         (
-            '        "runtime_implementation_authorized": False,\n        "af02_authorized": False,',
-            '        "runtime_implementation_authorized": False,\n        "af02_ready": True,\n        "af02_started": False,\n        "af02_authorized": False,',
+            '        "remaining_evidence_count": 0,\n        "phase_0a_reopened": False,\n        "adr_0033_accepted": False,\n        "runtime_implementation_authorized": False,\n        "af02_authorized": False,',
+            '        "remaining_evidence_count": 0,\n        "phase_0a_reopened": False,\n        "adr_0033_accepted": False,\n        "runtime_implementation_authorized": False,\n        "af02_ready": True,\n        "af02_started": False,\n        "af02_authorized": False,',
         ),
     )
-    text = path.read_text(encoding="utf-8")
-    prefix = (
-        'CANDIDATE_HEAD = "f60e340cb856d50e88b4279147a933d838fce759"\n'
-        'CANDIDATE_RUN = "29862087745"\n'
-        'CANDIDATE_ARTIFACT = "8507695005"\n'
-        'CANDIDATE_ARTIFACT_DIGEST = "sha256:4ea6bf77131834b48b9e35ad5eb88538a87b6f376f2be4984f077eb3eeed1267"\n'
-        'CANDIDATE_REPORT_DIGEST = "4a8cf20f3aacf8628c1de1b774cc93018705d0aa256a65208a8abf4311edc691"\n'
-        'CANDIDATE_MERGE = "0a35a8a904bdf235fa4989ea05b684443d5a879a"\n\n'
-    )
-    anchor = 'MISSION = Path("archive/campaign-001/af01/MISSION.md")\n'
-    if anchor not in text:
-        raise SyncError("validator constant anchor missing")
-    text = text.replace(anchor, prefix + anchor, 1)
-    path.write_text(text, encoding="utf-8")
     for old, new in replacements:
         replace_once(path, old, new, f"validator replacement {old[:36]}")
 
@@ -192,10 +191,6 @@ def sync_tests() -> None:
         (
             '    ADR0033,\n    CHECKPOINT_05,',
             '    ACCEPTANCE,\n    ADR0033,\n    CHECKPOINT_05,',
-        ),
-        (
-            '    RESULT_MD,\n    ValidationError,',
-            '    RESULT_MD,\n    ValidationError,',
         ),
         (
             '    RESULT_MD,\n    MANIFEST,',
