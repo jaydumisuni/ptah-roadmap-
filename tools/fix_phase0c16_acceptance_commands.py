@@ -38,8 +38,18 @@ for relative in ("CURRENT_STATE.md", "AI_HANDOFF.md"):
                 f"{relative}: expected one flattened {label} command, found {count}"
             )
         text = text.replace(old, new, 1)
-    if "Runtime implementation: AUTHORIZED" in text:
-        raise SystemExit(f"{relative}: runtime authorization appeared")
+
+    if relative == "CURRENT_STATE.md":
+        if "**Runtime implementation:** NOT AUTHORIZED" not in text:
+            raise SystemExit("CURRENT_STATE.md: non-authorization state missing")
+        if "**Runtime implementation:** AUTHORIZED" in text:
+            raise SystemExit("CURRENT_STATE.md: canonical runtime authorization appeared")
+    else:
+        if "Runtime implementation: NOT AUTHORIZED" not in text:
+            raise SystemExit("AI_HANDOFF.md: non-authorization state missing")
+        if "\nRuntime implementation: AUTHORIZED\n" in text:
+            raise SystemExit("AI_HANDOFF.md: current runtime authorization appeared")
+
     path.write_text(text, encoding="utf-8")
 
 print("accepted CURRENT_STATE.md and AI_HANDOFF.md commands restored")
