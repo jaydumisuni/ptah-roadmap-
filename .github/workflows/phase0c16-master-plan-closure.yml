@@ -39,7 +39,7 @@ jobs:
           python3 tools/test_check_master_plan_closure.py -v 2>&1 \
             | tee conformance/reports/master-plan/regressions.txt
 
-      - name: Validate complete planning closure
+      - name: Validate accepted planning authority
         run: |
           set -o pipefail
           python3 tools/check_master_plan_closure.py \
@@ -89,8 +89,12 @@ jobs:
           )
           if not evidence["exact_head_match"]:
               raise SystemExit("Master Plan closure did not test the exact head")
-          if evidence["validation_status"] != "candidate_valid_non_authorizing":
-              raise SystemExit("Master Plan closure validation status is invalid")
+          if evidence["validation_status"] != "accepted_plan_authority_non_authorizing":
+              raise SystemExit("accepted Master Plan validation status is invalid")
+          if evidence["master_plan_version"] != "1.0.0":
+              raise SystemExit("accepted Master Plan version mismatch")
+          if evidence["implementation_roadmap_version"] != "1.0.0":
+              raise SystemExit("accepted implementation roadmap version mismatch")
           if evidence["frozen_work_package_count"] != 14:
               raise SystemExit("frozen work-package count mismatch")
           if evidence["phase0c_record_count"] != 16:
