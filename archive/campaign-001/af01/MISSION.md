@@ -1,6 +1,6 @@
 # Campaign 001 — AF01 Archive Mission
 
-Status: ACTIVE — evidence collection started; no record accepted yet
+Status: ACTIVE — checkpoint 05 complete; five records remain in evidence collection
 
 Started: 2026-07-21
 
@@ -16,18 +16,18 @@ Reconcile and durably archive the ten AF01 external-public source obligations wi
 
 ## Formation
 
-| Record | Source | Primary | Independent verifier |
-|---|---|---|---|
-| `D001` | OpenClaw | `AF01-P01` | `AF01-V01` |
-| `D012` | E2B | `AF01-P02` | `AF01-V02` |
-| `D016` | Playwright | `AF01-P03` | `AF01-V03` |
-| `D020` | DeviceFarmer STF | `AF01-P04` | `AF01-V04` |
-| `D030` | gVisor | `AF01-P05` | `AF01-V05` |
-| `D035` | BuildKit | `AF01-P06` | `AF01-V06` |
-| `D042` | RAGFlow | `AF01-P07` | `AF01-V07` |
-| `D047` | MiniRouter | `AF01-P08` | `AF01-V08` |
-| `D051` | SparkDistill | `AF01-P09` | `AF01-V09` |
-| `D058` | Strix | `AF01-P10` | `AF01-V10` |
+| Record | Source | Primary | Independent verifier | Status |
+|---|---|---|---|---|
+| `D001` | OpenClaw | `AF01-P01` | `AF01-V01` | accepted for archive |
+| `D012` | E2B | `AF01-P02` | `AF01-V02` | accepted for archive |
+| `D016` | Playwright | `AF01-P03` | `AF01-V03` | accepted for archive |
+| `D020` | DeviceFarmer STF | `AF01-P04` | `AF01-V04` | accepted for archive with security restrictions |
+| `D030` | gVisor | `AF01-P05` | `AF01-V05` | accepted for archive |
+| `D035` | BuildKit | `AF01-P06` | `AF01-V06` | evidence collection |
+| `D042` | RAGFlow | `AF01-P07` | `AF01-V07` | evidence collection |
+| `D047` | MiniRouter | `AF01-P08` | `AF01-V08` | evidence collection |
+| `D051` | SparkDistill | `AF01-P09` | `AF01-V09` | evidence collection |
+| `D058` | Strix | `AF01-P10` | `AF01-V10` | evidence collection |
 
 ## Evidence obligations
 
@@ -57,18 +57,18 @@ Formation workers may collect and challenge evidence. They may not:
 
 ## Save points
 
-- mission start: this commit;
-- checkpoint 1: after records `D001`, `D012`, `D016`, `D020` and `D030` are reconciled;
+- mission start: `8dd1ff628171bc1ae75513395ea00377ffae98ec`;
+- checkpoint 1: `archive/campaign-001/af01/CHECKPOINT-05.md`;
 - checkpoint 2: after records `D035`, `D042`, `D047`, `D051` and `D058` are reconciled;
 - formation closure: after exact-head validation and direct review.
 
 ## Current counts
 
 - assigned records: 10
-- accepted for archive: 0
+- accepted for archive: 5
 - blocked: 0
 - parked: 0
 - superseded: 0
-- in evidence collection: 10
+- in evidence collection: 5
 
-AF01 is now started. No source record is pre-accepted.
+Checkpoint 05 is durable. No remaining record is pre-accepted.
