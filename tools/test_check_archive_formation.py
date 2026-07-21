@@ -2,6 +2,7 @@
 """Adversarial regressions for the Ptah tenfold archive formation validator."""
 from __future__ import annotations
 
+import json
 import shutil
 import tempfile
 import unittest
@@ -44,6 +45,7 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         self.assertEqual(result["status"], "candidate_valid_non_authorizing")
         self.assertEqual(result["assigned_record_count"], 98)
         self.assertEqual(result["allocated_private_count"], 200)
+        self.assertTrue(result["authority_sync_complete"])
         self.assertFalse(result["runtime_implementation_authorized"])
 
     def test_sergeant_pin_cannot_drift(self) -> None:
@@ -170,6 +172,62 @@ class ArchiveFormationValidationTests(unittest.TestCase):
             Path("archive/CAMPAIGN-001-FORMATION-MANIFEST.md"),
             "allocated privates: 200",
             "allocated privates: 20",
+        )
+        self.assert_invalid(root)
+
+    def test_memory_protocol_rule_cannot_disappear(self) -> None:
+        root = self.make_repo()
+        self.replace(
+            root,
+            Path("MEMORY_PROTOCOL.md"),
+            "## 5.1 Tenfold archive formation rule",
+            "## 5.1 Ordinary sequential archive rule",
+        )
+        self.assert_invalid(root)
+
+    def test_handoff_cannot_replace_p01(self) -> None:
+        root = self.make_repo()
+        self.replace(
+            root,
+            Path("AI_HANDOFF.md"),
+            "P01 physical-host closure remains the exact next authorization action",
+            "archive formation replaces P01 as the authorization action",
+        )
+        self.assert_invalid(root)
+
+    def test_decision_index_entry_cannot_disappear(self) -> None:
+        root = self.make_repo()
+        self.replace(
+            root,
+            Path("DECISIONS.md"),
+            "### ADR-0035 — Tenfold archive formation and evidence promotion",
+            "### Archive idea without decision authority",
+        )
+        self.assert_invalid(root)
+
+    def test_machine_index_active_work_cannot_drift(self) -> None:
+        root = self.make_repo()
+        path = root / "master-plan-index.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["active_work_unit"] = "archive-formation-replaces-physical-host"
+        path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+        self.assert_invalid(root)
+
+    def test_machine_index_private_count_cannot_drift(self) -> None:
+        root = self.make_repo()
+        path = root / "master-plan-index.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["operational_protocols"]["tenfold_archive_formation"]["allocated_private_count"] = 20
+        path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+        self.assert_invalid(root)
+
+    def test_donor_register_archive_rule_cannot_disappear(self) -> None:
+        root = self.make_repo()
+        self.replace(
+            root,
+            Path("DONOR_RECOVERY.md"),
+            "## 2A. Tenfold archival-completeness rule",
+            "## 2A. Untracked archive notes",
         )
         self.assert_invalid(root)
 
