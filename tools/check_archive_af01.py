@@ -8,11 +8,19 @@ import re
 from pathlib import Path
 from typing import Any
 
+CANDIDATE_HEAD = "f60e340cb856d50e88b4279147a933d838fce759"
+CANDIDATE_RUN = "29862087745"
+CANDIDATE_ARTIFACT = "8507695005"
+CANDIDATE_ARTIFACT_DIGEST = "sha256:4ea6bf77131834b48b9e35ad5eb88538a87b6f376f2be4984f077eb3eeed1267"
+CANDIDATE_REPORT_DIGEST = "4a8cf20f3aacf8628c1de1b774cc93018705d0aa256a65208a8abf4311edc691"
+CANDIDATE_MERGE = "0a35a8a904bdf235fa4989ea05b684443d5a879a"
+
 MISSION = Path("archive/campaign-001/af01/MISSION.md")
 CHECKPOINT_05 = Path("archive/campaign-001/af01/CHECKPOINT-05.md")
 CHECKPOINT_10 = Path("archive/campaign-001/af01/CHECKPOINT-10.md")
 RESULT_JSON = Path("archive/campaign-001/af01/RESULT.json")
 RESULT_MD = Path("archive/campaign-001/af01/RESULT.md")
+ACCEPTANCE = Path("archive/campaign-001/af01/ACCEPTANCE.md")
 MANIFEST = Path("archive/CAMPAIGN-001-FORMATION-MANIFEST.md")
 DONOR_REGISTER = Path("DONOR_RECOVERY.md")
 CURRENT_STATE = Path("CURRENT_STATE.md")
@@ -133,6 +141,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     checkpoint05 = read(root, CHECKPOINT_05)
     checkpoint10 = read(root, CHECKPOINT_10)
     result_md = read(root, RESULT_MD)
+    acceptance = read(root, ACCEPTANCE)
     result = json.loads(read(root, RESULT_JSON))
     manifest = read(root, MANIFEST)
     donor_register = read(root, DONOR_REGISTER)
@@ -140,16 +149,19 @@ def validate_repo(root: Path) -> dict[str, Any]:
     adr0033 = read(root, ADR0033)
 
     # Formation state and counts.
-    require(mission, "Status: CANDIDATE COMPLETE", "mission candidate state")
+    require(mission, "Status: ACCEPTED COMPLETE", "mission accepted state")
     require(mission, "accepted for archive: 9", "mission accepted count")
     require(mission, "blocked completed outcomes: 1", "mission blocked count")
     require(mission, "remaining in evidence collection: 0", "mission remaining count")
-    require(mission, "AF02 is not authorized", "AF02 boundary")
+    require(mission, "AF02 is READY / NOT STARTED", "AF02 ready boundary")
     require(checkpoint05, "first five records reconciled", "checkpoint 05 state")
     require(checkpoint10, "all ten assigned records reconciled", "checkpoint 10 state")
     require(checkpoint10, "accepted for archive: 9", "checkpoint 10 accepted count")
     require(checkpoint10, "blocked completed outcomes: 1", "checkpoint 10 blocked count")
-    require(result_md, "CANDIDATE COMPLETE", "result candidate state")
+    require(result_md, "Status: ACCEPTED COMPLETE", "result accepted state")
+    require(acceptance, "Status: ACCEPTED EVIDENCE RECORD", "acceptance record state")
+    require(acceptance, CANDIDATE_MERGE, "AF01 candidate merge evidence")
+    require(acceptance, "AF02: READY / NOT STARTED", "AF02 next state")
     require(result_md, "MiniRouter", "blocked record narrative")
     require(result_md, "no root `LICENSE`", "MiniRouter licence block")
 
@@ -158,7 +170,14 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "record_type": "ptah.archive_campaign_formation_result",
         "campaign_id": "CAMPAIGN-001",
         "formation_id": "AF01",
-        "status": "candidate_complete_pending_exact_head_review",
+        "status": "accepted_complete_non_authorizing",
+        "candidate_exact_head": CANDIDATE_HEAD,
+        "candidate_workflow_run": CANDIDATE_RUN,
+        "candidate_artifact_id": CANDIDATE_ARTIFACT,
+        "candidate_artifact_digest": CANDIDATE_ARTIFACT_DIGEST,
+        "candidate_validation_report_sha256": CANDIDATE_REPORT_DIGEST,
+        "candidate_merge": CANDIDATE_MERGE,
+        "acceptance_record": str(ACCEPTANCE),
         "base_authority_commit": "856c9859e8faca959f2a38ce33d4607af33e90c1",
         "protocol_version": "1.0.0",
         "assigned_record_count": 10,
@@ -173,6 +192,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
+        "af02_ready": True,
+        "af02_started": False,
         "af02_authorized": False,
     }
     for key, value in expected_top.items():
@@ -242,6 +263,10 @@ def validate_repo(root: Path) -> dict[str, Any]:
     af01_ids = re.findall(r"^\| `(D\d{3})` \|.*\| `AF01-P\d{2}` \| `AF01-V\d{2}` \|$", manifest, re.MULTILINE)
     if af01_ids != list(EXPECTED):
         raise ValidationError(f"campaign manifest AF01 order mismatch: {af01_ids}")
+    require(manifest, "- status: ACCEPTED COMPLETE", "manifest AF01 accepted state")
+    require(manifest, "- status: READY / NOT STARTED", "manifest AF02 ready state")
+    require(current_state, "AF01: ACCEPTED COMPLETE", "current AF01 accepted state")
+    require(current_state, "AF02: READY / NOT STARTED", "current AF02 ready state")
     require(donor_register, "**Status:** COMPLETE AND FROZEN", "frozen Phase 0A")
     if "**Status:** REOPENED" in donor_register or "Phase 0A reopened" in donor_register:
         raise ValidationError("Phase 0A was reopened")
@@ -256,7 +281,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     return {
         "schema_version": "1.0.0",
         "record_type": "ptah.archive_campaign_af01_validation",
-        "status": "candidate_complete_valid_non_authorizing",
+        "status": "accepted_complete_valid_non_authorizing",
         "campaign_id": "CAMPAIGN-001",
         "formation_id": "AF01",
         "record_count": len(records),
@@ -269,6 +294,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
+        "af02_ready": True,
+        "af02_started": False,
         "af02_authorized": False,
     }
 

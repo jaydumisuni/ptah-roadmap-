@@ -164,7 +164,7 @@
   },
   "operational_protocols": {
     "tenfold_archive_formation": {
-      "status": "accepted_operational_protocol_af01_ready",
+      "status": "accepted_operational_protocol_af01_complete_af02_ready",
       "source_branch": "main",
       "pull_request": 26,
       "protocol": "planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md",
@@ -189,15 +189,27 @@
       "candidate_merge": "c4973cbf4d02a34f14a7aefa85b8e2ea7b392752",
       "adr_0035_accepted": true,
       "phase0c_17_complete": true,
-      "af01_status": "ready_not_started",
-      "accepted_archive_record_count": 0,
+      "af01_status": "accepted_complete",
+      "accepted_archive_record_count": 9,
       "accepted_state_exact_head": "b96b84d17cf03e905bd0b1baf3c46b8aec09334a",
       "accepted_state_workflow_run": "29855000427",
       "accepted_state_artifact_id": "8504901567",
       "accepted_state_artifact_digest": "sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2",
       "accepted_state_validation_report_sha256": "21d5338a7049dbc3a3af2e684efa21e19c281c52355007346291c74dfb7a1d3a",
       "operative_acceptance_merge": "40ca127c6d3054bda785061090acefaefcf4cd42",
-      "acceptance_record": "planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md"
+      "acceptance_record": "planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md",
+      "af01_candidate_exact_head": "f60e340cb856d50e88b4279147a933d838fce759",
+      "af01_candidate_workflow_run": "29862087745",
+      "af01_candidate_artifact_id": "8507695005",
+      "af01_candidate_artifact_digest": "sha256:4ea6bf77131834b48b9e35ad5eb88538a87b6f376f2be4984f077eb3eeed1267",
+      "af01_candidate_validation_report_sha256": "4a8cf20f3aacf8628c1de1b774cc93018705d0aa256a65208a8abf4311edc691",
+      "af01_candidate_merge": "0a35a8a904bdf235fa4989ea05b684443d5a879a",
+      "af01_acceptance_record": "archive/campaign-001/af01/ACCEPTANCE.md",
+      "blocked_archive_record_count": 1,
+      "completed_formation_count": 1,
+      "af02_status": "ready_not_started",
+      "af02_started": false,
+      "af02_authorized": false
     }
   }
 }
