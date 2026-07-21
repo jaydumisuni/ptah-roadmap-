@@ -32,9 +32,10 @@ jobs:
 
       - name: Generate guarded synchronization outputs
         run: |
-          set -o pipefail
+          mkdir -p generated-sync
           python tools/generate_phase0c14_licence_sync.py \
-            2>&1 | tee generated-sync/generator-output.txt
+            > generated-sync/generator-output.txt 2>&1
+          cat generated-sync/generator-output.txt
 
       - name: Verify exact source and non-authorization boundary
         run: |
@@ -65,6 +66,7 @@ jobs:
           PY
 
       - name: Upload generated roadmap synchronization
+        if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: phase-0c-14-roadmap-sync-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
