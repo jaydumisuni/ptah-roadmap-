@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Restore copy-safe multiline proof commands after the acceptance transform."""
+"""Repair copy-safe accepted records and their accepted-state validator."""
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,4 +52,14 @@ for relative in ("CURRENT_STATE.md", "AI_HANDOFF.md"):
 
     path.write_text(text, encoding="utf-8")
 
-print("accepted CURRENT_STATE.md and AI_HANDOFF.md commands restored")
+validator = ROOT / "tools/check_master_plan_closure.py"
+text = validator.read_text(encoding="utf-8")
+old = 'require_text(handoff, "Safest next action", "AI handoff next action")'
+new = 'require_text(handoff, "Exact next action", "AI handoff next action")'
+if text.count(old) != 1:
+    raise SystemExit(
+        f"accepted validator: expected one old handoff heading assertion, found {text.count(old)}"
+    )
+validator.write_text(text.replace(old, new, 1), encoding="utf-8")
+
+print("accepted records and accepted-state handoff validation repaired")
