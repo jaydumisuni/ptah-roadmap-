@@ -18,6 +18,22 @@ Accepted: 2026-07-21
 - unresolved review threads: zero;
 - candidate merge: `0a35a8a904bdf235fa4989ea05b684443d5a879a`.
 
+## Accepted-state evidence
+
+- accepted exact head: `a66fd9287117e5ed86ff4a7e4e1adad7641e1a8e`;
+- AF01 accepted-closure run: `29863993585`;
+- governing archive-protocol run: `29863993448`;
+- Master Plan consistency run: `29863993643`;
+- AF01 accepted artifact: `8508431848`;
+- AF01 accepted artifact digest: `sha256:126a95406be9a12096d35eeaa30e2fb78b20d4b0f3c1cf26aa916d58e7479d4d`;
+- AF01 accepted validation report SHA-256: `dd9d8f7387474f894bd978e0efce890c5605c5575b9a8c45d5647b8753bec1d6`;
+- governing archive artifact: `8508434065`;
+- governing archive artifact digest: `sha256:204ff360699ae151d5b80ee928c8c00a4f6377705cc16f1bbb71fb7c78593853`;
+- governing validation report SHA-256: `29d1934ec532f76366c4beb632bfa7cde5fb9fa6fcb6142d6644cd5e7236de07`;
+- AF01 regression result: 27 passed;
+- governing archive regression result: 25 passed;
+- operative AF01 acceptance merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`.
+
 ## Accepted formation result
 
 - assigned records: 10;
@@ -45,14 +61,18 @@ Completed blocked outcome:
 
 - `D047` MiniRouter remains blocked for source reuse. Canonical identity is resolved, but the exact inspected source has no root `LICENSE`, package metadata declares no licence and adaptation lineage remains explicit. Research may continue without copying or adapting source.
 
-## Next formation state
+## Subsequent formation state
+
+AF02 was started only after AF01 acceptance merged:
 
 ```text
 AF01: ACCEPTED COMPLETE
-AF02: READY / NOT STARTED
+AF02: ACTIVE / ZERO RECORDS ACCEPTED
+AF02 mission: archive/campaign-001/af02/MISSION.md
+AF02 base: ea2424bb5bc2bdb698bfc1bf389601457abd3c89
 ```
 
-AF02 readiness does not authorize any source record, start evidence collection, grant code reuse or alter P01 implementation authorization work.
+AF02 activation does not grant source reuse, accept any AF02 record, alter P01 implementation authorization work or start AF03.
 
 ## Preserved boundaries
 
@@ -62,4 +82,4 @@ AF02 readiness does not authorize any source record, start evidence collection, 
 - P01 physical-host closure remains active;
 - ADR-0033 remains proposed;
 - runtime implementation remains unauthorized;
-- AF02 is ready but not started.
+- AF03 is not started.
