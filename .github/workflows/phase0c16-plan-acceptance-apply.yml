@@ -105,9 +105,8 @@ jobs:
             decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md \
             work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md \
             tools/check_master_plan_closure.py \
-            tools/test_check_master_plan_closure.py \
-            .github/workflows/phase0c16-master-plan-closure.yml
-          test "$(git diff --cached --name-only | wc -l)" -eq 17
+            tools/test_check_master_plan_closure.py
+          test "$(git diff --cached --name-only | wc -l)" -eq 16
           git diff --cached --stat
 
       - name: Commit reviewed plan acceptance
