@@ -40,10 +40,25 @@ jobs:
 
       - name: Run synchronized validators
         run: |
-          python3 tools/test_check_archive_formation.py -v
-          python3 tools/check_archive_formation.py --repo-root .
-          python3 tools/test_check_archive_af01.py -v
-          python3 tools/check_archive_af01.py --repo-root .
+          mkdir -p conformance/reports/archive-campaign-001-af02-start
+          set -o pipefail
+          python3 tools/test_check_archive_formation.py -v 2>&1 \
+            | tee conformance/reports/archive-campaign-001-af02-start/archive-regressions.txt
+          python3 tools/check_archive_formation.py --repo-root . 2>&1 \
+            | tee conformance/reports/archive-campaign-001-af02-start/archive-validator.txt
+          python3 tools/test_check_archive_af01.py -v 2>&1 \
+            | tee conformance/reports/archive-campaign-001-af02-start/af01-regressions.txt
+          python3 tools/check_archive_af01.py --repo-root . 2>&1 \
+            | tee conformance/reports/archive-campaign-001-af02-start/af01-validator.txt
+
+      - name: Upload AF02 start diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: archive-campaign-001-af02-start-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
+          path: conformance/reports/archive-campaign-001-af02-start/
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Verify changed-file boundary
         run: |
