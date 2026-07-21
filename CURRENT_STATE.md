@@ -390,27 +390,30 @@ ADR-0034 is accepted. `MASTER_PLAN.md` and `IMPLEMENTATION_ROADMAP.md` version `
 
 ---
 
-## Active Phase 0C-17 tenfold archive formation candidate
+## Accepted Phase 0C-17 tenfold archive formation
 
-Branch and PR:
+Operative authority:
 
 ```text
-phase0c-tenfold-archive-formation
-PR #26
+ADR-0035: ACCEPTED
+protocol: planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md version 1.0.0
+campaign: archive/CAMPAIGN-001-FORMATION-MANIFEST.md
+candidate merge: c4973cbf4d02a34f14a7aefa85b8e2ea7b392752
 ```
 
-The candidate borrows Sergeant's exact tenfold private-force rule from `jaydumisuni/Sergeant@44c8f47f4bb50a73ef3b4d81d7b849a5aab37dfd` and defines:
+Accepted evidence:
 
-- minimum twenty privates for two human-equivalent workers;
-- ten primary/verifier record pairs per standard formation;
-- adaptive escalation to 40/60/80–100/up to 120 privates for harder sources;
-- ten formations and 200 allocated privates for 98 initial archive obligations;
-- bounded evidence packets and Archive Officer promotion;
-- checkpoints after five and ten records;
-- public/private retention boundaries;
-- read-only exact-head validation and adversarial regressions.
+- candidate exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`;
+- exact-head run `29853954659`;
+- retained artifact `8504497355`;
+- artifact digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`;
+- validation report SHA-256 `de38af1e63a76e02552e4f93ad2bac2d86d05239a77dc92cc27d794a8b9b010f`;
+- 21 regression cases and exact-head validation passed;
+- exact fifteen-file boundary directly reviewed.
 
-This candidate is cross-cutting recovery governance. It does not replace P01 as the active authorization work, reopen Phase 0A, mark the 98 records archived, accept ADR-0033 or authorize runtime implementation.
+The operative rule uses minimum twenty privates for two human-equivalent workers, ten primary/verifier record pairs per ordinary formation, and adaptive escalation to 40/60/80–100/up to 120 privates for harder sources. Campaign 001 queues 98 obligations across ten formations and 200 slots.
+
+AF01 is READY but not started. This cross-cutting recovery protocol does not replace P01 as the active authorization work, reopen Phase 0A, mark records archived, accept ADR-0033 or authorize runtime implementation.
 
 ---
 

@@ -1,6 +1,6 @@
 # Phase 0C-17 — Tenfold archive formation and evidence promotion
 
-Status: candidate under review — runtime implementation remains unauthorized
+Status: accepted and complete — protocol/backlog authority only; runtime implementation remains unauthorized
 
 Recorded: 2026-07-21
 
@@ -40,7 +40,7 @@ Borrowed invariants:
 - `planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md`;
 - `archive/CAMPAIGN-001-FORMATION-MANIFEST.md`;
 - `archive/ARCHIVE-RECORD-TEMPLATE.md`;
-- proposed ADR-0035;
+- accepted ADR-0035;
 - machine-checkable validator and adversarial tests;
 - exact-head workflow evidence;
 - synchronized memory, donor, decision, progress and handoff records.
@@ -136,6 +136,17 @@ The exact-head validator must prove:
 - ADR-0033 remains proposed;
 - runtime implementation remains unauthorized.
 
+## Accepted evidence
+
+- exact candidate head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`;
+- workflow run `29853954659`;
+- retained artifact `8504497355`;
+- artifact digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`;
+- validation report SHA-256 `de38af1e63a76e02552e4f93ad2bac2d86d05239a77dc92cc27d794a8b9b010f`;
+- candidate merge `c4973cbf4d02a34f14a7aefa85b8e2ea7b392752`;
+- 21 regression cases and standalone validation passed;
+- exact changed-file boundary and non-authorization directly reviewed.
+
 ## Completion effect
 
-When accepted, this package adds a reusable operating protocol and the first archive campaign backlog. It does not mark any of the 98 source records archived. Formation progress must be earned through retained per-record evidence.
+This accepted package adds a reusable operating protocol and the first archive campaign backlog. It does not mark any of the 98 source records archived. AF01 is the first ready formation, and progress must be earned through retained per-record evidence.

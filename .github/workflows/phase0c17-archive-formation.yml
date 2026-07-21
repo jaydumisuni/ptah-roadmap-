@@ -47,7 +47,7 @@ jobs:
             --output conformance/reports/archive-formation/archive-formation-report.json \
             2>&1 | tee conformance/reports/archive-formation/validator-output.txt
 
-      - name: Bind evidence to exact head
+      - name: Bind accepted evidence to exact head
         run: |
           python3 - <<'PY'
           import hashlib
@@ -60,6 +60,8 @@ jobs:
           root = Path("conformance/reports/archive-formation")
           report_path = root / "archive-formation-report.json"
           report = json.loads(report_path.read_text(encoding="utf-8"))
+          master_index = json.loads(Path("master-plan-index.json").read_text(encoding="utf-8"))
+          archive = master_index["operational_protocols"]["tenfold_archive_formation"]
           expected = os.environ["PTAH_EXACT_SHA"]
           checked_out = subprocess.run(
               ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
@@ -73,14 +75,24 @@ jobs:
               "exact_head_match": checked_out == expected,
               "validation_report_sha256": hashlib.sha256(report_path.read_bytes()).hexdigest(),
               **report,
+              "protocol_version": archive.get("protocol_version"),
+              "adr_0035_accepted": archive.get("adr_0035_accepted"),
+              "phase0c_17_complete": archive.get("phase0c_17_complete"),
+              "af01_status": archive.get("af01_status"),
+              "accepted_archive_record_count": archive.get("accepted_archive_record_count"),
+              "candidate_exact_head": archive.get("candidate_exact_head"),
+              "candidate_workflow_run": archive.get("candidate_workflow_run"),
+              "candidate_artifact_id": archive.get("candidate_artifact_id"),
+              "candidate_artifact_digest": archive.get("candidate_artifact_digest"),
+              "candidate_merge": archive.get("candidate_merge"),
           }
           (root / "exact-head-evidence.json").write_text(
               json.dumps(evidence, indent=2) + "\n", encoding="utf-8"
           )
           if not evidence["exact_head_match"]:
               raise SystemExit("archive formation did not test the exact head")
-          if evidence["status"] != "candidate_valid_non_authorizing":
-              raise SystemExit("archive formation validation status is invalid")
+          if evidence["status"] != "accepted_valid_non_authorizing":
+              raise SystemExit("accepted archive formation validation status is invalid")
           expected_values = {
               "private_force_multiplier": 10,
               "minimum_private_force": 20,
@@ -92,10 +104,21 @@ jobs:
               "primary_worker_slots": 100,
               "verifier_worker_slots": 100,
               "reserve_pair_count": 2,
+              "protocol_version": "1.0.0",
+              "af01_status": "ready_not_started",
+              "accepted_archive_record_count": 0,
+              "candidate_exact_head": "58b577b6793ec28de084e6d712c3c1e88bfe2d3a",
+              "candidate_workflow_run": "29853954659",
+              "candidate_artifact_id": "8504497355",
+              "candidate_artifact_digest": "sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4",
+              "candidate_merge": "c4973cbf4d02a34f14a7aefa85b8e2ea7b392752",
           }
           for key, value in expected_values.items():
               if evidence.get(key) != value:
-                  raise SystemExit(f"archive formation count mismatch: {key}")
+                  raise SystemExit(f"accepted archive formation mismatch: {key}")
+          for key in ("authority_sync_complete", "adr_0035_accepted", "phase0c_17_complete"):
+              if evidence.get(key) is not True:
+                  raise SystemExit(f"accepted archive authority missing: {key}")
           for key in (
               "phase_0a_reopened",
               "adr_0033_accepted",

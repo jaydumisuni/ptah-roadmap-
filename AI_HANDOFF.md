@@ -47,12 +47,14 @@ Programme A Online Ptah Alpha — PLANNED / NOT AUTHORIZED
 Programmes B–F — PLANNED
 ```
 
-## Cross-cutting archive formation candidate
+## Accepted cross-cutting archive formation
 
 ```text
-branch: phase0c-tenfold-archive-formation
-pull request: #26
-status: candidate under review
+ADR-0035: ACCEPTED
+Phase 0C-17: COMPLETE
+protocol version: 1.0.0
+candidate merge: c4973cbf4d02a34f14a7aefa85b8e2ea7b392752
+AF01: READY / NOT STARTED
 ```
 
 Read when doing archive/recovery work:
@@ -60,10 +62,12 @@ Read when doing archive/recovery work:
 - `planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md`;
 - `archive/CAMPAIGN-001-FORMATION-MANIFEST.md`;
 - `archive/ARCHIVE-RECORD-TEMPLATE.md`;
-- proposed ADR-0035;
-- Phase 0C-17 work package.
+- accepted ADR-0035;
+- accepted Phase 0C-17 work package.
 
-Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. It is a queue and operating protocol, not proof that records are archived or that a 200-agent runtime exists.
+Evidence: exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`, run `29853954659`, artifact `8504497355`, digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`.
+
+Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. It is an accepted queue and operating protocol, not proof that records are archived or that a 200-agent runtime exists.
 
 P01 physical-host closure remains the exact next authorization action.
 

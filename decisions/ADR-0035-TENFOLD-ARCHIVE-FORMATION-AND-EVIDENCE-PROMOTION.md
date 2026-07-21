@@ -1,6 +1,6 @@
 # ADR-0035 — Tenfold archive formation and evidence promotion
 
-Status: proposed — review with Phase 0C-17 archive-formation closure
+Status: accepted — tenfold archive formation is the operative large-recovery protocol
 
 Recorded: 2026-07-21
 
@@ -74,7 +74,7 @@ A source record may be promoted only after:
 
 ### First campaign
 
-Accept `archive/CAMPAIGN-001-FORMATION-MANIFEST.md` as the candidate queue for archival-completeness auditing:
+Accept `archive/CAMPAIGN-001-FORMATION-MANIFEST.md` as the operative queue for archival-completeness auditing:
 
 - 69 external source obligations;
 - 29 internal THETECHGUY source obligations;
@@ -117,6 +117,18 @@ Each formation must commit:
 - a checkpoint after ten accepted records or formation completion;
 - any blocker that changes scope or authority;
 - the exact handoff before a chat/model/operator switch.
+
+## Acceptance evidence
+
+- candidate exact head: `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`;
+- exact-head workflow run: `29853954659`;
+- retained artifact: `8504497355`;
+- artifact digest: `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`;
+- validation report SHA-256: `de38af1e63a76e02552e4f93ad2bac2d86d05239a77dc92cc27d794a8b9b010f`;
+- candidate merge: `c4973cbf4d02a34f14a7aefa85b8e2ea7b392752`;
+- 21 regression cases passed: one valid state and twenty adversarial mutations;
+- exact fifteen-file boundary reviewed with no unresolved threads;
+- Phase 0A remained frozen, P01 remained active, ADR-0033 remained proposed and runtime authorization remained false.
 
 ## Consequences
 

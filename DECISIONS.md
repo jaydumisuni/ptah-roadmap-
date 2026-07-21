@@ -302,6 +302,12 @@ Evidence: `work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDG
 
 Full decision: `decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md`.
 
+### D-051 — Tenfold archive formation separates parallel evidence from promotion authority
+
+**ACCEPTED.** Large Ptah archive/recovery campaigns use `max(20, human-equivalent workers × 10)`. A normal twenty-private formation pairs ten Primary Archivists with ten Independent Verifiers for at most ten ordinary records; harder sources consume 40/60/80–100/up to 120 privates. Privates cannot issue verdicts, adopt donors, reopen Phase 0A or authorize implementation. Campaign 001 queues 98 obligations across ten formations and 200 private slots without pre-accepting any record. Candidate `58b577b6793ec28de084e6d712c3c1e88bfe2d3a` passed run `29853954659` and merged as `c4973cbf4d02a34f14a7aefa85b8e2ea7b392752`.
+
+Full decision: `decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md`.
+
 ---
 
 ## Current proposed decisions
@@ -309,9 +315,3 @@ Full decision: `decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md`
 ### ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
 **PROPOSED.** Master Plan/roadmap authority is complete. The physical pinned-host result, package and retention acceptance, final Phase 0C closure review and explicit runtime authorization remain open.
-
-### ADR-0035 — Tenfold archive formation and evidence promotion
-
-**PROPOSED.** Borrows Sergeant's pinned tenfold private-force rule for Ptah recovery campaigns: minimum twenty privates, one primary/verifier pair per ordinary archive record, complexity escalation, bounded evidence packets and officer-only promotion. Phase 0A remains frozen, P01 remains active and runtime implementation remains unauthorized.
-
-Full decision: `decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md`.
