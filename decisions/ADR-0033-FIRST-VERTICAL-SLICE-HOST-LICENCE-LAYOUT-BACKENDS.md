@@ -1,6 +1,6 @@
 # ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
-Status: proposed — Rust dependencies, distributed backend artifacts, signers, host collector, physical-proof and durable-retention tooling complete; physical pinned-host result, package and retention acceptance, licence acceptance and closure review remain open
+Status: proposed — Rust dependencies, distributed backend artifacts, signers, host collector, physical-proof, durable-retention and Apache-2.0 governance complete; physical pinned-host result, package and retention acceptance and closure review remain open
 
 ## Context
 
@@ -22,7 +22,8 @@ Adopt the selections recorded in the following Phase 0C records as the baseline 
 - `work-packages/PHASE-0C-11-RUNTIME-DEPENDENCY-BACKEND-SIGNER-AND-HOST-COLLECTOR-EVIDENCE.md`;
 - `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`;
 - `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`;
-- `work-packages/PHASE-0C-13-DURABLE-PINNED-HOST-RETENTION-READINESS.md`.
+- `work-packages/PHASE-0C-13-DURABLE-PINNED-HOST-RETENTION-READINESS.md`;
+- `work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md`.
 
 The selected baseline is:
 
@@ -37,7 +38,7 @@ The selected baseline is:
 - hardened Git `2.55.0` process adapter;
 - libarchive `3.8.7` first decomposition adapter;
 - repository-owned resumable transfer and local content-addressed storage;
-- Apache License 2.0 recommendation for public Ptah-owned source, excluding private THETECHGUY knowledge, customer/device data and restricted workflows.
+- Apache License 2.0 accepted for public repository-owned Ptah source, excluding private THETECHGUY knowledge, customer/device data, restricted workflows and trademarks.
 
 ## Non-core workload registry
 
@@ -222,6 +223,24 @@ All eight exact-head workflows passed. Host workflow run `29813401728` checked o
 
 This evidence proves that a future physical-host bundle can be independently verified and durably prepared without conflating storage with acceptance. It does not prove or accept the real host, package boundary or retained bundle.
 
+## Merged Apache-2.0 owner acceptance
+
+The non-operative boundary candidate was tested in `Ptah-space` PR `#12` at exact head `2a54093d0a7856d7b98c77ebaa78899e1626257b` and squash-merged as `bf846574df65061bd99d9c0e3d22a401bf9f27e2`.
+
+The operative owner-acceptance change was tested in PR `#13` at exact head `a47d418243af076b49367c4c4eccc8ef2090894c` and squash-merged as `3ce7d4251db0b6ba3f145385ad7ad8dc09276393`.
+
+The accepted licence boundary provides:
+
+- exact official Apache License 2.0 bytes, size `11358`, SHA-256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`;
+- rights-holder wording `John Dumisuni trading as THETECHGUY DIGITAL SOLUTIONS`;
+- operative root `LICENSE`, `NOTICE`, `CONTRIBUTING.md` and `SECURITY.md`;
+- `LICENSES/Apache-2.0.txt` and repository-wide `REUSE.toml` source annotations;
+- explicit private THETECHGUY, customer/device/payment, restricted-adapter, donor-source and trademark exclusions;
+- a third-party NOTICE review with mandatory re-review triggers;
+- exact-head verification that licence acceptance cannot set runtime authorization true.
+
+All nine exact-head workflows passed. This closes the licence/public-private governance conditions only and leaves the physical-host, package, retention, closure-review, ADR and explicit authorization conditions open.
+
 ## Conditions before acceptance
 
 ### Completed at candidate/evidence level
@@ -260,20 +279,23 @@ This evidence proves that a future physical-host bundle can be independently ver
 32. clean exact-repository and canonical collector binding before and after retention;
 33. deterministic durable candidate, repository binding and pending review record generation;
 34. fail-closed separation between durable storage and owner/reviewer acceptance;
-35. exact-head adversarial coverage for the full durable-retention path.
+35. exact-head adversarial coverage for the full durable-retention path;
+36. accepted Apache-2.0 owner and public/private boundary;
+37. exact official root licence and machine-readable copy;
+38. operative NOTICE, contribution, security and REUSE source-annotation boundary;
+39. third-party NOTICE review and private/trademark exclusions;
+40. exact-head adversarial coverage for the operative licence acceptance.
 
 ### Still open
 
 This ADR remains proposed until all of the following are complete:
 
-1. the owner accepts the Apache-2.0 public/private boundary;
-2. `Ptah-space` adds the accepted public `LICENSE`, final `NOTICE` and contribution/security boundary;
-3. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
-4. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host and accepted by review;
-5. that host's exact source bundle is independently verified, durably committed and explicitly accepted through its review record;
-6. a Phase 0C closure review confirms no frozen contract was weakened;
-7. this ADR is changed to accepted;
-8. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
+1. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+2. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host and accepted by review;
+3. that host's exact source bundle is independently verified, durably committed and explicitly accepted through its review record;
+4. a Phase 0C closure review confirms no frozen contract was weakened;
+5. this ADR is changed to accepted;
+6. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
 
 ## Consequences
 
@@ -284,7 +306,8 @@ This ADR remains proposed until all of the following are complete:
 - concrete implementation may not weaken any frozen Phase 0B identity, lifecycle, migration or proof boundary;
 - security updates or dependency rebases create new Host/Provider revisions and require the relevant proof rerun;
 - generated bindings are metadata only and cannot authorize T01 runtime work;
-- the current scaffold, catalog lock, generated bindings, dependency graph, backend artifacts, signer proofs, host collector, physical-proof tooling and durable-retention tooling do not authorize T01 runtime work;
+- the current scaffold, catalog lock, generated bindings, dependency graph, backend artifacts, signer proofs, host collector, physical-proof tooling, durable-retention tooling and accepted public licence do not authorize T01 runtime work;
+- Apache-2.0 governs public repository-owned source but does not license private THETECHGUY systems, restricted adapters, customer/device data or trademarks;
 - durable retention does not equal evidence acceptance;
 - failure of any open condition leaves implementation unauthorized.
 

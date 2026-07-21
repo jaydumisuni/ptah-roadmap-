@@ -5,7 +5,7 @@
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
 **Active work unit:** 0C-04 — physical pinned-host proof, durable evidence and licence closure  
 **Runtime implementation:** NOT AUTHORIZED  
-**Production dependency/backend selection:** EXACT RUST, DISTRIBUTED ARTIFACT, PROOF AND RETENTION TOOL LOCKS MERGED — PHYSICAL PINNED-HOST PROOF OPEN  
+**Production dependency/backend selection:** EXACT RUST, DISTRIBUTED ARTIFACT, PROOF AND RETENTION TOOL LOCKS MERGED — APACHE-2.0 BOUNDARY ACCEPTED — PHYSICAL PINNED-HOST PROOF OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
@@ -86,6 +86,7 @@ The following records are merged or awaiting this evidence-sync merge:
 - `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`;
 - `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`;
 - `work-packages/PHASE-0C-13-DURABLE-PINNED-HOST-RETENTION-READINESS.md`;
+- `work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md`;
 - proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.
 
 ### Candidate first-slice baseline
@@ -100,7 +101,7 @@ The following records are merged or awaiting this evidence-sync merge:
 - hardened Git `2.55.0` process adapter;
 - libarchive `3.8.7` first decomposition adapter;
 - repository-owned resumable transfer and local content-addressed storage;
-- Apache License 2.0 as the proposed public Ptah-owned source licence, pending owner acceptance.
+- Apache License 2.0 accepted for repository-owned public Ptah source, with private THETECHGUY systems, data, restricted adapters and trademarks excluded.
 
 Concrete tools remain replaceable backends. They may not redefine canonical Ptah identity, lifecycle or proof. Backend IDs remain Aliases.
 
@@ -274,20 +275,61 @@ This closes durable-retention tooling readiness only. No real physical-host sour
 
 ---
 
+## Merged Apache-2.0 public/private boundary acceptance
+
+The non-operative boundary candidate was tested in `Ptah-space` PR `#12` at exact head:
+
+```text
+2a54093d0a7856d7b98c77ebaa78899e1626257b
+```
+
+and squash-merged at:
+
+```text
+bf846574df65061bd99d9c0e3d22a401bf9f27e2
+```
+
+The owner-acceptance change was then tested in PR `#13` at exact head:
+
+```text
+a47d418243af076b49367c4c4eccc8ef2090894c
+```
+
+and squash-merged at:
+
+```text
+3ce7d4251db0b6ba3f145385ad7ad8dc09276393
+```
+
+The accepted boundary records:
+
+- rights holder `John Dumisuni trading as THETECHGUY DIGITAL SOLUTIONS`;
+- exact official Apache License 2.0 bytes at root `LICENSE` and `LICENSES/Apache-2.0.txt`;
+- licence size `11358` bytes and SHA-256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`;
+- operative `NOTICE`, `CONTRIBUTING.md`, `SECURITY.md` and repository-wide `REUSE.toml` annotations;
+- explicit private-system, customer/device/payment, restricted-adapter, donor-source and trademark exclusions;
+- a reviewed third-party NOTICE boundary and mandatory re-review triggers;
+- historical candidate records preserved as non-operative evidence;
+- `runtime_implementation_authorized: false` in the accepted machine record and exact-head evidence.
+
+All nine exact-head workflows passed at the acceptance head, including the new licence-acceptance lane, Rust dependency/licence policy, source/no-build, host, backend, signer, frozen-contract and generated-binding gates.
+
+This closes the Apache-2.0 owner decision and operative public repository governance files only. It does not close the physical-host, package, durable-retention, ADR or runtime-authorization gates.
+
+---
+
 ## Active Phase 0C blockers
 
 Implementation remains unauthorized until all of the following are merged and reviewed:
 
-1. owner acceptance of the Apache-2.0 public/private boundary;
-2. final public `LICENSE`, `NOTICE`, contribution and security boundary;
-3. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
-4. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;
-5. generation, durable commit and explicit review acceptance of that physical-host evidence bundle;
-6. a Phase 0C closure review proving no frozen contract was weakened;
-7. acceptance of ADR-0033;
-8. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+1. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+2. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;
+3. generation, durable commit and explicit review acceptance of that physical-host evidence bundle;
+4. a Phase 0C closure review proving no frozen contract was weakened;
+5. acceptance of ADR-0033;
+6. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
 
-The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector, pinned-host proof-tool, package-artifact, durable-retention and frozen-WP13 lanes are complete. They do not close the physical pinned-host result, package acceptance, actual retained-bundle acceptance, governance acceptance or any WP14 runtime proof.
+The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector, pinned-host proof-tool, package-artifact, durable-retention, Apache-2.0 governance and frozen-WP13 lanes are complete. They do not close the physical pinned-host result, package acceptance, actual retained-bundle acceptance or any WP14 runtime proof.
 
 ### Required first vertical slice after authorization
 
@@ -312,7 +354,7 @@ The first authorized slice must demonstrate, at minimum:
 
 Allowed during the remainder of Phase 0C:
 
-- licence and contribution decisions;
+- accepted licence, contribution, security and third-party-notice boundary maintenance;
 - exact physical pinned-host and installed-package evidence;
 - durable proof-location preparation and pending retention review;
 - non-claiming repository and CI maintenance;
@@ -358,6 +400,5 @@ python3 tools/retain_verified_pinned_host_evidence.py \
 
 6. Commit the durable candidate, repository binding and pending review record to a durable proof Location.
 7. Explicitly accept the host identity, installed packages, package artifacts and durable retention in reviewed evidence.
-8. Complete the Apache-2.0 owner decision and public/private notice boundary.
-9. Conduct the Phase 0C closure consistency review.
-10. Accept ADR-0033 and authorize runtime only if every blocker passes.
+8. Conduct the Phase 0C closure consistency review.
+9. Accept ADR-0033 and authorize runtime only if every blocker passes.
