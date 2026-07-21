@@ -103,4 +103,4 @@ Source reuse may be reconsidered only when:
 
 ## Bounded outcome
 
-`blocked for source reuse` is a completed archive outcome, not an unresolved archive record. The evidence may be studied and retained, but code reuse/dependency/adaptation is prohibited. This does not reopen Phase 0A, accept ADR-0033 or authorize Ptah runtime implementation.
+`blocked for source reuse` is a completed archive outcome, not an unresolved archive record. The evidence may be studied and retained, but copying or adapting source remains prohibited; code reuse, dependency use and source adaptation are not authorized. This does not reopen Phase 0A, accept ADR-0033 or authorize Ptah runtime implementation.
