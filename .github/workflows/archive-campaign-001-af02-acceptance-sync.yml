@@ -44,7 +44,6 @@ jobs:
 
       - name: Run synchronized validators
         run: |
-          mkdir -p conformance/reports/archive-campaign-001-af02-acceptance-sync
           set -o pipefail
           python3 tools/test_check_archive_af02.py -v 2>&1 | tee conformance/reports/archive-campaign-001-af02-acceptance-sync/af02-regressions.txt
           python3 tools/check_archive_af02.py --repo-root . 2>&1 | tee conformance/reports/archive-campaign-001-af02-acceptance-sync/af02-validator.txt
@@ -74,7 +73,12 @@ jobs:
           EOF
           )
           actual=$(git status --short | awk '{print $2}' | grep -v '^conformance/' | sort)
-          test "$actual" = "$(printf '%s\n' "$expected" | sort)"
+          printf '%s\n' "$expected" | sort > conformance/reports/archive-campaign-001-af02-acceptance-sync/expected-files.txt
+          printf '%s\n' "$actual" > conformance/reports/archive-campaign-001-af02-acceptance-sync/actual-files.txt
+          diff -u \
+            conformance/reports/archive-campaign-001-af02-acceptance-sync/expected-files.txt \
+            conformance/reports/archive-campaign-001-af02-acceptance-sync/actual-files.txt \
+            | tee conformance/reports/archive-campaign-001-af02-acceptance-sync/file-boundary.diff
           grep -Fq 'AF02: ACCEPTED COMPLETE' CURRENT_STATE.md
           grep -Fq 'AF03: READY / NOT STARTED' CURRENT_STATE.md
           grep -Fq '**Runtime implementation:** NOT AUTHORIZED' CURRENT_STATE.md
