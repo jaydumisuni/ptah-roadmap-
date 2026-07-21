@@ -191,6 +191,19 @@ Selection/evidence package merge:
 - [x] Phase 0C-16 reviewed and merged as `2c24f9e6b0fc98d5e03605596db75d7495796353`;
 - [x] ADR-0034 accepted; Master Plan and implementation roadmap version `1.0.0` are operative authorities.
 
+## Tenfold archive formation candidate
+
+- [x] Sergeant tenfold private-force source pinned at `44c8f47f4bb50a73ef3b4d81d7b849a5aab37dfd`;
+- [x] Ptah archive authority, pairing, promotion, privacy and save-point protocol written;
+- [x] 69 external and 29 internal obligations mapped into ten standard formations;
+- [x] 200 private slots allocated with one primary and one independent verifier per obligation;
+- [x] bounded archive-record template written;
+- [x] proposed ADR-0035 and Phase 0C-17 work package written;
+- [x] read-only validator and fifteen adversarial regressions added;
+- [-] exact-head workflow and direct review pending final synchronized head;
+- [ ] accept ADR-0035 and Phase 0C-17;
+- [ ] begin AF01 only through retained per-record evidence; no source record is pre-ticked as archived.
+
 ## Active Phase 0C closure work
 
 - [x] select the minimal external Rust crate/features graph;

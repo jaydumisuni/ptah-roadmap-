@@ -47,6 +47,26 @@ Programme A Online Ptah Alpha — PLANNED / NOT AUTHORIZED
 Programmes B–F — PLANNED
 ```
 
+## Cross-cutting archive formation candidate
+
+```text
+branch: phase0c-tenfold-archive-formation
+pull request: #26
+status: candidate under review
+```
+
+Read when doing archive/recovery work:
+
+- `planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md`;
+- `archive/CAMPAIGN-001-FORMATION-MANIFEST.md`;
+- `archive/ARCHIVE-RECORD-TEMPLATE.md`;
+- proposed ADR-0035;
+- Phase 0C-17 work package.
+
+Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. It is a queue and operating protocol, not proof that records are archived or that a 200-agent runtime exists.
+
+P01 physical-host closure remains the exact next authorization action.
+
 ## Exact next action
 
 On the exact Ubuntu Server 24.04.4 LTS / x86_64 / `6.8.0-136-generic` physical proof host, check out the selected clean reviewed `Ptah-space` preparation commit and run:

@@ -124,6 +124,30 @@ A checkpoint records:
 
 A chat or model may not say work is safely recoverable when these durable records are stale.
 
+## 5.1 Tenfold archive formation rule
+
+Large recovery and archive campaigns use `planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md`.
+
+The operating rule is:
+
+```text
+private force = max(20, human-equivalent workers × 10)
+```
+
+A standard twenty-private formation handles at most ten ordinary records through ten Primary Archivist / Independent Verifier pairs. Complex sources consume more pairs or escalate to 40/60/80–100/up to 120 privates rather than receiving weaker review.
+
+Archive privates collect and challenge bounded evidence. They cannot promote truth, adopt donors, reopen frozen architecture, expand scope or authorize implementation. Archive Officers reconcile evidence; accepted review records promote only the bounded archive result.
+
+Mandatory formation save points:
+
+- mission and scope before evidence collection;
+- after five reconciled records;
+- after ten accepted records or formation completion;
+- after a scope-changing blocker;
+- before switching chat, model, operator or device.
+
+`accepted for archive` does not mean a donor is adopted or that its claims become Ptah truth.
+
 ---
 
 # 6. Completion language

@@ -32,7 +32,8 @@
     "planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md",
     "PROGRESS.md",
     "DECISIONS.md",
-    "MEMORY_PROTOCOL.md"
+    "MEMORY_PROTOCOL.md",
+    "planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md"
   ],
   "plan_documents": {
     "requirements_and_decisions": {
@@ -160,5 +161,25 @@
     "accepted_state_artifact_id": "8500540358",
     "accepted_state_artifact_digest": "sha256:6f5229fe850d8b6f6f083b09f2c5f53189f3edbf38d4f28b9d2878ab0c78862d",
     "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
+  },
+  "operational_protocols": {
+    "tenfold_archive_formation": {
+      "status": "candidate_under_review",
+      "source_branch": "phase0c-tenfold-archive-formation",
+      "pull_request": 26,
+      "protocol": "planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md",
+      "campaign_manifest": "archive/CAMPAIGN-001-FORMATION-MANIFEST.md",
+      "record_template": "archive/ARCHIVE-RECORD-TEMPLATE.md",
+      "work_package": "work-packages/PHASE-0C-17-TENFOLD-ARCHIVE-FORMATION.md",
+      "decision": "decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md",
+      "sergeant_source_commit": "44c8f47f4bb50a73ef3b4d81d7b849a5aab37dfd",
+      "private_force_multiplier": 10,
+      "minimum_private_force": 20,
+      "formation_count": 10,
+      "allocated_private_count": 200,
+      "assigned_record_count": 98,
+      "phase_0a_reopened": false,
+      "runtime_implementation_authorized": false
+    }
   }
 }
