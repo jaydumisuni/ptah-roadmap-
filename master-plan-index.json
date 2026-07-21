@@ -190,7 +190,14 @@
       "adr_0035_accepted": true,
       "phase0c_17_complete": true,
       "af01_status": "ready_not_started",
-      "accepted_archive_record_count": 0
+      "accepted_archive_record_count": 0,
+      "accepted_state_exact_head": "b96b84d17cf03e905bd0b1baf3c46b8aec09334a",
+      "accepted_state_workflow_run": "29855000427",
+      "accepted_state_artifact_id": "8504901567",
+      "accepted_state_artifact_digest": "sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2",
+      "accepted_state_validation_report_sha256": "21d5338a7049dbc3a3af2e684efa21e19c281c52355007346291c74dfb7a1d3a",
+      "operative_acceptance_merge": "40ca127c6d3054bda785061090acefaefcf4cd42",
+      "acceptance_record": "planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md"
     }
   }
 }

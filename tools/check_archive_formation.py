@@ -22,6 +22,7 @@ CURRENT_STATE = Path("CURRENT_STATE.md")
 AI_HANDOFF = Path("AI_HANDOFF.md")
 MASTER_INDEX = Path("master-plan-index.json")
 ADR0033 = Path("decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md")
+ACCEPTANCE_RECORD = Path("planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md")
 
 REQUIRED_FILES = (
     PROTOCOL,
@@ -37,6 +38,7 @@ REQUIRED_FILES = (
     AI_HANDOFF,
     MASTER_INDEX,
     ADR0033,
+    ACCEPTANCE_RECORD,
 )
 
 ROW_RE = re.compile(
@@ -83,6 +85,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     handoff = texts[AI_HANDOFF]
     master_index = json.loads(texts[MASTER_INDEX])
     adr0033 = texts[ADR0033]
+    acceptance_record = texts[ACCEPTANCE_RECORD]
 
     # Exact borrowed source and force doctrine.
     for document, label in (
@@ -153,6 +156,10 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(handoff, "Campaign 001 covers 98 source obligations", "handoff campaign scope")
     require(handoff, "P01 physical-host closure remains the exact next authorization action", "handoff P01 boundary")
 
+    require(acceptance_record, "Status: accepted evidence record", "acceptance record state")
+    require(acceptance_record, "40ca127c6d3054bda785061090acefaefcf4cd42", "operative acceptance merge")
+    require(acceptance_record, "accepted archive record count `0`", "zero accepted archive records")
+
     require(adr0033, "Status: proposed", "ADR-0033 proposed state")
     if re.search(r"^Status:\s+accepted", adr0033, re.MULTILINE | re.IGNORECASE):
         raise ValidationError("ADR-0033 became accepted")
@@ -195,6 +202,13 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "phase0c_17_complete": True,
         "af01_status": "ready_not_started",
         "accepted_archive_record_count": 0,
+        "accepted_state_exact_head": "b96b84d17cf03e905bd0b1baf3c46b8aec09334a",
+        "accepted_state_workflow_run": "29855000427",
+        "accepted_state_artifact_id": "8504901567",
+        "accepted_state_artifact_digest": "sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2",
+        "accepted_state_validation_report_sha256": "21d5338a7049dbc3a3af2e684efa21e19c281c52355007346291c74dfb7a1d3a",
+        "operative_acceptance_merge": "40ca127c6d3054bda785061090acefaefcf4cd42",
+        "acceptance_record": str(ACCEPTANCE_RECORD),
     }
     for key, value in expected_index.items():
         if archive_index.get(key) != value:

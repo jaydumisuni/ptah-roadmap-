@@ -54,6 +54,7 @@ ADR-0035: ACCEPTED
 Phase 0C-17: COMPLETE
 protocol version: 1.0.0
 candidate merge: c4973cbf4d02a34f14a7aefa85b8e2ea7b392752
+operative acceptance merge: 40ca127c6d3054bda785061090acefaefcf4cd42
 AF01: READY / NOT STARTED
 ```
 
@@ -65,7 +66,9 @@ Read when doing archive/recovery work:
 - accepted ADR-0035;
 - accepted Phase 0C-17 work package.
 
-Evidence: exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`, run `29853954659`, artifact `8504497355`, digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`.
+Candidate evidence: exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`, run `29853954659`, artifact `8504497355`, digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`.
+
+Accepted-state evidence: exact head `b96b84d17cf03e905bd0b1baf3c46b8aec09334a`, run `29855000427`, artifact `8504901567`, digest `sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2`. Operative merge: `40ca127c6d3054bda785061090acefaefcf4cd42`. Full record: `planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md`.
 
 Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. It is an accepted queue and operating protocol, not proof that records are archived or that a 200-agent runtime exists.
 
