@@ -21,6 +21,10 @@ def anchored_archive_validator() -> None:
             'require(current_state, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "current AF02 active state")',
         ),
         (
+            'require(current_state, "does not replace P01", "current P01 boundary")',
+            'require(current_state, "replace P01 as the active implementation-authorization work", "current P01 boundary")',
+        ),
+        (
             'require(handoff, "AF02: READY / NOT STARTED", "handoff AF02 ready state")',
             'require(handoff, "AF02: ACTIVE / ZERO RECORDS ACCEPTED", "handoff AF02 active state")',
         ),
