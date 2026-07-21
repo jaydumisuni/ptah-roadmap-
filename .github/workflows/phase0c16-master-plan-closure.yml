@@ -1,0 +1,118 @@
+name: Phase 0C-16 Master Plan closure
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
+jobs:
+  master-plan-closure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact planning head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_EXACT_SHA }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Verify exact checked-out head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Run adversarial closure regressions
+        run: |
+          mkdir -p conformance/reports/master-plan
+          set -o pipefail
+          python3 tools/test_check_master_plan_closure.py -v 2>&1 \
+            | tee conformance/reports/master-plan/regressions.txt
+
+      - name: Validate complete planning closure
+        run: |
+          set -o pipefail
+          python3 tools/check_master_plan_closure.py \
+            --repo-root . \
+            --output conformance/reports/master-plan/master-plan-closure-report.json \
+            2>&1 | tee conformance/reports/master-plan/validator-output.txt
+
+      - name: Bind evidence to exact head
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          import subprocess
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          root = Path("conformance/reports/master-plan")
+          report_path = root / "master-plan-closure-report.json"
+          report = json.loads(report_path.read_text(encoding="utf-8"))
+          expected = os.environ["PTAH_EXACT_SHA"]
+          checked_out = subprocess.run(
+              ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
+          ).stdout.strip()
+          evidence = {
+              "schema_version": "1.0.0",
+              "record_type": "ptah.phase0c.master_plan_closure_exact_head_evidence",
+              "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+              "implementation_commit": expected,
+              "checked_out_commit": checked_out,
+              "exact_head_match": checked_out == expected,
+              "validation_report_sha256": hashlib.sha256(report_path.read_bytes()).hexdigest(),
+              "validation_status": report.get("status"),
+              "master_plan_version": report.get("master_plan_version"),
+              "implementation_roadmap_version": report.get("implementation_roadmap_version"),
+              "frozen_work_package_count": report.get("frozen_work_package_count"),
+              "phase0c_record_count": report.get("phase0c_record_count"),
+              "programme_a_package_count": report.get("programme_a_package_count"),
+              "new_core_entity_required": report.get("new_core_entity_required"),
+              "frozen_contract_reopen_required": report.get("frozen_contract_reopen_required"),
+              "physical_host_evidence_accepted": report.get("physical_host_evidence_accepted"),
+              "adr_0033_accepted": report.get("adr_0033_accepted"),
+              "runtime_implementation_authorized": report.get("runtime_implementation_authorized"),
+          }
+          (root / "exact-head-evidence.json").write_text(
+              json.dumps(evidence, indent=2) + "\n", encoding="utf-8"
+          )
+          if not evidence["exact_head_match"]:
+              raise SystemExit("Master Plan closure did not test the exact head")
+          if evidence["validation_status"] != "candidate_valid_non_authorizing":
+              raise SystemExit("Master Plan closure validation status is invalid")
+          if evidence["frozen_work_package_count"] != 14:
+              raise SystemExit("frozen work-package count mismatch")
+          if evidence["phase0c_record_count"] != 16:
+              raise SystemExit("Phase 0C record count mismatch")
+          if evidence["programme_a_package_count"] != 15:
+              raise SystemExit("Programme A package count mismatch")
+          for key in (
+              "new_core_entity_required",
+              "frozen_contract_reopen_required",
+              "physical_host_evidence_accepted",
+              "adr_0033_accepted",
+              "runtime_implementation_authorized",
+          ):
+              if evidence[key] is not False:
+                  raise SystemExit(f"non-authorizing boundary violated: {key}")
+          PY
+
+      - name: Upload exact-head planning evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: phase-0c-16-master-plan-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
+          path: conformance/reports/master-plan/
+          if-no-files-found: error
+          retention-days: 30
