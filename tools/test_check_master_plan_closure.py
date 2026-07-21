@@ -113,7 +113,9 @@ class MasterPlanClosureTests(unittest.TestCase):
     def test_master_plan_requires_owner_and_agent_roles(self) -> None:
         root = self.make_repo()
         path = root / "MASTER_PLAN.md"
-        self.replace(path, "### 5.5 Hunter", "### 5.5 Coordinator")
+        text = path.read_text(encoding="utf-8")
+        self.assertIn("Hunter", text)
+        path.write_text(text.replace("Hunter", "Coordinator"), encoding="utf-8")
         self.assert_invalid(root)
 
     def test_handoff_cannot_claim_authorization(self) -> None:
