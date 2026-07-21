@@ -1,75 +1,93 @@
-name: Phase 0C-14 roadmap sync generator
+name: Phase 0C-14 roadmap sync applicator
 
 on:
   pull_request:
     paths:
       - "tools/generate_phase0c14_licence_sync.py"
       - ".github/workflows/phase0c14-roadmap-sync-generator.yml"
-  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 env:
-  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
 
 jobs:
-  generate-roadmap-sync:
+  apply-roadmap-sync:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     steps:
-      - name: Check out exact generator head
+      - name: Check out exact generator branch
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
-          ref: ${{ env.PTAH_EXACT_SHA }}
-          persist-credentials: false
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
 
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: "3.13"
 
+      - name: Verify exact starting head
+        run: |
+          test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
       - name: Generate guarded synchronization outputs
         run: |
-          mkdir -p generated-sync
-          python tools/generate_phase0c14_licence_sync.py \
-            > generated-sync/generator-output.txt 2>&1
-          cat generated-sync/generator-output.txt
+          python tools/generate_phase0c14_licence_sync.py
 
-      - name: Verify exact source and non-authorization boundary
+      - name: Verify manifest and proposed control boundary
         run: |
           python - <<'PY'
+          import hashlib
           import json
-          import os
-          import subprocess
           from pathlib import Path
 
-          expected = os.environ["PTAH_EXACT_SHA"]
-          checked_out = subprocess.run(
-              ["git", "rev-parse", "HEAD"],
-              capture_output=True,
-              text=True,
-              check=True,
-          ).stdout.strip()
-          manifest = json.loads(
-              Path("generated-sync/sync-manifest.json").read_text(encoding="utf-8")
-          )
-          if checked_out != expected:
-              raise SystemExit("generator did not check out exact head")
+          root = Path("generated-sync")
+          manifest = json.loads((root / "sync-manifest.json").read_text(encoding="utf-8"))
           if manifest["source_commit"] != "d9f65fa5c56e3ec3fd608358c3146cac6ed9eaa5":
               raise SystemExit("roadmap source commit changed")
           if manifest["runtime_implementation_authorized"] is not False:
               raise SystemExit("roadmap sync cannot authorize runtime")
           if len(manifest["files"]) != 4:
               raise SystemExit("unexpected generated file count")
+          for item in manifest["files"]:
+              path = root / item["path"]
+              raw = path.read_bytes()
+              if len(raw) != item["size_bytes"]:
+                  raise SystemExit(f"size mismatch: {item['path']}")
+              if hashlib.sha256(raw).hexdigest() != item["sha256"]:
+                  raise SystemExit(f"digest mismatch: {item['path']}")
+          current = (root / "CURRENT_STATE.md").read_text(encoding="utf-8")
+          if "**Runtime implementation:** NOT AUTHORIZED" not in current:
+              raise SystemExit("canonical runtime block is missing")
+          if "**Runtime implementation:** AUTHORIZED" in current:
+              raise SystemExit("generator attempted runtime authorization")
           PY
 
-      - name: Upload generated roadmap synchronization
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: phase-0c-14-roadmap-sync-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
-          path: generated-sync/
-          if-no-files-found: error
-          retention-days: 30
+      - name: Apply verified files and remove temporary generator
+        run: |
+          cp generated-sync/CURRENT_STATE.md CURRENT_STATE.md
+          cp generated-sync/PROGRESS.md PROGRESS.md
+          cp generated-sync/decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md \
+            decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
+          cp generated-sync/work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md \
+            work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md
+          git rm tools/generate_phase0c14_licence_sync.py
+          git rm .github/workflows/phase0c14-roadmap-sync-generator.yml
+          rm -rf generated-sync
+          git add CURRENT_STATE.md PROGRESS.md \
+            decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md \
+            work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md
+          git diff --cached --check
+
+      - name: Commit verified roadmap synchronization
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Record Apache-2.0 owner acceptance"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
