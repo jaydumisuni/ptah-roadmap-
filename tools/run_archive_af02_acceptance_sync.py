@@ -11,7 +11,7 @@ source = source_path.read_text(encoding="utf-8")
 patches = (
     (
         '''replace_once("tools/check_archive_af02.py", '"af03_authorized": False,', '"af03_ready": True,\\n        "af03_started": False,\\n        "af03_authorized": False,',)''',
-        '''replace_once("tools/check_archive_af02.py", '        "runtime_implementation_authorized": False,\\n        "af03_authorized": False,\\n    }', '        "runtime_implementation_authorized": False,\\n        "af03_ready": True,\\n        "af03_started": False,\\n        "af03_authorized": False,\\n    }')''',
+        '''replace_once("tools/check_archive_af02.py", '        "verifier_worker_count": 10,\\n        "phase_0a_reopened": False,\\n        "adr_0033_accepted": False,\\n        "runtime_implementation_authorized": False,\\n        "af03_authorized": False,\\n    }\\n    for key, value in expected_top.items():', '        "verifier_worker_count": 10,\\n        "phase_0a_reopened": False,\\n        "adr_0033_accepted": False,\\n        "runtime_implementation_authorized": False,\\n        "af03_ready": True,\\n        "af03_started": False,\\n        "af03_authorized": False,\\n    }\\n    for key, value in expected_top.items():')''',
     ),
     (
         '''replace_once("tools/check_archive_formation.py", '"accepted_archive_record_count": 9,', '"accepted_archive_record_count": 19,')''',
