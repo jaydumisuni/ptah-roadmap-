@@ -1,7 +1,7 @@
 # Ptah Donor Recovery Register
 
 **Phase:** 0A  
-**Status:** ARCHITECTURE RECOVERY COMPLETE — FINAL CONSISTENCY REVIEW ACTIVE  
+**Status:** COMPLETE AND FROZEN — later donor additions require explicit roadmap placement  
 **Purpose:** determine what should be adopted, adapted, wrapped, hosted as a workload, studied, parked or rejected before Ptah implementation begins.
 
 Detailed source evidence lives in `donors/`, `internal/`, `work-packages/` and `decisions/`. This register is the recovery/classification index and must not replace those records.
@@ -381,14 +381,18 @@ The final Phase 0A review must confirm that every parked item has a non-blocking
 
 # 9. Final Phase 0A review
 
-Active work:
+Result: **COMPLETE AND FROZEN** at roadmap commit `7d2dffee48f1400ba1cf88823343f09a3895ad33` through ADR-0017.
 
-1. identity consistency across all ADRs/work packages;
+The completed review covered:
+
+1. identity consistency across ADRs and work packages;
 2. authority and permission consistency;
-3. state/proof-level consistency;
-4. lifecycle and deletion/recovery consistency;
-5. parked/rejected/blocked gap audit;
-6. Phase 0B schema, migration, conformance and proof-corpus enumeration;
+3. state and proof-level consistency;
+4. lifecycle, deletion and recovery consistency;
+5. parked, rejected and blocked gap audit;
+6. Phase 0B schema, migration, conformance and proof-corpus entry requirements;
 7. freeze/readiness decision.
 
-No runtime implementation or dependency selection is authorized until Phase 0C.
+Later donors, including the AI Project Workspace behavioural donor, may be added as non-operative studies or implementation donors only through explicit Master Plan and implementation-roadmap placement. They do not reopen Phase 0A or authorize runtime by themselves.
+
+Runtime implementation remains governed by Phase 0C, physical-host evidence and ADR-0033.

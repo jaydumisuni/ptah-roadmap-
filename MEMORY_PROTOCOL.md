@@ -10,15 +10,21 @@ A chat must not rely on conversational memory alone.
 
 Before evaluating, planning, designing, editing, or building Ptah:
 
-1. Read `CURRENT_STATE.md`.
-2. Read `MASTER_ROADMAP.md`.
-3. Read `PROGRESS.md`.
-4. Read `DECISIONS.md`.
-5. Read `DONOR_RECOVERY.md`.
-6. Inspect the current state of `jaydumisuni/Ptah-space`.
-7. Inspect any donor or internal repository directly related to the selected work item.
+1. Read `AI_HANDOFF.md`.
+2. Read `CURRENT_STATE.md`.
+3. Read `master-plan-index.json`.
+4. Read `MASTER_PLAN.md`.
+5. Read `IMPLEMENTATION_ROADMAP.md`.
+6. Read `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`.
+7. Read `planning/MASTER-PLAN-RECONCILIATION.md`.
+8. Read `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`.
+9. Read `PROGRESS.md`.
+10. Read `DECISIONS.md` and the relevant ADRs.
+11. Read `DONOR_RECOVERY.md` when donor or requirement context is relevant.
+12. Inspect the current state of `jaydumisuni/Ptah-space`.
+13. Inspect any donor or internal repository directly related to the selected work item.
 
-Do not ask the user to re-explain information that can be recovered from these sources.
+Do not ask the owner to re-explain information recoverable from these sources.
 
 ---
 
@@ -43,8 +49,8 @@ A newer date does not automatically make a source more authoritative. Determine 
 
 No build work begins unless the exact item is:
 
-- present in `MASTER_ROADMAP.md`;
-- ordered after its dependencies;
+- present in `MASTER_PLAN.md`;
+- placed and ordered after its dependencies in `IMPLEMENTATION_ROADMAP.md`;
 - selected as current work in `CURRENT_STATE.md`;
 - unticked or active in `PROGRESS.md`;
 - approved by the user.
@@ -79,15 +85,41 @@ Update in this order:
 
 1. implementation repository source and tests;
 2. implementation evidence;
-3. `PROGRESS.md`;
-4. `CURRENT_STATE.md`;
-5. `DECISIONS.md` if architecture changed;
-6. `DONOR_RECOVERY.md` if donor understanding changed;
-7. `MASTER_ROADMAP.md` only when the accepted plan changed.
+3. a durable intermediate checkpoint when the task is not yet finished;
+4. `AI_HANDOFF.md`;
+5. `master-plan-index.json`;
+6. `PROGRESS.md`;
+7. `CURRENT_STATE.md`;
+8. `DECISIONS.md` if architecture or governance changed;
+9. `DONOR_RECOVERY.md` if donor understanding changed;
+10. `MASTER_PLAN.md` only when accepted product/operating intent changed;
+11. `IMPLEMENTATION_ROADMAP.md` when sequencing, dependencies or proof gates changed.
 
 ---
 
-# 5. Completion language
+# 5. Save-as-you-go checkpoint rule
+
+Substantial work must be durably checkpointed before the full task is complete.
+
+A checkpoint records:
+
+- repository and branch;
+- exact commit;
+- completed files or work packages;
+- active and incomplete work;
+- failures and limitations;
+- retained evidence;
+- blockers;
+- safest next action;
+- runtime authorization state.
+
+`AI_HANDOFF.md` is the concise recovery entry. `master-plan-index.json` is the machine-readable entry. They summarize but do not replace accepted decisions, contracts or evidence.
+
+A chat or model may not say work is safely recoverable when these durable records are stale.
+
+---
+
+# 11. Completion language
 
 Use these meanings consistently:
 
@@ -101,7 +133,7 @@ Never collapse these into one claim.
 
 ---
 
-# 6. Progress updates
+# 11. Progress updates
 
 Only tick a progress item when its evidence can be identified.
 
@@ -119,7 +151,7 @@ If implementation exists but proof is incomplete, leave the item active or in re
 
 ---
 
-# 7. Donor updates
+# 11. Donor updates
 
 For every donor studied, preserve:
 
@@ -141,7 +173,7 @@ A repository is not accepted because it is popular, modern, or impressive.
 
 ---
 
-# 8. Public repository updates
+# 11. Public repository updates
 
 `Ptah-space` should receive only:
 
@@ -163,7 +195,7 @@ It should not receive:
 
 ---
 
-# 9. Recovery after interruption
+# 11. Recovery after interruption
 
 When work stops unexpectedly, `CURRENT_STATE.md` must state:
 
@@ -181,7 +213,7 @@ A new chat resumes from that checkpoint rather than restarting the task from mem
 
 ---
 
-# 10. Roadmap-change rule
+# 11. Roadmap-change rule
 
 A roadmap change requires an explicit explanation of:
 

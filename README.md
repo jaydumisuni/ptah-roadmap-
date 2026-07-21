@@ -1,49 +1,57 @@
 # Ptah Roadmap
 
-Private canonical roadmap, recovery memory, progress ledger, and decision control for **Ptah Space**.
+Private canonical product plan, implementation roadmap, recovery memory, progress ledger and decision control for **Ptah Space**.
 
-This repository answers four questions:
+This repository answers:
 
 1. What is Ptah meant to become?
-2. What phase is active now?
-3. What has been completed and proven?
-4. What must the next chat read before continuing work?
+2. What exact product and operating scope is accepted?
+3. What work is dependency-ordered next?
+4. What has been frozen, proven or completed?
+5. What must the next chat or AI read before continuing?
 
 ## Repository boundary
 
-- `jaydumisuni/Ptah-space` contains the public implementation, public-safe technical documentation, current build slice, and completed code.
-- `jaydumisuni/ptah-roadmap-` contains the complete private roadmap, donor recovery, internal progress, sequencing, decisions, and chat recovery state.
-- The public Ptah repository must not expose private consumers, private operating-system use, internal company chains, or this private control repository.
+- `jaydumisuni/Ptah-space` contains public implementation, public-safe technical documentation, tests and earned public progress.
+- `jaydumisuni/ptah-roadmap-` contains the private Master Plan, implementation roadmap, donor recovery, decisions, progress, evidence control and durable handoff state.
+- Public Ptah must not expose private consumers, company operating chains, restricted recovery knowledge, customer/device data or this private control repository.
 
-## Recovery order for every new chat
+## Mandatory recovery order
 
-Read these files in order before proposing or performing Ptah work:
+Read in this order before proposing or performing Ptah work:
 
-1. `CURRENT_STATE.md`
-2. `MASTER_ROADMAP.md`
-3. `PROGRESS.md`
-4. `DECISIONS.md`
-5. `MEMORY_PROTOCOL.md`
-6. `DONOR_RECOVERY.md`
-7. The current files and open work in `jaydumisuni/Ptah-space`
+1. `AI_HANDOFF.md`
+2. `CURRENT_STATE.md`
+3. `master-plan-index.json`
+4. `MASTER_PLAN.md`
+5. `IMPLEMENTATION_ROADMAP.md`
+6. `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`
+7. `planning/MASTER-PLAN-RECONCILIATION.md`
+8. `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`
+9. `PROGRESS.md`
+10. `DECISIONS.md` and referenced ADRs
+11. `MEMORY_PROTOCOL.md`
+12. current source and open work in `jaydumisuni/Ptah-space`
 
-Do not ask the user to repeat information recoverable from these files.
+Do not ask the owner to repeat information recoverable from these records.
 
 ## Highest rules
 
 - Ptah is the world where work happens, not the intelligence deciding what work should happen.
-- Ptah is independent and open source. Private systems may use it, but they do not define its public identity.
-- A workspace is persistent and can host many concurrent activities.
-- Files are structured objects, not opaque blobs.
-- Internet access is a normal workspace capability.
-- Active work uses fast local storage; durable objects and artifacts may be synchronized remotely.
-- Existing internal and external work must be recovered before a facility is rebuilt.
-- No implementation begins merely because an idea is interesting. It must be in the roadmap, selected as current work, and approved.
-- Every work item follows: **Understand → Build → Review → Freeze → Prove → Submit/Ship**.
+- Ptah is independent and open source; private systems consume public-safe contracts.
+- A Workspace persists and may host many concurrent Activities.
+- Objects, Revisions, Views and Artifacts are structured and provenance-bound.
+- Internet is a normal capability; local/offline restrictions are explicit.
+- Active work uses capable Node-local storage; durable bytes may synchronize remotely.
+- Existing internal and external work is recovered before rebuilding.
+- No implementation begins merely because an idea is useful; it must be planned, ordered, selected and approved.
+- Every work item follows Understand → Build → Review → Freeze → Prove → Submit/Ship.
+- Substantial work is saved durably as it proceeds so another chat or AI can resume.
 
 ## Status vocabulary
 
-- `NOT STARTED`
+- `PLANNED`
+- `READY`
 - `ACTIVE`
 - `BLOCKED`
 - `IN REVIEW`
@@ -55,15 +63,19 @@ Do not ask the user to repeat information recoverable from these files.
 
 ## Update rule
 
-After every approved Ptah work session:
+After every substantial Ptah work session:
 
-1. Update `CURRENT_STATE.md` with the exact active checkpoint and next action.
-2. Tick only evidence-backed items in `PROGRESS.md`.
-3. Record architecture changes in `DECISIONS.md`.
-4. Update donor records when a repository is inspected, pinned, adopted, wrapped, adapted, rejected, or replaced.
-5. Update `MASTER_ROADMAP.md` only when the accepted plan genuinely changes.
-6. Update the public `Ptah-space` repository only with the implementation slice being built and the public-safe progress it has actually earned.
+1. save implementation/evidence checkpoints where applicable;
+2. update `AI_HANDOFF.md` and `master-plan-index.json`;
+3. update `PROGRESS.md` and `CURRENT_STATE.md`;
+4. update `DECISIONS.md` when architecture or governance changes;
+5. update donor records when donor understanding changes;
+6. update `MASTER_PLAN.md` only when accepted product/operating intent changes;
+7. update `IMPLEMENTATION_ROADMAP.md` when accepted sequencing, dependencies or proof gates change;
+8. publish to `Ptah-space` only source and progress it has actually earned.
 
 ## Current position
 
-The architecture has been accepted in principle. Runtime implementation has not begun. The active stage is **Phase 0A — Recovery and donor closure**.
+Phase 0A donor closure and Phase 0B contracts are frozen. Phase 0C is active. The Master Plan and detailed implementation roadmap closure package is under review. Physical pinned-host evidence, ADR-0033 acceptance and explicit runtime authorization remain open.
+
+**Runtime implementation is NOT AUTHORIZED.**

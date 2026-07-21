@@ -222,3 +222,84 @@ Full decisions:
 
 - `decisions/ADR-0024-RECIPE-BUILD-PROVENANCE-SBOM-SIGNATURE-VERIFICATION-BOUNDARY.md`;
 - `decisions/ADR-0024A-WP07-FINAL-CATALOG-CONVENTIONS-CORRECTION.md`.
+
+
+---
+
+## Phase 0B completion decisions
+
+### D-040 — Domain Pack, firmware, disk, filesystem and Device boundaries are explicit
+
+**ACCEPTED.** WP08 preserves Domain Packs, firmware packages, Disk Images, filesystems, Devices, protocol Operations, recovery and physical mutation as separate identities and proof levels. Static analysis and write acknowledgement cannot authorize or prove physical mutation.
+
+Full decision: `decisions/ADR-0025-DOMAIN-FIRMWARE-DISK-DEVICE-BOUNDARY.md`.
+
+### D-041 — Application, Browser, semantic UI and human Shell boundaries are explicit
+
+**ACCEPTED.** WP09 separates Application, Installation, Session, Process, Window and display; Browser Profile, Process, Context and Page; Semantic snapshots/targets/actions; and Shell clients, panels, layouts and control transfer. UI state cannot become runtime truth.
+
+Full decision: `decisions/ADR-0026-APPLICATION-BROWSER-SEMANTIC-UI-SHELL-BOUNDARY.md`.
+
+### D-042 — Knowledge, Data, Package and Plugin boundaries are explicit
+
+**ACCEPTED.** WP10 defines neutral Knowledge Sources, revisions, indexes, queries, citations, datasets, tables, packages, releases, installations, Plugins and activations. Indexes remain derived and caller reasoning/private memory remains external.
+
+Full decision: `decisions/ADR-0027-KNOWLEDGE-DATA-PACKAGE-PLUGIN-BOUNDARY.md`.
+
+### D-043 — Isolation, placement, reservations, Leases and secure Grants are explicit
+
+**ACCEPTED.** WP11 separates Isolation Class, runtime Provider, capability snapshot, placement, Reservation, Lease, Generation, Fence and secure Grants. Silent isolation or authority weakening is prohibited.
+
+Full decision: `decisions/ADR-0028-ISOLATION-PLACEMENT-RESERVATION-LEASE-SECURE-GRANTS-BOUNDARY.md`.
+
+### D-044 — Security Observation, Finding, Claim, Evidence and reproduction are explicit
+
+**ACCEPTED.** WP12 separates authorization, target, plan, Observation, Finding, validation, disposition, remediation, Verification Run, Reproduction Run, bounded Claim and Evidence. Scanner output cannot become accepted truth by itself.
+
+Full decision: `decisions/ADR-0029-SECURITY-FINDING-CLAIM-EVIDENCE-REPRODUCTION-BOUNDARY.md`.
+
+### D-045 — Executable conformance and exact-head proof are mandatory
+
+**ACCEPTED.** WP13 provides offline structural and semantic conformance, local URN resolution, catalog/lifecycle/fixture integrity and exact-head reports. It found and forced correction of real cross-package defects.
+
+Full decision: `decisions/ADR-0030-EXECUTABLE-CONFORMANCE-AND-EXACT-HEAD-PROOF.md`.
+
+### D-046 — Golden/negative corpus and proof-plan freeze are authoritative
+
+**ACCEPTED.** WP14 freezes lawful positive, negative and adversarial fixtures, immutable expected-proof records and the first vertical-slice proof burden. A green summary without retained reports fails acceptance.
+
+Full decision: `decisions/ADR-0031-GOLDEN-NEGATIVE-CORPUS-AND-PROOF-PLAN-FREEZE.md`.
+
+### D-047 — Phase 0B is frozen and Phase 0C selection is active
+
+**ACCEPTED.** WP01–WP14 are frozen at `dc2db457f1705d0cba80f17ab76e5e93f808aee0`. Runtime dependency, host, licence, source-layout and first-slice selections belong to Phase 0C.
+
+Full decision: `decisions/ADR-0032-PHASE-0B-FREEZE-PHASE-0C-ENTRY.md`.
+
+---
+
+## Phase 0C accepted governance and design evidence
+
+### D-048 — Apache-2.0 public/private boundary is operative
+
+**ACCEPTED.** Public repository-owned Ptah source is Apache-2.0 under `John Dumisuni trading as THETECHGUY DIGITAL SOLUTIONS`. Private THETECHGUY systems, customer/device/payment data, restricted adapters, donor source and trademarks remain excluded.
+
+Evidence: `work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md`.
+
+### D-049 — AI Project Workspace is a provider-independent composition profile
+
+**ACCEPTED AS NON-OPERATIVE DESIGN EVIDENCE.** `ptah.workspace.ai_project.v1` composes existing frozen primitives. Hidden provider memory and implicit global tool access are rejected. Ptah owns durable truth and Grants; Hunter coordinates through bounded context packets.
+
+Evidence: `work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md`.
+
+---
+
+## Current proposed decisions
+
+### ADR-0033 — First vertical-slice host, licence, layout and backend selections
+
+**PROPOSED.** Selection and tooling evidence is substantially complete, but the accepted Master Plan/roadmap, physical pinned-host result, package/retention acceptance and final closure review remain open.
+
+### ADR-0034 — Master Plan, implementation roadmap and durable handoff authority
+
+**PROPOSED.** Establishes separate product-plan, delivery-roadmap, current-state and recovery authorities with save-as-you-go checkpoints. It may be accepted with Phase 0C-16 after exact-head review.

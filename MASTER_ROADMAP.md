@@ -1,14 +1,22 @@
-# Ptah Space — Canonical Master Roadmap
+# Ptah Space — Historical Architecture and Phase Roadmap
 
-**Status:** Phase 0A frozen; Phase 0B active  
-**Implementation:** Not started  
-**Current phase:** Phase 0B — Contracts, migrations, conformance, and proof design  
+**Status:** retained source; superseded as primary planning authority by `MASTER_PLAN.md` and `IMPLEMENTATION_ROADMAP.md` after ADR-0034 acceptance  
+**Current phase:** Phase 0C — Master Plan closure, physical-host evidence and authorization  
+**Implementation:** Not authorized  
 **Phase 0A frozen checkpoint:** `7d2dffee48f1400ba1cf88823343f09a3895ad33`  
+**Phase 0B frozen checkpoint:** `dc2db457f1705d0cba80f17ab76e5e93f808aee0`  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
-This document is the complete execution roadmap. It supersedes earlier Ptah plans unless a later accepted decision explicitly changes it.
+This file preserves the architecture laws, original phase intent and release-milestone source used to recover the complete Master Plan. It is no longer sufficient by itself as the product plan or dependency-complete implementation programme.
 
-Phase transition authority: `decisions/ADR-0017-PHASE-0A-FREEZE-PHASE-0B-ENTRY.md`.
+Use:
+
+- `MASTER_PLAN.md` for product and operating intent;
+- `IMPLEMENTATION_ROADMAP.md` for work-package sequencing and proof;
+- `CURRENT_STATE.md` for the exact selected action and authorization;
+- `AI_HANDOFF.md` and `master-plan-index.json` for recovery.
+
+The body below remains historical source material and may not override newer accepted decisions or frozen contracts.
 
 ---
 

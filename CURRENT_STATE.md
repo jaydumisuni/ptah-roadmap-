@@ -3,7 +3,7 @@
 **Last updated:** 2026-07-21  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-04 — physical pinned-host proof, durable evidence and licence closure  
+**Active work unit:** 0C-16 — complete Master Plan, implementation roadmap and durable AI handoff closure  
 **Runtime implementation:** NOT AUTHORIZED  
 **Production dependency/backend selection:** EXACT RUST, DISTRIBUTED ARTIFACT, PROOF AND RETENTION TOOL LOCKS MERGED — APACHE-2.0 BOUNDARY ACCEPTED — PHYSICAL PINNED-HOST PROOF OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
@@ -352,16 +352,41 @@ This candidate is a non-blocking future composition design. It neither closes no
 
 ---
 
+## Active Phase 0C-16 Master Plan closure
+
+Planning branch:
+
+```text
+phase0c-master-plan-roadmap-closure
+```
+
+Durable candidate records:
+
+- `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`;
+- `MASTER_PLAN.md`;
+- `IMPLEMENTATION_ROADMAP.md`;
+- `planning/MASTER-PLAN-RECONCILIATION.md`;
+- `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`;
+- `AI_HANDOFF.md`;
+- `master-plan-index.json`;
+- `decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md`;
+- `work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md`.
+
+The candidate recovers the full product/operating plan, derives Programme P00/P01 and Programmes A–F, maps every frozen WP01–WP14 package and Phase 0C record, and introduces no current Core extension. It remains under review and does not authorize runtime.
+
+---
+
 ## Active Phase 0C blockers
 
 Implementation remains unauthorized until all of the following are merged and reviewed:
 
-1. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
-2. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;
-3. generation, durable commit and explicit review acceptance of that physical-host evidence bundle;
-4. a Phase 0C closure review proving no frozen contract was weakened;
-5. acceptance of ADR-0033;
-6. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+1. acceptance of the complete Master Plan, detailed implementation roadmap, reconciliation and durable handoff through Phase 0C-16 / ADR-0034;
+2. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+3. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;
+4. generation, durable commit and explicit review acceptance of that physical-host evidence bundle;
+5. a Phase 0C closure review proving no frozen contract was weakened;
+6. acceptance of ADR-0033;
+7. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
 
 The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector, pinned-host proof-tool, package-artifact, durable-retention, Apache-2.0 governance and frozen-WP13 lanes are complete. They do not close the physical pinned-host result, package acceptance, actual retained-bundle acceptance or any WP14 runtime proof.
 
@@ -413,27 +438,23 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 
 ## Immediate continuation order
 
-1. Install or recover the exact frozen Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
-2. From a clean reviewed `Ptah-space` commit, run:
+1. Complete exact-head validation and direct review of `phase0c-master-plan-roadmap-closure`.
+2. Accept ADR-0034 and merge Phase 0C-16 while retaining `Runtime implementation: NOT AUTHORIZED`.
+3. Install or recover the exact Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
+4. From the selected clean reviewed `Ptah-space` commit, run:
 
 ```bash
-python3 tools/run_pinned_host_proof.py \
-  --repo-root . \
-  --output evidence/phase0c/pinned-host-candidate
+python3 tools/run_pinned_host_proof.py   --repo-root .   --output evidence/phase0c/pinned-host-candidate
 ```
 
-3. Require `proof_eligible: true` with empty host, capability, package-artifact and repository failure sets.
-4. Review the complete installed package and package-artifact manifests.
-5. From the same exact clean commit, run:
+5. Require `proof_eligible: true` with empty host, capability, package-artifact and repository failure sets.
+6. Review and accept the complete installed package and package-artifact manifests.
+7. From the same exact clean commit, run:
 
 ```bash
-python3 tools/retain_verified_pinned_host_evidence.py \
-  --repo-root . \
-  --bundle-dir evidence/phase0c/pinned-host-candidate \
-  --output-dir evidence/phase0c/pinned-host-durable-candidate
+python3 tools/retain_verified_pinned_host_evidence.py   --repo-root .   --bundle-dir evidence/phase0c/pinned-host-candidate   --output-dir evidence/phase0c/pinned-host-durable-candidate
 ```
 
-6. Commit the durable candidate, repository binding and pending review record to a durable proof Location.
-7. Explicitly accept the host identity, installed packages, package artifacts and durable retention in reviewed evidence.
-8. Conduct the Phase 0C closure consistency review.
-9. Accept ADR-0033 and authorize runtime only if every blocker passes.
+8. Commit and explicitly accept the durable candidate and repository binding.
+9. Conduct the final Phase 0C closure consistency review.
+10. Accept ADR-0033 and authorize runtime only when every blocker passes.
