@@ -85,6 +85,13 @@ jobs:
               "candidate_artifact_id": archive.get("candidate_artifact_id"),
               "candidate_artifact_digest": archive.get("candidate_artifact_digest"),
               "candidate_merge": archive.get("candidate_merge"),
+              "accepted_state_exact_head": archive.get("accepted_state_exact_head"),
+              "accepted_state_workflow_run": archive.get("accepted_state_workflow_run"),
+              "accepted_state_artifact_id": archive.get("accepted_state_artifact_id"),
+              "accepted_state_artifact_digest": archive.get("accepted_state_artifact_digest"),
+              "accepted_state_validation_report_sha256": archive.get("accepted_state_validation_report_sha256"),
+              "operative_acceptance_merge": archive.get("operative_acceptance_merge"),
+              "acceptance_record": archive.get("acceptance_record"),
           }
           (root / "exact-head-evidence.json").write_text(
               json.dumps(evidence, indent=2) + "\n", encoding="utf-8"
@@ -112,6 +119,13 @@ jobs:
               "candidate_artifact_id": "8504497355",
               "candidate_artifact_digest": "sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4",
               "candidate_merge": "c4973cbf4d02a34f14a7aefa85b8e2ea7b392752",
+              "accepted_state_exact_head": "b96b84d17cf03e905bd0b1baf3c46b8aec09334a",
+              "accepted_state_workflow_run": "29855000427",
+              "accepted_state_artifact_id": "8504901567",
+              "accepted_state_artifact_digest": "sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2",
+              "accepted_state_validation_report_sha256": "21d5338a7049dbc3a3af2e684efa21e19c281c52355007346291c74dfb7a1d3a",
+              "operative_acceptance_merge": "40ca127c6d3054bda785061090acefaefcf4cd42",
+              "acceptance_record": "planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md",
           }
           for key, value in expected_values.items():
               if evidence.get(key) != value:
