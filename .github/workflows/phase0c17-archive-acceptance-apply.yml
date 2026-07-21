@@ -35,12 +35,29 @@ jobs:
         run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
 
       - name: Apply guarded archive acceptance
-        run: python3 tools/apply_phase0c17_archive_acceptance.py
+        run: |
+          mkdir -p conformance/reports/archive-acceptance
+          set -o pipefail
+          python3 tools/apply_phase0c17_archive_acceptance.py 2>&1 \
+            | tee conformance/reports/archive-acceptance/transform.txt
 
       - name: Run accepted-state regressions and validator
         run: |
-          python3 tools/test_check_archive_formation.py -v
-          python3 tools/check_archive_formation.py --repo-root .
+          set -o pipefail
+          python3 tools/test_check_archive_formation.py -v 2>&1 \
+            | tee conformance/reports/archive-acceptance/regressions.txt
+          python3 tools/check_archive_formation.py --repo-root . \
+            --output conformance/reports/archive-acceptance/report.json 2>&1 \
+            | tee conformance/reports/archive-acceptance/validator.txt
+
+      - name: Upload acceptance diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: phase-0c-17-archive-acceptance-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
+          path: conformance/reports/archive-acceptance/
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Verify accepted boundary
         run: |
