@@ -2,92 +2,49 @@
 
 Last updated: 2026-07-21
 
-Status: Phase 0C master-plan closure active — runtime implementation remains unauthorized
+Status: Master Plan and implementation roadmap accepted — P01 physical-host closure active — runtime implementation unauthorized
 
 ## Read first
 
-A new chat, model or agent must read in this order:
-
-1. `AI_HANDOFF.md` — this checkpoint;
-2. `CURRENT_STATE.md` — canonical current phase and selected action;
-3. `master-plan-index.json` — machine-readable authority, blockers and next step;
-4. `MASTER_PLAN.md` — complete product and operating plan;
-5. `IMPLEMENTATION_ROADMAP.md` — dependency-ordered delivery programme;
-6. `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`;
-7. `planning/MASTER-PLAN-RECONCILIATION.md`;
-8. `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`;
-9. `PROGRESS.md`;
-10. `DECISIONS.md` and the referenced ADRs;
-11. `MEMORY_PROTOCOL.md`;
-12. relevant current source and open work in `jaydumisuni/Ptah-space`.
+1. `AI_HANDOFF.md`
+2. `CURRENT_STATE.md`
+3. `master-plan-index.json`
+4. `MASTER_PLAN.md`
+5. `IMPLEMENTATION_ROADMAP.md`
+6. `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`
+7. `planning/MASTER-PLAN-RECONCILIATION.md`
+8. `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`
+9. `PROGRESS.md`
+10. `DECISIONS.md` and the referenced ADRs
+11. `MEMORY_PROTOCOL.md`
+12. current source and evidence in `jaydumisuni/Ptah-space`
 
 Do not ask the owner to repeat information recoverable from these records.
 
-## Why this branch exists
+## Accepted planning authority
 
-The earlier repository had strong donor research, frozen contracts and Phase 0C evidence, but the authoritative planning layer was incomplete and stale:
+- Master Plan version: `1.0.0`;
+- implementation roadmap version: `1.0.0`;
+- accepted authority decision: ADR-0034;
+- accepted work package: Phase 0C-16;
+- candidate exact head: `37d23449fda9a426f56ee8b09042dda91587a6d1`;
+- exact-head workflow run: `29842137511`;
+- retained artifact: `8499790872`;
+- artifact archive digest: `sha256:82d6b452777e2c5e60c4d08bf88dd2c848d6b2570650b70a4eede633c8065d9f`;
+- candidate squash merge: `2c24f9e6b0fc98d5e03605596db75d7495796353`.
 
-- `MASTER_ROADMAP.md` was architecture-heavy and still marked Phase 0B active;
-- `DECISIONS.md` stopped at WP07;
-- the Phase 1–13 progress list did not form a dependency-complete programme;
-- no concise machine-readable handoff bound plan, roadmap, blockers and exact next action.
-
-The owner explicitly required:
-
-```text
-Recover every requirement and design decision
-→ write the complete Ptah Master Plan
-→ review missing product and operational scope
-→ derive the detailed implementation roadmap
-→ reconcile WP01–WP14 and Phase 0C
-→ close physical-host evidence
-→ accept ADR-0033
-→ authorize implementation
-```
-
-The owner also required save-as-you-go recovery so any chat or AI can continue.
-
-## Current branch
-
-Repository: `jaydumisuni/ptah-roadmap-`
-
-Branch:
+The accepted programme is:
 
 ```text
-phase0c-master-plan-roadmap-closure
+P00 Master-plan authority closure — COMPLETE
+P01 Physical-host and ADR-0033 closure — ACTIVE / BLOCKED ON EXACT PHYSICAL HOST
+Programme A Online Ptah Alpha — PLANNED / NOT AUTHORIZED
+Programmes B–F — PLANNED
 ```
 
-Durable checkpoints already committed:
+## Exact next action
 
-- `a413dd010e248419514b50e8297154719f00fc91` — recovered requirements and decisions ledger;
-- `566a166054f894a7bb9cf37d33b558c9da481e24` — complete Master Plan candidate;
-- `57453b2b074cdea7cd905f0a5331d2edb7d707a0` — detailed implementation roadmap candidate;
-- `85ded1c782ddd83e030319a2088b03c90054444c` — WP01–WP14 and Phase 0C reconciliation;
-- `27e8b09109455f234867f05a65f6cff2b0563496` — physical-host through authorization closure procedure.
-
-## Completed in this work session
-
-- recovered product requirements, architecture laws, participant roles, operating modes, domain scope, security, storage, recovery and release intent;
-- identified stale and missing authority records;
-- wrote a complete product and operating Master Plan;
-- converted Phase 1–13 headings and the existing fourteen-task first-slice map into a dependency-ordered Programme 0 plus Programmes A–F;
-- reconciled the new plan against every frozen work package and all Phase 0C records;
-- confirmed no new Core entity or immediate WP01–WP14 reopening is required;
-- recorded the exact external physical-host and authorization sequence.
-
-## Work still required on this branch
-
-1. add `master-plan-index.json`;
-2. add Phase 0C-16 work-package evidence and plan-authority ADR;
-3. repair `README.md`, `MEMORY_PROTOCOL.md`, `DECISIONS.md`, `DONOR_RECOVERY.md`, `MASTER_ROADMAP.md`, `PROGRESS.md` and `CURRENT_STATE.md`;
-4. add fail-closed consistency validation and tests;
-5. open a draft pull request;
-6. run review and exact-head checks;
-7. merge only after the Master Plan and implementation roadmap are internally consistent and non-authorizing.
-
-## After the planning merge
-
-The next blocker is external and physical:
+On the exact Ubuntu Server 24.04.4 LTS / x86_64 / `6.8.0-136-generic` physical proof host, check out the selected clean reviewed `Ptah-space` preparation commit and run:
 
 ```bash
 python3 tools/run_pinned_host_proof.py \
@@ -95,9 +52,7 @@ python3 tools/run_pinned_host_proof.py \
   --output evidence/phase0c/pinned-host-candidate
 ```
 
-Run only on Ubuntu Server 24.04.4 amd64 with kernel `6.8.0-136-generic`, exact required capabilities, complete local APT metadata and a clean exact `Ptah-space` commit.
-
-Then independently retain the candidate:
+Require `proof_eligible: true`, empty failure sets and complete package/APT artifact evidence. Then independently retain the same exact bundle:
 
 ```bash
 python3 tools/retain_verified_pinned_host_evidence.py \
@@ -106,22 +61,29 @@ python3 tools/retain_verified_pinned_host_evidence.py \
   --output-dir evidence/phase0c/pinned-host-durable-candidate
 ```
 
-Review and accept the host, installed packages, package artifacts, APT boundary and durable retention before ADR-0033 acceptance.
+Review and explicitly accept host identity, capabilities, installed packages, package artifacts, APT sources/indexes, durable bytes and repository binding.
+
+## Remaining authorization sequence
+
+```text
+Physical pinned-host proof
+→ package/package-artifact acceptance
+→ durable bundle commit and acceptance
+→ final Phase 0C consistency review
+→ ADR-0033 acceptance
+→ explicit Runtime implementation: AUTHORIZED
+→ A01 becomes READY
+```
 
 ## Hard boundary
 
-Current state:
-
 ```text
-Master Plan: CANDIDATE
-Implementation roadmap: CANDIDATE
+Master Plan: ACCEPTED
+Implementation roadmap: ACCEPTED
+ADR-0034: ACCEPTED
 Physical-host proof: OPEN
 ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED
 ```
 
-Do not create runtime features, deploy Nodes, claim a working Workspace or change authorization before the reviewed closure sequence passes.
-
-## Safest next action
-
-Continue the control-book repair and machine-readable validation on `phase0c-master-plan-roadmap-closure`. Do not return to donor research or runtime implementation unless a concrete missing requirement is discovered.
+No chat, model or owner-intent statement may replace the missing physical evidence and reviewed ADR-0033 closure.

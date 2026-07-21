@@ -1,6 +1,6 @@
 # Phase 0C-16 — Master Plan and implementation roadmap closure
 
-Status: candidate under review — runtime implementation remains unauthorized
+Status: accepted — complete planning authority closed; runtime implementation remains unauthorized
 
 Recorded: 2026-07-21
 
@@ -45,6 +45,19 @@ Committed checkpoints:
 | `34a206449d4403e4ebf913475ffa8e846b1bf9ff` | durable AI/chat handoff |
 | `5a3112b50ba699b41656c17013b9f3da5429e0e8` | machine-readable master-plan index |
 | `30c4f603320fc31508116ec35a122f59048e87d3` | proposed plan/roadmap/handoff authority ADR |
+
+## Acceptance evidence
+
+- exact tested candidate head: `37d23449fda9a426f56ee8b09042dda91587a6d1`;
+- exact-head workflow run: `29842137511`;
+- retained evidence artifact: `8499790872`;
+- retained archive digest: `sha256:82d6b452777e2c5e60c4d08bf88dd2c848d6b2570650b70a4eede633c8065d9f`;
+- candidate squash merge: `2c24f9e6b0fc98d5e03605596db75d7495796353`;
+- twelve positive/adversarial regressions passed;
+- standalone seventeen-file closure validation passed;
+- direct review completed with no unresolved review threads;
+- ADR-0034 accepted separately from ADR-0033;
+- runtime implementation remained unauthorized.
 
 ## Recovered authority defects
 
@@ -133,7 +146,7 @@ Before acceptance, update and validate:
 
 ## Acceptance proof
 
-This work package can become accepted only when automated and direct review confirm:
+This work package was accepted after automated and direct review confirmed:
 
 1. all required planning files exist;
 2. Master Plan and roadmap versions/profile identities agree;
@@ -148,7 +161,7 @@ This work package can become accepted only when automated and direct review conf
 
 ## Conditions closed by this package
 
-After reviewed merge, this package closes:
+This accepted package closes:
 
 - recovery of requirements and accepted design intent into one ledger;
 - complete product/operating Master Plan;
@@ -172,4 +185,4 @@ This package does not close:
 
 ## Current conclusion
 
-The planning layer is being completed in the required order. Runtime implementation remains **NOT AUTHORIZED**.
+The planning layer is accepted and complete through Phase 0C-16. Programme P01 is now the active blocker. Runtime implementation remains **NOT AUTHORIZED**.

@@ -1,6 +1,6 @@
 # Ptah requirements and decisions recovery ledger
 
-Status: recovered baseline for master-plan closure — runtime implementation remains unauthorized
+Status: accepted recovered baseline under Phase 0C-16 — runtime implementation remains unauthorized
 
 Recorded: 2026-07-21
 
@@ -355,7 +355,7 @@ This recovery ledger must feed and remain synchronized with:
 
 ## Current checkpoint
 
-Recovered requirements and decisions: COMPLETE FOR MASTER-PLAN DRAFTING.
+Recovered requirements and decisions: ACCEPTED THROUGH PHASE 0C-16.
 
 Physical pinned-host evidence: OPEN.
 

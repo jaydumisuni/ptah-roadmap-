@@ -3,7 +3,7 @@
 **Last updated:** 2026-07-21  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-16 — complete Master Plan, implementation roadmap and durable AI handoff closure  
+**Active work unit:** 0C-04 / P01 — physical pinned-host proof, package review, durable evidence and ADR-0033 closure  
 **Runtime implementation:** NOT AUTHORIZED  
 **Production dependency/backend selection:** EXACT RUST, DISTRIBUTED ARTIFACT, PROOF AND RETENTION TOOL LOCKS MERGED — APACHE-2.0 BOUNDARY ACCEPTED — PHYSICAL PINNED-HOST PROOF OPEN  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
@@ -352,27 +352,25 @@ This candidate is a non-blocking future composition design. It neither closes no
 
 ---
 
-## Active Phase 0C-16 Master Plan closure
+## Accepted Phase 0C-16 Master Plan closure
 
-Planning branch:
+The complete product/operating plan, dependency-ordered implementation roadmap, WP01–WP14/Phase 0C reconciliation and durable human/AI handoff were validated at exact candidate head:
 
 ```text
-phase0c-master-plan-roadmap-closure
+37d23449fda9a426f56ee8b09042dda91587a6d1
 ```
 
-Durable candidate records:
+Exact-head workflow run: `29842137511`.
 
-- `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`;
-- `MASTER_PLAN.md`;
-- `IMPLEMENTATION_ROADMAP.md`;
-- `planning/MASTER-PLAN-RECONCILIATION.md`;
-- `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`;
-- `AI_HANDOFF.md`;
-- `master-plan-index.json`;
-- `decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md`;
-- `work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md`.
+Retained artifact: `8499790872` with archive digest `sha256:82d6b452777e2c5e60c4d08bf88dd2c848d6b2570650b70a4eede633c8065d9f`.
 
-The candidate recovers the full product/operating plan, derives Programme P00/P01 and Programmes A–F, maps every frozen WP01–WP14 package and Phase 0C record, and introduces no current Core extension. It remains under review and does not authorize runtime.
+Candidate squash merge:
+
+```text
+2c24f9e6b0fc98d5e03605596db75d7495796353
+```
+
+ADR-0034 is accepted. `MASTER_PLAN.md` and `IMPLEMENTATION_ROADMAP.md` version `1.0.0` are operative authorities. No new Core entity or current WP01–WP14 reopening was required. This closes planning authority only and does not accept the physical host, packages, retention, ADR-0033 or runtime implementation.
 
 ---
 
@@ -380,13 +378,12 @@ The candidate recovers the full product/operating plan, derives Programme P00/P0
 
 Implementation remains unauthorized until all of the following are merged and reviewed:
 
-1. acceptance of the complete Master Plan, detailed implementation roadmap, reconciliation and durable handoff through Phase 0C-16 / ADR-0034;
-2. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
-3. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;
-4. generation, durable commit and explicit review acceptance of that physical-host evidence bundle;
-5. a Phase 0C closure review proving no frozen contract was weakened;
-6. acceptance of ADR-0033;
-7. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
+1. a proof-eligible capability report from the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+2. the exact installed Ubuntu package manifest and package-artifact digests from that pinned host, with reviewer acceptance;
+3. generation, durable commit and explicit review acceptance of that physical-host evidence bundle;
+4. a Phase 0C closure review proving no frozen contract was weakened;
+5. acceptance of ADR-0033;
+6. explicit `Runtime implementation: AUTHORIZED` in this file in the same reviewed closure change.
 
 The frozen catalog, generated binding, exact Rust dependency graph, Cargo lock, cargo-deny policy, distributed backend artifact lock, Browser binary tree, signer lock, cryptographic signature, source-policy, Rust, Browser, host-collector, pinned-host proof-tool, package-artifact, durable-retention, Apache-2.0 governance and frozen-WP13 lanes are complete. They do not close the physical pinned-host result, package acceptance, actual retained-bundle acceptance or any WP14 runtime proof.
 
@@ -438,10 +435,9 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 
 ## Immediate continuation order
 
-1. Complete exact-head validation and direct review of `phase0c-master-plan-roadmap-closure`.
-2. Accept ADR-0034 and merge Phase 0C-16 while retaining `Runtime implementation: NOT AUTHORIZED`.
-3. Install or recover the exact Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
-4. From the selected clean reviewed `Ptah-space` commit, run:
+1. Install or recover the exact Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
+2. Select and record the exact clean reviewed `Ptah-space` preparation commit.
+3. Run:
 
 ```bash
 python3 tools/run_pinned_host_proof.py \
@@ -449,9 +445,9 @@ python3 tools/run_pinned_host_proof.py \
   --output evidence/phase0c/pinned-host-candidate
 ```
 
-5. Require `proof_eligible: true` with empty host, capability, package-artifact and repository failure sets.
-6. Review and accept the complete installed package and package-artifact manifests.
-7. From the same exact clean commit, run:
+4. Require `proof_eligible: true` with empty host, capability, package-artifact and repository failure sets.
+5. Review and accept the exact installed package and package-artifact manifests.
+6. From the same exact clean commit, run:
 
 ```bash
 python3 tools/retain_verified_pinned_host_evidence.py \
@@ -460,6 +456,6 @@ python3 tools/retain_verified_pinned_host_evidence.py \
   --output-dir evidence/phase0c/pinned-host-durable-candidate
 ```
 
-8. Commit and explicitly accept the durable candidate and repository binding.
-9. Conduct the final Phase 0C closure consistency review.
-10. Accept ADR-0033 and authorize runtime only when every blocker passes.
+7. Commit and explicitly accept the durable candidate and repository binding.
+8. Conduct the final Phase 0C closure consistency review.
+9. Accept ADR-0033 and authorize runtime only when every remaining blocker passes.

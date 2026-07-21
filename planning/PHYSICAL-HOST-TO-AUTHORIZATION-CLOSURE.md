@@ -24,7 +24,7 @@ Complete or prepared:
 
 Open:
 
-- review and merge of the master-plan closure package;
+- Master Plan closure accepted and merged as `2c24f9e6b0fc98d5e03605596db75d7495796353`;
 - execution on the exact physical Ubuntu host;
 - package/package-artifact acceptance;
 - durable host-bundle acceptance;
@@ -49,7 +49,7 @@ Exact target tuple: Ubuntu Server 24.04.4 LTS | x86_64 | 6.8.0-136-generic
 
 A generic CI runner, different point release, cloud-specific kernel, dirty checkout, incomplete local APT metadata or package without exact artifact metadata is diagnostic only and cannot close the gate.
 
-## Step 1 — accept the planning closure package
+## Step 1 — planning closure package accepted
 
 Review and merge the branch containing:
 
@@ -260,4 +260,4 @@ Owner intent cannot replace missing evidence because the accepted engineering pr
 
 ## Current next action
 
-Complete and merge the Phase 0C-16 Master Plan closure package, then run the proof kit on the exact physical Ubuntu host.
+Run the proof kit on the exact physical Ubuntu host from the selected clean reviewed `Ptah-space` commit.
