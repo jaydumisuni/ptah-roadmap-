@@ -15,7 +15,12 @@ TEMPLATE = Path("archive/ARCHIVE-RECORD-TEMPLATE.md")
 ADR = Path("decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md")
 WORK_PACKAGE = Path("work-packages/PHASE-0C-17-TENFOLD-ARCHIVE-FORMATION.md")
 DONOR_REGISTER = Path("DONOR_RECOVERY.md")
+MEMORY_PROTOCOL = Path("MEMORY_PROTOCOL.md")
+DECISIONS = Path("DECISIONS.md")
+PROGRESS = Path("PROGRESS.md")
 CURRENT_STATE = Path("CURRENT_STATE.md")
+AI_HANDOFF = Path("AI_HANDOFF.md")
+MASTER_INDEX = Path("master-plan-index.json")
 ADR0033 = Path("decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md")
 
 REQUIRED_FILES = (
@@ -25,7 +30,12 @@ REQUIRED_FILES = (
     ADR,
     WORK_PACKAGE,
     DONOR_REGISTER,
+    MEMORY_PROTOCOL,
+    DECISIONS,
+    PROGRESS,
     CURRENT_STATE,
+    AI_HANDOFF,
+    MASTER_INDEX,
     ADR0033,
 )
 
@@ -66,7 +76,12 @@ def validate_repo(root: Path) -> dict[str, Any]:
     adr = texts[ADR]
     work_package = texts[WORK_PACKAGE]
     donor_register = texts[DONOR_REGISTER]
+    memory_protocol = texts[MEMORY_PROTOCOL]
+    decisions = texts[DECISIONS]
+    progress = texts[PROGRESS]
     current_state = texts[CURRENT_STATE]
+    handoff = texts[AI_HANDOFF]
+    master_index = json.loads(texts[MASTER_INDEX])
     adr0033 = texts[ADR0033]
 
     # Exact borrowed source and force doctrine.
@@ -106,15 +121,70 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(adr, "Status: proposed", "ADR-0035 proposed state")
     require(work_package, "Status: candidate under review", "Phase 0C-17 candidate state")
     require(donor_register, "Status:** COMPLETE AND FROZEN", "frozen Phase 0A donor register")
+    require(donor_register, "Tenfold archival-completeness rule", "donor archive protocol link")
+    require(donor_register, "69 external and 29 internal", "donor campaign coverage")
     if "Phase 0A reopened" in donor_register or "Status:** REOPENED" in donor_register:
         raise ValidationError("Phase 0A donor register was reopened")
+
+    require(memory_protocol, "## 5.1 Tenfold archive formation rule", "memory archive rule")
+    require(memory_protocol, "private force = max(20, human-equivalent workers × 10)", "memory force equation")
+    require(memory_protocol, "after five reconciled records", "memory five-record checkpoint")
+    require(memory_protocol, "after ten accepted records", "memory ten-record checkpoint")
+
+    require(decisions, "### ADR-0035 — Tenfold archive formation and evidence promotion", "decision index entry")
+    require(decisions, "**PROPOSED.**", "ADR-0035 proposed index state")
+    require(progress, "## Tenfold archive formation candidate", "progress archive section")
+    require(progress, "200 private slots allocated", "progress force count")
+    require(progress, "no source record is pre-ticked as archived", "progress earned-completion rule")
+
     require(current_state, "P01", "active P01 physical-host work")
+    require(current_state, "## Active Phase 0C-17 tenfold archive formation candidate", "current archive candidate")
+    require(current_state, "PR #26", "current archive PR")
+    require(current_state, "does not replace P01", "current P01 boundary")
     require(current_state, "**Runtime implementation:** NOT AUTHORIZED", "runtime non-authorization")
     if "**Runtime implementation:** AUTHORIZED" in current_state:
         raise ValidationError("runtime implementation became authorized")
+
+    require(handoff, "## Cross-cutting archive formation candidate", "handoff archive candidate")
+    require(handoff, "pull request: #26", "handoff archive PR")
+    require(handoff, "Campaign 001 covers 98 source obligations", "handoff campaign scope")
+    require(handoff, "P01 physical-host closure remains the exact next authorization action", "handoff P01 boundary")
+
     require(adr0033, "Status: proposed", "ADR-0033 proposed state")
     if re.search(r"^Status:\s+accepted", adr0033, re.MULTILINE | re.IGNORECASE):
         raise ValidationError("ADR-0033 became accepted")
+
+    # Machine-readable recovery index must preserve active authorization work.
+    if master_index.get("active_work_unit") != "P01-physical-host-and-ADR-0033-closure":
+        raise ValidationError("master-plan index active work unit drifted")
+    if master_index.get("runtime_implementation_authorized") is not False:
+        raise ValidationError("master-plan index authorized runtime")
+    if str(PROTOCOL) not in master_index.get("recovery_order", []):
+        raise ValidationError("archive protocol missing from machine recovery order")
+    archive_index = master_index.get("operational_protocols", {}).get("tenfold_archive_formation")
+    if not isinstance(archive_index, dict):
+        raise ValidationError("archive protocol missing from machine index")
+    expected_index = {
+        "status": "candidate_under_review",
+        "source_branch": "phase0c-tenfold-archive-formation",
+        "pull_request": 26,
+        "protocol": str(PROTOCOL),
+        "campaign_manifest": str(MANIFEST),
+        "record_template": str(TEMPLATE),
+        "work_package": str(WORK_PACKAGE),
+        "decision": str(ADR),
+        "sergeant_source_commit": SERGEANT_COMMIT,
+        "private_force_multiplier": 10,
+        "minimum_private_force": 20,
+        "formation_count": 10,
+        "allocated_private_count": 200,
+        "assigned_record_count": 98,
+        "phase_0a_reopened": False,
+        "runtime_implementation_authorized": False,
+    }
+    for key, value in expected_index.items():
+        if archive_index.get(key) != value:
+            raise ValidationError(f"machine archive protocol mismatch: {key}")
 
     # Manifest counts and formations.
     for token in (
@@ -197,6 +267,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "primary_worker_slots": len(primary_workers),
         "verifier_worker_slots": len(verifier_workers),
         "reserve_pair_count": len(reserves),
+        "authority_sync_complete": True,
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
