@@ -151,6 +151,19 @@ Selection/evidence package merge:
 - [x] implementation evidence squash-merged as `c2cd803b5e5c50787b3d8c2d24392d693afdbb3c`;
 - [x] runtime authorization remained false in every accepted record.
 
+## Apache-2.0 public/private boundary acceptance
+
+- [x] non-operative boundary candidate exact-head tested and merged as `bf846574df65061bd99d9c0e3d22a401bf9f27e2`;
+- [x] owner accepted `John Dumisuni trading as THETECHGUY DIGITAL SOLUTIONS` as the rights-holder wording;
+- [x] exact official Apache-2.0 bytes installed at root `LICENSE` and `LICENSES/Apache-2.0.txt`;
+- [x] root `NOTICE`, `CONTRIBUTING.md`, `SECURITY.md` and `REUSE.toml` made operative;
+- [x] private THETECHGUY systems, data, restricted adapters, donor source and trademarks excluded;
+- [x] third-party NOTICE review and future re-review triggers recorded;
+- [x] seven positive/adversarial acceptance regressions passed;
+- [x] all nine workflows passed at exact head `a47d418243af076b49367c4c4eccc8ef2090894c`;
+- [x] owner-acceptance change squash-merged as `3ce7d4251db0b6ba3f145385ad7ad8dc09276393`;
+- [x] runtime implementation remained unauthorized.
+
 ## Active Phase 0C closure work
 
 - [x] select the minimal external Rust crate/features graph;
@@ -163,8 +176,8 @@ Selection/evidence package merge:
 - [ ] produce a proof-eligible report from the exact pinned Ubuntu image/kernel revision;
 - [ ] record the exact installed package manifest and package-artifact digests from that host;
 - [ ] persist final evidence beyond temporary CI artifact retention;
-- [?] owner acceptance of Apache License 2.0 and the public/private contribution boundary;
-- [ ] add accepted public `LICENSE`, `NOTICE`, contribution and security files;
+- [x] owner acceptance of Apache License 2.0 and the public/private contribution boundary;
+- [x] add accepted public `LICENSE`, `NOTICE`, contribution and security files;
 - [ ] conduct the Phase 0C closure consistency review;
 - [ ] accept ADR-0033;
 - [ ] change `CURRENT_STATE.md` to `Runtime implementation: AUTHORIZED`.
@@ -175,7 +188,7 @@ Selection/evidence package merge:
 - [x] generated bindings remain metadata-only;
 - [x] dependency, backend, signer and host evidence remain non-authorizing;
 - [x] no Node, Workspace, Activity, Provider or UI runtime is claimed;
-- [x] no public licence is claimed before owner acceptance;
+- [x] accepted public Apache-2.0 governance does not authorize runtime implementation;
 - [x] donor/workload identity remains outside Ptah Core;
 - [x] WP13 and WP14 proof burdens remain unchanged;
 - [ ] runtime implementation authorized.
