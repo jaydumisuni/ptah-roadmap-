@@ -1,16 +1,22 @@
 # Campaign 001 — AF01 Archive Mission
 
-Status: CANDIDATE COMPLETE — all records reconciled; pending exact-head validation and direct review
+Status: ACCEPTED COMPLETE — all ten records reconciled and closure evidence accepted
 
 Started: 2026-07-21
 
 Evidence completed: 2026-07-21
+
+Accepted: 2026-07-21
 
 Base authority commit: `856c9859e8faca959f2a38ce33d4607af33e90c1`
 
 Protocol: `planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md` version `1.0.0`
 
 Manifest: `archive/CAMPAIGN-001-FORMATION-MANIFEST.md`
+
+Acceptance record: `archive/campaign-001/af01/ACCEPTANCE.md`
+
+Candidate merge: `0a35a8a904bdf235fa4989ea05b684443d5a879a`
 
 ## Objective
 
@@ -64,9 +70,9 @@ Formation workers did not:
 - checkpoint 2: `archive/campaign-001/af01/CHECKPOINT-10.md`;
 - machine result: `archive/campaign-001/af01/RESULT.json`;
 - human result: `archive/campaign-001/af01/RESULT.md`;
-- formation closure: pending exact-head validation and direct review.
+- accepted closure: `archive/campaign-001/af01/ACCEPTANCE.md`.
 
-## Current counts
+## Accepted counts
 
 - assigned records: 10
 - reconciled records: 10
@@ -76,4 +82,4 @@ Formation workers did not:
 - superseded: 0
 - remaining in evidence collection: 0
 
-No record remains unexamined. AF02 is not authorized until AF01 closure is reviewed and merged.
+AF01 is accepted complete. AF02 is READY / NOT STARTED and remains non-authorizing until its own mission is explicitly started.
