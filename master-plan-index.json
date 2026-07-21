@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "ptah.master_plan_index",
+  "status": "candidate_master_plan_closure_active",
+  "recorded_at": "2026-07-21",
+  "roadmap_repository": "jaydumisuni/ptah-roadmap-",
+  "implementation_repository": "jaydumisuni/Ptah-space",
+  "planning_branch": "phase0c-master-plan-roadmap-closure",
+  "phase": "0C",
+  "active_work_unit": "P00-master-plan-authority-closure",
+  "runtime_implementation_authorized": false,
+  "authority_order": [
+    "accepted_adrs_and_owner_decisions",
+    "CURRENT_STATE.md",
+    "frozen_and_proven_evidence",
+    "current_Ptah-space_source",
+    "MASTER_PLAN.md",
+    "IMPLEMENTATION_ROADMAP.md",
+    "frozen_WP01_WP14_contracts",
+    "PROGRESS.md",
+    "donor_and_internal_recovery",
+    "old_chat_or_memory"
+  ],
+  "recovery_order": [
+    "AI_HANDOFF.md",
+    "CURRENT_STATE.md",
+    "master-plan-index.json",
+    "MASTER_PLAN.md",
+    "IMPLEMENTATION_ROADMAP.md",
+    "planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md",
+    "planning/MASTER-PLAN-RECONCILIATION.md",
+    "planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md",
+    "PROGRESS.md",
+    "DECISIONS.md",
+    "MEMORY_PROTOCOL.md"
+  ],
+  "plan_documents": {
+    "requirements_and_decisions": {
+      "path": "planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md",
+      "status": "complete_for_master_plan_review",
+      "checkpoint_commit": "a413dd010e248419514b50e8297154719f00fc91"
+    },
+    "master_plan": {
+      "path": "MASTER_PLAN.md",
+      "status": "candidate_review_required",
+      "version": "1.0-candidate",
+      "checkpoint_commit": "566a166054f894a7bb9cf37d33b558c9da481e24"
+    },
+    "implementation_roadmap": {
+      "path": "IMPLEMENTATION_ROADMAP.md",
+      "status": "candidate_review_required",
+      "version": "1.0-candidate",
+      "checkpoint_commit": "57453b2b074cdea7cd905f0a5331d2edb7d707a0"
+    },
+    "reconciliation": {
+      "path": "planning/MASTER-PLAN-RECONCILIATION.md",
+      "status": "candidate_review_required",
+      "checkpoint_commit": "85ded1c782ddd83e030319a2088b03c90054444c"
+    },
+    "authorization_closure": {
+      "path": "planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md",
+      "status": "procedure_ready_external_host_open",
+      "checkpoint_commit": "27e8b09109455f234867f05a65f6cff2b0563496"
+    },
+    "handoff": {
+      "path": "AI_HANDOFF.md",
+      "status": "active_recovery_entry",
+      "checkpoint_commit": "34a206449d4403e4ebf913475ffa8e846b1bf9ff"
+    }
+  },
+  "frozen_contracts": {
+    "phase_0b_freeze_commit": "dc2db457f1705d0cba80f17ab76e5e93f808aee0",
+    "work_packages": 14,
+    "catalogs": 14,
+    "schemas": 346,
+    "lifecycle_machines": 99,
+    "status": "frozen",
+    "reopen_required_for_current_plan": false,
+    "reopen_rule": "Stop implementation and require a versioned ADR, migration, fixtures and conformance evidence if a required behavior cannot be represented by the frozen contracts."
+  },
+  "programmes": [
+    {
+      "id": "P00",
+      "name": "Master-plan authority closure",
+      "status": "active"
+    },
+    {
+      "id": "P01",
+      "name": "Physical-host and ADR-0033 closure",
+      "status": "blocked_external_physical_host"
+    },
+    {
+      "id": "A",
+      "name": "Online Ptah Alpha",
+      "status": "planned_not_authorized"
+    },
+    {
+      "id": "B",
+      "name": "Object World Beta",
+      "status": "planned"
+    },
+    {
+      "id": "C",
+      "name": "Firmware and Device Beta",
+      "status": "planned"
+    },
+    {
+      "id": "D",
+      "name": "Full Workspace Release",
+      "status": "planned"
+    },
+    {
+      "id": "E",
+      "name": "Distributed Ptah",
+      "status": "planned"
+    },
+    {
+      "id": "F",
+      "name": "OS-ready foundation",
+      "status": "planned_private_lane"
+    }
+  ],
+  "authorization_blockers": [
+    "review_and_merge_master_plan_closure",
+    "proof_eligible_exact_physical_host_bundle",
+    "installed_package_and_package_artifact_acceptance",
+    "durable_host_bundle_commit_and_acceptance",
+    "phase_0c_closure_consistency_review",
+    "ADR_0033_acceptance",
+    "explicit_runtime_authorization_same_reviewed_merge"
+  ],
+  "physical_host_target": {
+    "os": "Ubuntu Server 24.04.4 LTS",
+    "architecture": "x86_64",
+    "kernel": "6.8.0-136-generic",
+    "proof_command": "python3 tools/run_pinned_host_proof.py --repo-root . --output evidence/phase0c/pinned-host-candidate",
+    "retention_command": "python3 tools/retain_verified_pinned_host_evidence.py --repo-root . --bundle-dir evidence/phase0c/pinned-host-candidate --output-dir evidence/phase0c/pinned-host-durable-candidate"
+  },
+  "next_action": "Complete control-book repair, Phase 0C-16 evidence, ADR-0034 and exact-head validation on the planning branch; then review and merge the master-plan closure package."
+}

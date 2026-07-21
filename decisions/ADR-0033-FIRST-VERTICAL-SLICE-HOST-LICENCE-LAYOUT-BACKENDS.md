@@ -1,6 +1,6 @@
 # ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
-Status: proposed — Rust dependencies, distributed backend artifacts, signers, host collector, physical-proof, durable-retention and Apache-2.0 governance complete; physical pinned-host result, package and retention acceptance and closure review remain open
+Status: proposed — dependency, backend, signer, proof, retention and licence governance complete; Master Plan acceptance, physical pinned-host result, package/retention acceptance and closure review remain open
 
 ## Context
 
@@ -23,7 +23,9 @@ Adopt the selections recorded in the following Phase 0C records as the baseline 
 - `work-packages/PHASE-0C-11-EVIDENCE-MANIFEST.json`;
 - `work-packages/PHASE-0C-12-PINNED-HOST-PROOF-INTEGRITY-AND-PACKAGE-ARTIFACT-READINESS.md`;
 - `work-packages/PHASE-0C-13-DURABLE-PINNED-HOST-RETENTION-READINESS.md`;
-- `work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md`.
+- `work-packages/PHASE-0C-14-APACHE-2.0-OWNER-ACCEPTANCE.md`;
+- `work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md`;
+- `work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md`.
 
 The selected baseline is:
 
@@ -290,12 +292,13 @@ All nine exact-head workflows passed. This closes the licence/public-private gov
 
 This ADR remains proposed until all of the following are complete:
 
-1. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
-2. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host and accepted by review;
-3. that host's exact source bundle is independently verified, durably committed and explicitly accepted through its review record;
-4. a Phase 0C closure review confirms no frozen contract was weakened;
-5. this ADR is changed to accepted;
-6. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
+1. the complete `MASTER_PLAN.md`, `IMPLEMENTATION_ROADMAP.md`, reconciliation and durable handoff are accepted through Phase 0C-16 and ADR-0034;
+2. a proof-eligible capability report is produced on the exact frozen Ubuntu Server 24.04.4 and `6.8.0-136-generic` host;
+3. the exact installed Ubuntu package manifest and package-artifact digests are recorded from that host and accepted by review;
+4. that host's exact source bundle is independently verified, durably committed and explicitly accepted through its review record;
+5. a Phase 0C closure review confirms no frozen contract was weakened;
+6. this ADR is changed to accepted;
+7. `CURRENT_STATE.md` is updated to `Runtime implementation: AUTHORIZED` in the same reviewed closure change.
 
 ## Consequences
 

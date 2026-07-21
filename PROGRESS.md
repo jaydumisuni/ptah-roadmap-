@@ -178,8 +178,22 @@ Selection/evidence package merge:
 - [x] donor/profile package squash-merged as `d05653c5948727b58ead91088447d0b8ac4d9d9b`;
 - [x] candidate remains non-operative, non-blocking and runtime implementation remains unauthorized.
 
+## Master Plan and implementation roadmap closure
+
+- [x] requirements, architecture laws, accepted decisions and known gaps recovered into one ledger;
+- [x] complete product and operating Master Plan candidate written;
+- [x] detailed dependency-ordered Programme P00/P01 and Programmes A–F roadmap candidate written;
+- [x] WP01–WP14 and Phase 0C reconciliation completed with zero current Core extensions;
+- [x] physical-host through ADR-0033 and authorization procedure recorded;
+- [x] durable `AI_HANDOFF.md` and `master-plan-index.json` created;
+- [x] proposed ADR-0034 and Phase 0C-16 evidence package created;
+- [-] repair stale control-book records and run exact-head consistency validation;
+- [ ] review and merge Phase 0C-16;
+- [ ] accept ADR-0034 in the reviewed Phase 0C-16 merge.
+
 ## Active Phase 0C closure work
 
+- [-] review and merge the complete Master Plan and implementation roadmap closure package;
 - [x] select the minimal external Rust crate/features graph;
 - [x] produce the final runtime-candidate `Cargo.lock`;
 - [x] run crate licence, advisory, ban and source policy;
@@ -210,20 +224,39 @@ Selection/evidence package merge:
 
 ---
 
-# Implementation phases
+# Implementation programme
 
-No implementation phase may begin or be ticked before Phase 0C authorization.
+No runtime package may become READY or ACTIVE before Phase 0C authorization.
 
-- [ ] Phase 1 — Concurrent one-Node substrate.
-- [ ] Phase 2 — Intake and transfer.
-- [ ] Phase 3 — Universal decomposition.
-- [ ] Phase 4 — Firmware, disks and filesystems.
-- [ ] Phase 5 — Git, containers, environments and Builds.
-- [ ] Phase 6 — Browser and live web.
-- [ ] Phase 7 — Human Workspace shell.
-- [ ] Phase 8 — Session Vault.
-- [ ] Phase 9 — Applications and devices.
-- [ ] Phase 10 — Knowledge, data, search, Recipes and Plugins.
-- [ ] Phase 11 — Provenance and security workloads.
-- [ ] Phase 12 — Distributed Ptah.
-- [ ] Phase 13 — OS readiness.
+## Programme P00 — Planning and authorization
+
+- [-] P00 — Master-plan authority closure.
+- [?] P01 — Physical-host and ADR-0033 closure; blocked on the exact external host after P00 merge.
+
+## Programme A — Online Ptah Alpha
+
+- [ ] A01 — Repository, contracts and reproducible scaffold.
+- [ ] A02 — Node identity, Generation and host truth.
+- [ ] A03 — Ledger, schema versions and crash-safe migrations.
+- [ ] A04 — Activity, Operation, Attempt, Event and Receipt runtime.
+- [ ] A05 — Native process, PTY and multi-terminal Provider.
+- [ ] A06 — Persistent Workspace, Session and authority projection.
+- [ ] A07 — Object, Revision, Artifact, Location and local CAS.
+- [ ] A08 — Upload and resumable download engine.
+- [ ] A09 — Hardened Git Provider.
+- [ ] A10 — OCI container Provider.
+- [ ] A11 — Browser Provider.
+- [ ] A12 — Archive decomposition Provider.
+- [ ] A13 — Checkpoint, restart and verified recovery.
+- [ ] A14 — Human Alpha control surface.
+- [ ] A15 — Exact-head Online Ptah Alpha acceptance.
+
+## Later programmes
+
+- [ ] Programme B — Object World Beta.
+- [ ] Programme C — Firmware and Device Beta.
+- [ ] Programme D — Full Workspace Release.
+- [ ] Programme E — Distributed Ptah.
+- [ ] Programme F — OS-ready foundation private lane.
+
+Detailed package dependencies, deliverables and proof gates are authoritative in `IMPLEMENTATION_ROADMAP.md`.
