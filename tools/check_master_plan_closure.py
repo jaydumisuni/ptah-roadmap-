@@ -97,6 +97,8 @@ def validate(root: Path) -> dict[str, Any]:
         "decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md",
         "decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md",
         "work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md",
+        "work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md",
+        "planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md",
     ]
     for relative in required_files:
         require((root / relative).is_file(), f"required file missing: {relative}")
@@ -117,6 +119,8 @@ def validate(root: Path) -> dict[str, Any]:
     adr33 = read_text(root, "decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md")
     adr34 = read_text(root, "decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md")
     wp16 = read_text(root, "work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md")
+    wp15 = read_text(root, "work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md")
+    neutral_correction = read_text(root, "planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md")
     index = read_json(root, "master-plan-index.json")
 
     require_text(current, "**Active work unit:** 0C-04 / P01", "CURRENT_STATE")
@@ -150,7 +154,7 @@ def validate(root: Path) -> dict[str, Any]:
         "## 6. Product scope",
         "## 8. Operating modes",
         "## 10. Data, storage and memory architecture",
-        "## 11. Context compiler and agent handoff",
+        "## 11. Application-owned context and agent handoff",
         "## 13. Security, privacy and authority",
         "## 17. Operations and service ownership",
         "## 18. Product surfaces and release boundaries",
@@ -161,6 +165,11 @@ def validate(root: Path) -> dict[str, Any]:
     for role in ["Human owner or administrator", "Human operator", "Technician or specialist", "Hunter", "Sergeant or independent reviewer", "Replaceable software agent or model"]:
         require_text(master, role, "MASTER_PLAN roles")
     require_text(master, "Runtime implementation: **NOT AUTHORIZED**", "MASTER_PLAN boundary")
+    require_text(master, "Ptah is the world, not the thinker", "MASTER_PLAN neutral principle")
+    require_text(master, "The caller decides meaning, relevance, authority, correctness and next action", "MASTER_PLAN caller authority")
+    require_text(master, "Ptah does not select context, rank authority, infer blockers, approve work or choose a next action", "MASTER_PLAN application context boundary")
+    require_absent(master, "Before an agent participates, Ptah compiles a bounded packet", "MASTER_PLAN forbidden context compiler")
+    require_absent(master, "source-authority service", "MASTER_PLAN forbidden authority service")
 
     require_text(roadmap, "Version: 1.0.0", "IMPLEMENTATION_ROADMAP")
     require_text(roadmap, "Status: accepted delivery authority", "IMPLEMENTATION_ROADMAP")
@@ -180,6 +189,10 @@ def validate(root: Path) -> dict[str, Any]:
     require_text(roadmap, "Runtime implementation: **NOT AUTHORIZED**", "roadmap boundary")
     require_text(roadmap, "A14 — Human Alpha control surface", "roadmap human surface")
     require_text(roadmap, "A15 — Exact-head Online Ptah Alpha acceptance", "roadmap Alpha gate")
+    require_text(roadmap, "D02 — AI Project Workspace substrate and application adapters", "roadmap neutral D02")
+    require_text(roadmap, "Ptah Core performs no context selection, approval, review, promotion or next-action choice", "roadmap neutral proof")
+    require_absent(roadmap, "D02 — AI Project Workspace and context compiler", "roadmap forbidden D02")
+    require_absent(roadmap, "source-authority service", "roadmap forbidden authority service")
 
     for wp in EXPECTED_WPS:
         require_text(reconciliation, wp, "reconciliation WP coverage")
@@ -221,6 +234,21 @@ def validate(root: Path) -> dict[str, Any]:
     require_text(handoff, "2c24f9e6b0fc98d5e03605596db75d7495796353", "AI handoff accepted merge")
     require_text(handoff, "Runtime implementation: NOT AUTHORIZED", "AI handoff boundary")
     require_text(handoff, "Exact next action", "AI handoff next action")
+    require_text(handoff, "Neutral Ptah substrate correction", "AI handoff correction")
+    require_text(handoff, "8a8d620c5227a6508145cd4a30f4f45142bfabe9", "AI handoff public correction merge")
+    require_text(current, "Corrected AI Project Workspace behavioural donor boundary", "CURRENT_STATE correction")
+    require_absent(current, "AF02 evidence collection is active", "CURRENT_STATE stale AF02 state")
+    require_text(current, "AF03 remains ready but not started", "CURRENT_STATE AF03 boundary")
+    require_text(progress, "AI Project Workspace behavioural donor — neutral substrate correction", "PROGRESS correction")
+    require_text(wp15, "**Ptah:** neutral Workspace, storage, execution, Facility, configured-access, Event, Receipt, checkpoint and recovery substrate", "Phase 0C-15 correction")
+    require_text(neutral_correction, "That language did not represent a new owner decision", "neutral correction provenance")
+    neutral_index = index.get("ptah_neutral_substrate_boundary")
+    require(isinstance(neutral_index, dict), "neutral substrate machine boundary missing")
+    require(neutral_index.get("public_correction_merge") == "8a8d620c5227a6508145cd4a30f4f45142bfabe9", "neutral substrate correction merge mismatch")
+    require(neutral_index.get("ptah_role") == "neutral_workspace_and_execution_substrate", "neutral Ptah role mismatch")
+    require(neutral_index.get("ptah_decision_authority") is False, "Ptah decision authority must remain false")
+    require(neutral_index.get("ptah_review_authority") is False, "Ptah review authority must remain false")
+    require(neutral_index.get("af03_started") is False, "AF03 cannot start during boundary correction")
 
     for decision in [f"D-{i:03d}" for i in range(40, 50)]:
         require_text(decisions, decision, "DECISIONS completion")
@@ -273,6 +301,10 @@ def validate(root: Path) -> dict[str, Any]:
         "physical_host_evidence_accepted": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
+        "neutral_substrate_boundary_restored": True,
+        "ptah_decision_authority": False,
+        "ptah_review_authority": False,
+        "af03_started": False,
         "files": report_files,
     }
 

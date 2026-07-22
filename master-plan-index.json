@@ -225,5 +225,24 @@
       "af02_candidate_merge": "58d89dfd1d5348cc8423222e3aff256ee041dce2",
       "af02_acceptance_record": "archive/campaign-001/af02/ACCEPTANCE.md"
     }
+  },
+  "ptah_neutral_substrate_boundary": {
+    "status": "accepted_correction",
+    "correction_record": "planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md",
+    "public_candidate_exact_head": "5a95c577edf366bad1d8949ee37c17b81f296254",
+    "public_candidate_workflow_run": "29961370694",
+    "public_candidate_artifact_id": "8546091277",
+    "public_candidate_artifact_digest": "sha256:04472fd4fd546fcc2420d135cdfcb517381efbe5de8b3bc14f6971207fbde819",
+    "public_correction_merge": "8a8d620c5227a6508145cd4a30f4f45142bfabe9",
+    "ptah_role": "neutral_workspace_and_execution_substrate",
+    "context_selection_owner": "caller_application",
+    "source_authority_owner": "caller_application",
+    "review_authority_owner": "reviewer_application",
+    "approval_authority_owner": "human_or_calling_application",
+    "next_action_owner": "caller_application",
+    "ptah_decision_authority": false,
+    "ptah_review_authority": false,
+    "af03_started": false,
+    "runtime_implementation_authorized": false
   }
 }

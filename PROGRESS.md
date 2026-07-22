@@ -164,19 +164,18 @@ Selection/evidence package merge:
 - [x] owner-acceptance change squash-merged as `3ce7d4251db0b6ba3f145385ad7ad8dc09276393`;
 - [x] runtime implementation remained unauthorized.
 
-## AI Project Workspace behavioural donor and Hunter bridge candidate
+## AI Project Workspace behavioural donor — neutral substrate correction
 
-- [x] ChatGPT Projects, project memory, Library, Work, Canvas and Scheduled Tasks recorded from official public documentation as behavioural sources only;
+- [x] ChatGPT Projects, Library, Work, Canvas and Scheduled Tasks retained as application-experience sources only;
 - [x] code reuse fixed at none and OpenAI excluded as a runtime dependency;
-- [x] `ptah.workspace.ai_project.v1` candidate profile recorded over sixteen existing Ptah primitives;
-- [x] fourteen behaviours mapped with zero frozen-contract extensions;
-- [x] hidden provider memory and implicit global tool access explicitly rejected;
-- [x] bounded context, source authority, Workspace isolation, Facility Grants and model-independent handoff requirements recorded;
-- [x] Hunter–Ptah bridge responsibilities and candidate-to-truth promotion boundary recorded;
-- [x] ten positive/negative fixtures and ten adversarial validator regressions passed;
-- [x] all ten workflows passed at exact head `2a2c28d17abd9ad52c8d850f8bbcdba57074194e`;
-- [x] donor/profile package squash-merged as `d05653c5948727b58ead91088447d0b8ac4d9d9b`;
-- [x] candidate remains non-operative, non-blocking and runtime implementation remains unauthorized.
+- [x] `ptah.workspace.ai_project.v1` remains a composition of sixteen existing Ptah primitives with zero Core extensions;
+- [x] drift assigning context, source authority, review, approval or promotion to Ptah identified and removed;
+- [x] Hunter owns intelligence/context/coordination, Sergeant owns independent review, and humans/calling applications own acceptance;
+- [x] ten corrected fixtures and 17 adversarial regressions enforce the neutral boundary;
+- [x] all ten workflows passed at exact correction head `5a95c577edf366bad1d8949ee37c17b81f296254`;
+- [x] retained artifact `8546091277` with digest `sha256:04472fd4fd546fcc2420d135cdfcb517381efbe5de8b3bc14f6971207fbde819`;
+- [x] correction squash-merged as `8a8d620c5227a6508145cd4a30f4f45142bfabe9`;
+- [x] no AF03 start, contract reopening or runtime authorization introduced.
 
 ## Master Plan and implementation roadmap closure
 
@@ -238,7 +237,7 @@ Selection/evidence package merge:
 - [x] no Node, Workspace, Activity, Provider or UI runtime is claimed;
 - [x] accepted public Apache-2.0 governance does not authorize runtime implementation;
 - [x] donor/workload identity remains outside Ptah Core;
-- [x] AI Project Workspace donor/profile remains non-operative and provider-independent;
+- [x] AI Project Workspace donor/profile remains non-operative, provider-independent and mechanically neutral;
 - [x] WP13 and WP14 proof burdens remain unchanged;
 - [ ] runtime implementation authorized.
 
