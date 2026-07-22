@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "tools/apply_neutral_substrate_plan_correction.py"
+      - "tools/apply_neutral_substrate_plan_correction_v2.py"
       - ".github/workflows/neutral-substrate-plan-correction-apply.yml"
 
 permissions:
@@ -38,7 +39,7 @@ jobs:
         run: |
           mkdir -p conformance/reports/neutral-substrate-correction
           set -o pipefail
-          python3 tools/apply_neutral_substrate_plan_correction.py 2>&1 \
+          python3 tools/apply_neutral_substrate_plan_correction_v2.py 2>&1 \
             | tee conformance/reports/neutral-substrate-correction/transform.txt
 
       - name: Run accepted plan validation
