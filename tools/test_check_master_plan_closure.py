@@ -31,6 +31,7 @@ REQUIRED_FILES = [
     "work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md",
     "work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md",
     "planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md",
+    "planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md",
 ]
 
 
@@ -191,6 +192,14 @@ class MasterPlanClosureTests(unittest.TestCase):
             + "\nAF02 evidence collection is active under its accepted twenty-private mission.\n",
             encoding="utf-8",
         )
+        self.assert_invalid(root)
+
+    def test_private_neutral_correction_merge_cannot_drift(self) -> None:
+        root = self.make_repo()
+        path = root / "master-plan-index.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["ptah_neutral_substrate_boundary"]["private_correction_merge"] = "0" * 40
+        path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
         self.assert_invalid(root)
 
 

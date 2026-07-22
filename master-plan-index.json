@@ -243,6 +243,12 @@
     "ptah_decision_authority": false,
     "ptah_review_authority": false,
     "af03_started": false,
-    "runtime_implementation_authorized": false
+    "runtime_implementation_authorized": false,
+    "private_exact_head": "b7ab2ccad94f1cefeb4693448c2a2ca79b0b00a7",
+    "private_workflow_run": "29962459098",
+    "private_artifact_id": "8546506459",
+    "private_artifact_digest": "sha256:ff3e1aef59f0c847964888ef460c6177bdfed181b0a6817318cbc3d2eb9e4ccb",
+    "private_correction_merge": "fc8ac4c42a3358da37c4866879543a5d7c4d1885",
+    "merge_evidence_record": "planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md"
   }
 }

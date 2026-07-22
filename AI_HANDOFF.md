@@ -91,7 +91,7 @@ Sergeant = independent reviewer producing Sergeant results
 Human/calling application = intent, approval, acceptance and release
 ```
 
-Ptah does not select context, rank sources, approve work, issue review verdicts, promote candidates or choose the next agent/action. Full private authority record: `planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md`.
+Ptah does not select context, rank sources, approve work, issue review verdicts, promote candidates or choose the next agent/action. Private correction merge `fc8ac4c42a3358da37c4866879543a5d7c4d1885` is bound in `planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md`.
 
 AF03 remains READY / NOT STARTED.
 
