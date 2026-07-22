@@ -319,36 +319,32 @@ This closes the Apache-2.0 owner decision and operative public repository govern
 
 ---
 
-## Merged AI Project Workspace behavioural donor and Hunter bridge candidate
+## Corrected AI Project Workspace behavioural donor boundary
 
-`Ptah-space` PR `#14` was tested at exact head:
-
-```text
-2a2c28d17abd9ad52c8d850f8bbcdba57074194e
-```
-
-and squash-merged at:
+Original donor package:
 
 ```text
-d05653c5948727b58ead91088447d0b8ac4d9d9b
+PR #14 merge: d05653c5948727b58ead91088447d0b8ac4d9d9b
 ```
 
-The merged non-operative design package records:
+Neutral-boundary correction:
 
-- OpenAI ChatGPT Projects and Work as a public-documentation behavioural donor only;
-- no OpenAI source-code reuse, proprietary implementation claim or runtime dependency;
-- profile identity `ptah.workspace.ai_project.v1`;
-- sixteen existing Ptah primitives composed into a human-and-agent project Workspace;
-- fourteen donor behaviours: four directly covered, eight covered by profile composition, zero Core extensions and two rejected patterns;
-- explicit rejection of hidden provider memory and implicit global tool access;
-- a Hunter–Ptah bridge where Ptah owns durable truth and Grants while Hunter coordinates through bounded context packets;
-- ten positive/negative proof fixtures for isolation, authority, provider replacement, scheduled access, handoff and Artifact lineage;
-- ten fail-closed regressions and exact-head evidence under immutable Action pins;
-- a corrected public README licence statement while retaining the non-claiming runtime boundary.
+```text
+PR #15 exact head: 5a95c577edf366bad1d8949ee37c17b81f296254
+PR #15 merge: 8a8d620c5227a6508145cd4a30f4f45142bfabe9
+```
 
-All ten exact-head workflows passed, including the new AI Project Workspace candidate lane, source/no-build, Rust policy, frozen contracts, generated bindings, host, licence, backend artifact, backend signature and signer-lock gates.
+All ten exact-head workflows passed. Corrected Workspace run `29961370694` retained artifact `8546091277` with digest `sha256:04472fd4fd546fcc2420d135cdfcb517381efbe5de8b3bc14f6971207fbde819`.
 
-This candidate is a non-blocking future composition design. It neither closes nor adds an ADR-0033 acceptance condition, changes a frozen WP01–WP14 contract, implements a Workspace/context runtime or authorizes Hunter integration.
+Canonical boundary:
+
+- Ptah is the neutral Workspace and execution substrate;
+- Hunter owns intelligence, context selection, source judgments, planning and coordination;
+- Sergeant independently reviews frozen candidates and issues Sergeant's result;
+- humans or calling applications own intent, configured authority, approval, acceptance and release;
+- Ptah stores and mechanically enforces configured records but does not select context, rank authority, review, approve, promote or choose a next action.
+
+The donor remains application-experience study only, requires zero Core extensions and does not change ADR-0033, AF03 or runtime authorization.
 
 ---
 
@@ -424,8 +420,11 @@ Campaign 001 progress:
 - AF01: ACCEPTED COMPLETE;
 - accepted archive records: 9;
 - blocked completed outcomes: 1 (`D047` MiniRouter source reuse);
-- AF02: ACCEPTED COMPLETE
-AF03: READY / NOT STARTED;
+- AF02: ACCEPTED COMPLETE;
+- accepted archive records: 19 total;
+- AF02 remaining evidence: 0;
+- AF02 acceptance merge: d1d6b47e935e79790db319ad234b4abccafa4d3f;
+- AF03: READY / NOT STARTED;
 - AF02 mission: `archive/campaign-001/af02/MISSION.md`;
 - AF01 operative acceptance merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`;
 - AF01 candidate exact head: `f60e340cb856d50e88b4279147a933d838fce759`;
@@ -433,7 +432,7 @@ AF03: READY / NOT STARTED;
 - AF01 candidate merge: `0a35a8a904bdf235fa4989ea05b684443d5a879a`;
 - AF01 acceptance record: `archive/campaign-001/af01/ACCEPTANCE.md`.
 
-AF02 evidence collection is active under its accepted twenty-private mission, with zero records accepted. This archive authorization does not grant source reuse, start AF03, replace P01 as the active implementation-authorization work, reopen Phase 0A, accept ADR-0033 or authorize runtime implementation.
+AF02 is accepted complete. AF03 remains ready but not started. Archive formation state does not grant source reuse, replace P01 as the active implementation-authorization work, reopen Phase 0A, accept ADR-0033 or authorize runtime implementation.
 
 ---
 

@@ -805,27 +805,29 @@ Deliver mature docking/layout, editor integration, object/browser/application/de
 
 Dependencies: A14, B, C.
 
-## D02 — AI Project Workspace and context compiler
+## D02 — AI Project Workspace substrate and application adapters
 
 Deliver:
 
-- `ptah.workspace.ai_project.v1` manifest;
-- source-authority service;
-- bounded context compiler;
-- visible selected sources;
+- `ptah.workspace.ai_project.v1` neutral manifest;
+- exact Workspace, Session, Activity, Object and Artifact retrieval APIs;
+- caller-metadata round-trip without Ptah interpretation;
 - parallel Session/thread projections;
 - reusable Artifact Library;
-- model-independent handoff;
-- candidate-to-canonical review flow;
-- scheduled Activity context with least privilege.
+- model-independent stored state and handoff Artifacts;
+- exact caller-submitted scheduled Activity inputs;
+- Hunter adapter for Hunter-owned context selection and coordination;
+- Sergeant adapter for independent review execution and retained Sergeant results.
 
 Proof:
 
-- no cross-Workspace leakage;
-- superseded source cannot outrank canonical source;
-- model replacement preserves authority and state;
-- scheduled Activity sees only granted Artifacts;
-- private Hunter memory cannot enter public Workspace without explicit lawful promotion.
+- no cross-Workspace leakage under configured Grants;
+- conflicting caller authority labels remain stored with no Ptah-selected winner;
+- model replacement preserves stored state, provenance and configured access;
+- scheduled Activity sees only caller-specified, mechanically granted inputs;
+- private Hunter records cannot be read from a public Workspace without configured release and Grant;
+- Sergeant findings remain Sergeant Artifacts and never become a Ptah verdict;
+- Ptah Core performs no context selection, approval, review, promotion or next-action choice.
 
 Dependencies: B06, B07, D01, WP10/11 implementation.
 

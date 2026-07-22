@@ -45,17 +45,19 @@ Modern technical work is fragmented across chat sessions, local terminals, cloud
 
 Ptah solves this by providing one coherent, durable and evidence-bound world with stable identities and replaceable providers.
 
-The product must answer at any time:
+The platform must expose enough exact state for an authorized caller to answer questions such as:
 
 - What Workspace are we in?
 - What Objects, Revisions and Artifacts exist?
 - What Activities are running, waiting, failed or complete?
 - Which Node and Provider Generation performed each action?
-- What evidence proves the claimed outcome?
-- What can be safely resumed after interruption?
-- What authority does this user, agent or scheduled Activity have?
-- Which source is canonical, superseded, private or only a generated candidate?
-- Can the same work continue on another compatible Node or with another model/provider?
+- What Receipts and evidence were retained?
+- What mechanically recoverable state exists after interruption?
+- What configured Grants, Leases and Fences apply to this caller or Activity?
+- What caller-supplied labels and provenance are stored on each record?
+- Can the same stored work continue on another compatible Node or with another model/provider?
+
+Ptah exposes and preserves the records. The caller decides meaning, relevance, authority, correctness and next action.
 
 ## 4. Product principles
 
@@ -72,7 +74,7 @@ The product must answer at any time:
 11. **Polyglot integration is preferred over unnecessary rewrites.** Mature engines sit behind Ptah contracts.
 12. **Public Ptah is neutral.** Private THETECHGUY knowledge and customer/device data stay outside public Core.
 13. **Human use is first-class.** A human must be able to operate the system without an AI caller.
-14. **Model and provider replacement must not erase project truth or authority.**
+14. **Model and provider replacement must not erase caller-owned records, configured access or provenance.**
 15. **Completion is evidence-backed.** Source presence and UI claims are insufficient.
 
 ## 5. Intended users and participants
@@ -118,21 +120,23 @@ A developer:
 Hunter is the primary internal planning and coordination participant for THETECHGUY use. Hunter:
 
 - interprets owner or operator intent;
-- requests bounded Workspace context;
-- proposes plans and Activities;
-- selects suitable Providers within granted authority;
+- requests records from Ptah and constructs Hunter-owned bounded context;
+- selects relevant sources and applies Hunter or owner-defined trust labels;
+- proposes plans and caller-defined Activities;
+- selects suitable Providers within configured access;
 - produces candidate Artifacts and handoffs;
-- requests protected-action approval;
-- never directly rewrites canonical truth from a model response.
+- requests protected-action approval from the applicable human or application;
+- proposes next actions and never assigns those decisions to Ptah.
 
 ### 5.6 Sergeant or independent reviewer
 
 Sergeant or another reviewer:
 
-- receives independently selected evidence and context;
+- independently selects or requests the frozen candidate and review evidence;
+- uses Ptah compute, storage and Facilities without becoming part of Ptah;
 - challenges claims, unsafe shortcuts and incomplete proof;
-- records review outcomes without silently mutating Hunter’s result;
-- cannot promote a result beyond the authority granted by the owner and accepted process.
+- records Sergeant's review outcome without silently mutating Hunter’s result;
+- issues no Ptah verdict: a human or calling application decides what to do with the review.
 
 ### 5.7 Replaceable software agent or model
 
@@ -152,8 +156,8 @@ Ptah Core owns:
 - Workspace, Session, Activity, Operation, Attempt and Event records;
 - Node, Facility, Provider, Generation, capability and health records;
 - Object, Content, Revision, View, Artifact, Relationship and Location records;
-- Policy, Grant, Lease, Fence and authority records;
-- Recipe, Plan, Run, Step, Receipt and Evidence records;
+- caller-configured Policy, Grant, Lease and Fence records with mechanical enforcement;
+- caller-defined Recipe, Plan, Run and Step records plus Receipt and Evidence storage;
 - migrations, retention, supersession, tombstones and recovery projections;
 - neutral APIs and event envelopes.
 
@@ -222,20 +226,20 @@ The human shell must provide:
 
 The shell may reuse mature editor, terminal, docking and panel frameworks. UI state is a projection and never becomes runtime truth.
 
-### 6.5 AI Project Workspace experience
+### 6.5 AI Project Workspace substrate and application experience
 
-The `ptah.workspace.ai_project.v1` composition profile adds:
+The `ptah.workspace.ai_project.v1` profile composes neutral Ptah capabilities for applications:
 
-- Workspace purpose and objective;
-- project instructions and Policies;
-- source-authority classes;
+- durable Workspace and Session identities;
+- caller-owned instruction, purpose, objective and label Artifacts;
 - parallel Sessions or work threads;
 - reusable Artifact Library views;
-- bounded context compilation;
-- visible memory and source selection;
-- model-independent handoffs;
-- scheduled Activities with least-privilege Artifact access;
-- explicit candidate-to-canonical promotion.
+- exact caller-requested record retrieval;
+- model-independent stored state and caller-produced handoffs;
+- caller-submitted scheduled Activities with configured mechanical access;
+- failure, provenance, checkpoint and recovery retention.
+
+Hunter, Sergeant, humans or other applications perform context selection, source ranking, review, approval, candidate promotion and next-action choice. Ptah stores and executes the requested operations but does not make those decisions.
 
 This is a composition of frozen Ptah primitives, not a new ChatGPT-specific Core entity.
 
@@ -372,48 +376,42 @@ Git is source truth for code, schemas, versioned configuration, ADRs and reviewa
 
 Drive may hold readable exports, recovery copies and large documents. It is not the live build, Git, database, container or browser filesystem.
 
-### 10.6 Workspace knowledge and memory
+### 10.6 Workspace knowledge and caller-owned memory
 
-Project memory is stored as inspectable Objects, Artifacts, Knowledge Sources, Index Revisions, decisions and handoffs. Models receive bounded context packets. Hidden provider memory cannot become canonical project truth.
+Ptah stores inspectable Objects, Artifacts, Knowledge Sources, Index Revisions and caller-produced decision or handoff records. Hidden provider memory cannot replace durable caller-owned records.
 
-Source authority classes:
+Applications may attach labels such as `canonical`, `accepted_evidence`, `recovery_copy`, `reference`, `generated_candidate`, `temporary_context`, `rejected` or `superseded`. Ptah preserves the label, author, revision and provenance but does not interpret, rank or enforce the label's meaning.
 
-- canonical;
-- accepted evidence;
-- recovery copy;
-- reference;
-- generated candidate;
-- temporary context;
-- rejected;
-- superseded.
+## 11. Application-owned context and agent handoff
 
-## 11. Context compiler and agent handoff
+Before an agent participates, Hunter, Sergeant, a human-facing application or another caller may request exact Workspace records and construct its own bounded packet.
 
-Before an agent participates, Ptah compiles a bounded packet containing, as applicable:
+The caller decides whether to include:
 
-- Workspace purpose and objective;
-- participant role and authority;
-- current canonical state;
-- selected accepted decisions;
-- active Activities and blockers;
-- relevant authoritative Objects and Artifacts;
-- recent relevant Sessions;
-- available Facilities and Grants;
-- evidence and privacy requirements;
-- previous handoff and exact next action.
+- purpose or objective records;
+- participant-role metadata;
+- caller-accepted decisions;
+- Activities and caller-identified blockers;
+- selected Objects and Artifacts;
+- selected Sessions;
+- Facility and Grant records;
+- evidence or privacy instructions;
+- a previous caller-produced handoff or proposed next action.
 
-The compiler must expose which sources were selected and why. It must deny cross-Workspace private retrieval without an explicit Grant.
+Ptah returns records the caller is mechanically permitted to read and preserves exact source revisions and provenance. Ptah does not select context, rank authority, infer blockers, approve work or choose a next action.
 
-Every substantial work Session ends with a durable handoff containing:
+A human, Hunter, Sergeant or another application may create a durable handoff containing:
 
 - completed work;
 - exact source and evidence commits;
 - current state;
 - blockers;
 - active branch or Activity;
-- next safe action;
+- proposed next action;
 - unresolved questions;
 - limitations and failed attempts.
+
+Ptah stores and versions the handoff Artifact. It does not verify its conclusions or decide that it is authoritative.
 
 ## 12. Provider and adapter architecture
 

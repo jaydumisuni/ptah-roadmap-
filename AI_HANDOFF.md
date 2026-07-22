@@ -78,6 +78,23 @@ The campaign is an archive/recovery workflow, not proof that a 200-agent runtime
 
 P01 physical-host closure remains the exact next authorization action.
 
+## Neutral Ptah substrate correction
+
+The Workspace donor was corrected and merged as `8a8d620c5227a6508145cd4a30f4f45142bfabe9` after all ten exact-head workflows passed at `5a95c577edf366bad1d8949ee37c17b81f296254`.
+
+Use this boundary:
+
+```text
+Ptah = neutral platform and mechanical access enforcement
+Hunter = intelligence, context selection and coordination
+Sergeant = independent reviewer producing Sergeant results
+Human/calling application = intent, approval, acceptance and release
+```
+
+Ptah does not select context, rank sources, approve work, issue review verdicts, promote candidates or choose the next agent/action. Full private authority record: `planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md`.
+
+AF03 remains READY / NOT STARTED.
+
 ## Exact next action
 
 On the exact Ubuntu Server 24.04.4 LTS / x86_64 / `6.8.0-136-generic` physical proof host, check out the selected clean reviewed `Ptah-space` preparation commit and run:

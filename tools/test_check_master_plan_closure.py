@@ -29,6 +29,8 @@ REQUIRED_FILES = [
     "decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md",
     "decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md",
     "work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md",
+    "work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md",
+    "planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md",
 ]
 
 
@@ -59,6 +61,10 @@ class MasterPlanClosureTests(unittest.TestCase):
         self.assertEqual(report["status"], "accepted_plan_authority_non_authorizing")
         self.assertFalse(report["runtime_implementation_authorized"])
         self.assertEqual(report["programme_a_package_count"], 15)
+        self.assertTrue(report["neutral_substrate_boundary_restored"])
+        self.assertFalse(report["ptah_decision_authority"])
+        self.assertFalse(report["ptah_review_authority"])
+        self.assertFalse(report["af03_started"])
 
     def test_machine_index_cannot_authorize_runtime(self) -> None:
         root = self.make_repo()
@@ -139,6 +145,52 @@ class MasterPlanClosureTests(unittest.TestCase):
     def test_missing_required_file_fails(self) -> None:
         root = self.make_repo()
         (root / "MASTER_PLAN.md").unlink()
+        self.assert_invalid(root)
+
+    def test_master_plan_cannot_restore_ptah_context_compiler(self) -> None:
+        root = self.make_repo()
+        path = root / "MASTER_PLAN.md"
+        self.replace(
+            path,
+            "Before an agent participates, Hunter, Sergeant, a human-facing application or another caller may request exact Workspace records and construct its own bounded packet.",
+            "Before an agent participates, Ptah compiles a bounded packet.",
+        )
+        self.assert_invalid(root)
+
+    def test_roadmap_cannot_restore_source_authority_service(self) -> None:
+        root = self.make_repo()
+        path = root / "IMPLEMENTATION_ROADMAP.md"
+        self.replace(
+            path,
+            "- exact Workspace, Session, Activity, Object and Artifact retrieval APIs;",
+            "- source-authority service;",
+        )
+        self.assert_invalid(root)
+
+    def test_machine_index_cannot_give_ptah_review_authority(self) -> None:
+        root = self.make_repo()
+        path = root / "master-plan-index.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["ptah_neutral_substrate_boundary"]["ptah_review_authority"] = True
+        path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+        self.assert_invalid(root)
+
+    def test_af03_cannot_start_during_boundary_correction(self) -> None:
+        root = self.make_repo()
+        path = root / "master-plan-index.json"
+        value = json.loads(path.read_text(encoding="utf-8"))
+        value["ptah_neutral_substrate_boundary"]["af03_started"] = True
+        path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+        self.assert_invalid(root)
+
+    def test_stale_af02_active_sentence_is_rejected(self) -> None:
+        root = self.make_repo()
+        path = root / "CURRENT_STATE.md"
+        path.write_text(
+            path.read_text(encoding="utf-8")
+            + "\nAF02 evidence collection is active under its accepted twenty-private mission.\n",
+            encoding="utf-8",
+        )
         self.assert_invalid(root)
 
 
