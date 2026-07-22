@@ -334,7 +334,7 @@ PR #15 exact head: 5a95c577edf366bad1d8949ee37c17b81f296254
 PR #15 merge: 8a8d620c5227a6508145cd4a30f4f45142bfabe9
 ```
 
-All ten exact-head workflows passed. Corrected Workspace run `29961370694` retained artifact `8546091277` with digest `sha256:04472fd4fd546fcc2420d135cdfcb517381efbe5de8b3bc14f6971207fbde819`.
+All ten public exact-head workflows passed. Corrected Workspace run `29961370694` retained artifact `8546091277` with digest `sha256:04472fd4fd546fcc2420d135cdfcb517381efbe5de8b3bc14f6971207fbde819`. The private plan correction passed 18 regressions at `b7ab2ccad94f1cefeb4693448c2a2ca79b0b00a7` in run `29962459098`, retained artifact `8546506459` with digest `sha256:ff3e1aef59f0c847964888ef460c6177bdfed181b0a6817318cbc3d2eb9e4ccb`, and merged as `fc8ac4c42a3358da37c4866879543a5d7c4d1885`. Full merge record: `planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md`.
 
 Canonical boundary:
 

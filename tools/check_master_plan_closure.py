@@ -99,6 +99,7 @@ def validate(root: Path) -> dict[str, Any]:
         "work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md",
         "work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md",
         "planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md",
+        "planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md",
     ]
     for relative in required_files:
         require((root / relative).is_file(), f"required file missing: {relative}")
@@ -121,6 +122,7 @@ def validate(root: Path) -> dict[str, Any]:
     wp16 = read_text(root, "work-packages/PHASE-0C-16-MASTER-PLAN-AND-IMPLEMENTATION-ROADMAP-CLOSURE.md")
     wp15 = read_text(root, "work-packages/PHASE-0C-15-AI-PROJECT-WORKSPACE-DONOR-AND-HUNTER-BRIDGE.md")
     neutral_correction = read_text(root, "planning/PTAH-NEUTRAL-SUBSTRATE-PLAN-CORRECTION.md")
+    neutral_merge = read_text(root, "planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md")
     index = read_json(root, "master-plan-index.json")
 
     require_text(current, "**Active work unit:** 0C-04 / P01", "CURRENT_STATE")
@@ -249,6 +251,14 @@ def validate(root: Path) -> dict[str, Any]:
     require(neutral_index.get("ptah_decision_authority") is False, "Ptah decision authority must remain false")
     require(neutral_index.get("ptah_review_authority") is False, "Ptah review authority must remain false")
     require(neutral_index.get("af03_started") is False, "AF03 cannot start during boundary correction")
+    require_text(neutral_merge, "Status: accepted evidence record", "neutral merge evidence state")
+    require_text(neutral_merge, "fc8ac4c42a3358da37c4866879543a5d7c4d1885", "neutral private correction merge")
+    require(neutral_index.get("private_exact_head") == "b7ab2ccad94f1cefeb4693448c2a2ca79b0b00a7", "neutral private exact head mismatch")
+    require(neutral_index.get("private_workflow_run") == "29962459098", "neutral private workflow mismatch")
+    require(neutral_index.get("private_artifact_id") == "8546506459", "neutral private artifact mismatch")
+    require(neutral_index.get("private_artifact_digest") == "sha256:ff3e1aef59f0c847964888ef460c6177bdfed181b0a6817318cbc3d2eb9e4ccb", "neutral private artifact digest mismatch")
+    require(neutral_index.get("private_correction_merge") == "fc8ac4c42a3358da37c4866879543a5d7c4d1885", "neutral private merge mismatch")
+    require(neutral_index.get("merge_evidence_record") == "planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md", "neutral merge evidence record mismatch")
 
     for decision in [f"D-{i:03d}" for i in range(40, 50)]:
         require_text(decisions, decision, "DECISIONS completion")
