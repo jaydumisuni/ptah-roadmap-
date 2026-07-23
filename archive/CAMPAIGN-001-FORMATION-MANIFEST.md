@@ -21,6 +21,9 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 - accepted archive records: 19
 - blocked completed outcomes: 1
 - next formation: AF03 READY / NOT STARTED
+- AF03 candidate package: COMPLETE / SERGEANT PASSED / NOT ACCEPTED
+- AF03 candidate outcomes: 10
+- AF03 candidate remaining evidence: 0
 
 ## AF01
 
@@ -75,6 +78,12 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 ## AF03
 
 - status: READY / NOT STARTED
+- candidate package: COMPLETE / SERGEANT PASSED / NOT ACCEPTED
+- candidate outcomes: 10
+- candidate remaining evidence: 0
+- candidate mission: `archive/campaign-001/af03/MISSION.md`
+- candidate result: `archive/campaign-001/af03/RESULT.json`
+- Sergeant review: `archive/campaign-001/af03/SERGEANT-REVIEW.md`
 - private count: 20
 - assigned records: 10
 - reserve pairs: 0

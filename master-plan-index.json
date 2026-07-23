@@ -224,7 +224,19 @@
       "af02_candidate_artifact_digest": "sha256:78c5b702aa6025f088e2c54002bbe84fead003c92e0bb98ec18fcd0220b1d81c",
       "af02_candidate_validation_report_sha256": "e18dac8a154547deb30c4482027b10c40dd892fd8a1024cba78f7366b44c6fd9",
       "af02_candidate_merge": "58d89dfd1d5348cc8423222e3aff256ee041dce2",
-      "af02_acceptance_record": "archive/campaign-001/af02/ACCEPTANCE.md"
+      "af02_acceptance_record": "archive/campaign-001/af02/ACCEPTANCE.md",
+      "af03_candidate_package_status": "complete_sergeant_passed_not_accepted",
+      "af03_candidate_outcome_count": 10,
+      "af03_candidate_remaining_evidence_count": 0,
+      "af03_candidate_mission": "archive/campaign-001/af03/MISSION.md",
+      "af03_candidate_result": "archive/campaign-001/af03/RESULT.json",
+      "af03_sergeant_review": "archive/campaign-001/af03/SERGEANT-REVIEW.md",
+      "af03_sergeant_review_target_head": "a6a1d9aa13f619c2f8ff4c1c6c0cadea331df3d6",
+      "af03_sergeant_review_result": "pass_with_mandatory_retained_restrictions",
+      "af03_sergeant_blocking_finding_count": 0,
+      "af04_status": "not_started",
+      "af04_started": false,
+      "af04_authorized": false
     }
   },
   "ptah_neutral_substrate_boundary": {
