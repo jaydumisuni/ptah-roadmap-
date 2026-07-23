@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import apply_af03_acceptance_v2 as v2
 
+ORIGINAL_SYNC_AF03_TESTS = v2.sync_af03_tests
 
-# The accepted AF04 regression shape is now handled in v2. Keep this wrapper
-# as the stable workflow entry point without applying the same transform twice.
+
+# The accepted AF04 regression shape is handled in v2. Keep this wrapper as
+# the stable workflow entry point and call the saved original exactly once.
 def sync_af03_tests() -> None:
-    v2.sync_af03_tests()
+    ORIGINAL_SYNC_AF03_TESTS()
 
 
 def main() -> int:
