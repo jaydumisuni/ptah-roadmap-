@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Check out exact candidate head
+      - name: Check out exact accepted head
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ env.PTAH_EXACT_SHA }}
@@ -39,7 +39,7 @@ jobs:
           python3 tools/test_check_platform_diagnostic_advisory.py -v 2>&1 \
             | tee conformance/reports/platform-diagnostic-advisory/regressions.txt
 
-      - name: Validate candidate boundary
+      - name: Validate accepted boundary
         run: |
           set -o pipefail
           python3 tools/check_platform_diagnostic_advisory.py \
@@ -47,7 +47,7 @@ jobs:
             --output conformance/reports/platform-diagnostic-advisory/report.json 2>&1 \
             | tee conformance/reports/platform-diagnostic-advisory/validator.txt
 
-      - name: Bind evidence to exact head
+      - name: Bind accepted evidence to exact head
         run: |
           python3 - <<'PY'
           import hashlib
@@ -79,8 +79,8 @@ jobs:
           )
           if not evidence["exact_head_match"]:
               raise SystemExit("diagnostic/worker boundary did not test exact head")
-          if evidence["status"] != "candidate_valid_non_authorizing":
-              raise SystemExit("diagnostic/worker candidate status invalid")
+          if evidence["status"] != "accepted_valid_non_authorizing":
+              raise SystemExit("diagnostic/worker accepted status invalid")
           expected_true = (
               "uses_frozen_primitives_only",
               "may_detect_missing_capability",
@@ -89,14 +89,27 @@ jobs:
               "may_execute_caller_selected_ten_for_two",
               "caller_job_required",
               "caller_recipe_or_plan_required",
+              "adr_0036_accepted",
+              "phase0c_18_complete",
           )
           for key in expected_true:
               if evidence.get(key) is not True:
-                  raise SystemExit(f"required bounded capability missing: {key}")
-          if evidence.get("ten_for_two_multiplier") != 10:
-              raise SystemExit("ten-for-two multiplier drifted")
-          if evidence.get("ten_for_two_minimum_worker_slots") != 20:
-              raise SystemExit("ten-for-two minimum worker slots drifted")
+                  raise SystemExit(f"required accepted capability missing: {key}")
+          expected_values = {
+              "ten_for_two_multiplier": 10,
+              "ten_for_two_minimum_worker_slots": 20,
+              "protocol_version": "1.0.0",
+              "candidate_exact_head": "d2608ba7c619c1c402091edd619a4b29813ee9a7",
+              "candidate_workflow_run": "29986975197",
+              "candidate_artifact_id": "8555395796",
+              "candidate_artifact_digest": "sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61",
+              "candidate_validation_report_sha256": "aff3a635d37b82c15eeb36f2f6cec780f76e2c3ce320727a18053b913b8d9171",
+              "candidate_merge": "fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae",
+              "acceptance_record": "planning/PTAH-DIAGNOSTIC-WORKER-AUTHORITY-ACCEPTANCE.md",
+          }
+          for key, value in expected_values.items():
+              if evidence.get(key) != value:
+                  raise SystemExit(f"accepted diagnostic/worker evidence mismatch: {key}")
           expected_false = (
               "new_core_entity_required",
               "may_choose_caller_work",
@@ -114,7 +127,7 @@ jobs:
           )
           for key in expected_false:
               if evidence.get(key) is not False:
-                  raise SystemExit(f"diagnostic/worker boundary violated: {key}")
+                  raise SystemExit(f"accepted diagnostic/worker boundary violated: {key}")
           PY
 
       - name: Upload exact-head evidence
