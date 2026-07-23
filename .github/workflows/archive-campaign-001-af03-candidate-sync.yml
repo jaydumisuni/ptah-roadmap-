@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "tools/apply_af03_candidate_recovery_sync.py"
+      - "tools/apply_af03_candidate_recovery_sync_v2.py"
       - ".github/workflows/archive-campaign-001-af03-candidate-sync.yml"
 
 permissions:
@@ -38,7 +39,7 @@ jobs:
         run: |
           mkdir -p conformance/reports/af03-candidate-sync
           set -o pipefail
-          python3 tools/apply_af03_candidate_recovery_sync.py 2>&1 \
+          python3 tools/apply_af03_candidate_recovery_sync_v2.py 2>&1 \
             | tee conformance/reports/af03-candidate-sync/transform.txt
 
       - name: Run candidate and governing validations
@@ -77,7 +78,7 @@ jobs:
           actual=$(git diff --name-only | sort)
           test "$actual" = "$(printf '%s\n' "$expected" | sort)"
           grep -Fq 'AF03 candidate package: COMPLETE / SERGEANT PASSED / NOT ACCEPTED' archive/CAMPAIGN-001-FORMATION-MANIFEST.md
-          grep -Fq 'AF03 operative status: READY / NOT STARTED' CURRENT_STATE.md
+          grep -Fq -- '- AF03: READY / NOT STARTED;' CURRENT_STATE.md
           grep -Fq '**Runtime implementation:** NOT AUTHORIZED' CURRENT_STATE.md
           ! grep -Fq '**Runtime implementation:** AUTHORIZED' CURRENT_STATE.md
           grep -Fq 'Status: proposed' decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
