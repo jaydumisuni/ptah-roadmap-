@@ -1,6 +1,6 @@
 # Campaign 001 — AF03 Acceptance
 
-Status: ACCEPTANCE CANDIDATE — exact accepted-state proof pending
+Status: ACCEPTED EVIDENCE RECORD — operative merge binding pending
 
 Recorded: 2026-07-23
 
@@ -56,4 +56,4 @@ Acceptance preserves every record-level restriction, including:
 - ADR-0033 remains proposed;
 - runtime implementation remains unauthorized.
 
-This record becomes an accepted evidence record only after exact-head accepted-state validation and reviewed merge.
+This record accepts the reviewed AF03 candidate subject to permanent exact-head accepted-state proof. The operative merge is bound in a later recovery-only update.

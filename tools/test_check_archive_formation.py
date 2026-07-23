@@ -46,17 +46,21 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         self.assertEqual(result["assigned_record_count"], 98)
         self.assertEqual(result["allocated_private_count"], 200)
         self.assertTrue(result["authority_sync_complete"])
-        self.assertEqual(result["accepted_archive_record_count"], 19)
+        self.assertEqual(result["accepted_archive_record_count"], 29)
         self.assertEqual(result["blocked_archive_record_count"], 1)
-        self.assertEqual(result["completed_formation_count"], 2)
+        self.assertEqual(result["completed_formation_count"], 3)
         self.assertEqual(result["af01_status"], "accepted_complete")
         self.assertEqual(result["af02_status"], "accepted_complete")
         self.assertTrue(result["af02_started"])
         self.assertTrue(result["af02_authorized"])
         self.assertEqual(result["af02_accepted_archive_record_count"], 10)
         self.assertEqual(result["af02_remaining_evidence_count"], 0)
-        self.assertFalse(result["af03_started"])
-        self.assertFalse(result["af03_authorized"])
+        self.assertTrue(result["af03_started"])
+        self.assertTrue(result["af03_authorized"])
+        self.assertEqual(result["af03_accepted_archive_record_count"], 10)
+        self.assertEqual(result["af03_remaining_evidence_count"], 0)
+        self.assertFalse(result["af04_started"])
+        self.assertFalse(result["af04_authorized"])
         self.assertFalse(result["runtime_implementation_authorized"])
 
     def test_sergeant_pin_cannot_drift(self) -> None:
@@ -258,7 +262,7 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         self.replace(
             root,
             Path("master-plan-index.json"),
-            '"accepted_archive_record_count": 19',
+            '"accepted_archive_record_count": 29',
             '"accepted_archive_record_count": 10',
         )
         self.assert_invalid(root)
@@ -276,11 +280,11 @@ class ArchiveFormationValidationTests(unittest.TestCase):
         path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
         self.assert_invalid(root)
 
-    def test_af03_cannot_start_implicitly(self) -> None:
+    def test_af03_cannot_revert_to_unstarted(self) -> None:
         root = self.make_repo()
         path = root / "master-plan-index.json"
         value = json.loads(path.read_text(encoding="utf-8"))
-        value["operational_protocols"]["tenfold_archive_formation"]["af03_started"] = True
+        value["operational_protocols"]["tenfold_archive_formation"]["af03_started"] = False
         path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
         self.assert_invalid(root)
 

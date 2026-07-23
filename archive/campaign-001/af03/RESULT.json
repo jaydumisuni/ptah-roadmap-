@@ -3,7 +3,7 @@
   "record_type": "ptah.archive_campaign_formation_result",
   "campaign_id": "CAMPAIGN-001",
   "formation_id": "AF03",
-  "status": "candidate_complete_pending_exact_head_review",
+  "status": "accepted_complete_non_authorizing",
   "started_at": "2026-07-23",
   "completed_evidence_at": "2026-07-23",
   "base_authority_commit": "a7186bfb45cb885c8afc7165f67641e8725cc989",
@@ -26,19 +26,119 @@
   "sergeant_review_result": "pass_with_mandatory_retained_restrictions",
   "sergeant_blocking_finding_count": 0,
   "records": [
-    {"id":"D052","source":"NeoZorK/NeoZorK","branch":"main","commit":"a4e38cc6824a18a9dbe0c7bbc786f070d2450b79","outcome":"accepted_for_archive_research_profile_and_reproducibility_catalogue_only","primary":"AF03-P01","verifier":"AF03-V01","path":"archive/campaign-001/af03/records/D052-NEOZORK-PROJECTS.md"},
-    {"id":"D059","source":"semgrep/semgrep","branch":"develop","commit":"b1b15360b40ec84164f077712053b88dc2c38e31","outcome":"accepted_for_archive_with_lgpl_and_security_finding_restrictions","primary":"AF03-P02","verifier":"AF03-V02","path":"archive/campaign-001/af03/records/D059-SEMGREP.md"},
-    {"id":"D063","source":"tmimmanuel/tmimmanuel","branch":"main","commit":"ff77b66da8c75b573da2247034e66f98a0f8b39d","outcome":"accepted_for_archive_contributor_profile_and_discovery_only","primary":"AF03-P03","verifier":"AF03-V03","path":"archive/campaign-001/af03/records/D063-TMIMMANUEL-PROFILE.md"},
-    {"id":"D067","source":"squidfunk/mkdocs-material","branch":"master","commit":"b3e6dd886a974aa8200759ecfd7db28c598a2894","outcome":"accepted_for_archive_mit_documentation_presentation_framework","primary":"AF03-P04","verifier":"AF03-V04","path":"archive/campaign-001/af03/records/D067-MKDOCS-MATERIAL.md"},
-    {"id":"D003","source":"temporalio/temporal","branch":"main","commit":"a813c6193d24b91cce5b929d199e89340d63e2ac","outcome":"accepted_for_archive_durable_execution_donor_with_identity_and_effect_boundaries","primary":"AF03-P05","verifier":"AF03-V05","path":"archive/campaign-001/af03/records/D003-TEMPORAL.md"},
-    {"id":"D014","source":"coder/coder","branch":"main","commit":"591edcb050f384a8ccfba3b04b78d061c7111b92","outcome":"accepted_for_archive_with_agpl_control_plane_and_premium_surface_restrictions","primary":"AF03-P06","verifier":"AF03-V06","path":"archive/campaign-001/af03/records/D014-CODER.md"},
-    {"id":"D018","source":"browser-use/browser-use","branch":"main","commit":"96ec5dc1378d26f7dd155df0cef9d6c3e32752dc","outcome":"accepted_for_archive_mit_agent_browser_adapter_with_model_and_external_effect_restrictions","primary":"AF03-P07","verifier":"AF03-V07","path":"archive/campaign-001/af03/records/D018-BROWSER-USE.md"},
-    {"id":"D022","source":"DeviceFarmer/minicap","branch":"master","commit":"f3d40d65da0cc7168846c4ae7466ada970441d4e","outcome":"accepted_for_archive_legacy_android_screen_capture_with_private_api_and_compatibility_restrictions","primary":"AF03-P08","verifier":"AF03-V08","path":"archive/campaign-001/af03/records/D022-MINICAP.md"},
-    {"id":"D032","source":"firecracker-microvm/firecracker","branch":"main","commit":"ae5bf5b68fc41927b3efeca91d220ab11e01f9dc","outcome":"accepted_for_archive_optional_kvm_microvm_isolation_provider","primary":"AF03-P09","verifier":"AF03-V09","path":"archive/campaign-001/af03/records/D032-FIRECRACKER.md"},
-    {"id":"D037","source":"docker/cli","branch":"master","commit":"7a54334eb038871b45c2377baf8c12beaa14839c","outcome":"accepted_for_archive_apache_cli_adapter_with_daemon_and_context_boundaries","primary":"AF03-P10","verifier":"AF03-V10","path":"archive/campaign-001/af03/records/D037-DOCKER-CLI.md"}
+    {
+      "id": "D052",
+      "source": "NeoZorK/NeoZorK",
+      "branch": "main",
+      "commit": "a4e38cc6824a18a9dbe0c7bbc786f070d2450b79",
+      "outcome": "accepted_for_archive_research_profile_and_reproducibility_catalogue_only",
+      "primary": "AF03-P01",
+      "verifier": "AF03-V01",
+      "path": "archive/campaign-001/af03/records/D052-NEOZORK-PROJECTS.md"
+    },
+    {
+      "id": "D059",
+      "source": "semgrep/semgrep",
+      "branch": "develop",
+      "commit": "b1b15360b40ec84164f077712053b88dc2c38e31",
+      "outcome": "accepted_for_archive_with_lgpl_and_security_finding_restrictions",
+      "primary": "AF03-P02",
+      "verifier": "AF03-V02",
+      "path": "archive/campaign-001/af03/records/D059-SEMGREP.md"
+    },
+    {
+      "id": "D063",
+      "source": "tmimmanuel/tmimmanuel",
+      "branch": "main",
+      "commit": "ff77b66da8c75b573da2247034e66f98a0f8b39d",
+      "outcome": "accepted_for_archive_contributor_profile_and_discovery_only",
+      "primary": "AF03-P03",
+      "verifier": "AF03-V03",
+      "path": "archive/campaign-001/af03/records/D063-TMIMMANUEL-PROFILE.md"
+    },
+    {
+      "id": "D067",
+      "source": "squidfunk/mkdocs-material",
+      "branch": "master",
+      "commit": "b3e6dd886a974aa8200759ecfd7db28c598a2894",
+      "outcome": "accepted_for_archive_mit_documentation_presentation_framework",
+      "primary": "AF03-P04",
+      "verifier": "AF03-V04",
+      "path": "archive/campaign-001/af03/records/D067-MKDOCS-MATERIAL.md"
+    },
+    {
+      "id": "D003",
+      "source": "temporalio/temporal",
+      "branch": "main",
+      "commit": "a813c6193d24b91cce5b929d199e89340d63e2ac",
+      "outcome": "accepted_for_archive_durable_execution_donor_with_identity_and_effect_boundaries",
+      "primary": "AF03-P05",
+      "verifier": "AF03-V05",
+      "path": "archive/campaign-001/af03/records/D003-TEMPORAL.md"
+    },
+    {
+      "id": "D014",
+      "source": "coder/coder",
+      "branch": "main",
+      "commit": "591edcb050f384a8ccfba3b04b78d061c7111b92",
+      "outcome": "accepted_for_archive_with_agpl_control_plane_and_premium_surface_restrictions",
+      "primary": "AF03-P06",
+      "verifier": "AF03-V06",
+      "path": "archive/campaign-001/af03/records/D014-CODER.md"
+    },
+    {
+      "id": "D018",
+      "source": "browser-use/browser-use",
+      "branch": "main",
+      "commit": "96ec5dc1378d26f7dd155df0cef9d6c3e32752dc",
+      "outcome": "accepted_for_archive_mit_agent_browser_adapter_with_model_and_external_effect_restrictions",
+      "primary": "AF03-P07",
+      "verifier": "AF03-V07",
+      "path": "archive/campaign-001/af03/records/D018-BROWSER-USE.md"
+    },
+    {
+      "id": "D022",
+      "source": "DeviceFarmer/minicap",
+      "branch": "master",
+      "commit": "f3d40d65da0cc7168846c4ae7466ada970441d4e",
+      "outcome": "accepted_for_archive_legacy_android_screen_capture_with_private_api_and_compatibility_restrictions",
+      "primary": "AF03-P08",
+      "verifier": "AF03-V08",
+      "path": "archive/campaign-001/af03/records/D022-MINICAP.md"
+    },
+    {
+      "id": "D032",
+      "source": "firecracker-microvm/firecracker",
+      "branch": "main",
+      "commit": "ae5bf5b68fc41927b3efeca91d220ab11e01f9dc",
+      "outcome": "accepted_for_archive_optional_kvm_microvm_isolation_provider",
+      "primary": "AF03-P09",
+      "verifier": "AF03-V09",
+      "path": "archive/campaign-001/af03/records/D032-FIRECRACKER.md"
+    },
+    {
+      "id": "D037",
+      "source": "docker/cli",
+      "branch": "master",
+      "commit": "7a54334eb038871b45c2377baf8c12beaa14839c",
+      "outcome": "accepted_for_archive_apache_cli_adapter_with_daemon_and_context_boundaries",
+      "primary": "AF03-P10",
+      "verifier": "AF03-V10",
+      "path": "archive/campaign-001/af03/records/D037-DOCKER-CLI.md"
+    }
   ],
   "phase_0a_reopened": false,
   "adr_0033_accepted": false,
   "runtime_implementation_authorized": false,
-  "af04_authorized": false
+  "af04_authorized": false,
+  "candidate_exact_head": "4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d",
+  "candidate_workflow_run": "30003085272",
+  "candidate_artifact_id": "8561809711",
+  "candidate_artifact_digest": "sha256:fa36506e788958d4b3d134f6f1286e4c2d47d309aa15529e6f1d384c9bdcd6a6",
+  "candidate_validation_report_sha256": "e437e8785a846710e2e2434fb3e537a3566fc6baf68b420da6610dd20571f302",
+  "candidate_merge": "d86218e1127c57bacfb4d88eff15b81d326995ba",
+  "acceptance_record": "archive/campaign-001/af03/ACCEPTANCE.md",
+  "af03_accepted": true,
+  "af04_status": "ready_not_started",
+  "af04_started": false
 }

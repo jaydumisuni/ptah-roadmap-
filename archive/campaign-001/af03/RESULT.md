@@ -1,6 +1,6 @@
 # Campaign 001 — AF03 Candidate Result
 
-Status: CANDIDATE EVIDENCE COMPLETE — SERGEANT PASSED — PENDING EXACT-HEAD REVIEW
+Status: ACCEPTED COMPLETE
 
 Recorded: 2026-07-23
 
@@ -60,7 +60,7 @@ Sergeant found zero blocking findings. The full independent result is `archive/c
 
 Formation workers produced and challenged evidence through the caller-supplied ten-for-two Recipe. Worker completion did not accept AF03.
 
-Sergeant's pass also does not accept AF03. Exact-head closure validation and a separate owner/calling-authority promotion change remain required.
+Sergeant's pass remained independent evidence. AF03 was accepted separately from exact candidate head `4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d`, workflow run `30003085272`, artifact `8561809711` and candidate merge `d86218e1127c57bacfb4d88eff15b81d326995ba`.
 
 ## Preserved authority
 
@@ -68,4 +68,4 @@ Sergeant's pass also does not accept AF03. Exact-head closure validation and a s
 - P01 remains active;
 - ADR-0033 remains proposed;
 - runtime implementation remains unauthorized;
-- AF04 remains not started.
+- AF04 is ready but not started.

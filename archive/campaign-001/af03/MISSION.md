@@ -1,6 +1,6 @@
 # Campaign 001 — AF03 Archive Mission
 
-Status: CANDIDATE EVIDENCE COMPLETE — SERGEANT PASSED — PENDING EXACT-HEAD REVIEW
+Status: ACCEPTED COMPLETE
 
 Started: 2026-07-23
 
@@ -84,4 +84,4 @@ All ten obligations completed:
 - blocked completed outcomes: 0
 - remaining evidence: 0
 
-AF03 candidate evidence and independent review are complete but AF03 is not accepted. AF04 remains NOT STARTED. P01 remains the active implementation-authorization work outside this archive campaign.
+AF03 is accepted complete from candidate head `4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d`, run `30003085272`, artifact `8561809711` and candidate merge `d86218e1127c57bacfb4d88eff15b81d326995ba`. AF04 is READY / NOT STARTED. P01 remains the active implementation-authorization work outside this archive campaign.
