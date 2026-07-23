@@ -1,0 +1,59 @@
+name: Archive Campaign 001 AF03 Follow-on Code Sync
+
+on:
+  pull_request:
+    paths:
+      - "tools/apply_af03_followon_code_sync.py"
+      - ".github/workflows/archive-campaign-001-af03-followon-code-sync.yml"
+
+permissions:
+  contents: write
+
+env:
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  sync-followon-code:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact AF03 branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Verify exact starting head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Apply guarded follow-on code sync
+        run: python3 tools/apply_af03_followon_code_sync.py
+
+      - name: Validate synchronized code
+        run: |
+          python3 tools/test_check_platform_diagnostic_advisory.py -v
+          python3 tools/check_platform_diagnostic_advisory.py --repo-root .
+          python3 tools/test_check_archive_af03.py -v
+          python3 tools/check_archive_af03.py --repo-root .
+          python3 tools/test_check_archive_af02.py -v
+          python3 tools/check_archive_af02.py --repo-root .
+          python3 tools/test_check_archive_formation.py -v
+          python3 tools/check_archive_formation.py --repo-root .
+          python3 tools/test_check_master_plan_closure.py -v
+          python3 tools/check_master_plan_closure.py --repo-root .
+
+      - name: Commit synchronized code
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/check_platform_diagnostic_advisory.py tools/test_check_platform_diagnostic_advisory.py
+          git commit -m "Advance diagnostic follow-on checks to AF04"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
