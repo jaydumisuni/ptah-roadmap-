@@ -5,6 +5,7 @@ on:
     paths:
       - "tools/apply_af03_acceptance.py"
       - "tools/apply_af03_acceptance_v2.py"
+      - "tools/apply_af03_acceptance_v3.py"
       - ".github/workflows/archive-campaign-001-af03-acceptance-apply.yml"
 
 permissions:
@@ -39,7 +40,7 @@ jobs:
         run: |
           mkdir -p conformance/reports/af03-acceptance
           set -o pipefail
-          python3 tools/apply_af03_acceptance_v2.py 2>&1 \
+          python3 tools/apply_af03_acceptance_v3.py 2>&1 \
             | tee conformance/reports/af03-acceptance/transform.txt
 
       - name: Run accepted-state validation
