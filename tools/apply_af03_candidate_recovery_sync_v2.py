@@ -23,6 +23,12 @@ def main() -> int:
         "- [x] AF03 is READY / NOT STARTED operatively; candidate evidence is prepared with ten paired records, ten bounded candidate outcomes, zero remaining evidence and independent Sergeant PASS WITH MANDATORY RETAINED RESTRICTIONS; no record is accepted yet.",
         "progress exact operative token",
     )
+    base.replace_once(
+        ROOT / "AI_HANDOFF.md",
+        "AF03 operative status: READY / NOT STARTED\nAF03 candidate package:",
+        "AF03: READY / NOT STARTED\nAF03 candidate package:",
+        "handoff exact operative token",
+    )
     print("AF03 exact operative recovery tokens preserved")
     return 0
 
