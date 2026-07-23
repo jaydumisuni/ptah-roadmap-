@@ -19,17 +19,9 @@ def replace_once(path: Path, old: str, new: str, label: str) -> None:
     path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
 
-def replace_exact_count(path: Path, old: str, new: str, count_expected: int, label: str) -> None:
-    text = path.read_text(encoding="utf-8")
-    count = text.count(old)
-    if count != count_expected:
-        raise SyncError(f"{label}: expected {count_expected} source fragments, found {count}")
-    path.write_text(text.replace(old, new), encoding="utf-8")
-
-
 def patch_validator() -> None:
     path = ROOT / "tools/check_platform_diagnostic_advisory.py"
-    replace_exact_count(
+    replace_once(
         path,
         '''        "may_block_unrelated_capable_work": False,
         "af03_started": False,
@@ -44,8 +36,26 @@ def patch_validator() -> None:
         "af04_authorized": False,
         "adr_0033_accepted": False,
 ''',
-        2,
-        "diagnostic machine and report formation progression",
+        "diagnostic machine-index formation progression",
+    )
+    replace_once(
+        path,
+        '''        "sergeant_review_authority_borrowed": False,
+        "sergeant_mission_selection_borrowed": False,
+        "af03_started": False,
+        "phase_0a_reopened": False,
+''',
+        '''        "sergeant_review_authority_borrowed": False,
+        "sergeant_mission_selection_borrowed": False,
+        "af03_accepted": True,
+        "af03_started": True,
+        "af03_authorized": True,
+        "af04_ready": True,
+        "af04_started": False,
+        "af04_authorized": False,
+        "phase_0a_reopened": False,
+''',
+        "diagnostic report formation progression",
     )
 
 
