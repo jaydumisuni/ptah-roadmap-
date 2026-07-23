@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the Phase 0C-18 platform diagnostic advisory candidate."""
+"""Validate the Phase 0C-18 diagnostic and worker-execution candidate."""
 from __future__ import annotations
 
 import argparse
@@ -76,9 +76,10 @@ def validate_repo(root: Path) -> dict[str, Any]:
     adr0033 = texts[ADR0033]
     index = json.loads(texts[MASTER_INDEX])
 
+    # Candidate and neutral authority boundary.
     require(protocol, "Status: candidate product clarification", "protocol candidate state")
-    require(protocol, "The diagnostic capability is platform self-observation, not product consciousness", "non-conscious boundary")
-    require(protocol, "Caller chooses the work", "caller work choice")
+    require(protocol, "not product consciousness, business judgment or task planning", "non-conscious boundary")
+    require(protocol, "Caller chooses the work and supplies or selects the execution recipe", "caller work choice")
     require(protocol, "Ptah may emit a bounded diagnostic advisory", "bounded advisory")
     require(protocol, "Ptah does not borrow Sergeant's review authority", "Sergeant authority boundary")
     require(protocol, "No new Core entity is required", "frozen primitive composition")
@@ -90,54 +91,92 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(protocol, "acknowledgement does not equal successful upgrade", "post-condition boundary")
     require(protocol, "Ptah does not decide which option the caller should choose", "example caller-choice boundary")
 
+    # Ten-for-two worker execution boundary.
+    require(protocol, "## 3. Sergeant patterns borrowed", "Sergeant patterns section")
+    require(protocol, "### 3.2 Ten-for-two worker execution pattern", "worker pattern section")
+    require(protocol, "worker capacity = max(20, human-equivalent workers × 10)", "worker capacity equation")
+    require(protocol, "twenty bounded worker slots", "two-worker formation capacity")
+    require(protocol, "caller-selected or caller-supplied formation recipe", "caller recipe boundary")
+    require(protocol, "instantiate the declared worker Activities", "worker instantiation")
+    require(protocol, "run independent Attempts concurrently", "worker independence")
+    require(protocol, "checkpoint after configured milestones", "worker checkpoints")
+    require(protocol, "retry or replace a failed worker Attempt", "bounded worker retry")
+    require(protocol, "assemble outputs according to the submitted merge rule", "caller merge rule")
+    require(protocol, "add semantic subtasks that were not supplied", "semantic scope prohibition")
+    require(protocol, "worker completion as human/application acceptance", "worker acceptance prohibition")
+    require(protocol, "Ptah manages the workers but does not invent the audit scope or issue the verdict", "worker example boundary")
+
+    # Decision and work package.
     require(adr, "Status: proposed", "ADR-0036 proposed state")
     require(adr, "No new Core entity is required", "ADR frozen primitive boundary")
-    require(adr, "choose the user's goal or work", "ADR task-selection prohibition")
+    require(adr, "apply `worker capacity = max(20, human-equivalent workers × 10)`", "ADR worker equation")
+    require(adr, "caller-submitted job and caller-selected Recipe or Plan", "ADR caller job boundary")
+    require(adr, "invent semantic subtasks", "ADR semantic scope prohibition")
+    require(adr, "treat worker completion as caller acceptance", "ADR result acceptance prohibition")
     require(adr, "approve, purchase, install or activate its own upgrade", "ADR autonomous-upgrade prohibition")
-    require(adr, "Sergeant pattern borrowed", "ADR Sergeant borrowing scope")
+    require(adr, "Sergeant patterns borrowed", "ADR Sergeant borrowing scope")
 
     require(work_package, "Status: candidate under review", "Phase 0C-18 candidate state")
-    require(work_package, "diagnose platform condition without deciding caller work", "owner direction recovery")
-    require(work_package, "A02 — health, capability and compatibility gap detection", "A02 placement")
-    require(work_package, "A04 — repeated Attempt correlation", "A04 placement")
-    require(work_package, "A14 — human-visible advisory", "A14 placement")
-    require(work_package, "A15 — proof that no autonomous upgrade", "A15 placement")
+    require(work_package, "diagnose platform condition without deciding caller work", "owner diagnostic direction")
+    require(work_package, "borrow ten-for-two workers", "owner worker direction")
+    require(work_package, "A02 — health, capability, compatibility and worker-capacity gap detection", "A02 placement")
+    require(work_package, "A04 — caller-defined worker Plan execution", "A04 placement")
+    require(work_package, "A06 — durable worker formation state", "A06 placement")
+    require(work_package, "A14 — human-visible advisory, formation progress", "A14 placement")
+    require(work_package, "A15 — proof that no autonomous upgrade, task selection or result acceptance exists", "A15 placement")
 
-    require(master_plan, "Ptah may diagnose its own platform condition without choosing the caller's work", "Master Plan product principle")
-    require(master_plan, "evidence-backed diagnostic advisory Views and Artifacts", "Master Plan Core composition")
-    require(master_plan, "platform diagnostic advisories, missing-capability explanations", "Master Plan human surface")
-    require(master_plan, "autonomous self-upgrade, purchasing, vendor selection or task reprioritization", "Master Plan non-goal")
-    require(master_plan, "### Diagnostic advisory", "Master Plan world-model projection")
+    # Master Plan and roadmap integration.
+    require(master_plan, "Ptah may diagnose its own platform condition without choosing the caller's work", "Master Plan diagnostic principle")
+    require(master_plan, "Caller-given work may use bounded worker formations", "Master Plan worker principle")
+    require(master_plan, "caller-defined worker formation scheduling", "Master Plan Core worker composition")
+    require(master_plan, "evidence-backed diagnostic advisory Views and Artifacts", "Master Plan diagnostic composition")
+    require(master_plan, "worker formation, checkpoint, conflict and partial-result status", "Master Plan human worker surface")
+    require(master_plan, "autonomous semantic job decomposition or result acceptance", "Master Plan worker non-goal")
+    require(master_plan, "### Diagnostic advisory", "Master Plan diagnostic projection")
+    require(master_plan, "### Worker formation", "Master Plan worker projection")
     require(master_plan, "It is not a new Core authority entity", "Master Plan authority boundary")
-    require(master_plan, "a missing or degraded capability produces a bounded diagnostic advisory", "Master Plan reliability")
+    require(master_plan, "it may not invent the job, add semantic scope or accept the result", "Master Plan worker authority boundary")
+    require(master_plan, "failed worker Attempts remain distinct", "Master Plan worker reliability")
+    require(master_plan, "worker completion does not equal caller acceptance", "Master Plan result boundary")
     require(master_plan, "Ptah may request an upgrade from exact diagnostic evidence", "Master Plan upgrade request")
     require(master_plan, "may not approve, purchase, install or activate it", "Master Plan upgrade approval boundary")
 
     require(roadmap, "bounded missing-capability and degradation advisory generation", "Roadmap A02")
-    require(roadmap, "repeated-failure correlation and diagnostic Event/Artifact emission", "Roadmap A04")
-    require(roadmap, "platform diagnostic advisory and missing-capability panel", "Roadmap A14")
+    require(roadmap, "caller-defined Recipe/Plan worker formation execution", "Roadmap A04 worker execution")
+    require(roadmap, "two-human-equivalent ten-for-two Recipe creates twenty bounded worker slots", "Roadmap A04 capacity proof")
+    require(roadmap, "configured independent-check lanes cannot silently collapse", "Roadmap worker independence proof")
+    require(roadmap, "worker completion cannot become result acceptance", "Roadmap worker acceptance proof")
+    require(roadmap, "worker formation, role, checkpoint and partial-result recovery projection", "Roadmap A06")
+    require(roadmap, "platform diagnostic advisory and missing-capability panel", "Roadmap A14 diagnostic surface")
+    require(roadmap, "worker formation, role, checkpoint, conflict and partial-result panel", "Roadmap A14 worker surface")
     require(roadmap, "no advisory can approve or execute its own recommendation", "Roadmap A14 proof")
-    require(roadmap, "Ptah cannot choose caller work or autonomously install an upgrade", "Roadmap A15 proof")
-    require(roadmap, "diagnostic advisory evidence, expected conditions, uncertainty", "Roadmap X3")
+    require(roadmap, "ten-for-two formation tests prove bounded workers", "Roadmap A15 worker proof")
+    require(roadmap, "Ptah cannot choose caller work or autonomously install an upgrade", "Roadmap A15 authority proof")
+    require(roadmap, "worker formation role, independence, checkpoint, retry, conflict and partial-result evidence", "Roadmap X3")
 
-    require(decisions, "### ADR-0036 — Platform diagnostic advisory boundary", "decision index")
+    # Durable control-book candidate state.
+    require(decisions, "### ADR-0036 — Platform diagnostic advisory and efficient worker execution boundary", "decision index")
     require(decisions, "**PROPOSED.**", "decision proposed state")
-    require(current, "## Phase 0C-18 platform diagnostic advisory candidate", "current-state candidate section")
+    require(current, "## Phase 0C-18 diagnostic and efficient-worker candidate", "current-state candidate section")
+    require(current, "max(20, human-equivalent workers × 10)", "current worker equation")
     require(current, "does not start AF03", "current AF03 boundary")
-    require(progress, "## Platform diagnostic advisory candidate", "progress candidate section")
+    require(progress, "## Diagnostic advisory and efficient worker candidate", "progress candidate section")
+    require(progress, "spread a caller-given job across bounded workers", "progress owner worker direction")
     require(progress, "implementation remains unauthorized", "progress runtime boundary")
-    require(handoff, "## Platform diagnostic advisory candidate", "handoff candidate section")
+    require(handoff, "## Diagnostic advisory and efficient worker candidate", "handoff candidate section")
+    require(handoff, "caller-submitted job and Recipe/Plan", "handoff worker boundary")
     require(handoff, "AF03 remains READY / NOT STARTED", "handoff AF03 boundary")
 
+    # Machine-readable authority.
     if index.get("active_work_unit") != "P01-physical-host-and-ADR-0033-closure":
         raise ValidationError("P01 active work unit drifted")
     if index.get("runtime_implementation_authorized") is not False:
         raise ValidationError("master index authorized runtime")
     if str(PROTOCOL) not in index.get("recovery_order", []):
         raise ValidationError("protocol missing from recovery order")
-    advisory = index.get("product_clarifications", {}).get("platform_diagnostic_advisory")
-    if not isinstance(advisory, dict):
-        raise ValidationError("platform diagnostic advisory missing from machine index")
+    clarification = index.get("product_clarifications", {}).get("platform_diagnostic_and_worker_execution")
+    if not isinstance(clarification, dict):
+        raise ValidationError("platform diagnostic/worker clarification missing from machine index")
     expected = {
         "status": "candidate_under_review",
         "protocol": str(PROTOCOL),
@@ -148,7 +187,14 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "may_detect_missing_capability": True,
         "may_detect_degradation": True,
         "may_request_upgrade": True,
+        "may_execute_caller_selected_ten_for_two": True,
+        "ten_for_two_multiplier": 10,
+        "ten_for_two_minimum_worker_slots": 20,
+        "caller_job_required": True,
+        "caller_recipe_or_plan_required": True,
         "may_choose_caller_work": False,
+        "may_invent_semantic_subtasks": False,
+        "may_accept_worker_result": False,
         "may_approve_upgrade": False,
         "may_install_upgrade_autonomously": False,
         "may_block_unrelated_capable_work": False,
@@ -157,9 +203,10 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "runtime_implementation_authorized": False,
     }
     for key, value in expected.items():
-        if advisory.get(key) != value:
-            raise ValidationError(f"diagnostic advisory machine-index mismatch: {key}")
+        if clarification.get(key) != value:
+            raise ValidationError(f"diagnostic/worker machine-index mismatch: {key}")
 
+    # Unchanged gates.
     require(donor, "**Status:** COMPLETE AND FROZEN", "Phase 0A frozen")
     reject(donor, "**Status:** REOPENED", "Phase 0A reopened")
     require(campaign, "## AF03", "AF03 campaign section")
@@ -174,18 +221,26 @@ def validate_repo(root: Path) -> dict[str, Any]:
 
     return {
         "schema_version": "1.0.0",
-        "record_type": "ptah.phase0c.platform_diagnostic_advisory_validation",
+        "record_type": "ptah.phase0c.platform_diagnostic_and_worker_execution_validation",
         "status": "candidate_valid_non_authorizing",
         "uses_frozen_primitives_only": True,
         "new_core_entity_required": False,
         "may_detect_missing_capability": True,
         "may_detect_degradation": True,
         "may_request_upgrade": True,
+        "may_execute_caller_selected_ten_for_two": True,
+        "ten_for_two_multiplier": 10,
+        "ten_for_two_minimum_worker_slots": 20,
+        "caller_job_required": True,
+        "caller_recipe_or_plan_required": True,
         "may_choose_caller_work": False,
+        "may_invent_semantic_subtasks": False,
+        "may_accept_worker_result": False,
         "may_approve_upgrade": False,
         "may_install_upgrade_autonomously": False,
         "may_block_unrelated_capable_work": False,
         "sergeant_review_authority_borrowed": False,
+        "sergeant_mission_selection_borrowed": False,
         "af03_started": False,
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
