@@ -35,6 +35,7 @@ def sync_af03_tests() -> None:
         (root / ACCEPTANCE).unlink()
         self.assert_invalid(root)
 ''', "AF03 acceptance regression")
+    base.replace_once(path, '        self.replace(root, MANIFEST, "## AF04\\n\\n- private count: 20", "## AF04\\n\\n- status: ACTIVE\\n- private count: 20")', '        self.replace(root, MANIFEST, "## AF04\\n\\n- status: READY / NOT STARTED\\n- private count: 20", "## AF04\\n\\n- status: ACTIVE\\n- private count: 20")', "AF04 start regression anchor")
     base.replace_once(path, 'self.mutate_index(root, "accepted_archive_record_count", 29)', 'self.mutate_index(root, "accepted_archive_record_count", 19)', "AF03 operative total regression")
 
 
