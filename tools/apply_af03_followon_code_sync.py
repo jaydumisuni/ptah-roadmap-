@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Advance Phase 0C-18 follow-on checks after accepted AF03 closure."""
+"""Advance current Phase 0C-18 follow-on reporting after accepted AF03 closure."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -21,23 +21,9 @@ def replace_once(path: Path, old: str, new: str, label: str) -> None:
 
 def patch_validator() -> None:
     path = ROOT / "tools/check_platform_diagnostic_advisory.py"
-    replace_once(
-        path,
-        '''        "may_block_unrelated_capable_work": False,
-        "af03_started": False,
-        "adr_0033_accepted": False,
-''',
-        '''        "may_block_unrelated_capable_work": False,
-        "af03_accepted": True,
-        "af03_started": True,
-        "af03_authorized": True,
-        "af04_ready": True,
-        "af04_started": False,
-        "af04_authorized": False,
-        "adr_0033_accepted": False,
-''',
-        "diagnostic machine-index formation progression",
-    )
+    # Preserve product_clarifications.af03_started=false as the historical
+    # Phase 0C-18 acceptance-time fact. Advance only the validator's current
+    # campaign report to AF03 accepted / AF04 ready.
     replace_once(
         path,
         '''        "sergeant_review_authority_borrowed": False,
@@ -55,7 +41,7 @@ def patch_validator() -> None:
         "af04_authorized": False,
         "phase_0a_reopened": False,
 ''',
-        "diagnostic report formation progression",
+        "diagnostic current report formation progression",
     )
 
 
@@ -70,7 +56,7 @@ def patch_tests() -> None:
         self.assertTrue(result["af04_ready"])
         self.assertFalse(result["af04_started"])
         self.assertFalse(result["af04_authorized"])''',
-        "diagnostic valid follow-on assertions",
+        "diagnostic valid current follow-on assertions",
     )
     replace_once(
         path,
@@ -101,7 +87,7 @@ def patch_tests() -> None:
 def main() -> int:
     patch_validator()
     patch_tests()
-    print("AF03 follow-on diagnostic code synchronized")
+    print("AF03 current follow-on diagnostic code synchronized")
     return 0
 
 
