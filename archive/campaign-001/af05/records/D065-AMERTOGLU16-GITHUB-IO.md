@@ -44,4 +44,4 @@ Restrictions:
 - do not assign a Ptah subsystem, capability or dependency;
 - do not treat a similarly named account, site or fork as canonical without owner evidence.
 
-This completed block closes the campaign obligation without authorizing implementation.
+This completed block does not authorize implementation.
