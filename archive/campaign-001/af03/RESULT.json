@@ -3,7 +3,7 @@
   "record_type": "ptah.archive_campaign_formation_result",
   "campaign_id": "CAMPAIGN-001",
   "formation_id": "AF03",
-  "status": "candidate_complete_pending_sergeant_and_exact_head_review",
+  "status": "candidate_complete_pending_exact_head_review",
   "started_at": "2026-07-23",
   "completed_evidence_at": "2026-07-23",
   "base_authority_commit": "a7186bfb45cb885c8afc7165f67641e8725cc989",
@@ -21,6 +21,10 @@
   "checkpoint_05": "archive/campaign-001/af03/CHECKPOINT-05.md",
   "checkpoint_10": "archive/campaign-001/af03/CHECKPOINT-10.md",
   "sergeant_review": "archive/campaign-001/af03/SERGEANT-REVIEW.md",
+  "sergeant_review_complete": true,
+  "sergeant_review_target_head": "a6a1d9aa13f619c2f8ff4c1c6c0cadea331df3d6",
+  "sergeant_review_result": "pass_with_mandatory_retained_restrictions",
+  "sergeant_blocking_finding_count": 0,
   "records": [
     {"id":"D052","source":"NeoZorK/NeoZorK","branch":"main","commit":"a4e38cc6824a18a9dbe0c7bbc786f070d2450b79","outcome":"accepted_for_archive_research_profile_and_reproducibility_catalogue_only","primary":"AF03-P01","verifier":"AF03-V01","path":"archive/campaign-001/af03/records/D052-NEOZORK-PROJECTS.md"},
     {"id":"D059","source":"semgrep/semgrep","branch":"develop","commit":"b1b15360b40ec84164f077712053b88dc2c38e31","outcome":"accepted_for_archive_with_lgpl_and_security_finding_restrictions","primary":"AF03-P02","verifier":"AF03-V02","path":"archive/campaign-001/af03/records/D059-SEMGREP.md"},
@@ -33,7 +37,6 @@
     {"id":"D032","source":"firecracker-microvm/firecracker","branch":"main","commit":"ae5bf5b68fc41927b3efeca91d220ab11e01f9dc","outcome":"accepted_for_archive_optional_kvm_microvm_isolation_provider","primary":"AF03-P09","verifier":"AF03-V09","path":"archive/campaign-001/af03/records/D032-FIRECRACKER.md"},
     {"id":"D037","source":"docker/cli","branch":"master","commit":"7a54334eb038871b45c2377baf8c12beaa14839c","outcome":"accepted_for_archive_apache_cli_adapter_with_daemon_and_context_boundaries","primary":"AF03-P10","verifier":"AF03-V10","path":"archive/campaign-001/af03/records/D037-DOCKER-CLI.md"}
   ],
-  "sergeant_review_complete": false,
   "phase_0a_reopened": false,
   "adr_0033_accepted": false,
   "runtime_implementation_authorized": false,
