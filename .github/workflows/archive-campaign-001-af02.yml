@@ -89,8 +89,12 @@ jobs:
               "verifier_worker_count": 10,
               "checkpoint_count": 2,
               "remaining_evidence_count": 0,
-              "af03_ready": True,
-              "af03_started": False,
+              "af03_accepted": True,
+              "af03_started": True,
+              "af03_authorized": True,
+              "af04_ready": True,
+              "af04_started": False,
+              "af04_authorized": False,
           }
           for key, value in expected_values.items():
               if evidence.get(key) != value:
@@ -99,7 +103,6 @@ jobs:
               "phase_0a_reopened",
               "adr_0033_accepted",
               "runtime_implementation_authorized",
-              "af03_authorized",
           ):
               if evidence.get(key) is not False:
                   raise SystemExit(f"AF02 non-authorizing boundary violated: {key}")
