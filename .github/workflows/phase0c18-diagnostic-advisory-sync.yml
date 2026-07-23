@@ -1,0 +1,80 @@
+name: Phase 0C-18 Diagnostic Advisory Sync
+
+on:
+  pull_request:
+    paths:
+      - "tools/apply_phase0c18_diagnostic_advisory_sync.py"
+      - ".github/workflows/phase0c18-diagnostic-advisory-sync.yml"
+
+permissions:
+  contents: write
+
+env:
+  PTAH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+  PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha }}
+
+jobs:
+  synchronize-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out exact candidate branch
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ env.PTAH_HEAD_REF }}
+          persist-credentials: true
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+
+      - name: Verify exact starting head
+        run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
+
+      - name: Apply guarded candidate synchronization
+        run: python3 tools/apply_phase0c18_diagnostic_advisory_sync.py
+
+      - name: Run candidate regressions and validator
+        run: |
+          python3 tools/test_check_platform_diagnostic_advisory.py -v
+          python3 tools/check_platform_diagnostic_advisory.py --repo-root .
+          python3 tools/test_check_master_plan_closure.py -v
+          python3 tools/check_master_plan_closure.py --repo-root .
+
+      - name: Verify changed-file boundary
+        run: |
+          expected=$(cat <<'EOF'
+          AI_HANDOFF.md
+          CURRENT_STATE.md
+          DECISIONS.md
+          IMPLEMENTATION_ROADMAP.md
+          MASTER_PLAN.md
+          PROGRESS.md
+          master-plan-index.json
+          EOF
+          )
+          actual=$(git diff --name-only | sort)
+          test "$actual" = "$(printf '%s\n' "$expected" | sort)"
+          grep -Fq '**Runtime implementation:** NOT AUTHORIZED' CURRENT_STATE.md
+          ! grep -Fq '**Runtime implementation:** AUTHORIZED' CURRENT_STATE.md
+          grep -Fq 'Status: proposed' decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md
+          grep -Fq '**Status:** COMPLETE AND FROZEN' DONOR_RECOVERY.md
+          grep -A5 '^## AF03$' archive/CAMPAIGN-001-FORMATION-MANIFEST.md | grep -Fq -- '- status: READY / NOT STARTED'
+
+      - name: Commit synchronized candidate records
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            AI_HANDOFF.md \
+            CURRENT_STATE.md \
+            DECISIONS.md \
+            IMPLEMENTATION_ROADMAP.md \
+            MASTER_PLAN.md \
+            PROGRESS.md \
+            master-plan-index.json
+          git commit -m "Synchronize platform diagnostic advisory candidate"
+          git push origin "HEAD:${PTAH_HEAD_REF}"
