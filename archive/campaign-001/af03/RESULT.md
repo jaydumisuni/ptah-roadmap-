@@ -1,6 +1,6 @@
 # Campaign 001 — AF03 Candidate Result
 
-Status: CANDIDATE EVIDENCE COMPLETE — PENDING SERGEANT AND EXACT-HEAD REVIEW
+Status: CANDIDATE EVIDENCE COMPLETE — SERGEANT PASSED — PENDING EXACT-HEAD REVIEW
 
 Recorded: 2026-07-23
 
@@ -14,6 +14,8 @@ Recorded: 2026-07-23
 - Primary Archivists: 10 distinct;
 - Independent Verifiers: 10 distinct;
 - checkpoints: 2;
+- Sergeant review: PASS WITH MANDATORY RETAINED RESTRICTIONS;
+- Sergeant blocking findings: 0;
 - AF04: NOT STARTED.
 
 ## Candidate outcomes
@@ -38,11 +40,27 @@ Recorded: 2026-07-23
 - source licences are bounded to exact inspected repositories and do not automatically cover linked assets, binaries, images, plugins or services;
 - all implementation donors remain optional and replaceable behind Ptah-owned Provider boundaries.
 
+## Sergeant review
+
+Sergeant independently reviewed frozen candidate head `a6a1d9aa13f619c2f8ff4c1c6c0cadea331df3d6` after evidence production ended.
+
+Result: `pass_with_mandatory_retained_restrictions`.
+
+The mandatory retained restrictions are:
+
+- profile catalogues are not source licences;
+- public repositories do not contain every advertised hosted or premium capability;
+- backend success is not Ptah proof or caller acceptance;
+- compatibility and exact host requirements remain explicit;
+- donor identities remain aliases rather than canonical Ptah identities.
+
+Sergeant found zero blocking findings. The full independent result is `archive/campaign-001/af03/SERGEANT-REVIEW.md`.
+
 ## Frozen candidate boundary
 
-Formation workers produced and challenged evidence through the caller-supplied ten-for-two Recipe. Worker completion does not accept AF03.
+Formation workers produced and challenged evidence through the caller-supplied ten-for-two Recipe. Worker completion did not accept AF03.
 
-The frozen candidate now goes to Sergeant for independent review. Sergeant may return PASS, PASS WITH FINDINGS or BLOCKED, but Ptah does not issue or adopt the verdict. A separate exact-head closure and later acceptance change are still required.
+Sergeant's pass also does not accept AF03. Exact-head closure validation and a separate owner/calling-authority promotion change remain required.
 
 ## Preserved authority
 
