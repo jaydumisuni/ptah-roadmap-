@@ -1,17 +1,17 @@
 # Campaign 001 — AF03 Acceptance
 
-Status: ACCEPTED EVIDENCE RECORD — operative merge binding pending
+Status: ACCEPTED EVIDENCE RECORD — OPERATIVE MERGE BOUND
 
 Recorded: 2026-07-23
 
 ## Candidate evidence
 
 - exact candidate head: `4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d`;
-- AF03 workflow run: `30003085272`;
-- retained artifact: `8561809711`;
-- artifact digest: `sha256:fa36506e788958d4b3d134f6f1286e4c2d47d309aa15529e6f1d384c9bdcd6a6`;
-- validation report SHA-256: `e437e8785a846710e2e2434fb3e537a3566fc6baf68b420da6610dd20571f302`;
-- adversarial regressions: `36`;
+- AF03 candidate workflow run: `30003085272`;
+- retained candidate artifact: `8561809711`;
+- candidate artifact digest: `sha256:fa36506e788958d4b3d134f6f1286e4c2d47d309aa15529e6f1d384c9bdcd6a6`;
+- candidate validation report SHA-256: `e437e8785a846710e2e2434fb3e537a3566fc6baf68b420da6610dd20571f302`;
+- candidate adversarial regressions: `36`;
 - exact durable candidate file boundary: `24`;
 - candidate merge: `d86218e1127c57bacfb4d88eff15b81d326995ba`.
 
@@ -24,7 +24,18 @@ Recorded: 2026-07-23
 
 Sergeant's review is independent evidence. It does not supply Ptah authority and did not itself accept AF03.
 
-## Proposed acceptance effect
+## Accepted-state proof
+
+- exact accepted-state head: `f8acd8118732a21598ea44e8c0c59e10779b8bd7`;
+- accepted-state workflow run: `30033777588`;
+- retained accepted-state artifact: `8574370705`;
+- accepted-state artifact digest: `sha256:7aadf6892cee8995a22ca68def15e2b600f1007c8759551bf013441624878502`;
+- accepted-state validation report SHA-256: `f2278222419a8a8420f2df0d6a3f6bfea5ebd883177f6e62fde510fa74f64681`;
+- accepted-state adversarial regressions: `36`;
+- exact durable acceptance file boundary: `23`;
+- operative acceptance merge: `bee9ace3dfa71ac77b25d3db98b34a4c1d60a181`.
+
+## Accepted effect
 
 - AF03 status: `ACCEPTED COMPLETE`;
 - accepted AF03 archive records: `10`;
@@ -56,4 +67,4 @@ Acceptance preserves every record-level restriction, including:
 - ADR-0033 remains proposed;
 - runtime implementation remains unauthorized.
 
-This record accepts the reviewed AF03 candidate subject to permanent exact-head accepted-state proof. The operative merge is bound in a later recovery-only update.
+This recovery-only record binds the exact reviewed accepted-state proof and operative merge. It does not start AF04 or grant runtime implementation authority.
