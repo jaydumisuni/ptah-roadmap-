@@ -1,10 +1,12 @@
 # Campaign 001 — AF03 Archive Mission
 
-Status: CANDIDATE EVIDENCE COMPLETE — PENDING SERGEANT AND EXACT-HEAD REVIEW
+Status: CANDIDATE EVIDENCE COMPLETE — SERGEANT PASSED — PENDING EXACT-HEAD REVIEW
 
 Started: 2026-07-23
 
 Evidence completed: 2026-07-23
+
+Sergeant review completed: 2026-07-23
 
 Base authority commit: `a7186bfb45cb885c8afc7165f67641e8725cc989`
 
@@ -41,7 +43,13 @@ Ptah did not invent additional donor scope, select a different mission, decide a
 
 ## Sergeant review gate
 
-All ten evidence packets and the candidate result are frozen. Sergeant now performs an independent review using Ptah resources. Sergeant did not participate in producing the candidate. Sergeant's result remains a separate Artifact and does not become a Ptah verdict.
+Sergeant independently reviewed frozen candidate head `a6a1d9aa13f619c2f8ff4c1c6c0cadea331df3d6` after all evidence production ended.
+
+Sergeant result: `pass_with_mandatory_retained_restrictions`.
+
+Blocking findings: `0`.
+
+The full result is retained in `archive/campaign-001/af03/SERGEANT-REVIEW.md`. Sergeant's pass remains a separate review Artifact and does not become a Ptah verdict or AF03 acceptance.
 
 ## Evidence obligations
 
@@ -76,4 +84,4 @@ All ten obligations completed:
 - blocked completed outcomes: 0
 - remaining evidence: 0
 
-AF03 candidate evidence is complete but not accepted. AF04 remains NOT STARTED. P01 remains the active implementation-authorization work outside this archive campaign.
+AF03 candidate evidence and independent review are complete but AF03 is not accepted. AF04 remains NOT STARTED. P01 remains the active implementation-authorization work outside this archive campaign.
