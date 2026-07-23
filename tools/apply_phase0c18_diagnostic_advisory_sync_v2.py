@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run Phase 0C-18 synchronization with exact post-condition wording."""
+"""Run Phase 0C-18 synchronization with exact owner wording."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -23,7 +23,13 @@ def main() -> int:
         '"Installation acknowledgement does not equal resolution",\n                     "Installation acknowledgement equals resolution"',
         "regression post-condition wording",
     )
-    print("Phase 0C-18 exact post-condition wording synchronized")
+    base.replace_once(
+        ROOT / "tools/check_platform_diagnostic_advisory.py",
+        'require(work_package, "diagnose platform condition without deciding caller work", "owner diagnostic direction")',
+        'require(work_package, "Ptah does not decide the work given", "owner diagnostic direction")',
+        "validator owner diagnostic wording",
+    )
+    print("Phase 0C-18 exact owner wording synchronized")
     return 0
 
 
