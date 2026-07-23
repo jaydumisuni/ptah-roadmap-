@@ -1,9 +1,11 @@
-name: Phase 0C-18 Diagnostic Advisory Sync
+name: Phase 0C-18 Diagnostic and Worker Sync
 
 on:
   pull_request:
     paths:
       - "tools/apply_phase0c18_diagnostic_advisory_sync.py"
+      - "tools/check_platform_diagnostic_advisory.py"
+      - "tools/test_check_platform_diagnostic_advisory.py"
       - ".github/workflows/phase0c18-diagnostic-advisory-sync.yml"
 
 permissions:
@@ -35,14 +37,32 @@ jobs:
         run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
 
       - name: Apply guarded candidate synchronization
-        run: python3 tools/apply_phase0c18_diagnostic_advisory_sync.py
-
-      - name: Run candidate regressions and validator
         run: |
-          python3 tools/test_check_platform_diagnostic_advisory.py -v
-          python3 tools/check_platform_diagnostic_advisory.py --repo-root .
-          python3 tools/test_check_master_plan_closure.py -v
-          python3 tools/check_master_plan_closure.py --repo-root .
+          mkdir -p conformance/reports/phase0c18-sync
+          set -o pipefail
+          python3 tools/apply_phase0c18_diagnostic_advisory_sync.py 2>&1 \
+            | tee conformance/reports/phase0c18-sync/transform.txt
+
+      - name: Run candidate regressions and validators
+        run: |
+          set -o pipefail
+          python3 tools/test_check_platform_diagnostic_advisory.py -v 2>&1 \
+            | tee conformance/reports/phase0c18-sync/diagnostic-worker-regressions.txt
+          python3 tools/check_platform_diagnostic_advisory.py --repo-root . 2>&1 \
+            | tee conformance/reports/phase0c18-sync/diagnostic-worker-validator.txt
+          python3 tools/test_check_master_plan_closure.py -v 2>&1 \
+            | tee conformance/reports/phase0c18-sync/master-plan-regressions.txt
+          python3 tools/check_master_plan_closure.py --repo-root . 2>&1 \
+            | tee conformance/reports/phase0c18-sync/master-plan-validator.txt
+
+      - name: Upload synchronization diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: phase0c18-sync-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
+          path: conformance/reports/phase0c18-sync/
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Verify changed-file boundary
         run: |
@@ -76,5 +96,5 @@ jobs:
             MASTER_PLAN.md \
             PROGRESS.md \
             master-plan-index.json
-          git commit -m "Synchronize platform diagnostic advisory candidate"
+          git commit -m "Synchronize diagnostic and ten-for-two candidate"
           git push origin "HEAD:${PTAH_HEAD_REF}"
