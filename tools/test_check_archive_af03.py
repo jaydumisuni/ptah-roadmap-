@@ -59,6 +59,12 @@ class AF03ValidationTests(unittest.TestCase):
         self.assertIn(old, text)
         path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
+    def replace_all(self, root: Path, relative: Path, old: str, new: str) -> None:
+        path = root / relative
+        text = path.read_text(encoding="utf-8")
+        self.assertIn(old, text)
+        path.write_text(text.replace(old, new), encoding="utf-8")
+
     def mutate_result(self, root: Path, key: str, value: object) -> None:
         path = root / RESULT_JSON
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -217,7 +223,7 @@ class AF03ValidationTests(unittest.TestCase):
     def test_d059_lgpl_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
         path = Path(EXPECTED["D059"]["path"])
-        self.replace(root, path, "LGPL-2.1", "permissive")
+        self.replace_all(root, path, "LGPL-2.1", "permissive")
         self.assert_invalid(root)
 
     def test_d059_finding_cannot_become_verdict(self) -> None:
@@ -253,7 +259,7 @@ class AF03ValidationTests(unittest.TestCase):
     def test_d014_agpl_boundary_cannot_disappear(self) -> None:
         root = self.make_repo()
         path = Path(EXPECTED["D014"]["path"])
-        self.replace(root, path, "AGPL-3.0", "permissive")
+        self.replace_all(root, path, "AGPL-3.0", "permissive")
         self.assert_invalid(root)
 
     def test_d018_hosted_boundary_cannot_disappear(self) -> None:
