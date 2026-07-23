@@ -91,10 +91,14 @@ jobs:
               "caller_recipe_or_plan_required",
               "adr_0036_accepted",
               "phase0c_18_complete",
+              "af03_accepted",
+              "af03_started",
+              "af03_authorized",
+              "af04_ready",
           )
           for key in expected_true:
               if evidence.get(key) is not True:
-                  raise SystemExit(f"required accepted capability missing: {key}")
+                  raise SystemExit(f"required accepted capability or campaign state missing: {key}")
           expected_values = {
               "ten_for_two_multiplier": 10,
               "ten_for_two_minimum_worker_slots": 20,
@@ -120,7 +124,8 @@ jobs:
               "may_block_unrelated_capable_work",
               "sergeant_review_authority_borrowed",
               "sergeant_mission_selection_borrowed",
-              "af03_started",
+              "af04_started",
+              "af04_authorized",
               "phase_0a_reopened",
               "adr_0033_accepted",
               "runtime_implementation_authorized",
