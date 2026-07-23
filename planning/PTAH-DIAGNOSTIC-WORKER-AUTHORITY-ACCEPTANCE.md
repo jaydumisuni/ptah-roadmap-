@@ -4,6 +4,11 @@ Status: candidate acceptance evidence
 
 Recorded: 2026-07-23
 
+Acceptance review:
+
+- branch: `phase0c18-diagnostic-worker-acceptance`;
+- pull request: `#37`.
+
 ## Candidate package
 
 - exact candidate head: `d2608ba7c619c1c402091edd619a4b29813ee9a7`;
