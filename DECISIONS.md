@@ -308,6 +308,12 @@ Full decision: `decisions/ADR-0034-MASTER-PLAN-ROADMAP-AND-HANDOFF-AUTHORITY.md`
 
 Full decision: `decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOTION.md`.
 
+### D-052 — Ptah may diagnose its platform and efficiently execute caller-given worker formations
+
+**ACCEPTED.** Ptah may produce evidence-backed diagnostic advisories for missing capability, degradation, incompatibility or repeated failure and may ask an authorized caller for an upgrade. For a caller-submitted job and caller-selected Recipe/Plan, Ptah may execute `max(20, human-equivalent workers × 10)` bounded workers with independent checks, checkpoints and retained conflicts. Ptah cannot choose caller work, invent semantic scope, accept the result or approve/install its own upgrade. Candidate `d2608ba7c619c1c402091edd619a4b29813ee9a7` passed 41 regressions in run `29986975197` and merged as `fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae`.
+
+Full decision: `decisions/ADR-0036-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md`.
+
 ---
 
 ## Current proposed decisions
@@ -315,9 +321,3 @@ Full decision: `decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOT
 ### ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
 **PROPOSED.** Master Plan/roadmap authority is complete. The physical pinned-host result, package and retention acceptance, final Phase 0C closure review and explicit runtime authorization remain open.
-
-### ADR-0036 — Platform diagnostic advisory and efficient worker execution boundary
-
-**PROPOSED.** Ptah may compare configured platform expectations with observed health, capability and execution evidence and emit a bounded upgrade or inspection advisory. For a caller-submitted job and Recipe/Plan, Ptah may apply the Sergeant-derived ten-for-two pattern to run bounded parallel workers and independent checks. Ptah may not choose caller work, invent semantic scope, approve a result or install its own upgrade.
-
-Full decision: `decisions/ADR-0036-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md`.

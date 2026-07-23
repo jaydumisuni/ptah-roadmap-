@@ -21,6 +21,13 @@ MASTER_INDEX = Path("master-plan-index.json")
 DONOR_REGISTER = Path("DONOR_RECOVERY.md")
 CAMPAIGN_MANIFEST = Path("archive/CAMPAIGN-001-FORMATION-MANIFEST.md")
 ADR0033 = Path("decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md")
+CANDIDATE_HEAD = "d2608ba7c619c1c402091edd619a4b29813ee9a7"
+CANDIDATE_RUN = "29986975197"
+CANDIDATE_ARTIFACT = "8555395796"
+CANDIDATE_ARTIFACT_DIGEST = "sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61"
+CANDIDATE_REPORT_SHA256 = "aff3a635d37b82c15eeb36f2f6cec780f76e2c3ce320727a18053b913b8d9171"
+CANDIDATE_MERGE = "fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae"
+ACCEPTANCE_RECORD = "planning/PTAH-DIAGNOSTIC-WORKER-AUTHORITY-ACCEPTANCE.md"
 
 REQUIRED_FILES = (
     PROTOCOL,
@@ -77,7 +84,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     index = json.loads(texts[MASTER_INDEX])
 
     # Candidate and neutral authority boundary.
-    require(protocol, "Status: candidate product clarification", "protocol candidate state")
+    require(protocol, "Status: accepted product clarification", "protocol accepted state")
     require(protocol, "not product consciousness, business judgment or task planning", "non-conscious boundary")
     require(protocol, "Caller chooses the work and supplies or selects the execution recipe", "caller work choice")
     require(protocol, "Ptah may emit a bounded diagnostic advisory", "bounded advisory")
@@ -107,7 +114,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(protocol, "Ptah manages the workers but does not invent the audit scope or issue the verdict", "worker example boundary")
 
     # Decision and work package.
-    require(adr, "Status: proposed", "ADR-0036 proposed state")
+    require(adr, "Status: accepted", "ADR-0036 accepted state")
     require(adr, "No new Core entity is required", "ADR frozen primitive boundary")
     require(adr, "apply `worker capacity = max(20, human-equivalent workers × 10)`", "ADR worker equation")
     require(adr, "caller-submitted job and caller-selected Recipe or Plan", "ADR caller job boundary")
@@ -116,7 +123,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(adr, "approve, purchase, install or activate its own upgrade", "ADR autonomous-upgrade prohibition")
     require(adr, "Sergeant patterns borrowed", "ADR Sergeant borrowing scope")
 
-    require(work_package, "Status: candidate under review", "Phase 0C-18 candidate state")
+    require(work_package, "Status: accepted and complete", "Phase 0C-18 accepted state")
     require(work_package, "Ptah does not decide the work given", "owner diagnostic direction")
     require(work_package, "borrow ten-for-two workers", "owner worker direction")
     require(work_package, "A02 — health, capability, compatibility and worker-capacity gap detection", "A02 placement")
@@ -155,15 +162,15 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(roadmap, "worker formation role, independence, checkpoint, retry, conflict and partial-result evidence", "Roadmap X3")
 
     # Durable control-book candidate state.
-    require(decisions, "### ADR-0036 — Platform diagnostic advisory and efficient worker execution boundary", "decision index")
-    require(decisions, "**PROPOSED.**", "decision proposed state")
-    require(current, "## Phase 0C-18 diagnostic and efficient-worker candidate", "current-state candidate section")
+    require(decisions, "### D-052 — Ptah may diagnose its platform and efficiently execute caller-given worker formations", "accepted decision index")
+    require(decisions, "**ACCEPTED.**", "decision accepted state")
+    require(current, "## Accepted Phase 0C-18 diagnostic and efficient-worker boundary", "current-state accepted section")
     require(current, "max(20, human-equivalent workers × 10)", "current worker equation")
     require(current, "does not start AF03", "current AF03 boundary")
-    require(progress, "## Diagnostic advisory and efficient worker candidate", "progress candidate section")
+    require(progress, "## Diagnostic advisory and efficient worker boundary — accepted", "progress accepted section")
     require(progress, "spread a caller-given job across bounded workers", "progress owner worker direction")
     require(progress, "implementation remains unauthorized", "progress runtime boundary")
-    require(handoff, "## Diagnostic advisory and efficient worker candidate", "handoff candidate section")
+    require(handoff, "## Accepted diagnostic advisory and efficient worker boundary", "handoff accepted section")
     require(handoff, "caller-submitted job and Recipe/Plan", "handoff worker boundary")
     require(handoff, "AF03 remains READY / NOT STARTED", "handoff AF03 boundary")
 
@@ -178,7 +185,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     if not isinstance(clarification, dict):
         raise ValidationError("platform diagnostic/worker clarification missing from machine index")
     expected = {
-        "status": "candidate_under_review",
+        "status": "accepted_operational_clarification",
         "protocol": str(PROTOCOL),
         "decision": str(ADR),
         "work_package": str(WORK_PACKAGE),
@@ -201,6 +208,16 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "af03_started": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
+        "protocol_version": "1.0.0",
+        "adr_0036_accepted": True,
+        "phase0c_18_complete": True,
+        "candidate_exact_head": CANDIDATE_HEAD,
+        "candidate_workflow_run": CANDIDATE_RUN,
+        "candidate_artifact_id": CANDIDATE_ARTIFACT,
+        "candidate_artifact_digest": CANDIDATE_ARTIFACT_DIGEST,
+        "candidate_validation_report_sha256": CANDIDATE_REPORT_SHA256,
+        "candidate_merge": CANDIDATE_MERGE,
+        "acceptance_record": ACCEPTANCE_RECORD,
     }
     for key, value in expected.items():
         if clarification.get(key) != value:
@@ -222,7 +239,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     return {
         "schema_version": "1.0.0",
         "record_type": "ptah.phase0c.platform_diagnostic_and_worker_execution_validation",
-        "status": "candidate_valid_non_authorizing",
+        "status": "accepted_valid_non_authorizing",
         "uses_frozen_primitives_only": True,
         "new_core_entity_required": False,
         "may_detect_missing_capability": True,
@@ -245,6 +262,16 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
+        "protocol_version": "1.0.0",
+        "adr_0036_accepted": True,
+        "phase0c_18_complete": True,
+        "candidate_exact_head": CANDIDATE_HEAD,
+        "candidate_workflow_run": CANDIDATE_RUN,
+        "candidate_artifact_id": CANDIDATE_ARTIFACT,
+        "candidate_artifact_digest": CANDIDATE_ARTIFACT_DIGEST,
+        "candidate_validation_report_sha256": CANDIDATE_REPORT_SHA256,
+        "candidate_merge": CANDIDATE_MERGE,
+        "acceptance_record": ACCEPTANCE_RECORD,
     }
 
 

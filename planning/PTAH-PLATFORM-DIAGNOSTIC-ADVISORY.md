@@ -1,8 +1,8 @@
 # Ptah Platform Diagnostic Advisory and Efficient Worker Execution
 
-Status: candidate product clarification — runtime implementation remains unauthorized
+Status: accepted product clarification — runtime implementation remains unauthorized
 
-Version: 1.0-candidate
+Version: 1.0.0
 
 Recorded: 2026-07-23
 

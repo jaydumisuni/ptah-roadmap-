@@ -43,7 +43,7 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
 
     def test_valid_candidate(self) -> None:
         result = validate_repo(self.make_repo())
-        self.assertEqual(result["status"], "candidate_valid_non_authorizing")
+        self.assertEqual(result["status"], "accepted_valid_non_authorizing")
         self.assertTrue(result["may_request_upgrade"])
         self.assertTrue(result["may_execute_caller_selected_ten_for_two"])
         self.assertEqual(result["ten_for_two_multiplier"], 10)
@@ -314,6 +314,26 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
                      "**Status:** REOPENED")
         self.assert_invalid(root)
 
+
+    def test_accepted_protocol_cannot_revert(self) -> None:
+        root = self.make_repo()
+        self.replace(
+            root,
+            Path("planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md"),
+            "Status: accepted product clarification",
+            "Status: candidate product clarification",
+        )
+        self.assert_invalid(root)
+
+    def test_accepted_adr0036_cannot_revert(self) -> None:
+        root = self.make_repo()
+        self.replace(
+            root,
+            Path("decisions/ADR-0036-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md"),
+            "Status: accepted",
+            "Status: proposed",
+        )
+        self.assert_invalid(root)
 
 if __name__ == "__main__":
     unittest.main()

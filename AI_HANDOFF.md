@@ -96,32 +96,22 @@ Ptah does not select context, rank sources, approve work, issue review verdicts,
 AF03 remains READY / NOT STARTED.
 
 
-## Diagnostic advisory and efficient worker candidate
-
-Ptah remains neutral regarding caller intent. The Phase 0C-18 candidate permits two bounded platform behaviors:
+## Accepted diagnostic advisory and efficient worker boundary
 
 ```text
-configured expected platform condition
-→ observed health/capability/execution evidence
-→ missing capability or degradation advisory
-→ human/calling application chooses whether to upgrade, replace, defer or continue
+ADR-0036: ACCEPTED
+Phase 0C-18: COMPLETE
+protocol version: 1.0.0
+candidate merge: fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae
 ```
 
-```text
-caller-submitted job and Recipe/Plan
-→ max(20, human-equivalent workers × 10)
-→ bounded parallel Activities, independent checks and checkpoints
-→ configured merge or partial/conflicting result
-→ caller or external reviewer decides acceptance
-```
+Ptah may diagnose its own platform condition and ask a caller for an upgrade. For a caller-submitted job and Recipe/Plan, Ptah may execute `max(20, human-equivalent workers × 10)` bounded workers with independent checks and checkpoints.
 
-Read:
+Ptah may not choose caller work, invent semantic scope, approve a result, approve/install its own upgrade or treat acknowledgement as resolution.
 
-- `planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md`;
-- proposed ADR-0036;
-- Phase 0C-18 work package.
+Evidence: exact head `d2608ba7c619c1c402091edd619a4b29813ee9a7`, run `29986975197`, artifact `8555395796`, digest `sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61`. Full record: `planning/PTAH-DIAGNOSTIC-WORKER-AUTHORITY-ACCEPTANCE.md`.
 
-Ptah may manage declared workers and ask for an upgrade, but may not choose caller work, invent semantic scope, approve a result, approve/install the upgrade or treat acknowledgement as resolution. AF03 remains READY / NOT STARTED.
+AF03 remains READY / NOT STARTED.
 
 ## Exact next action
 

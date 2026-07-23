@@ -1,6 +1,6 @@
 # ADR-0036 — Platform diagnostic advisory and efficient worker execution boundary
 
-Status: proposed — review with Phase 0C-18
+Status: accepted — operative diagnostic and efficient worker execution boundary
 
 Recorded: 2026-07-23
 
@@ -17,7 +17,7 @@ Ptah already has frozen primitives for Node and Provider health, capability, lim
 
 ## Decision
 
-Adopt `planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md` as the candidate boundary for platform self-diagnostics, upgrade requests and caller-selected ten-for-two worker execution.
+Adopt `planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md` as the operative boundary for platform self-diagnostics, upgrade requests and caller-selected ten-for-two worker execution.
 
 ### Allowed diagnostic behavior
 
@@ -94,6 +94,19 @@ caller-submitted job and formation recipe
 ```
 
 Ptah does not borrow Sergeant's verdict, rank, mission-selection, scope-selection or approval authority.
+
+## Acceptance evidence
+
+- candidate exact head: `d2608ba7c619c1c402091edd619a4b29813ee9a7`;
+- exact-head workflow run: `29986975197`;
+- retained artifact: `8555395796`;
+- artifact digest: `sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61`;
+- validation report SHA-256: `aff3a635d37b82c15eeb36f2f6cec780f76e2c3ce320727a18053b913b8d9171`;
+- candidate merge: `fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae`;
+- regression cases passed: `41`;
+- exact durable candidate boundary: `13` files;
+- frozen primitives only, no new Core entity;
+- AF03, Phase 0A, P01, ADR-0033 and runtime boundaries preserved.
 
 ## Consequences
 

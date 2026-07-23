@@ -1,6 +1,6 @@
 # Phase 0C-18 — Platform diagnostic advisory and efficient worker execution boundary
 
-Status: candidate under review — runtime implementation remains unauthorized
+Status: accepted and complete — product boundary only; runtime implementation remains unauthorized
 
 Recorded: 2026-07-23
 
@@ -26,7 +26,7 @@ bounded worker spreading, independent checking and post-condition proof.
 ## Deliverables
 
 - `planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md`;
-- proposed ADR-0036;
+- accepted ADR-0036;
 - Master Plan clarification;
 - detailed roadmap placement in Programme A and later Programme E;
 - current-state, progress, handoff and machine-index records;
@@ -147,6 +147,16 @@ The exact-head validator must prove:
 - ADR-0033 remains proposed;
 - runtime implementation remains unauthorized.
 
+## Accepted evidence
+
+- exact candidate head `d2608ba7c619c1c402091edd619a4b29813ee9a7`;
+- workflow run `29986975197`;
+- retained artifact `8555395796`;
+- artifact digest `sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61`;
+- validation report SHA-256 `aff3a635d37b82c15eeb36f2f6cec780f76e2c3ce320727a18053b913b8d9171`;
+- candidate merge `fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae`;
+- 41 adversarial regressions and exact-head validation passed.
+
 ## Completion effect
 
-When accepted, this package clarifies planned product behavior and adds future implementation proof obligations. It does not implement either capability, start AF03 or authorize runtime work.
+This accepted package clarifies planned product behavior and adds future implementation proof obligations. It does not implement either capability, start AF03 or authorize runtime work.

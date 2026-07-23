@@ -212,17 +212,19 @@ Selection/evidence package merge:
 - [ ] AF03 is READY / NOT STARTED; no AF03 source record is pre-ticked as archived.
 
 
-## Diagnostic advisory and efficient worker candidate
+## Diagnostic advisory and efficient worker boundary — accepted
 
 - [x] owner boundary recovered: diagnose platform condition without deciding caller work;
 - [x] owner ten-for-two boundary recovered: spread a caller-given job across bounded workers for speed and efficiency;
 - [x] frozen Node/Provider health, Recipe/Plan/Run/Step, Workspace/Activity/Attempt, Reservation/Grant/Lease/Fence, Event/Receipt, Claim/Evidence and View/Artifact primitives mapped;
-- [x] diagnostic advisory, upgrade-request and worker-execution boundaries written;
-- [x] proposed ADR-0036 and Phase 0C-18 work package written;
-- [x] Programme A02/A04/A06/A14/A15 proof placement added;
-- [-] exact-head validator, adversarial tests and review pending;
-- [ ] accept ADR-0036 and Phase 0C-18;
-- [ ] implementation remains unauthorized.
+- [x] diagnostic advisory, upgrade-request and worker-execution boundaries accepted as version `1.0.0`;
+- [x] Programme A02/A04/A06/A14/A15 proof placement accepted;
+- [x] exact head `d2608ba7c619c1c402091edd619a4b29813ee9a7` passed 41 regressions in run `29986975197`;
+- [x] retained artifact `8555395796` with digest `sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61`;
+- [x] candidate merged as `fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae`;
+- [x] ADR-0036 and Phase 0C-18 accepted;
+- [x] implementation remains unauthorized;
+- [ ] AF03 remains READY / NOT STARTED.
 
 ## Active Phase 0C closure work
 
