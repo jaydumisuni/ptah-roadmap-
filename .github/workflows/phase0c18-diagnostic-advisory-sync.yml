@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "tools/apply_phase0c18_diagnostic_advisory_sync.py"
+      - "tools/apply_phase0c18_diagnostic_advisory_sync_v2.py"
       - "tools/check_platform_diagnostic_advisory.py"
       - "tools/test_check_platform_diagnostic_advisory.py"
       - ".github/workflows/phase0c18-diagnostic-advisory-sync.yml"
@@ -40,7 +41,7 @@ jobs:
         run: |
           mkdir -p conformance/reports/phase0c18-sync
           set -o pipefail
-          python3 tools/apply_phase0c18_diagnostic_advisory_sync.py 2>&1 \
+          python3 tools/apply_phase0c18_diagnostic_advisory_sync_v2.py 2>&1 \
             | tee conformance/reports/phase0c18-sync/transform.txt
 
       - name: Run candidate regressions and validators
@@ -74,6 +75,8 @@ jobs:
           MASTER_PLAN.md
           PROGRESS.md
           master-plan-index.json
+          tools/check_platform_diagnostic_advisory.py
+          tools/test_check_platform_diagnostic_advisory.py
           EOF
           )
           actual=$(git diff --name-only | sort)
@@ -95,6 +98,8 @@ jobs:
             IMPLEMENTATION_ROADMAP.md \
             MASTER_PLAN.md \
             PROGRESS.md \
-            master-plan-index.json
+            master-plan-index.json \
+            tools/check_platform_diagnostic_advisory.py \
+            tools/test_check_platform_diagnostic_advisory.py
           git commit -m "Synchronize diagnostic and ten-for-two candidate"
           git push origin "HEAD:${PTAH_HEAD_REF}"
