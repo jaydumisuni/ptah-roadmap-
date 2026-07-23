@@ -1,6 +1,6 @@
-# Ptah Diagnostic and Worker Execution Authority — Candidate Evidence
+# Ptah Diagnostic and Worker Execution Authority — Accepted-State Evidence
 
-Status: candidate acceptance evidence
+Status: accepted-state candidate under exact-head review
 
 Recorded: 2026-07-23
 
@@ -19,6 +19,13 @@ Acceptance review:
 - candidate merge: `fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae`;
 - regression cases: `41`;
 - exact durable candidate file boundary: `13`.
+
+## Accepted-state under review
+
+- ADR-0036: accepted on the review branch;
+- Phase 0C-18: complete on the review branch;
+- protocol version: `1.0.0`;
+- permanent accepted-state exact-head proof: pending this branch head.
 
 ## Proven allowed capabilities
 
@@ -49,4 +56,4 @@ Acceptance review:
 - ADR-0033: proposed;
 - runtime implementation: NOT AUTHORIZED.
 
-This record binds the reviewed candidate evidence. It does not itself accept ADR-0036 or authorize implementation.
+This record binds the reviewed candidate and accepted-state review. It does not implement either capability or authorize runtime implementation.
