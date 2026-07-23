@@ -33,7 +33,8 @@
     "PROGRESS.md",
     "DECISIONS.md",
     "MEMORY_PROTOCOL.md",
-    "planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md"
+    "planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md",
+    "planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md"
   ],
   "plan_documents": {
     "requirements_and_decisions": {
@@ -250,5 +251,32 @@
     "private_artifact_digest": "sha256:ff3e1aef59f0c847964888ef460c6177bdfed181b0a6817318cbc3d2eb9e4ccb",
     "private_correction_merge": "fc8ac4c42a3358da37c4866879543a5d7c4d1885",
     "merge_evidence_record": "planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md"
+  },
+  "product_clarifications": {
+    "platform_diagnostic_and_worker_execution": {
+      "status": "candidate_under_review",
+      "protocol": "planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md",
+      "decision": "decisions/ADR-0036-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md",
+      "work_package": "work-packages/PHASE-0C-18-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md",
+      "uses_frozen_primitives_only": true,
+      "new_core_entity_required": false,
+      "may_detect_missing_capability": true,
+      "may_detect_degradation": true,
+      "may_request_upgrade": true,
+      "may_execute_caller_selected_ten_for_two": true,
+      "ten_for_two_multiplier": 10,
+      "ten_for_two_minimum_worker_slots": 20,
+      "caller_job_required": true,
+      "caller_recipe_or_plan_required": true,
+      "may_choose_caller_work": false,
+      "may_invent_semantic_subtasks": false,
+      "may_accept_worker_result": false,
+      "may_approve_upgrade": false,
+      "may_install_upgrade_autonomously": false,
+      "may_block_unrelated_capable_work": false,
+      "af03_started": false,
+      "adr_0033_accepted": false,
+      "runtime_implementation_authorized": false
+    }
   }
 }

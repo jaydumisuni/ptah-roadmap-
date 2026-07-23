@@ -315,3 +315,9 @@ Full decision: `decisions/ADR-0035-TENFOLD-ARCHIVE-FORMATION-AND-EVIDENCE-PROMOT
 ### ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
 **PROPOSED.** Master Plan/roadmap authority is complete. The physical pinned-host result, package and retention acceptance, final Phase 0C closure review and explicit runtime authorization remain open.
+
+### ADR-0036 — Platform diagnostic advisory and efficient worker execution boundary
+
+**PROPOSED.** Ptah may compare configured platform expectations with observed health, capability and execution evidence and emit a bounded upgrade or inspection advisory. For a caller-submitted job and Recipe/Plan, Ptah may apply the Sergeant-derived ten-for-two pattern to run bounded parallel workers and independent checks. Ptah may not choose caller work, invent semantic scope, approve a result or install its own upgrade.
+
+Full decision: `decisions/ADR-0036-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md`.

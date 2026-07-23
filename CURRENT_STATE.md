@@ -434,6 +434,27 @@ Campaign 001 progress:
 
 AF02 is accepted complete. AF03 remains ready but not started. Archive formation state does not grant source reuse, replace P01 as the active implementation-authorization work, reopen Phase 0A, accept ADR-0033 or authorize runtime implementation.
 
+
+---
+
+## Phase 0C-18 diagnostic and efficient-worker candidate
+
+The owner clarified that Ptah remains neutral regarding caller intent while retaining two bounded platform capabilities.
+
+Candidate authority:
+
+- `planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md`;
+- proposed ADR-0036;
+- `work-packages/PHASE-0C-18-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md`.
+
+Allowed diagnostic behavior: detect missing capability, degradation, incompatibility, resource shortage, repeated failure or failed post-condition and emit an evidence-backed advisory asking an authorized caller for an upgrade or inspection.
+
+Allowed execution behavior: after a caller submits a job and selects a Recipe/Plan, apply `max(20, human-equivalent workers × 10)` to run bounded worker Activities, independent checks, checkpoints and configured merge/recovery mechanics.
+
+Forbidden: choose caller work, invent semantic subtasks, reprioritize outside submitted Policy, approve a result, approve/purchase/install an upgrade, mark acknowledgement as resolution, block unrelated capable work or become Hunter/Sergeant authority.
+
+This candidate uses frozen primitives only, does not start AF03 and does not change P01, ADR-0033 or runtime authorization.
+
 ---
 
 ## Active Phase 0C blockers
