@@ -173,6 +173,8 @@ Deliver:
 - boot and process evidence without identity leakage;
 - host capability snapshot;
 - Node health, readiness, reachability and pressure projections;
+- configured capability, compatibility, resource and worker-capacity baselines;
+- bounded missing-capability and degradation advisory generation;
 - Event and Receipt correlation.
 
 Proof:
@@ -181,7 +183,10 @@ Proof:
 - Generation changes after restart;
 - stale-generation commands fail and remain evidenced;
 - process ID, hostname and boot ID cannot replace Node identity;
-- health and capability claims are evidence-bound.
+- health and capability claims are evidence-bound;
+- a missing capability produces an advisory that identifies evidence, expected condition, impact and uncertainty without inventing a user goal;
+- worker-capacity claims are tied to exact Node/Provider evidence;
+- advisory creation cannot install or approve an upgrade.
 
 Dependencies: A01.
 
@@ -220,6 +225,10 @@ Deliver:
 - retry, cancellation and failure propagation;
 - Event streaming;
 - immutable Receipt generation;
+- caller-defined Recipe/Plan worker formation execution;
+- primary/verifier and other declared independence projections;
+- worker checkpoint, partial-result and conflict evidence;
+- repeated-failure correlation and diagnostic Event/Artifact emission;
 - resource and timing evidence.
 
 Proof:
@@ -230,7 +239,14 @@ Proof:
 - retry creates a new Attempt;
 - reused Attempt identity fails;
 - acknowledgement-only completion fails;
-- failed and cancelled work remains queryable.
+- failed and cancelled work remains queryable;
+- a caller-selected two-human-equivalent ten-for-two Recipe creates twenty bounded worker slots;
+- each failed retry creates a distinct Attempt and requires submitted Policy authority;
+- configured independent-check lanes cannot silently collapse into one worker;
+- conflicting worker outputs remain visible rather than being forced into agreement;
+- worker completion cannot become result acceptance;
+- repeated failures may produce a bounded advisory, but no new job or upgrade begins without a caller submission;
+- unrelated Activities remain runnable when their requirements are satisfied.
 
 Dependencies: A02, A03.
 
@@ -270,6 +286,7 @@ Deliver:
 - Workspace-scoped Objects, Activities, terminals and Policies;
 - participant and Grant projection;
 - restart recovery projection;
+- worker formation, role, checkpoint and partial-result recovery projection;
 - basic handoff record.
 
 Proof:
@@ -279,7 +296,8 @@ Proof:
 - missing attachments remain explicit;
 - stale Session authority fails;
 - cross-Workspace retrieval fails without Grant;
-- agent replacement preserves authority and handoff state.
+- agent replacement preserves authority and handoff state;
+- interrupted worker formations recover without losing role, independence, checkpoint or conflict evidence.
 
 Dependencies: A03, A04, A05.
 
@@ -475,6 +493,9 @@ Deliver:
 - transfer view;
 - Browser panel;
 - Provider/Node health view;
+- platform diagnostic advisory and missing-capability panel;
+- worker formation, role, checkpoint, conflict and partial-result panel;
+- caller controls to dismiss, defer, choose an alternative or submit an authorized upgrade Activity;
 - checkpoint/reconnect controls;
 - evidence and limitation links.
 
@@ -483,7 +504,10 @@ Proof:
 - a human completes the vertical slice without an AI caller;
 - stale UI projection cannot issue protected control;
 - closing/reopening client restores accurate state;
-- mobile/tablet projection does not hide critical status or approval controls.
+- mobile/tablet projection does not hide critical status or approval controls;
+- Ptah presents observed facts separately from upgrade suggestions;
+- worker completion is visually separate from caller/reviewer acceptance;
+- no advisory can approve or execute its own recommendation.
 
 Dependencies: A05–A13.
 
@@ -508,7 +532,10 @@ Proof:
 - offline schema resolution passes;
 - reports, logs, Receipts and Artifacts are digest-bound and retained;
 - green status without reports fails;
-- human operator and Hunter handoff tests pass.
+- human operator and Hunter handoff tests pass;
+- missing capability and degraded Provider advisories pass positive, false-positive, stale-evidence and unresolved-upgrade tests;
+- ten-for-two formation tests prove bounded workers, independent evidence, checkpoint recovery, visible conflicts and no automatic result acceptance;
+- exact-head proof confirms Ptah cannot choose caller work or autonomously install an upgrade.
 
 Dependencies: A01–A14.
 
@@ -986,7 +1013,9 @@ Runs in every package:
 - exact Activity/Operation/Attempt identity;
 - resource and timing evidence;
 - immutable Receipt/Artifact retention;
-- limitations and negative evidence.
+- limitations and negative evidence;
+- diagnostic advisory evidence, expected conditions, uncertainty and post-upgrade recheck state;
+- worker formation role, independence, checkpoint, retry, conflict and partial-result evidence.
 
 ## Track X4 — Human usability
 

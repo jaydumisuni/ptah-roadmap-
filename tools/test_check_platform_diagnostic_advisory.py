@@ -113,8 +113,8 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
     def test_acknowledgement_cannot_equal_resolution(self) -> None:
         root = self.make_repo()
         self.replace(root, Path("planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md"),
-                     "acknowledgement does not equal successful upgrade",
-                     "acknowledgement equals successful upgrade")
+                     "Installation acknowledgement does not equal resolution",
+                     "Installation acknowledgement equals resolution")
         self.assert_invalid(root)
 
     def test_worker_multiplier_cannot_drift(self) -> None:
@@ -127,8 +127,8 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
     def test_worker_minimum_cannot_drift(self) -> None:
         root = self.make_repo()
         self.replace(root, Path("planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md"),
-                     "twenty bounded worker slots",
-                     "four bounded worker slots")
+                     "The ordinary two-human-equivalent formation therefore exposes twenty bounded worker slots.",
+                     "The ordinary two-human-equivalent formation therefore exposes four bounded worker slots.")
         self.assert_invalid(root)
 
     def test_worker_recipe_cannot_be_optional(self) -> None:

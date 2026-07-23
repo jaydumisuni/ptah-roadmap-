@@ -95,6 +95,34 @@ Ptah does not select context, rank sources, approve work, issue review verdicts,
 
 AF03 remains READY / NOT STARTED.
 
+
+## Diagnostic advisory and efficient worker candidate
+
+Ptah remains neutral regarding caller intent. The Phase 0C-18 candidate permits two bounded platform behaviors:
+
+```text
+configured expected platform condition
+→ observed health/capability/execution evidence
+→ missing capability or degradation advisory
+→ human/calling application chooses whether to upgrade, replace, defer or continue
+```
+
+```text
+caller-submitted job and Recipe/Plan
+→ max(20, human-equivalent workers × 10)
+→ bounded parallel Activities, independent checks and checkpoints
+→ configured merge or partial/conflicting result
+→ caller or external reviewer decides acceptance
+```
+
+Read:
+
+- `planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md`;
+- proposed ADR-0036;
+- Phase 0C-18 work package.
+
+Ptah may manage declared workers and ask for an upgrade, but may not choose caller work, invent semantic scope, approve a result, approve/install the upgrade or treat acknowledgement as resolution. AF03 remains READY / NOT STARTED.
+
 ## Exact next action
 
 On the exact Ubuntu Server 24.04.4 LTS / x86_64 / `6.8.0-136-generic` physical proof host, check out the selected clean reviewed `Ptah-space` preparation commit and run:

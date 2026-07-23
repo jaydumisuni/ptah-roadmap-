@@ -76,6 +76,8 @@ Ptah exposes and preserves the records. The caller decides meaning, relevance, a
 13. **Human use is first-class.** A human must be able to operate the system without an AI caller.
 14. **Model and provider replacement must not erase caller-owned records, configured access or provenance.**
 15. **Completion is evidence-backed.** Source presence and UI claims are insufficient.
+16. **Ptah may diagnose its own platform condition without choosing the caller's work.** Missing capability, degradation or incompatibility may produce an evidence-backed advisory, but upgrade approval and task choice remain caller-owned.
+17. **Caller-given work may use bounded worker formations.** A caller-selected Recipe or Plan may apply the Sergeant-derived ten-for-two pattern for efficient parallel execution, while scope, semantic decomposition and result acceptance remain caller-owned.
 
 ## 5. Intended users and participants
 
@@ -158,7 +160,9 @@ Ptah Core owns:
 - Object, Content, Revision, View, Artifact, Relationship and Location records;
 - caller-configured Policy, Grant, Lease and Fence records with mechanical enforcement;
 - caller-defined Recipe, Plan, Run and Step records plus Receipt and Evidence storage;
+- caller-defined worker formation scheduling, checkpoint and evidence projections;
 - migrations, retention, supersession, tombstones and recovery projections;
+- evidence-backed diagnostic advisory Views and Artifacts over platform health, capability and execution records;
 - neutral APIs and event envelopes.
 
 ### 6.2 First-class Facilities
@@ -221,6 +225,8 @@ The human shell must provide:
 - storage and backup controls;
 - checkpoint, recovery, export and archive controls;
 - Node, Provider and health status;
+- platform diagnostic advisories, missing-capability explanations and caller-controlled upgrade responses;
+- worker formation, checkpoint, conflict and partial-result status;
 - approvals and security boundaries;
 - accessible desktop, tablet and mobile projections where practical.
 
@@ -251,6 +257,8 @@ Ptah Core does not own:
 - assistant personality or identity;
 - private Hunter prompts, memory or model data;
 - autonomous release approval;
+- autonomous self-upgrade, purchasing, vendor selection or task reprioritization;
+- autonomous semantic job decomposition or result acceptance;
 - universal policy decisions for every user;
 - hidden provider memory;
 - implicit global tool access;
@@ -335,6 +343,14 @@ A Grant defines authority. A Lease defines time-bound ownership or use. A Fence 
 ### Receipt and Evidence
 
 A Receipt is immutable producer evidence. Evidence may support a bounded Claim but does not automatically equal review, acceptance or authoritative truth.
+
+### Diagnostic advisory
+
+A diagnostic advisory is a typed View or Artifact over exact Node, Provider, capability, health, Activity, Attempt, Event, Receipt and Evidence records. It may identify a missing capability, degradation, incompatibility or repeated failure and ask a caller for an upgrade or inspection. It is not a new Core authority entity, does not choose caller work and cannot approve or execute its own recommendation.
+
+### Worker formation
+
+A worker formation is a caller-defined Recipe, Plan or Run composed of bounded Activities and Attempts. A caller may select the Sergeant-derived `max(20, human-equivalent workers × 10)` execution pattern. Ptah may allocate, place, run, checkpoint, retry and evidence the declared workers within configured authority, but it may not invent the job, add semantic scope or accept the result.
 
 ## 10. Data, storage and memory architecture
 
@@ -477,6 +493,10 @@ Dependencies, actions, images, binaries and tools are pinned and inventoried. SB
 - partial transfers and outputs remain retained and labelled;
 - checkpoint integrity, compatibility, restore and Recovery Verification remain distinct;
 - optional Facility failure does not collapse unrelated Activities;
+- a missing or degraded capability produces a bounded diagnostic advisory without inventing a new user goal;
+- unrelated Activities continue when their configured requirements remain satisfied;
+- failed worker Attempts remain distinct, and conflicting formation outputs remain visible;
+- worker completion does not equal caller acceptance;
 - events and logs may be incomplete without manufacturing success;
 - every accepted recovery is tied to exact evidence.
 
@@ -491,6 +511,9 @@ From the first runtime slice, Ptah records:
 - Node and Provider Generation;
 - exact commands, inputs and output digests where permitted;
 - limitations, truncation and privacy filtering;
+- expected-condition, missing-capability, degradation and compatibility-gap evidence;
+- diagnostic advisory revisions, uncertainty and recheck state;
+- worker formation roles, independence, checkpoints, conflicts and partial-result evidence;
 - immutable Receipts and retained Artifacts;
 - exact implementation commit and dependency lock.
 
@@ -521,7 +544,7 @@ Responsible for canonical metadata, authorization, Workspace/Activity coordinati
 
 ### 17.2 Node agent
 
-Responsible for truthful host capability, local Provider lifecycle, Activity execution, local storage, evidence generation and reconnect.
+Responsible for truthful host capability, local Provider lifecycle, Activity execution, caller-defined worker formation execution, local storage, evidence generation, bounded platform diagnostics and reconnect. Diagnostic output may request caller action, and scheduling may manage declared workers, but neither may select caller work or authorize an upgrade or result.
 
 ### 17.3 Storage services
 
@@ -538,6 +561,8 @@ Operators monitor:
 - backup and checkpoint verification;
 - security findings;
 - dependency and image updates;
+- evidence-backed diagnostic and upgrade advisories;
+- worker formation progress, independence, partial failures and conflicts;
 - evidence retention;
 - release and rollback state.
 
@@ -548,6 +573,8 @@ Operators monitor:
 - rollback restores a compatible checkpoint or uses reviewed compensating migration;
 - Provider updates create new revisions and Generations;
 - dependency/security updates rerun the affected proof suites;
+- Ptah may request an upgrade from exact diagnostic evidence but may not approve, purchase, install or activate it without caller-configured authority;
+- upgrade acknowledgement does not equal resolution: the affected condition is rechecked and retained as resolved, still present or inconclusive;
 - no upgrade erases failed or uncertain external effects.
 
 ## 18. Product surfaces and release boundaries
@@ -588,6 +615,8 @@ Ptah is succeeding when:
 - ten or more independent Activities run without global blocking in the first slice;
 - large interrupted transfers resume and verify exact destination bytes;
 - failures remain visible and scoped;
+- a missing or degraded platform capability produces an evidence-backed advisory while leaving task choice and upgrade approval with the caller;
+- a caller-selected ten-for-two Recipe can run bounded parallel workers with distinct evidence, checkpoints and visible conflicts;
 - a Workspace survives client and runtime interruption with verified recovery;
 - Artifacts trace to exact source, environment, tool versions and producing Activities;
 - Provider replacement preserves canonical identity;

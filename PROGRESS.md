@@ -211,6 +211,19 @@ Selection/evidence package merge:
 - [x] AF02 candidate merged as `58d89dfd1d5348cc8423222e3aff256ee041dce2` and accepted closure recorded;
 - [ ] AF03 is READY / NOT STARTED; no AF03 source record is pre-ticked as archived.
 
+
+## Diagnostic advisory and efficient worker candidate
+
+- [x] owner boundary recovered: diagnose platform condition without deciding caller work;
+- [x] owner ten-for-two boundary recovered: spread a caller-given job across bounded workers for speed and efficiency;
+- [x] frozen Node/Provider health, Recipe/Plan/Run/Step, Workspace/Activity/Attempt, Reservation/Grant/Lease/Fence, Event/Receipt, Claim/Evidence and View/Artifact primitives mapped;
+- [x] diagnostic advisory, upgrade-request and worker-execution boundaries written;
+- [x] proposed ADR-0036 and Phase 0C-18 work package written;
+- [x] Programme A02/A04/A06/A14/A15 proof placement added;
+- [-] exact-head validator, adversarial tests and review pending;
+- [ ] accept ADR-0036 and Phase 0C-18;
+- [ ] implementation remains unauthorized.
+
 ## Active Phase 0C closure work
 
 - [x] select the minimal external Rust crate/features graph;

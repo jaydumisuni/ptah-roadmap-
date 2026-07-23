@@ -88,14 +88,14 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(protocol, "approve its own advisory", "self-approval prohibition")
     require(protocol, "install, upgrade, remove or replace software without configured authority", "autonomous install prohibition")
     require(protocol, "block unrelated work merely because an upgrade is available", "unrelated work boundary")
-    require(protocol, "acknowledgement does not equal successful upgrade", "post-condition boundary")
+    require(protocol, "Installation acknowledgement does not equal resolution", "post-condition boundary")
     require(protocol, "Ptah does not decide which option the caller should choose", "example caller-choice boundary")
 
     # Ten-for-two worker execution boundary.
     require(protocol, "## 3. Sergeant patterns borrowed", "Sergeant patterns section")
     require(protocol, "### 3.2 Ten-for-two worker execution pattern", "worker pattern section")
     require(protocol, "worker capacity = max(20, human-equivalent workers × 10)", "worker capacity equation")
-    require(protocol, "twenty bounded worker slots", "two-worker formation capacity")
+    require(protocol, "The ordinary two-human-equivalent formation therefore exposes twenty bounded worker slots.", "two-worker formation capacity")
     require(protocol, "caller-selected or caller-supplied formation recipe", "caller recipe boundary")
     require(protocol, "instantiate the declared worker Activities", "worker instantiation")
     require(protocol, "run independent Attempts concurrently", "worker independence")
@@ -117,7 +117,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(adr, "Sergeant patterns borrowed", "ADR Sergeant borrowing scope")
 
     require(work_package, "Status: candidate under review", "Phase 0C-18 candidate state")
-    require(work_package, "diagnose platform condition without deciding caller work", "owner diagnostic direction")
+    require(work_package, "Ptah does not decide the work given", "owner diagnostic direction")
     require(work_package, "borrow ten-for-two workers", "owner worker direction")
     require(work_package, "A02 — health, capability, compatibility and worker-capacity gap detection", "A02 placement")
     require(work_package, "A04 — caller-defined worker Plan execution", "A04 placement")
