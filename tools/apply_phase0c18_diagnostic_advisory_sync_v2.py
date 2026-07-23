@@ -29,7 +29,19 @@ def main() -> int:
         'require(work_package, "Ptah does not decide the work given", "owner diagnostic direction")',
         "validator owner diagnostic wording",
     )
-    print("Phase 0C-18 exact owner wording synchronized")
+    base.replace_once(
+        ROOT / "tools/check_platform_diagnostic_advisory.py",
+        'require(protocol, "twenty bounded worker slots", "two-worker formation capacity")',
+        'require(protocol, "The ordinary two-human-equivalent formation therefore exposes twenty bounded worker slots.", "two-worker formation capacity")',
+        "validator exact worker minimum sentence",
+    )
+    base.replace_once(
+        ROOT / "tools/test_check_platform_diagnostic_advisory.py",
+        '"twenty bounded worker slots",\n                     "four bounded worker slots"',
+        '"The ordinary two-human-equivalent formation therefore exposes twenty bounded worker slots.",\n                     "The ordinary two-human-equivalent formation therefore exposes four bounded worker slots."',
+        "regression exact worker minimum sentence",
+    )
+    print("Phase 0C-18 exact owner and worker wording synchronized")
     return 0
 
 
