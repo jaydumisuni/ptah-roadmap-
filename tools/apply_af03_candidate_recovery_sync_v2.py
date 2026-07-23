@@ -18,6 +18,12 @@ def main() -> int:
         "current state exact operative token",
     )
     base.replace_once(
+        ROOT / "CURRENT_STATE.md",
+        "AF02 is accepted complete. AF03 remains operatively ready but not started; its candidate evidence package is complete, Sergeant-reviewed and not accepted.",
+        "AF02 is accepted complete. AF03 remains ready but not started; its candidate evidence package is complete, Sergeant-reviewed and not accepted.",
+        "current state exact Master Plan boundary sentence",
+    )
+    base.replace_once(
         ROOT / "PROGRESS.md",
         "- [x] AF03 candidate evidence prepared: ten paired records, ten bounded candidate outcomes, zero remaining evidence and independent Sergeant PASS WITH MANDATORY RETAINED RESTRICTIONS; operative AF03 remains READY / NOT STARTED and no record is accepted yet.",
         "- [x] AF03 is READY / NOT STARTED operatively; candidate evidence is prepared with ten paired records, ten bounded candidate outcomes, zero remaining evidence and independent Sergeant PASS WITH MANDATORY RETAINED RESTRICTIONS; no record is accepted yet.",
