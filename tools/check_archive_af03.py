@@ -14,6 +14,7 @@ CHECKPOINT_10 = Path("archive/campaign-001/af03/CHECKPOINT-10.md")
 RESULT_JSON = Path("archive/campaign-001/af03/RESULT.json")
 RESULT_MD = Path("archive/campaign-001/af03/RESULT.md")
 SERGEANT_REVIEW = Path("archive/campaign-001/af03/SERGEANT-REVIEW.md")
+ACCEPTANCE = Path("archive/campaign-001/af03/ACCEPTANCE.md")
 MANIFEST = Path("archive/CAMPAIGN-001-FORMATION-MANIFEST.md")
 DONOR_REGISTER = Path("DONOR_RECOVERY.md")
 CURRENT_STATE = Path("CURRENT_STATE.md")
@@ -23,6 +24,12 @@ ADR0033 = Path("decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACK
 SERGEANT_TARGET_HEAD = "a6a1d9aa13f619c2f8ff4c1c6c0cadea331df3d6"
 SERGEANT_RESULT = "pass_with_mandatory_retained_restrictions"
 BASE_AUTHORITY = "a7186bfb45cb885c8afc7165f67641e8725cc989"
+CANDIDATE_HEAD = "4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d"
+CANDIDATE_RUN = "30003085272"
+CANDIDATE_ARTIFACT = "8561809711"
+CANDIDATE_ARTIFACT_DIGEST = "sha256:fa36506e788958d4b3d134f6f1286e4c2d47d309aa15529e6f1d384c9bdcd6a6"
+CANDIDATE_REPORT_SHA256 = "e437e8785a846710e2e2434fb3e537a3566fc6baf68b420da6610dd20571f302"
+CANDIDATE_MERGE = "d86218e1127c57bacfb4d88eff15b81d326995ba"
 
 EXPECTED: dict[str, dict[str, str]] = {
     "D052": {"source": "NeoZorK/NeoZorK", "branch": "main", "commit": "a4e38cc6824a18a9dbe0c7bbc786f070d2450b79", "outcome": "accepted_for_archive_research_profile_and_reproducibility_catalogue_only", "primary": "AF03-P01", "verifier": "AF03-V01", "path": "archive/campaign-001/af03/records/D052-NEOZORK-PROJECTS.md"},
@@ -65,6 +72,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     checkpoint10 = read(root, CHECKPOINT_10)
     result_md = read(root, RESULT_MD)
     sergeant = read(root, SERGEANT_REVIEW)
+    acceptance = read(root, ACCEPTANCE)
     result = json.loads(read(root, RESULT_JSON))
     manifest = read(root, MANIFEST)
     donor = read(root, DONOR_REGISTER)
@@ -72,23 +80,23 @@ def validate_repo(root: Path) -> dict[str, Any]:
     index = json.loads(read(root, MASTER_INDEX))
     adr0033 = read(root, ADR0033)
 
-    require(mission, "CANDIDATE EVIDENCE COMPLETE — SERGEANT PASSED — PENDING EXACT-HEAD REVIEW", "mission candidate state")
+    require(mission, "Status: ACCEPTED COMPLETE", "mission accepted state")
     require(mission, "candidate accepted outcomes: 10", "mission candidate count")
     require(mission, "remaining evidence: 0", "mission remaining count")
     require(mission, SERGEANT_TARGET_HEAD, "mission Sergeant target")
     require(mission, SERGEANT_RESULT, "mission Sergeant result")
-    require(mission, "AF03 candidate evidence and independent review are complete but AF03 is not accepted", "mission non-acceptance")
+    require(mission, "AF03 is accepted complete", "mission acceptance")
 
     require(checkpoint05, "FIRST FIVE RECORDS RECONCILED", "checkpoint 05 state")
     require(checkpoint10, "ALL TEN ASSIGNED RECORDS RECONCILED", "checkpoint 10 state")
     require(checkpoint10, "candidate accepted outcomes: 10", "checkpoint 10 count")
     require(checkpoint10, "Sergeant review", "checkpoint Sergeant gate")
 
-    require(result_md, "SERGEANT PASSED — PENDING EXACT-HEAD REVIEW", "human result state")
+    require(result_md, "Status: ACCEPTED COMPLETE", "human result state")
     require(result_md, SERGEANT_TARGET_HEAD, "human result Sergeant target")
     require(result_md, SERGEANT_RESULT, "human result Sergeant result")
     require(result_md, "Sergeant found zero blocking findings", "human result no blockers")
-    require(result_md, "Sergeant's pass also does not accept AF03", "human result non-acceptance")
+    require(result_md, "AF03 was accepted separately", "human result acceptance")
 
     require(sergeant, "Status: PASS WITH MANDATORY RETAINED RESTRICTIONS", "Sergeant status")
     require(sergeant, SERGEANT_TARGET_HEAD, "Sergeant exact target")
@@ -97,12 +105,24 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(sergeant, "blocking review findings: 0", "Sergeant zero blockers")
     require(sergeant, "does not accept AF03", "Sergeant non-acceptance")
 
+    require(acceptance, "Status: ACCEPTED EVIDENCE RECORD", "acceptance record state")
+    require(acceptance, CANDIDATE_HEAD, "acceptance candidate head")
+    require(acceptance, CANDIDATE_MERGE, "acceptance candidate merge")
+    require(acceptance, "AF04 status: `READY / NOT STARTED`", "acceptance AF04 state")
+
     expected_top = {
         "schema_version": "1.0.0",
         "record_type": "ptah.archive_campaign_formation_result",
         "campaign_id": "CAMPAIGN-001",
         "formation_id": "AF03",
-        "status": "candidate_complete_pending_exact_head_review",
+        "status": "accepted_complete_non_authorizing",
+        "candidate_exact_head": CANDIDATE_HEAD,
+        "candidate_workflow_run": CANDIDATE_RUN,
+        "candidate_artifact_id": CANDIDATE_ARTIFACT,
+        "candidate_artifact_digest": CANDIDATE_ARTIFACT_DIGEST,
+        "candidate_validation_report_sha256": CANDIDATE_REPORT_SHA256,
+        "candidate_merge": CANDIDATE_MERGE,
+        "acceptance_record": str(ACCEPTANCE),
         "base_authority_commit": BASE_AUTHORITY,
         "protocol_version": "1.0.0",
         "efficient_worker_protocol_version": "1.0.0",
@@ -125,6 +145,9 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
+        "af03_accepted": True,
+        "af04_status": "ready_not_started",
+        "af04_started": False,
         "af04_authorized": False,
     }
     for key, value in expected_top.items():
@@ -204,10 +227,11 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(d037, "not Docker Engine", "D037 daemon boundary")
     require(d037, "do not treat CLI success as workload", "D037 success boundary")
 
-    # Candidate must not be promoted by its own evidence package.
-    if (root / "archive/campaign-001/af03/ACCEPTANCE.md").exists():
-        raise ValidationError("AF03 acceptance record exists in candidate package")
+    # Accepted package must retain its separate promotion record.
+    if not (root / ACCEPTANCE).is_file():
+        raise ValidationError("AF03 acceptance record is missing")
     af04 = manifest.split("## AF04", 1)[1].split("## AF05", 1)[0]
+    require(af04, "- status: READY / NOT STARTED", "AF04 ready state")
     reject(af04, "- status: ACTIVE", "AF04 activation")
     reject(af04, "- status: ACCEPTED", "AF04 acceptance")
 
@@ -221,17 +245,28 @@ def validate_repo(root: Path) -> dict[str, Any]:
 
     # Until a separate control-state synchronization is reviewed, operative totals stay unchanged.
     archive = index.get("operational_protocols", {}).get("tenfold_archive_formation", {})
-    if archive.get("accepted_archive_record_count") != 19 or archive.get("completed_formation_count") != 2:
-        raise ValidationError("AF03 candidate prematurely changed operative campaign totals")
+    if archive.get("accepted_archive_record_count") != 29 or archive.get("completed_formation_count") != 3:
+        raise ValidationError("AF03 accepted campaign totals are invalid")
+    if archive.get("af03_status") != "accepted_complete" or archive.get("af03_started") is not True or archive.get("af03_authorized") is not True:
+        raise ValidationError("AF03 is not accepted in the machine index")
+    if archive.get("af04_status") != "ready_not_started" or archive.get("af04_started") is not False or archive.get("af04_authorized") is not False:
+        raise ValidationError("AF04 state is invalid")
 
     return {
         "schema_version": "1.0.0",
         "record_type": "ptah.archive_campaign_af03_validation",
-        "status": "candidate_complete_valid_non_authorizing",
+        "status": "accepted_complete_valid_non_authorizing",
         "campaign_id": "CAMPAIGN-001",
         "formation_id": "AF03",
         "record_count": 10,
-        "candidate_archive_outcome_count": 10,
+        "accepted_archive_record_count": 10,
+        "candidate_exact_head": CANDIDATE_HEAD,
+        "candidate_workflow_run": CANDIDATE_RUN,
+        "candidate_artifact_id": CANDIDATE_ARTIFACT,
+        "candidate_artifact_digest": CANDIDATE_ARTIFACT_DIGEST,
+        "candidate_validation_report_sha256": CANDIDATE_REPORT_SHA256,
+        "candidate_merge": CANDIDATE_MERGE,
+        "acceptance_record": str(ACCEPTANCE),
         "blocked_record_count": 0,
         "primary_worker_count": 10,
         "verifier_worker_count": 10,
@@ -240,7 +275,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "sergeant_review_complete": True,
         "sergeant_review_result": SERGEANT_RESULT,
         "sergeant_blocking_finding_count": 0,
-        "af03_accepted": False,
+        "af03_accepted": True,
         "af04_started": False,
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,

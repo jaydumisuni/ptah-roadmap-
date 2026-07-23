@@ -9,6 +9,7 @@ import unittest
 from pathlib import Path
 
 from check_archive_af03 import (
+    ACCEPTANCE,
     ADR0033,
     CHECKPOINT_05,
     CHECKPOINT_10,
@@ -33,6 +34,7 @@ BASE_FILES = (
     RESULT_JSON,
     RESULT_MD,
     SERGEANT_REVIEW,
+    ACCEPTANCE,
     MANIFEST,
     DONOR_REGISTER,
     CURRENT_STATE,
@@ -83,10 +85,10 @@ class AF03ValidationTests(unittest.TestCase):
 
     def test_valid_candidate(self) -> None:
         result = validate_repo(self.make_repo())
-        self.assertEqual(result["status"], "candidate_complete_valid_non_authorizing")
-        self.assertEqual(result["candidate_archive_outcome_count"], 10)
+        self.assertEqual(result["status"], "accepted_complete_valid_non_authorizing")
+        self.assertEqual(result["accepted_archive_record_count"], 10)
         self.assertEqual(result["sergeant_review_result"], "pass_with_mandatory_retained_restrictions")
-        self.assertFalse(result["af03_accepted"])
+        self.assertTrue(result["af03_accepted"])
         self.assertFalse(result["af04_started"])
 
     def test_missing_record_fails(self) -> None:
@@ -94,9 +96,9 @@ class AF03ValidationTests(unittest.TestCase):
         (root / Path(EXPECTED["D052"]["path"])).unlink()
         self.assert_invalid(root)
 
-    def test_result_status_cannot_be_accepted(self) -> None:
+    def test_result_status_cannot_revert_to_candidate(self) -> None:
         root = self.make_repo()
-        self.mutate_result(root, "status", "accepted_complete")
+        self.mutate_result(root, "status", "candidate_complete_pending_exact_head_review")
         self.assert_invalid(root)
 
     def test_record_count_cannot_drop(self) -> None:
@@ -177,15 +179,14 @@ class AF03ValidationTests(unittest.TestCase):
         self.replace(root, SERGEANT_REVIEW, "does not accept AF03", "accepts AF03")
         self.assert_invalid(root)
 
-    def test_acceptance_record_cannot_appear(self) -> None:
+    def test_acceptance_record_cannot_disappear(self) -> None:
         root = self.make_repo()
-        path = root / "archive/campaign-001/af03/ACCEPTANCE.md"
-        path.write_text("# premature acceptance\n", encoding="utf-8")
+        (root / ACCEPTANCE).unlink()
         self.assert_invalid(root)
 
     def test_af04_cannot_start(self) -> None:
         root = self.make_repo()
-        self.replace(root, MANIFEST, "## AF04\n\n- private count: 20", "## AF04\n\n- status: ACTIVE\n- private count: 20")
+        self.replace(root, MANIFEST, "## AF04\n\n- status: READY / NOT STARTED\n- private count: 20", "## AF04\n\n- status: ACTIVE\n- private count: 20")
         self.assert_invalid(root)
 
     def test_phase0a_cannot_reopen(self) -> None:
@@ -205,7 +206,7 @@ class AF03ValidationTests(unittest.TestCase):
 
     def test_operative_totals_cannot_be_promoted(self) -> None:
         root = self.make_repo()
-        self.mutate_index(root, "accepted_archive_record_count", 29)
+        self.mutate_index(root, "accepted_archive_record_count", 19)
         self.assert_invalid(root)
 
     def test_d052_no_licence_boundary_cannot_disappear(self) -> None:

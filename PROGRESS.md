@@ -209,7 +209,8 @@ Selection/evidence package merge:
 - [x] AF02 candidate exact head `b710574b99269647cdd9029db5a2b217642aa344` passed 33 adversarial regressions in run `29875542752`;
 - [x] AF02 retained artifact `8512821506` with digest `sha256:78c5b702aa6025f088e2c54002bbe84fead003c92e0bb98ec18fcd0220b1d81c`;
 - [x] AF02 candidate merged as `58d89dfd1d5348cc8423222e3aff256ee041dce2` and accepted closure recorded;
-- [x] AF03 is READY / NOT STARTED operatively; candidate evidence is prepared with ten paired records, ten bounded candidate outcomes, zero remaining evidence and independent Sergeant PASS WITH MANDATORY RETAINED RESTRICTIONS; no record is accepted yet.
+- [x] AF03 accepted complete: ten paired records, ten accepted archive outcomes, zero blocks, independent Sergeant PASS WITH MANDATORY RETAINED RESTRICTIONS, candidate merge `d86218e1127c57bacfb4d88eff15b81d326995ba`.
+- [ ] AF04 is READY / NOT STARTED; no AF04 source record is pre-accepted.
 
 
 ## Diagnostic advisory and efficient worker boundary — accepted
@@ -224,7 +225,7 @@ Selection/evidence package merge:
 - [x] candidate merged as `fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae`;
 - [x] ADR-0036 and Phase 0C-18 accepted;
 - [x] implementation remains unauthorized;
-- [x] AF03 candidate package uses the accepted ten-for-two execution boundary and Sergeant review; operative AF03 remains READY / NOT STARTED pending exact-head closure and separate acceptance.
+- [x] AF03 used the accepted ten-for-two execution boundary and independent Sergeant review, then was accepted separately; AF04 remains READY / NOT STARTED.
 
 ## Active Phase 0C closure work
 

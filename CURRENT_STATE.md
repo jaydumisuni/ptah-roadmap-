@@ -421,15 +421,17 @@ Campaign 001 progress:
 - accepted archive records: 9;
 - blocked completed outcomes: 1 (`D047` MiniRouter source reuse);
 - AF02: ACCEPTED COMPLETE;
-- accepted archive records: 19 total;
+- accepted archive records: 29 total;
 - AF02 remaining evidence: 0;
 - AF02 acceptance merge: d1d6b47e935e79790db319ad234b4abccafa4d3f;
-- AF03: READY / NOT STARTED;
-- AF03 candidate package: COMPLETE / SERGEANT PASSED / NOT ACCEPTED;
-- AF03 candidate outcomes: 10;
-- AF03 candidate remaining evidence: 0;
-- AF03 Sergeant target: `a6a1d9aa13f619c2f8ff4c1c6c0cadea331df3d6`;
-- AF03 mission/result/review: `archive/campaign-001/af03/MISSION.md`, `archive/campaign-001/af03/RESULT.json`, `archive/campaign-001/af03/SERGEANT-REVIEW.md`;
+- AF03: ACCEPTED COMPLETE;
+- AF03 accepted archive records: 10;
+- AF03 blocked outcomes: 0;
+- AF03 remaining evidence: 0;
+- AF03 candidate exact head/run/artifact: `4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d` / `30003085272` / `8561809711`;
+- AF03 candidate merge: `d86218e1127c57bacfb4d88eff15b81d326995ba`;
+- AF03 mission/result/review/acceptance: `archive/campaign-001/af03/MISSION.md`, `archive/campaign-001/af03/RESULT.json`, `archive/campaign-001/af03/SERGEANT-REVIEW.md`, `archive/campaign-001/af03/ACCEPTANCE.md`;
+- AF04: READY / NOT STARTED;
 - AF02 mission: `archive/campaign-001/af02/MISSION.md`;
 - AF01 operative acceptance merge: `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`;
 - AF01 candidate exact head: `f60e340cb856d50e88b4279147a933d838fce759`;
@@ -437,7 +439,7 @@ Campaign 001 progress:
 - AF01 candidate merge: `0a35a8a904bdf235fa4989ea05b684443d5a879a`;
 - AF01 acceptance record: `archive/campaign-001/af01/ACCEPTANCE.md`.
 
-AF02 is accepted complete. AF03 remains ready but not started; its candidate evidence package is complete, Sergeant-reviewed and not accepted. Candidate preparation does not grant source reuse, replace P01 as the active implementation-authorization work, reopen Phase 0A, accept ADR-0033 or authorize runtime implementation.
+AF01, AF02 and AF03 are accepted complete. AF04 remains ready but not started. Archive acceptance does not grant unrestricted source reuse, replace P01 as the active implementation-authorization work, reopen Phase 0A, accept ADR-0033 or authorize runtime implementation.
 
 
 ---

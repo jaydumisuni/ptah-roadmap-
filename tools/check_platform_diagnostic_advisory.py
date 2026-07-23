@@ -172,7 +172,8 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(progress, "implementation remains unauthorized", "progress runtime boundary")
     require(handoff, "## Accepted diagnostic advisory and efficient worker boundary", "handoff accepted section")
     require(handoff, "caller-submitted job and Recipe/Plan", "handoff worker boundary")
-    require(handoff, "AF03 remains READY / NOT STARTED", "handoff AF03 boundary")
+    require(handoff, "AF03: ACCEPTED COMPLETE", "handoff AF03 accepted state")
+    require(handoff, "AF04: READY / NOT STARTED", "handoff AF04 boundary")
 
     # Machine-readable authority.
     if index.get("active_work_unit") != "P01-physical-host-and-ADR-0033-closure":
@@ -228,8 +229,10 @@ def validate_repo(root: Path) -> dict[str, Any]:
     reject(donor, "**Status:** REOPENED", "Phase 0A reopened")
     require(campaign, "## AF03", "AF03 campaign section")
     af03 = campaign.split("## AF03", 1)[1].split("## AF04", 1)[0]
-    require(af03, "- status: READY / NOT STARTED", "AF03 not-started state")
+    require(af03, "- status: ACCEPTED COMPLETE", "AF03 accepted state")
     reject(af03, "- status: ACTIVE", "AF03 activation")
+    af04 = campaign.split("## AF04", 1)[1].split("## AF05", 1)[0]
+    require(af04, "- status: READY / NOT STARTED", "AF04 ready state")
     require(adr0033, "Status: proposed", "ADR-0033 proposed state")
     if re.search(r"^Status:\s+accepted", adr0033, re.MULTILINE | re.IGNORECASE):
         raise ValidationError("ADR-0033 became accepted")
@@ -258,7 +261,12 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "may_block_unrelated_capable_work": False,
         "sergeant_review_authority_borrowed": False,
         "sergeant_mission_selection_borrowed": False,
-        "af03_started": False,
+        "af03_accepted": True,
+        "af03_started": True,
+        "af03_authorized": True,
+        "af04_ready": True,
+        "af04_started": False,
+        "af04_authorized": False,
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,

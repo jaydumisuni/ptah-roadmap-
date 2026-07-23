@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Check out exact AF03 head
+      - name: Check out exact AF03 accepted head
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ env.PTAH_EXACT_SHA }}
@@ -39,7 +39,7 @@ jobs:
           python3 tools/test_check_archive_af03.py -v 2>&1 \
             | tee conformance/reports/archive-campaign-001-af03/regressions.txt
 
-      - name: Validate AF03 candidate closure
+      - name: Validate AF03 accepted closure
         run: |
           set -o pipefail
           python3 tools/check_archive_af03.py \
@@ -47,7 +47,7 @@ jobs:
             --output conformance/reports/archive-campaign-001-af03/af03-validation.json \
             2>&1 | tee conformance/reports/archive-campaign-001-af03/validator-output.txt
 
-      - name: Bind AF03 evidence to exact head
+      - name: Bind AF03 accepted evidence to exact head
         run: |
           python3 - <<'PY'
           import hashlib
@@ -79,11 +79,11 @@ jobs:
           )
           if not evidence["exact_head_match"]:
               raise SystemExit("AF03 did not test the exact head")
-          if evidence["status"] != "candidate_complete_valid_non_authorizing":
-              raise SystemExit("AF03 candidate validation status is invalid")
+          if evidence["status"] != "accepted_complete_valid_non_authorizing":
+              raise SystemExit("AF03 accepted validation status is invalid")
           expected_values = {
               "record_count": 10,
-              "candidate_archive_outcome_count": 10,
+              "accepted_archive_record_count": 10,
               "blocked_record_count": 0,
               "primary_worker_count": 10,
               "verifier_worker_count": 10,
@@ -91,14 +91,21 @@ jobs:
               "remaining_evidence_count": 0,
               "sergeant_review_result": "pass_with_mandatory_retained_restrictions",
               "sergeant_blocking_finding_count": 0,
+              "candidate_exact_head": "4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d",
+              "candidate_workflow_run": "30003085272",
+              "candidate_artifact_id": "8561809711",
+              "candidate_artifact_digest": "sha256:fa36506e788958d4b3d134f6f1286e4c2d47d309aa15529e6f1d384c9bdcd6a6",
+              "candidate_validation_report_sha256": "e437e8785a846710e2e2434fb3e537a3566fc6baf68b420da6610dd20571f302",
+              "candidate_merge": "d86218e1127c57bacfb4d88eff15b81d326995ba",
+              "acceptance_record": "archive/campaign-001/af03/ACCEPTANCE.md",
           }
           for key, value in expected_values.items():
               if evidence.get(key) != value:
-                  raise SystemExit(f"AF03 evidence mismatch: {key}")
-          if evidence.get("sergeant_review_complete") is not True:
-              raise SystemExit("AF03 Sergeant review is incomplete")
+                  raise SystemExit(f"AF03 accepted evidence mismatch: {key}")
+          for key in ("sergeant_review_complete", "af03_accepted"):
+              if evidence.get(key) is not True:
+                  raise SystemExit(f"AF03 accepted authority missing: {key}")
           for key in (
-              "af03_accepted",
               "af04_started",
               "phase_0a_reopened",
               "adr_0033_accepted",

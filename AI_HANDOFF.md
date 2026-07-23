@@ -57,8 +57,8 @@ candidate merge: c4973cbf4d02a34f14a7aefa85b8e2ea7b392752
 operative acceptance merge: 40ca127c6d3054bda785061090acefaefcf4cd42
 AF01: ACCEPTED COMPLETE
 AF02: ACCEPTED COMPLETE
-AF03: READY / NOT STARTED
-AF03 candidate package: COMPLETE / SERGEANT PASSED / NOT ACCEPTED
+AF03: ACCEPTED COMPLETE
+AF04: READY / NOT STARTED
 ```
 
 Read when doing archive/recovery work:
@@ -73,7 +73,7 @@ Candidate evidence: exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`, run `
 
 Accepted-state evidence: exact head `b96b84d17cf03e905bd0b1baf3c46b8aec09334a`, run `29855000427`, artifact `8504901567`, digest `sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2`. Operative merge: `40ca127c6d3054bda785061090acefaefcf4cd42`. Full record: `planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md`.
 
-Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. AF01 is accepted complete with nine accepted archive records and one completed MiniRouter source-reuse block. Evidence: exact head `f60e340cb856d50e88b4279147a933d838fce759`, run `29862087745`, artifact `8507695005`, candidate merge `0a35a8a904bdf235fa4989ea05b684443d5a879a`, acceptance record `archive/campaign-001/af01/ACCEPTANCE.md`. AF01 accepted closure merged as `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`. AF02 is accepted complete with ten accepted archive records and zero blocks. Evidence: exact head `b710574b99269647cdd9029db5a2b217642aa344`, run `29875542752`, artifact `8512821506`, candidate merge `58d89dfd1d5348cc8423222e3aff256ee041dce2`, acceptance record `archive/campaign-001/af02/ACCEPTANCE.md`. AF03 remains operatively READY / NOT STARTED, but its candidate package is complete with ten paired outcomes and independent Sergeant result `pass_with_mandatory_retained_restrictions`. Read `archive/campaign-001/af03/MISSION.md`, `archive/campaign-001/af03/RESULT.json` and `archive/campaign-001/af03/SERGEANT-REVIEW.md`. No AF03 record is accepted yet.
+Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. AF01 is accepted complete with nine accepted archive records and one completed MiniRouter source-reuse block. Evidence: exact head `f60e340cb856d50e88b4279147a933d838fce759`, run `29862087745`, artifact `8507695005`, candidate merge `0a35a8a904bdf235fa4989ea05b684443d5a879a`, acceptance record `archive/campaign-001/af01/ACCEPTANCE.md`. AF01 accepted closure merged as `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`. AF02 is accepted complete with ten accepted archive records and zero blocks. AF03 is also accepted complete with ten accepted archive records and zero blocks. AF03 evidence: exact head `4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d`, run `30003085272`, artifact `8561809711`, candidate merge `d86218e1127c57bacfb4d88eff15b81d326995ba`, independent Sergeant result `pass_with_mandatory_retained_restrictions`, acceptance record `archive/campaign-001/af03/ACCEPTANCE.md`. AF04 is READY / NOT STARTED.
 
 The campaign is an archive/recovery workflow, not proof that a 200-agent runtime exists and not runtime implementation authority.
 
@@ -94,7 +94,7 @@ Human/calling application = intent, approval, acceptance and release
 
 Ptah does not select context, rank sources, approve work, issue review verdicts, promote candidates or choose the next agent/action. Private correction merge `fc8ac4c42a3358da37c4866879543a5d7c4d1885` is bound in `planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md`.
 
-AF03 remains READY / NOT STARTED; its candidate package is complete but unaccepted.
+AF03 is ACCEPTED COMPLETE; AF04 is READY / NOT STARTED.
 
 
 ## Accepted diagnostic advisory and efficient worker boundary
@@ -112,7 +112,7 @@ Ptah may not choose caller work, invent semantic scope, approve a result, approv
 
 Evidence: exact head `d2608ba7c619c1c402091edd619a4b29813ee9a7`, run `29986975197`, artifact `8555395796`, digest `sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61`. Full record: `planning/PTAH-DIAGNOSTIC-WORKER-AUTHORITY-ACCEPTANCE.md`.
 
-AF03 remains READY / NOT STARTED; candidate evidence and Sergeant review are complete, pending exact-head closure and separate acceptance.
+AF03 is ACCEPTED COMPLETE; AF04 is READY / NOT STARTED.
 
 ## Exact next action
 

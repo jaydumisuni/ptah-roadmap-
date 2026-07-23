@@ -89,9 +89,12 @@ class AF02ValidationTests(unittest.TestCase):
         self.assertEqual(result["accepted_archive_record_count"], 10)
         self.assertEqual(result["blocked_record_count"], 0)
         self.assertEqual(result["remaining_evidence_count"], 0)
-        self.assertTrue(result["af03_ready"])
-        self.assertFalse(result["af03_started"])
-        self.assertFalse(result["af03_authorized"])
+        self.assertTrue(result["af03_accepted"])
+        self.assertTrue(result["af03_started"])
+        self.assertTrue(result["af03_authorized"])
+        self.assertTrue(result["af04_ready"])
+        self.assertFalse(result["af04_started"])
+        self.assertFalse(result["af04_authorized"])
 
     def test_record_file_cannot_disappear(self) -> None:
         root = self.make_repo()
@@ -223,9 +226,9 @@ class AF02ValidationTests(unittest.TestCase):
         self.mutate_index(root, lambda archive: archive.__setitem__("af02_accepted_archive_record_count", 9))
         self.assert_invalid(root)
 
-    def test_af03_cannot_start(self) -> None:
+    def test_af03_cannot_revert_to_unstarted(self) -> None:
         root = self.make_repo()
-        self.mutate_index(root, lambda archive: archive.__setitem__("af03_started", True))
+        self.mutate_index(root, lambda archive: archive.__setitem__("af03_started", False))
         self.assert_invalid(root)
 
     def test_af03_cannot_be_authorized(self) -> None:

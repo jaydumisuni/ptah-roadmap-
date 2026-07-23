@@ -177,17 +177,22 @@ def validate_repo(root: Path) -> dict[str, Any]:
     if af02_ids != list(EXPECTED):
         raise ValidationError(f"campaign manifest AF02 order mismatch: {af02_ids}")
     require(current_state, "AF02: ACCEPTED COMPLETE", "current AF02 accepted state")
-    require(current_state, "AF03: READY / NOT STARTED", "current AF03 ready state")
+    require(current_state, "AF03: ACCEPTED COMPLETE", "current AF03 accepted state")
+    require(current_state, "AF04: READY / NOT STARTED", "current AF04 ready state")
 
     archive = master_index.get("operational_protocols", {}).get("tenfold_archive_formation", {})
     if archive.get("af02_status") != "accepted_complete" or archive.get("af02_started") is not True:
         raise ValidationError("machine index AF02 is not accepted complete")
     if archive.get("af02_accepted_archive_record_count") != 10 or archive.get("af02_remaining_evidence_count") != 0:
         raise ValidationError("machine index AF02 accepted counts are invalid")
-    if archive.get("completed_formation_count") != 2 or archive.get("accepted_archive_record_count") != 19:
+    if archive.get("completed_formation_count") != 3 or archive.get("accepted_archive_record_count") != 29:
         raise ValidationError("campaign accepted totals are invalid")
-    if archive.get("af03_status") != "ready_not_started" or archive.get("af03_started") is not False or archive.get("af03_authorized") is not False:
-        raise ValidationError("AF03 started before AF02 closure")
+    if archive.get("af03_status") != "accepted_complete" or archive.get("af03_started") is not True or archive.get("af03_authorized") is not True:
+        raise ValidationError("AF03 follow-on acceptance is invalid")
+    if archive.get("af03_accepted_archive_record_count") != 10 or archive.get("af03_remaining_evidence_count") != 0:
+        raise ValidationError("AF03 accepted counts are invalid")
+    if archive.get("af04_status") != "ready_not_started" or archive.get("af04_started") is not False or archive.get("af04_authorized") is not False:
+        raise ValidationError("AF04 follow-on state is invalid")
 
     require(donor_register, "**Status:** COMPLETE AND FROZEN", "frozen Phase 0A")
     if "**Status:** REOPENED" in donor_register or "Phase 0A reopened" in donor_register:
@@ -216,9 +221,12 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
-        "af03_ready": True,
-        "af03_started": False,
-        "af03_authorized": False,
+        "af03_accepted": True,
+        "af03_started": True,
+        "af03_authorized": True,
+        "af04_ready": True,
+        "af04_started": False,
+        "af04_authorized": False,
     }
 
 

@@ -52,7 +52,12 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
         self.assertFalse(result["may_invent_semantic_subtasks"])
         self.assertFalse(result["may_accept_worker_result"])
         self.assertFalse(result["may_install_upgrade_autonomously"])
-        self.assertFalse(result["af03_started"])
+        self.assertTrue(result["af03_accepted"])
+        self.assertTrue(result["af03_started"])
+        self.assertTrue(result["af03_authorized"])
+        self.assertTrue(result["af04_ready"])
+        self.assertFalse(result["af04_started"])
+        self.assertFalse(result["af04_authorized"])
 
     def test_protocol_cannot_become_consciousness_claim(self) -> None:
         root = self.make_repo()
@@ -284,14 +289,14 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
         self.mutate_index(root, "may_block_unrelated_capable_work", True)
         self.assert_invalid(root)
 
-    def test_af03_cannot_start(self) -> None:
+    def test_af04_cannot_start(self) -> None:
         root = self.make_repo()
         campaign = root / "archive/CAMPAIGN-001-FORMATION-MANIFEST.md"
         text = campaign.read_text(encoding="utf-8")
-        before, after = text.split("## AF03", 1)
-        af03, rest = after.split("## AF04", 1)
-        self.assertIn("- status: READY / NOT STARTED", af03)
-        campaign.write_text(before + "## AF03" + af03.replace("- status: READY / NOT STARTED", "- status: ACTIVE", 1) + "## AF04" + rest, encoding="utf-8")
+        before, after = text.split("## AF04", 1)
+        af04, rest = after.split("## AF05", 1)
+        self.assertIn("- status: READY / NOT STARTED", af04)
+        campaign.write_text(before + "## AF04" + af04.replace("- status: READY / NOT STARTED", "- status: ACTIVE", 1) + "## AF05" + rest, encoding="utf-8")
         self.assert_invalid(root)
 
     def test_adr0033_cannot_be_accepted(self) -> None:
