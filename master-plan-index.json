@@ -254,7 +254,7 @@
   },
   "product_clarifications": {
     "platform_diagnostic_and_worker_execution": {
-      "status": "candidate_under_review",
+      "status": "accepted_operational_clarification",
       "protocol": "planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md",
       "decision": "decisions/ADR-0036-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md",
       "work_package": "work-packages/PHASE-0C-18-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md",
@@ -276,7 +276,17 @@
       "may_block_unrelated_capable_work": false,
       "af03_started": false,
       "adr_0033_accepted": false,
-      "runtime_implementation_authorized": false
+      "runtime_implementation_authorized": false,
+      "protocol_version": "1.0.0",
+      "adr_0036_accepted": true,
+      "phase0c_18_complete": true,
+      "candidate_exact_head": "d2608ba7c619c1c402091edd619a4b29813ee9a7",
+      "candidate_workflow_run": "29986975197",
+      "candidate_artifact_id": "8555395796",
+      "candidate_artifact_digest": "sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61",
+      "candidate_validation_report_sha256": "aff3a635d37b82c15eeb36f2f6cec780f76e2c3ce320727a18053b913b8d9171",
+      "candidate_merge": "fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae",
+      "acceptance_record": "planning/PTAH-DIAGNOSTIC-WORKER-AUTHORITY-ACCEPTANCE.md"
     }
   }
 }

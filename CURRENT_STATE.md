@@ -437,23 +437,25 @@ AF02 is accepted complete. AF03 remains ready but not started. Archive formation
 
 ---
 
-## Phase 0C-18 diagnostic and efficient-worker candidate
+## Accepted Phase 0C-18 diagnostic and efficient-worker boundary
 
-The owner clarified that Ptah remains neutral regarding caller intent while retaining two bounded platform capabilities.
+Operative authority:
 
-Candidate authority:
-
-- `planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md`;
-- proposed ADR-0036;
-- `work-packages/PHASE-0C-18-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md`.
+- `planning/PTAH-PLATFORM-DIAGNOSTIC-ADVISORY.md` version `1.0.0`;
+- ADR-0036: ACCEPTED;
+- Phase 0C-18: COMPLETE;
+- candidate merge: `fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae`;
+- acceptance evidence: `planning/PTAH-DIAGNOSTIC-WORKER-AUTHORITY-ACCEPTANCE.md`.
 
 Allowed diagnostic behavior: detect missing capability, degradation, incompatibility, resource shortage, repeated failure or failed post-condition and emit an evidence-backed advisory asking an authorized caller for an upgrade or inspection.
 
 Allowed execution behavior: after a caller submits a job and selects a Recipe/Plan, apply `max(20, human-equivalent workers × 10)` to run bounded worker Activities, independent checks, checkpoints and configured merge/recovery mechanics.
 
+Accepted evidence: exact head `d2608ba7c619c1c402091edd619a4b29813ee9a7`, run `29986975197`, artifact `8555395796`, digest `sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61`, validation SHA-256 `aff3a635d37b82c15eeb36f2f6cec780f76e2c3ce320727a18053b913b8d9171`.
+
 Forbidden: choose caller work, invent semantic subtasks, reprioritize outside submitted Policy, approve a result, approve/purchase/install an upgrade, mark acknowledgement as resolution, block unrelated capable work or become Hunter/Sergeant authority.
 
-This candidate uses frozen primitives only, does not start AF03 and does not change P01, ADR-0033 or runtime authorization.
+This accepted clarification uses frozen primitives only, does not start AF03 and does not change P01, ADR-0033 or runtime authorization.
 
 ---
 
