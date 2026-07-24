@@ -175,7 +175,12 @@ def validate(root: Path) -> dict[str, Any]:
     require(index.get("runtime_implementation_authorized") is False, "global runtime authorized prematurely")
     require(index.get("active_work_unit") == "Phase-0C-19-deep-workspace-roadmap-reconciliation", "active work unit mismatch")
 
-    require("Hunter or another caller" in plan and "Sergeant" in plan, "participant boundary missing")
+    require(
+        "Hunter" in plan
+        and "Sergeant" in plan
+        and "The caller still chooses the work" in plan,
+        "participant boundary missing",
+    )
     require("Ptah may not" in decision and "choose the caller's job" in decision, "Ptah authority prohibition missing")
     require("new Core entity required: false" in study, "human no-Core conclusion missing")
     require("WP01-WP14 reopening required: false" in study, "human contract-reopen conclusion missing")
