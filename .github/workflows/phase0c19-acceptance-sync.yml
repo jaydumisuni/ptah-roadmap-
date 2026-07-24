@@ -1,0 +1,127 @@
+name: Phase 0C-19 Acceptance Synchronization
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  synchronize:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact accepted-state head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+
+      - name: Verify exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
+
+      - name: Apply guarded accepted-state synchronization
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p evidence/phase0c19-acceptance
+          python3 tools/apply_phase0c19_acceptance_sync.py 2>&1 | tee evidence/phase0c19-acceptance/synchronization.txt
+
+      - name: Run accepted-state regressions
+        shell: bash
+        run: |
+          set -o pipefail
+          PYTHONPATH=tools python3 -m unittest -v \
+            tools/test_check_phase0c19_acceptance.py \
+            2>&1 | tee evidence/phase0c19-acceptance/regressions.txt
+
+      - name: Run accepted-state validator
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/check_phase0c19_acceptance.py \
+            --repo-root . \
+            --output evidence/phase0c19-acceptance/validation.json
+
+      - name: Run inherited permanent validators
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONPATH=tools python3 -m unittest -v \
+            tools/test_check_master_plan_closure.py \
+            tools/test_check_archive_campaign_complete.py \
+            tools/test_check_platform_diagnostic_advisory.py
+          python3 tools/check_master_plan_closure.py --repo-root .
+          python3 tools/check_archive_campaign_complete.py --repo-root .
+          python3 tools/check_platform_diagnostic_advisory.py --repo-root .
+
+      - name: Enforce accepted-state write boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --name-only | sort > /tmp/changed.txt
+          cat > /tmp/allowed.txt <<'EOF'
+          AI_HANDOFF.md
+          CURRENT_STATE.md
+          DECISIONS.md
+          IMPLEMENTATION_ROADMAP.md
+          MASTER_PLAN.md
+          PROGRESS.md
+          decisions/ADR-0037-DEEP-WORKSPACE-OPERATIONS-ROADMAP-RECONCILIATION.md
+          master-plan-index.json
+          planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md
+          planning/MASTER-PLAN-RECONCILIATION.md
+          planning/P01-ADR-0033-PROOF-CANDIDATE-SELECTION.md
+          planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md
+          planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md
+          work-packages/PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION.md
+          EOF
+          sort -o /tmp/allowed.txt /tmp/allowed.txt
+          diff -u /tmp/allowed.txt /tmp/changed.txt
+
+      - name: Commit accepted-state authority
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          set -euo pipefail
+          git config user.name 'ptah-evidence-bot'
+          git config user.email 'ptah-evidence-bot@users.noreply.github.com'
+          git add -- \
+            AI_HANDOFF.md \
+            CURRENT_STATE.md \
+            DECISIONS.md \
+            IMPLEMENTATION_ROADMAP.md \
+            MASTER_PLAN.md \
+            PROGRESS.md \
+            decisions/ADR-0037-DEEP-WORKSPACE-OPERATIONS-ROADMAP-RECONCILIATION.md \
+            master-plan-index.json \
+            planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md \
+            planning/MASTER-PLAN-RECONCILIATION.md \
+            planning/P01-ADR-0033-PROOF-CANDIDATE-SELECTION.md \
+            planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md \
+            planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md \
+            work-packages/PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION.md
+          git commit -m 'Accept deep Workspace planning load as version 1.1.0'
+          git push origin "HEAD:${BRANCH}"
+
+      - name: Retain acceptance diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: phase0c19-acceptance-diagnostics
+          path: evidence/phase0c19-acceptance
+          if-no-files-found: warn
+          retention-days: 30
