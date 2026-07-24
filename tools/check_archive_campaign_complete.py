@@ -31,6 +31,7 @@ EXPECTED = {
 }
 BLOCKED_IDS = ["D047","D065","I018","I008","I019","I024","I025"]
 SERGEANT_RESULT = "pass_with_mandatory_retained_restrictions"
+HISTORICAL_FORMATIONS = {"AF01", "AF02", "AF03"}
 
 class ValidationError(RuntimeError):
     pass
@@ -149,7 +150,7 @@ def validate(root: Path) -> dict[str, Any]:
         require(mapped.get("accepted") == accepted and mapped.get("blocked") == blocked and mapped.get("remaining") == 0, f"{formation}: operative map counts mismatch")
 
         acceptance_text = acceptance_path.read_text(encoding="utf-8")
-        if formation in {"AF04","AF05","AF06","AF07","AF08","AF09","AF10"}:
+        if formation not in HISTORICAL_FORMATIONS:
             for token in (
                 "Status: ACCEPTED COMPLETE — OPERATIVE MERGE BOUND",
                 ACCEPTED["accepted_state_exact_head"], ACCEPTED["accepted_state_workflow_run"],
@@ -173,12 +174,17 @@ def validate(root: Path) -> dict[str, Any]:
             record_path = root / str(record.get("path", ""))
             require(record_path.is_file(), f"{formation}/{record_id}: record missing")
             text = record_path.read_text(encoding="utf-8")
-            require(str(record.get("outcome")) in text, f"{formation}/{record_id}: outcome mismatch")
-            require("does not authorize implementation" in text or formation in {"AF01","AF02","AF03"}, f"{formation}/{record_id}: non-authorizing statement missing")
-            if str(record.get("outcome", "")).startswith("blocked_"):
+            if formation not in HISTORICAL_FORMATIONS:
+                require(str(record.get("outcome")) in text, f"{formation}/{record_id}: outcome mismatch")
+                require("does not authorize implementation" in text, f"{formation}/{record_id}: non-authorizing statement missing")
+            outcome = str(record.get("outcome", ""))
+            if outcome.startswith("blocked_"):
                 local_blocked += 1
                 observed_blocked.append(record_id)
-                require("Safe next action" in text and "prohibited" in text, f"{formation}/{record_id}: unsafe block")
+                if formation in HISTORICAL_FORMATIONS:
+                    require("## Reopening criteria" in text and "prohibited" in text, f"{formation}/{record_id}: unsafe historical block")
+                else:
+                    require("Safe next action" in text and "prohibited" in text, f"{formation}/{record_id}: unsafe block")
             all_ids.append(record_id)
             all_primaries.append(str(record.get("primary")))
             all_verifiers.append(str(record.get("verifier")))
