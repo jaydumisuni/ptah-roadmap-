@@ -1,0 +1,83 @@
+name: Phase 0C-19 Legacy Validator Synchronization
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  synchronize:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact candidate head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+
+      - name: Verify exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
+
+      - name: Apply guarded legacy-validator synchronization
+        run: python3 tools/apply_phase0c19_legacy_validator_sync.py
+
+      - name: Run affected permanent regression suites
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONPATH=tools python3 -m unittest -v \
+            tools/test_check_master_plan_closure.py \
+            tools/test_check_archive_campaign_complete.py \
+            tools/test_check_platform_diagnostic_advisory.py
+
+      - name: Run affected standalone validators
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/check_master_plan_closure.py --repo-root .
+          python3 tools/check_archive_campaign_complete.py --repo-root .
+          python3 tools/check_platform_diagnostic_advisory.py --repo-root .
+
+      - name: Enforce four-file boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --name-only | sort > /tmp/changed.txt
+          cat > /tmp/allowed.txt <<'EOF'
+          tools/check_archive_campaign_complete.py
+          tools/check_master_plan_closure.py
+          tools/check_platform_diagnostic_advisory.py
+          tools/test_check_archive_campaign_complete.py
+          EOF
+          sort -o /tmp/allowed.txt /tmp/allowed.txt
+          diff -u /tmp/allowed.txt /tmp/changed.txt
+
+      - name: Commit synchronized permanent validators
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          set -euo pipefail
+          git config user.name 'ptah-evidence-bot'
+          git config user.email 'ptah-evidence-bot@users.noreply.github.com'
+          git add -- \
+            tools/check_archive_campaign_complete.py \
+            tools/check_master_plan_closure.py \
+            tools/check_platform_diagnostic_advisory.py \
+            tools/test_check_archive_campaign_complete.py
+          git commit -m 'Allow permanent validators to recognize Phase 0C-19 candidate state'
+          git push origin "HEAD:${BRANCH}"
