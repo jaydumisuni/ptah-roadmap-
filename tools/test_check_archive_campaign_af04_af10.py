@@ -124,7 +124,11 @@ class CampaignClosureTests(unittest.TestCase):
         ))
 
     def test_21_p01_removal_fails(self):
-        self.expect_fail(lambda: self.edit_text("CURRENT_STATE.md", "P01", "PX1"))
+        self.expect_fail(lambda: self.edit_text(
+            "CURRENT_STATE.md",
+            "**Active work unit:** 0C-04 / P01 — physical pinned-host proof, package review, durable evidence and ADR-0033 closure",
+            "**Active work unit:** 0C-04 / PX1 — physical pinned-host proof, package review, durable evidence and ADR-0033 closure",
+        ))
 
     def test_22_af11_creation_fails(self):
         def mutate():
@@ -134,7 +138,11 @@ class CampaignClosureTests(unittest.TestCase):
         self.expect_fail(mutate)
 
     def test_23_premature_manifest_promotion_fails(self):
-        self.expect_fail(lambda: self.edit_text("archive/CAMPAIGN-001-FORMATION-MANIFEST.md", "AF04 READY / NOT STARTED", "AF04 ACCEPTED COMPLETE"))
+        self.expect_fail(lambda: self.edit_text(
+            "archive/CAMPAIGN-001-FORMATION-MANIFEST.md",
+            "## AF04\n\n- status: READY / NOT STARTED",
+            "## AF04\n\n- status: ACCEPTED COMPLETE",
+        ))
 
     def test_24_af10_reserve_consumption_fails(self):
         self.expect_fail(lambda: self.edit_json("af10", lambda d: d.__setitem__("reserve_pairs_used", 1)))
