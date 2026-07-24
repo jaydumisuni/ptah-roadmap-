@@ -31,6 +31,18 @@ class Phase0C19ValidationTests(unittest.TestCase):
         self.assertIn(old, text, f"missing mutation anchor: {old}")
         path.write_text(text.replace(old, new, 1), encoding="utf-8")
 
+    def mutate_all(self, root: Path, rel: str, old: str, new: str) -> None:
+        path = root / rel
+        text = path.read_text(encoding="utf-8")
+        self.assertIn(old, text, f"missing mutation anchor: {old}")
+        path.write_text(text.replace(old, new), encoding="utf-8")
+
+    def load_index(self, root: Path) -> dict:
+        return json.loads((root / "master-plan-index.json").read_text(encoding="utf-8"))
+
+    def save_index(self, root: Path, data: dict) -> None:
+        (root / "master-plan-index.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
     def assert_invalid(self, root: Path) -> None:
         with self.assertRaises(checker.ValidationError):
             checker.validate(root)
@@ -67,72 +79,79 @@ class Phase0C19ValidationTests(unittest.TestCase):
 
     def test_07_provisional_commit_removed_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "planning/P01-ADR-0033-PROOF-CANDIDATE-SELECTION.md", "provisional", "final")
+        self.mutate(
+            root,
+            "planning/P01-ADR-0033-PROOF-CANDIDATE-SELECTION.md",
+            "Status: provisional, non-authorizing — P01 paused pending Phase 0C-19 / ADR-0037 planning-load acceptance",
+            "Status: final, authorizing — P01 active",
+        )
         self.assert_invalid(root)
 
     def test_08_new_core_entity_fails(self) -> None:
         root = self.copy_candidate()
-        data = json.loads((root / "master-plan-index.json").read_text(encoding="utf-8"))
+        data = self.load_index(root)
         data["phase0c19_deep_workspace_reconciliation"]["new_core_entity_required"] = True
-        (root / "master-plan-index.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+        self.save_index(root, data)
         self.assert_invalid(root)
 
     def test_09_contract_reopen_fails(self) -> None:
         root = self.copy_candidate()
-        data = json.loads((root / "master-plan-index.json").read_text(encoding="utf-8"))
+        data = self.load_index(root)
         data["phase0c19_deep_workspace_reconciliation"]["frozen_contract_reopen_required"] = True
-        (root / "master-plan-index.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+        self.save_index(root, data)
         self.assert_invalid(root)
 
     def test_10_capability_count_fails(self) -> None:
         root = self.copy_candidate()
-        data = json.loads((root / "master-plan-index.json").read_text(encoding="utf-8"))
+        data = self.load_index(root)
         data["phase0c19_deep_workspace_reconciliation"]["mechanical_capability_count"] = 21
-        (root / "master-plan-index.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+        self.save_index(root, data)
         self.assert_invalid(root)
 
     def test_11_mapping_count_fails(self) -> None:
         root = self.copy_candidate()
-        data = json.loads((root / "master-plan-index.json").read_text(encoding="utf-8"))
+        data = self.load_index(root)
         data["phase0c19_deep_workspace_reconciliation"]["mapping_count"] = 27
-        (root / "master-plan-index.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+        self.save_index(root, data)
         self.assert_invalid(root)
 
     def test_12_fixture_count_fails(self) -> None:
         root = self.copy_candidate()
-        data = json.loads((root / "master-plan-index.json").read_text(encoding="utf-8"))
+        data = self.load_index(root)
         data["phase0c19_deep_workspace_reconciliation"]["fixture_count"] = 19
-        (root / "master-plan-index.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+        self.save_index(root, data)
         self.assert_invalid(root)
 
     def test_13_source_merge_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "23dc4b19a0189ba55e08dfa124761efa806bd68b", "0" * 40)
+        data = self.load_index(root)
+        data["phase0c19_deep_workspace_reconciliation"]["source_merge"] = "0" * 40
+        self.save_index(root, data)
         self.assert_invalid(root)
 
     def test_14_effect_class_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "external_side_effect", "external_effect_removed")
+        self.mutate_all(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "external_side_effect", "external_effect_removed")
         self.assert_invalid(root)
 
     def test_15_availability_state_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "mounted_read_only", "mounted_unknown")
+        self.mutate_all(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "mounted_read_only", "mounted_unknown")
         self.assert_invalid(root)
 
     def test_16_result_state_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "partially_completed", "partial_removed")
+        self.mutate_all(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "partially_completed", "partial_removed")
         self.assert_invalid(root)
 
     def test_17_schedule_kind_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "condition_watch", "condition_removed")
+        self.mutate_all(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "condition_watch", "condition_removed")
         self.assert_invalid(root)
 
     def test_18_timing_mode_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "flexible_window", "window_removed")
+        self.mutate_all(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "flexible_window", "window_removed")
         self.assert_invalid(root)
 
     def test_19_master_plan_profile_fails(self) -> None:
@@ -152,7 +171,7 @@ class Phase0C19ValidationTests(unittest.TestCase):
 
     def test_22_cross_track_mapping_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "IMPLEMENTATION_ROADMAP.md", "**X5:**", "**removed-track:**")
+        self.mutate(root, "IMPLEMENTATION_ROADMAP.md", "- **X5:**", "- **removed-track:**")
         self.assert_invalid(root)
 
     def test_23_universal_gate_fails(self) -> None:
@@ -167,7 +186,7 @@ class Phase0C19ValidationTests(unittest.TestCase):
 
     def test_25_retry_history_removed_fails(self) -> None:
         root = self.copy_candidate()
-        self.mutate(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "Retry creates a new Attempt", "Retry overwrites the Attempt")
+        self.mutate_all(root, "planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md", "Retry creates a new Attempt", "Retry overwrites the Attempt")
         self.assert_invalid(root)
 
     def test_26_view_authority_boundary_fails(self) -> None:
@@ -182,9 +201,9 @@ class Phase0C19ValidationTests(unittest.TestCase):
 
     def test_28_active_work_unit_fails(self) -> None:
         root = self.copy_candidate()
-        data = json.loads((root / "master-plan-index.json").read_text(encoding="utf-8"))
+        data = self.load_index(root)
         data["active_work_unit"] = "P01-physical-host"
-        (root / "master-plan-index.json").write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+        self.save_index(root, data)
         self.assert_invalid(root)
 
     def test_29_handoff_pause_removed_fails(self) -> None:
