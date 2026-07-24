@@ -44,7 +44,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m unittest -v tools/test_check_phase0c19_deep_workspace_reconciliation.py 2>&1 | tee evidence/phase0c19/regressions.txt
+          PYTHONPATH=tools python3 -m unittest -v tools/test_check_phase0c19_deep_workspace_reconciliation.py 2>&1 | tee evidence/phase0c19/regressions.txt
 
       - name: Run standalone candidate validator
         run: |
