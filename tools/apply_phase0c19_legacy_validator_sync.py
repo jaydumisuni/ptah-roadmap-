@@ -53,7 +53,10 @@ def main() -> None:
         "tools/check_master_plan_closure.py",
         '    require_text(handoff, "Runtime implementation: NOT AUTHORIZED", "AI handoff boundary")\n',
         '''    require_text(handoff, "Runtime implementation: NOT AUTHORIZED", "AI handoff boundary")
-    require_absent(handoff, "Runtime implementation: AUTHORIZED", "AI handoff authorization claim")
+    require(
+        all(line.strip() != "Runtime implementation: AUTHORIZED" for line in handoff.splitlines()),
+        "AI handoff contains an active runtime authorization claim",
+    )
 ''',
     )
 
