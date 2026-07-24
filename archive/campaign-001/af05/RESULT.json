@@ -1,31 +1,6 @@
 {
-  "schema_version": "1.0.0",
-  "record_type": "ptah.archive_campaign_formation_result",
-  "campaign_id": "CAMPAIGN-001",
-  "formation_id": "AF05",
-  "status": "candidate_evidence_complete_non_authorizing",
-  "started_at": "2026-07-23",
-  "completed_evidence_at": "2026-07-23",
-  "base_authority_commit": "55d0613bc95ab83fcbd91541c29f436156ad5a64",
-  "protocol_version": "1.0.0",
-  "efficient_worker_protocol_version": "1.0.0",
-  "assigned_record_count": 10,
-  "reconciled_record_count": 10,
-  "accepted_archive_record_count": 9,
-  "blocked_record_count": 1,
-  "parked_record_count": 0,
-  "rejected_record_count": 0,
-  "remaining_evidence_count": 0,
-  "primary_worker_count": 10,
-  "verifier_worker_count": 10,
-  "checkpoint_05": "archive/campaign-001/af05/CHECKPOINT-05.md",
-  "checkpoint_10": "archive/campaign-001/af05/CHECKPOINT-10.md",
-  "sergeant_review": "archive/campaign-001/af05/SERGEANT-REVIEW.md",
-  "sergeant_review_complete": true,
-  "sergeant_review_target_head": "05975c5fbf34bd52a51ccd6ec54fd13a24dac849",
-  "sergeant_review_result": "pass_with_mandatory_retained_restrictions",
-  "sergeant_blocking_finding_count": 0,
-  "records": [
+  "schema_version":"1.0.0","record_type":"ptah.archive_campaign_formation_result","campaign_id":"CAMPAIGN-001","formation_id":"AF05","status":"accepted_complete_non_authorizing","started_at":"2026-07-23","completed_evidence_at":"2026-07-23","base_authority_commit":"55d0613bc95ab83fcbd91541c29f436156ad5a64","protocol_version":"1.0.0","efficient_worker_protocol_version":"1.0.0","assigned_record_count":10,"reconciled_record_count":10,"accepted_archive_record_count":9,"blocked_record_count":1,"parked_record_count":0,"rejected_record_count":0,"remaining_evidence_count":0,"primary_worker_count":10,"verifier_worker_count":10,"checkpoint_05":"archive/campaign-001/af05/CHECKPOINT-05.md","checkpoint_10":"archive/campaign-001/af05/CHECKPOINT-10.md","sergeant_review":"archive/campaign-001/af05/SERGEANT-REVIEW.md","sergeant_review_complete":true,"sergeant_review_target_head":"05975c5fbf34bd52a51ccd6ec54fd13a24dac849","sergeant_review_result":"pass_with_mandatory_retained_restrictions","sergeant_blocking_finding_count":0,
+  "records":[
     {"id":"D033","source":"youki-dev/youki","branch":"main","commit":"59fbf00fa2fb6ccc33b5252b9ab2b2936efa3ffb","outcome":"accepted_for_archive_apache_rust_oci_runtime_reference_with_host_and_identity_boundaries","primary":"AF05-P01","verifier":"AF05-V01","path":"archive/campaign-001/af05/records/D033-YOUKI.md"},
     {"id":"D038","source":"libarchive/libarchive","branch":"master","commit":"f5509ae993ac30417f81acc5118f232ae3f2d27d","outcome":"accepted_for_archive_permissive_archive_adapter_with_coverage_traversal_and_resource_limits","primary":"AF05-P02","verifier":"AF05-V02","path":"archive/campaign-001/af05/records/D038-LIBARCHIVE.md"},
     {"id":"D045","source":"NousResearch/hermes-agent","branch":"main","commit":"4c9628eab5393e7561bbd2c1faaa1765fb14a5f9","outcome":"accepted_for_archive_mit_agent_workload_with_model_tool_credential_and_external_effect_boundaries","primary":"AF05-P03","verifier":"AF05-V03","path":"archive/campaign-001/af05/records/D045-HERMES-AGENT.md"},
@@ -37,9 +12,5 @@
     {"id":"D005","source":"containerd/containerd","branch":"main","commit":"a82706307adcdc9811829727c6dc0998a64148d9","outcome":"accepted_for_archive_apache_container_runtime_backend_with_plugin_host_and_identity_boundaries","primary":"AF05-P09","verifier":"AF05-V09","path":"archive/campaign-001/af05/records/D005-CONTAINERD.md"},
     {"id":"D024","source":"appium/appium","branch":"master","commit":"e0c9018453ae605cc8df8f83317716a0694c34c5","outcome":"accepted_for_archive_apache_webdriver_automation_platform_with_driver_plugin_and_postcondition_boundaries","primary":"AF05-P10","verifier":"AF05-V10","path":"archive/campaign-001/af05/records/D024-APPIUM.md"}
   ],
-  "phase_0a_reopened": false,
-  "adr_0033_accepted": false,
-  "runtime_implementation_authorized": false,
-  "af06_authorized": false,
-  "af06_started": false
+  "phase_0a_reopened":false,"adr_0033_accepted":false,"runtime_implementation_authorized":false,"candidate_exact_head":"6eed78a9acca4614d9dd99c175681ba4ff476c8e","candidate_workflow_run":"30076705760","candidate_artifact_id":"8590135926","candidate_artifact_digest":"sha256:c7e3a9be59b5ba859b67a1b352fee32b2c43c44e774e3e70b07aaac857d8b3a7","candidate_validation_report_sha256":"7a53cdccfb520cbc29dfb842b952dbcbca5800f02ed1ce2a67b8a3743180d247","candidate_merge":"ec78db9ce5b44a5d05465a1cb6271c7e6594079e","acceptance_record":"archive/campaign-001/af05/ACCEPTANCE.md","campaign_acceptance_record":"archive/campaign-001/ACCEPTANCE.md","formation_accepted":true,"campaign_complete_pending_binding":true
 }

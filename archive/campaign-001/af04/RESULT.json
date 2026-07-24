@@ -1,31 +1,6 @@
 {
-  "schema_version": "1.0.0",
-  "record_type": "ptah.archive_campaign_formation_result",
-  "campaign_id": "CAMPAIGN-001",
-  "formation_id": "AF04",
-  "status": "candidate_evidence_complete_non_authorizing",
-  "started_at": "2026-07-23",
-  "completed_evidence_at": "2026-07-23",
-  "base_authority_commit": "55d0613bc95ab83fcbd91541c29f436156ad5a64",
-  "protocol_version": "1.0.0",
-  "efficient_worker_protocol_version": "1.0.0",
-  "assigned_record_count": 10,
-  "reconciled_record_count": 10,
-  "accepted_archive_record_count": 10,
-  "blocked_record_count": 0,
-  "parked_record_count": 0,
-  "rejected_record_count": 0,
-  "remaining_evidence_count": 0,
-  "primary_worker_count": 10,
-  "verifier_worker_count": 10,
-  "checkpoint_05": "archive/campaign-001/af04/CHECKPOINT-05.md",
-  "checkpoint_10": "archive/campaign-001/af04/CHECKPOINT-10.md",
-  "sergeant_review": "archive/campaign-001/af04/SERGEANT-REVIEW.md",
-  "sergeant_review_complete": true,
-  "sergeant_review_target_head": "ee0b78a41241a1b61a7085d6eeabf202882d2dc2",
-  "sergeant_review_result": "pass_with_mandatory_retained_restrictions",
-  "sergeant_blocking_finding_count": 0,
-  "records": [
+  "schema_version":"1.0.0","record_type":"ptah.archive_campaign_formation_result","campaign_id":"CAMPAIGN-001","formation_id":"AF04","status":"accepted_complete_non_authorizing","started_at":"2026-07-23","completed_evidence_at":"2026-07-23","base_authority_commit":"55d0613bc95ab83fcbd91541c29f436156ad5a64","protocol_version":"1.0.0","efficient_worker_protocol_version":"1.0.0","assigned_record_count":10,"reconciled_record_count":10,"accepted_archive_record_count":10,"blocked_record_count":0,"parked_record_count":0,"rejected_record_count":0,"remaining_evidence_count":0,"primary_worker_count":10,"verifier_worker_count":10,"checkpoint_05":"archive/campaign-001/af04/CHECKPOINT-05.md","checkpoint_10":"archive/campaign-001/af04/CHECKPOINT-10.md","sergeant_review":"archive/campaign-001/af04/SERGEANT-REVIEW.md","sergeant_review_complete":true,"sergeant_review_target_head":"ee0b78a41241a1b61a7085d6eeabf202882d2dc2","sergeant_review_result":"pass_with_mandatory_retained_restrictions","sergeant_blocking_finding_count":0,
+  "records":[
     {"id":"D044","source":"langgenius/dify","branch":"main","commit":"302b50c4fb84f7e7d4637cac278d0ae019dd5ea6","outcome":"accepted_for_archive_application_platform_study_with_modified_apache_and_multitenancy_restrictions","primary":"AF04-P01","verifier":"AF04-V01","path":"archive/campaign-001/af04/records/D044-DIFY.md"},
     {"id":"D049","source":"celery/celery","branch":"main","commit":"dd7c23862eb08a2cfde7da6926f28410b699c077","outcome":"accepted_for_archive_optional_task_queue_adapter_with_broker_result_and_identity_boundaries","primary":"AF04-P02","verifier":"AF04-V02","path":"archive/campaign-001/af04/records/D049-CELERY.md"},
     {"id":"D053","source":"ClaimBound/claimbound-evidence","branch":"main","commit":"d1bc34f5e70166b420e52ba2bcf6b918a9a5f66d","outcome":"accepted_for_archive_apache_evidence_card_and_claim_boundary_donor","primary":"AF04-P03","verifier":"AF04-V03","path":"archive/campaign-001/af04/records/D053-CLAIMBOUND.md"},
@@ -37,9 +12,5 @@
     {"id":"D019","source":"aza-ali/turbowebfetch","branch":"main","commit":"fa18a9f9db1e1640ff6111176ec49aa88ea211f4","outcome":"accepted_for_archive_mit_real_browser_retrieval_pattern_with_authentication_resource_and_lawful_access_limits","primary":"AF04-P09","verifier":"AF04-V09","path":"archive/campaign-001/af04/records/D019-TURBOWEBFETCH.md"},
     {"id":"D023","source":"DeviceFarmer/minitouch","branch":"master","commit":"1773320a0992203a37245faf9beaa058992aedc7","outcome":"accepted_for_archive_legacy_android_touch_transport_with_sdk_single_connection_and_postcondition_restrictions","primary":"AF04-P10","verifier":"AF04-V10","path":"archive/campaign-001/af04/records/D023-MINITOUCH.md"}
   ],
-  "phase_0a_reopened": false,
-  "adr_0033_accepted": false,
-  "runtime_implementation_authorized": false,
-  "af05_authorized": false,
-  "af05_started": false
+  "phase_0a_reopened":false,"adr_0033_accepted":false,"runtime_implementation_authorized":false,"candidate_exact_head":"6eed78a9acca4614d9dd99c175681ba4ff476c8e","candidate_workflow_run":"30076705760","candidate_artifact_id":"8590135926","candidate_artifact_digest":"sha256:c7e3a9be59b5ba859b67a1b352fee32b2c43c44e774e3e70b07aaac857d8b3a7","candidate_validation_report_sha256":"7a53cdccfb520cbc29dfb842b952dbcbca5800f02ed1ce2a67b8a3743180d247","candidate_merge":"ec78db9ce5b44a5d05465a1cb6271c7e6594079e","acceptance_record":"archive/campaign-001/af04/ACCEPTANCE.md","campaign_acceptance_record":"archive/campaign-001/ACCEPTANCE.md","formation_accepted":true,"campaign_complete_pending_binding":true
 }
