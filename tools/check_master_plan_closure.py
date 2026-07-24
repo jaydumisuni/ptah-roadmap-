@@ -125,7 +125,18 @@ def validate(root: Path) -> dict[str, Any]:
     neutral_merge = read_text(root, "planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md")
     index = read_json(root, "master-plan-index.json")
 
-    require_text(current, "**Active work unit:** 0C-04 / P01", "CURRENT_STATE")
+    phase0c19 = index.get("phase0c19_deep_workspace_reconciliation")
+    phase0c19_candidate = isinstance(phase0c19, dict) and phase0c19.get("status") == "candidate_in_review"
+    if phase0c19_candidate:
+        require_text(
+            current,
+            "**Active work unit:** Phase 0C-19 — deep Workspace study Master Plan and roadmap reconciliation; P01 paused",
+            "CURRENT_STATE",
+        )
+        require(phase0c19.get("p01_paused") is True, "Phase 0C-19 must pause P01")
+        require(phase0c19.get("physical_host_collection_started") is False, "physical-host collection started during Phase 0C-19")
+    else:
+        require_text(current, "**Active work unit:** 0C-04 / P01", "CURRENT_STATE")
     require_text(current, "**Runtime implementation:** NOT AUTHORIZED", "CURRENT_STATE")
     require_absent(current, "**Runtime implementation:** AUTHORIZED", "CURRENT_STATE")
     require_text(current, EXPECTED_PROOF_COMMAND, "CURRENT_STATE proof command")
@@ -135,7 +146,13 @@ def validate(root: Path) -> dict[str, Any]:
 
     require(index.get("record_type") == "ptah.master_plan_index", "master-plan index record type mismatch")
     require(index.get("phase") == "0C", "master-plan index phase mismatch")
-    require(index.get("active_work_unit") == "P01-physical-host-and-ADR-0033-closure", "master-plan index active work mismatch")
+    if phase0c19_candidate:
+        require(
+            index.get("active_work_unit") == "Phase-0C-19-deep-workspace-roadmap-reconciliation",
+            "master-plan index Phase 0C-19 active work mismatch",
+        )
+    else:
+        require(index.get("active_work_unit") == "P01-physical-host-and-ADR-0033-closure", "master-plan index active work mismatch")
     require(index.get("runtime_implementation_authorized") is False, "master-plan index cannot authorize runtime")
     host = index.get("physical_host_target")
     require(isinstance(host, dict), "physical host target missing from master-plan index")
@@ -235,6 +252,10 @@ def validate(root: Path) -> dict[str, Any]:
     require_text(memory, "durably checkpointed before the full task is complete", "save-as-you-go rule")
     require_text(handoff, "2c24f9e6b0fc98d5e03605596db75d7495796353", "AI handoff accepted merge")
     require_text(handoff, "Runtime implementation: NOT AUTHORIZED", "AI handoff boundary")
+    require(
+        all(line.strip() != "Runtime implementation: AUTHORIZED" for line in handoff.splitlines()),
+        "AI handoff contains an active runtime authorization claim",
+    )
     require_text(handoff, "Exact next action", "AI handoff next action")
     require_text(handoff, "Neutral Ptah substrate correction", "AI handoff correction")
     require_text(handoff, "8a8d620c5227a6508145cd4a30f4f45142bfabe9", "AI handoff public correction merge")

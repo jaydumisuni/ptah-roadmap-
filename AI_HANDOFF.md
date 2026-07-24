@@ -2,7 +2,7 @@
 
 Last updated: 2026-07-24
 
-Status: Master Plan and implementation roadmap accepted — Campaign 001 accepted complete — P01 physical-host closure active — runtime implementation unauthorized
+Status: Campaign 001 accepted complete — Phase 0C-19 deep Workspace planning-load reconciliation active — P01 paused — runtime implementation unauthorized
 
 ## Read first
 
@@ -171,3 +171,30 @@ Runtime implementation: NOT AUTHORIZED
 ```
 
 No chat, model or owner-intent statement may replace the missing physical evidence and reviewed ADR-0033 closure.
+
+## Active Phase 0C-19 planning-load reconciliation
+
+<!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
+
+The deep Workspace donor study merged in `Ptah-space` as `23dc4b19a0189ba55e08dfa124761efa806bd68b` after 26/26 study cases and all eleven exact-head workflows passed.
+
+It must be synchronized into the complete private planning load before P01 continues. Read:
+
+1. `planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md`;
+2. `work-packages/PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION.md`;
+3. proposed ADR-0037;
+4. the Phase 0C-19 validator and regressions.
+
+Current boundary:
+
+```text
+Phase 0C-19: CANDIDATE / IN REVIEW
+ADR-0037: PROPOSED
+P01: PAUSED
+PR #46 proof commit: PROVISIONAL
+physical-host collection: NOT STARTED
+ADR-0033: PROPOSED
+Runtime implementation: NOT AUTHORIZED
+```
+
+Do not run the physical proof until Phase 0C-19 is accepted and the proof commit is confirmed or superseded.

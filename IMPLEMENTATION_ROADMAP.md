@@ -46,6 +46,9 @@ Every implementation work package must record:
 - exact Provider revision and Generation evidence;
 - retained logs, Receipts, reports and Artifacts;
 - limitations and unsupported cases;
+- operation effect class, exact precondition, Provider-access, Grant and approval boundaries where applicable;
+- Object/reference materialization state, schedule kind/timing mode, partial-output and result-state evidence where applicable;
+- explicit resource, Provider and product limits with no silent semantic scope reduction;
 - reviewer outcome;
 - next dependency.
 
@@ -1063,3 +1066,95 @@ Programme A runtime packages: PLANNED and NOT AUTHORIZED.
 Programmes B–F: PLANNED, dependency-ordered, and not active.
 
 Runtime implementation: **NOT AUTHORIZED**.
+
+# 8. Phase 0C-19 candidate amendments to the delivery load
+
+<!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
+
+Status: candidate supplement; accepted roadmap version `1.0.0` remains operative until ADR-0037 acceptance.
+
+The following requirements are added to the named packages. They are not optional later enhancements; after acceptance they are part of each package's definition of done.
+
+## A01 amendment
+
+Lock the `ptah.workspace.operations.v2` profile, gap map and fixtures; validate all effect, availability, result, schedule and timing vocabularies; prove zero new Core family and zero frozen-contract reopening.
+
+## A02 amendment
+
+Expose exact capability and limit evidence used by operation discovery and scheduling. Resource shortage or unavailable capability is reported without silently shrinking caller scope.
+
+## A04 amendment
+
+Deliver typed/lazy operation discovery, effect-class projection, schedule kind and timing mode, explicit progress/partial state, distinct result states, approval/Grant/Provider-access Receipts, exact preconditions and expected/observed conflict evidence.
+
+## A06 amendment
+
+Deliver cross-device and cross-interface continuation, exact Provider/account binding provenance, scheduled input manifests, model-independent handoff records and stable resource-handle retention.
+
+## A07 amendment
+
+Deliver explicit `external_reference`, `indexed_reference`, `mounted_read_only`, `materialized_copy` and `generated_artifact` projections; retain source freshness/provenance; model stable large-result identity and incremental access metadata.
+
+## A08 amendment
+
+Deliver the explicit reference-to-materialization Activity path, materialization Receipts, retention/deletion policy, and incremental delivery for large transfer results without conflating remote references with local bytes.
+
+## A09 amendment
+
+Require exact inspected branch-head or Revision preconditions for protected mutations. Draft/patch creation is not merge; moved targets fail closed with expected and observed identities.
+
+## A11 amendment
+
+Require exact Browser Context/Page freshness, separate download references from local materialization, preserve external account permission separately from configured confirmation and verify navigation/post-condition truth.
+
+## A13 amendment
+
+Recover stable result handles, partial Artifacts, schedule inputs and conflict Receipts. Retry creates a new Attempt; uncertain external effects and moved-target conflicts remain visible.
+
+## A14 amendment
+
+Expose typed operations and effect classes; separate external access, Grant and approval; show reference/materialization state, exact/flexible/condition schedules, honest result states, partial completion, stable paged/searchable results, precondition conflicts and explicit limits. View style never creates authority.
+
+## A15 amendment
+
+Run the deep-study positive and adversarial corpus: 22 capabilities, 20 fixtures and the profile's 26 original cases, plus proof that Ptah cannot gain semantic context, review, approval, acceptance or next-action authority.
+
+## Programme B amendments
+
+- **B01:** permission-aware remote references, explicit materialization, retained partials, stable result handles and visible transfer/provider limits.
+- **B06:** cross-Node/interface continuity with stable handles, exact scheduled inputs, conflict state and missing-capability evidence.
+- **B07:** permission-aware retrieval, freshness/sync checkpoints, incremental results and exact index-versus-canonical-source distinction.
+
+## Programme D amendments
+
+- **D01:** mature operation discovery, typed Views, approvals, scheduling, partial results, stable handles, conflicts, limits and accessibility.
+- **D02:** implement both `ptah.workspace.ai_project.v1` and compatible `ptah.workspace.operations.v2`; Hunter and Sergeant remain caller adapters.
+- **D03:** indexed references, exact citations, source freshness, incremental result access and canonical-source separation.
+- **D04:** versioned operation descriptors, effect metadata, staged observe/draft/simulate/execute/verify Recipes, schedules and preconditions.
+- **D09:** prove the complete deep-study corpus under human, Hunter and Sergeant use without Ptah authority drift.
+
+## Programme E amendments
+
+- **E04:** preserve stable result handles, availability/materialization state, scheduled inputs and exact preconditions during Workspace movement.
+- **E06:** expose stale freshness, unavailable Providers, queued schedules, partial state and limits honestly during intermittent/offline operation.
+- **E07:** prove permission, result-state, conflict, scheduling and continuity semantics across multiple Nodes.
+
+## Cross-programme track amendments
+
+- **X1:** conformance for operation descriptors, effect classes, availability states, schedule/timing modes, result states and precondition compatibility.
+- **X2:** Provider/account provenance, least privilege, approval separation, no silent materialization and no implicit global access.
+- **X3:** progress, partial outputs, stable handles, limits, conflicts, expected/observed revisions and distinct result states.
+- **X4:** consistent presentation of effects, approval boundaries, materialization truth, limits and partial completion on desktop/tablet/mobile.
+- **X5:** recovery of handles, source/target identities, interrupted schedules, partial Artifacts and model-independent handoffs.
+
+## P01 sequencing amendment
+
+P01 is paused while this candidate is reviewed. Roadmap PR #46's selected `Ptah-space` commit remains provisional. After ADR-0037 acceptance, a reviewed change must confirm or supersede that commit before physical-host collection begins.
+
+```text
+Phase 0C-19: CANDIDATE
+ADR-0037: PROPOSED
+P01: PAUSED
+ADR-0033: PROPOSED
+Runtime implementation: NOT AUTHORIZED
+```

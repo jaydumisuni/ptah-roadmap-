@@ -1,6 +1,6 @@
 # Ptah physical-host to authorization closure
 
-Status: exact closure procedure recorded — blocked on access to the physical proof host
+Status: exact closure procedure recorded — P01 paused pending Phase 0C-19 planning-load reconciliation, then blocked on access to the physical proof host
 
 Recorded: 2026-07-21
 
@@ -20,6 +20,7 @@ Complete or prepared:
 - Apache-2.0 public/private boundary accepted;
 - pinned-host proof and durable-retention tooling merged and regression-tested;
 - AI Project Workspace donor/profile recorded;
+- deep Workspace operations study merged in `Ptah-space` and Phase 0C-19 / ADR-0037 planning-load reconciliation in review;
 - complete Master Plan and detailed implementation roadmap candidate prepared on `phase0c-master-plan-roadmap-closure`.
 
 Open:
@@ -68,6 +69,10 @@ Acceptance must confirm:
 - every roadmap package maps to frozen contracts or an explicit parked/reopening rule;
 - the first vertical-slice task order is preserved;
 - no runtime implementation is claimed or authorized by the planning merge.
+
+## Step 1A — accept the complete planning load
+
+Before selecting the final physical-proof commit, accept Phase 0C-19 / ADR-0037 and make Master Plan and implementation roadmap version `1.1.0` operative. The provisional selection from roadmap PR #46 cannot authorize collection.
 
 ## Step 2 — select the exact implementation candidate commit
 

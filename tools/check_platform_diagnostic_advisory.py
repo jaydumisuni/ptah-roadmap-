@@ -179,7 +179,16 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(handoff, "AF01–AF10: ACCEPTED COMPLETE", "handoff ten-formation state")
 
     # Machine-readable authority.
-    if index.get("active_work_unit") != "P01-physical-host-and-ADR-0033-closure":
+    phase0c19 = index.get("phase0c19_deep_workspace_reconciliation")
+    phase0c19_candidate = isinstance(phase0c19, dict) and phase0c19.get("status") == "candidate_in_review"
+    if phase0c19_candidate:
+        if index.get("active_work_unit") != "Phase-0C-19-deep-workspace-roadmap-reconciliation":
+            raise ValidationError("Phase 0C-19 active work unit drifted")
+        if phase0c19.get("p01_paused") is not True:
+            raise ValidationError("Phase 0C-19 must pause P01")
+        if phase0c19.get("physical_host_collection_started") is not False:
+            raise ValidationError("physical-host collection started during Phase 0C-19")
+    elif index.get("active_work_unit") != "P01-physical-host-and-ADR-0033-closure":
         raise ValidationError("P01 active work unit drifted")
     if index.get("runtime_implementation_authorized") is not False:
         raise ValidationError("master index authorized runtime")

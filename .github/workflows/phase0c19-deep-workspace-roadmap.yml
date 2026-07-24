@@ -1,0 +1,108 @@
+name: Phase 0C-19 Deep Workspace Roadmap Reconciliation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact candidate head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+
+      - name: Verify checked-out head
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='${{ github.event.pull_request.head.sha || github.sha }}'
+          actual="$(git rev-parse HEAD)"
+          test "$actual" = "$expected"
+          test -z "$(git status --porcelain)"
+
+      - name: Run positive and adversarial regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/phase0c19
+          PYTHONPATH=tools python3 -m unittest -v \
+            tools/test_check_phase0c19_deep_workspace_reconciliation.py \
+            2>&1 | tee evidence/phase0c19/regressions.txt
+
+      - name: Run standalone reconciliation validator
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/check_phase0c19_deep_workspace_reconciliation.py \
+            --repo-root . \
+            --output evidence/phase0c19/validation.json
+
+      - name: Bind exact-head evidence
+        shell: bash
+        env:
+          TESTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path('evidence/phase0c19')
+          validation_bytes = (root / 'validation.json').read_bytes()
+          regression_bytes = (root / 'regressions.txt').read_bytes()
+          validation = json.loads(validation_bytes)
+          evidence = {
+              'record_type': 'ptah.phase0c19.deep_workspace_roadmap_reconciliation_exact_head_evidence',
+              'tested_head': os.environ['TESTED_HEAD'],
+              'workflow_run_id': os.environ['RUN_ID'],
+              'workflow_run_attempt': os.environ['RUN_ATTEMPT'],
+              'validation_sha256': hashlib.sha256(validation_bytes).hexdigest(),
+              'regressions_sha256': hashlib.sha256(regression_bytes).hexdigest(),
+              'validation_status': validation['status'],
+              'mechanical_capability_count': validation['mechanical_capability_count'],
+              'roadmap_mapping_count': validation['roadmap_mapping_count'],
+              'new_core_entity_required': validation['new_core_entity_required'],
+              'frozen_contract_reopen_required': validation['frozen_contract_reopen_required'],
+              'p01_paused': validation['p01_paused'],
+              'physical_host_collection_started': validation['physical_host_collection_started'],
+              'adr_0037_status': validation['adr_0037_status'],
+              'adr_0033_status': validation['adr_0033_status'],
+              'runtime_implementation_authorized': validation['runtime_implementation_authorized'],
+          }
+          (root / 'exact-head-evidence.json').write_text(
+              json.dumps(evidence, indent=2, sort_keys=True) + '\n',
+              encoding='utf-8',
+          )
+          print(json.dumps(evidence, indent=2, sort_keys=True))
+          PY
+
+      - name: Confirm repository remains unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain --untracked-files=no)"
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
+
+      - name: Retain exact-head candidate evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: phase0c19-deep-workspace-roadmap-candidate
+          path: evidence/phase0c19
+          if-no-files-found: error
+          retention-days: 30

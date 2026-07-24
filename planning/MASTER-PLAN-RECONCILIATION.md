@@ -164,3 +164,26 @@ This reconciliation does not close:
 7. explicit runtime authorization.
 
 Runtime implementation remains **NOT AUTHORIZED**.
+
+## Phase 0C-19 deep Workspace operations reconciliation
+
+<!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
+
+The deep study maps to frozen WP02–WP07, WP09–WP11, WP13 and WP14. No new canonical family is required.
+
+| Deep requirement | Frozen authority | Roadmap load |
+|---|---|---|
+| typed operation/effect metadata | WP02, WP04, WP07, WP11 | A01, A04, D04, X1 |
+| Provider access / Grant / approval separation | WP02, WP04, WP11 | A04, A14, D01, D02, X2 |
+| reference / materialization truth | WP03, WP04, WP06 | A07, A08, A11, B01, X2 |
+| progress, partial output and result states | WP02, WP03, WP05 | A04, A13, A14, X3 |
+| stable large-result handles | WP03, WP05, WP10 | A06–A08, B06, B07, D03 |
+| typed render-independent Views | WP03, WP09 | A14, D01, D02, X4 |
+| schedule kind/timing and exact inputs | WP02, WP05, WP07, WP11 | A04, A06, A13, A14, D04 |
+| exact revision/head preconditions | WP01–WP03, WP07, WP11 | A04, A09, A11, A13, X1 |
+| permission-aware retrieval/freshness | WP04, WP05, WP10, WP11 | B07, D02, D03, E06 |
+| cross-interface/Node continuity | WP03–WP06, WP11 | A06, A13, B06, E04–E07, X5 |
+
+The profile's enumerations and operation metadata are composition/conformance requirements, not new entity families. Any contrary implementation discovery triggers the existing versioned reopening rule.
+
+The earlier P01 candidate selection is provisional until this reconciliation is accepted.

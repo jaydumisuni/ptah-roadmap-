@@ -114,7 +114,7 @@ class CampaignCompleteTests(unittest.TestCase):
     def test_18_p01_removal_fails(self):
         self.fail_after(lambda: self.edit_text(
             "CURRENT_STATE.md",
-            "**Active work unit:** 0C-04 / P01 — physical pinned-host proof",
+            "**Active work unit:** Phase 0C-19 — deep Workspace study Master Plan and roadmap reconciliation; P01 paused",
             "**Active work unit:** campaign complete",
         ))
 

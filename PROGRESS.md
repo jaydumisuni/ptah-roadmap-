@@ -266,7 +266,7 @@ No runtime package may become READY or ACTIVE before Phase 0C authorization.
 ## Programme P00 — Planning and authorization
 
 - [x] P00 — Master-plan authority closure.
-- [?] P01 — Physical-host and ADR-0033 closure; active and blocked on the exact external host.
+- [?] P01 — Physical-host and ADR-0033 closure; paused pending Phase 0C-19 acceptance, then blocked on the exact external host.
 
 ## Programme A — Online Ptah Alpha
 
@@ -295,3 +295,16 @@ No runtime package may become READY or ACTIVE before Phase 0C authorization.
 - [ ] Programme F — OS-ready foundation private lane.
 
 Detailed package dependencies, deliverables and proof gates are authoritative in `IMPLEMENTATION_ROADMAP.md`.
+
+## Deep Workspace operations planning-load reconciliation
+
+<!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
+
+- [x] deep observable Workspace study merged into `Ptah-space` as `23dc4b19a0189ba55e08dfa124761efa806bd68b`;
+- [x] 22 capabilities, 28 mappings, 20 fixtures and 26 original cases recovered;
+- [x] no new Core entity and no WP01–WP14 reopening identified;
+- [-] Phase 0C-19 canonical planning synchronization in review;
+- [-] ADR-0037 proposed;
+- [?] P01 paused until the reconciliation is accepted;
+- [ ] confirm or supersede the provisional proof commit after acceptance;
+- [ ] runtime implementation authorized.

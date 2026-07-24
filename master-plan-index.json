@@ -7,7 +7,7 @@
   "implementation_repository": "jaydumisuni/Ptah-space",
   "planning_branch": "main",
   "phase": "0C",
-  "active_work_unit": "P01-physical-host-and-ADR-0033-closure",
+  "active_work_unit": "Phase-0C-19-deep-workspace-roadmap-reconciliation",
   "runtime_implementation_authorized": false,
   "authority_order": [
     "accepted_adrs_and_owner_decisions",
@@ -98,7 +98,7 @@
     {
       "id": "P01",
       "name": "Physical-host and ADR-0033 closure",
-      "status": "active_blocked_external_physical_host"
+      "status": "paused_pending_phase0c19_acceptance_then_external_physical_host"
     },
     {
       "id": "A",
@@ -146,7 +146,7 @@
     "proof_command": "python3 tools/run_pinned_host_proof.py --repo-root . --output evidence/phase0c/pinned-host-candidate",
     "retention_command": "python3 tools/retain_verified_pinned_host_evidence.py --repo-root . --bundle-dir evidence/phase0c/pinned-host-candidate --output-dir evidence/phase0c/pinned-host-durable-candidate"
   },
-  "next_action": "Run the pinned-host proof kit on the exact Ubuntu Server 24.04.4 LTS / x86_64 / 6.8.0-136-generic physical host from the selected clean reviewed Ptah-space commit.",
+  "next_action": "Complete and accept Phase 0C-19 deep Workspace planning-load reconciliation, then confirm or supersede the provisional Ptah-space physical-proof commit before P01 resumes.",
   "acceptance_source_branch": "phase0c-master-plan-acceptance",
   "acceptance_evidence": {
     "candidate_exact_head": "37d23449fda9a426f56ee8b09042dda91587a6d1",
@@ -303,5 +303,27 @@
       "candidate_merge": "fbc4ee80284a2d7ea38a44fdbfa90f0348b875ae",
       "acceptance_record": "planning/PTAH-DIAGNOSTIC-WORKER-AUTHORITY-ACCEPTANCE.md"
     }
+  },
+  "phase0c19_deep_workspace_reconciliation": {
+    "status": "candidate_in_review",
+    "source_repository": "jaydumisuni/Ptah-space",
+    "source_candidate_exact_head": "bf4ae98b9d492ad688644fd6a330aaf435ac70c1",
+    "source_merge": "23dc4b19a0189ba55e08dfa124761efa806bd68b",
+    "source_workflow_run": "30087967851",
+    "source_artifact_id": "8594496859",
+    "source_artifact_digest": "sha256:aea4fde3f600a6e4c3fc2f6ff3614918a5f714c6f8ebbf6ab3fb3cb29ccaf12b",
+    "source_validation_sha256": "329262e7bb12e0841f1884664e713ab8e55a58e45a2430d4abf77ccdde65ecbe",
+    "mechanical_capability_count": 22,
+    "mapping_count": 28,
+    "fixture_count": 20,
+    "original_regression_count": 26,
+    "new_core_entity_required": false,
+    "frozen_contract_reopen_required": false,
+    "adr_0037_status": "proposed",
+    "p01_paused": true,
+    "provisional_proof_commit": "23dc4b19a0189ba55e08dfa124761efa806bd68b",
+    "physical_host_collection_started": false,
+    "adr_0033_accepted": false,
+    "runtime_implementation_authorized": false
   }
 }
