@@ -88,6 +88,36 @@ PACKAGE_IDS = [
     "X1", "X2", "X3", "X4", "X5",
 ]
 
+ROADMAP_AMENDMENT_MARKERS = [
+    "## A01 amendment",
+    "## A02 amendment",
+    "## A04 amendment",
+    "## A06 amendment",
+    "## A07 amendment",
+    "## A08 amendment",
+    "## A09 amendment",
+    "## A11 amendment",
+    "## A13 amendment",
+    "## A14 amendment",
+    "## A15 amendment",
+    "- **B01:**",
+    "- **B06:**",
+    "- **B07:**",
+    "- **D01:**",
+    "- **D02:**",
+    "- **D03:**",
+    "- **D04:**",
+    "- **D09:**",
+    "- **E04:**",
+    "- **E06:**",
+    "- **E07:**",
+    "- **X1:**",
+    "- **X2:**",
+    "- **X3:**",
+    "- **X4:**",
+    "- **X5:**",
+]
+
 
 class ValidationError(RuntimeError):
     pass
@@ -120,7 +150,8 @@ def validate(root: Path) -> dict[str, Any]:
     for path in ["MASTER_PLAN.md", "IMPLEMENTATION_ROADMAP.md", "CURRENT_STATE.md", "AI_HANDOFF.md"]:
         require(MARKER in texts[path], f"{path}: missing Phase 0C-19 marker")
 
-    require("23dc4b19a0189ba55e08dfa124761efa806bd68b" in study, "missing source merge")
+    source_merge = "23dc4b19a0189ba55e08dfa124761efa806bd68b"
+    require(source_merge in study, "missing source merge")
     require("bf4ae98b9d492ad688644fd6a330aaf435ac70c1" in study, "missing source exact head")
     require("30087967851" in study and "8594496859" in study, "missing source run/artifact")
     require("sha256:aea4fde3f600a6e4c3fc2f6ff3614918a5f714c6f8ebbf6ab3fb3cb29ccaf12b" in study, "missing source artifact digest")
@@ -129,24 +160,27 @@ def validate(root: Path) -> dict[str, Any]:
     for capability in CAPABILITIES:
         require(capability in study, f"missing capability: {capability}")
     for token in EFFECT_CLASSES + AVAILABILITY_STATES + RESULT_STATES + SCHEDULE_KINDS + TIMING_MODES:
-        require(token in study or token in plan or token in roadmap, f"missing required vocabulary: {token}")
+        require(token in study, f"deep reconciliation missing required vocabulary: {token}")
 
     require("### 6.6 Deep Workspace operations profile" in plan, "Master Plan profile section missing")
     require("Operational truth must be explicit" in plan, "Master Plan operational-truth principle missing")
     require("No new Core entity family is introduced" in plan, "Master Plan no-Core-extension conclusion missing")
 
     require("# 8. Phase 0C-19 candidate amendments to the delivery load" in roadmap, "roadmap candidate amendment section missing")
-    for package_id in PACKAGE_IDS:
-        require(package_id in roadmap, f"roadmap mapping missing: {package_id}")
+    for marker in ROADMAP_AMENDMENT_MARKERS:
+        require(marker in roadmap, f"roadmap amendment mapping missing: {marker}")
     require("operation effect class, exact precondition" in roadmap, "universal work-package gate not deepened")
 
-    for phrase in [
-        "Provider access, Ptah Grant and human/application approval remain separate",
-        "Retry creates a new Attempt",
-        "View style never creates authority",
-        "Ptah cannot gain semantic context, review, approval, acceptance or next-action authority",
-    ]:
-        require(phrase in study or phrase in roadmap or phrase in decision, f"missing boundary: {phrase}")
+    require(
+        "Provider access, Ptah Grant and human/application approval remain separate" in decision,
+        "permission, Grant and approval boundary missing",
+    )
+    require("Retry creates a new Attempt" in study, "retry history boundary missing")
+    require("View style never creates authority" in roadmap, "View authority boundary missing")
+    require(
+        "Ptah cannot gain semantic context, review, approval, acceptance or next-action authority" in roadmap,
+        "Ptah semantic-authority boundary missing",
+    )
 
     require("Status: proposed" in decision, "ADR-0037 must remain proposed in candidate")
     require("Status: CANDIDATE / IN REVIEW" in package, "Phase 0C-19 candidate status missing")
@@ -155,13 +189,17 @@ def validate(root: Path) -> dict[str, Any]:
     require("physical-host collection: NOT STARTED" in state, "physical-host not-started boundary missing")
     require("**Runtime implementation:** NOT AUTHORIZED" in state, "runtime authorization boundary changed")
     require("ADR-0033: PROPOSED" in state, "ADR-0033 must remain proposed")
-    require("provisional" in p01.lower(), "P01 selected commit must be provisional")
+    require(
+        "Status: provisional, non-authorizing — P01 paused pending Phase 0C-19 / ADR-0037 planning-load acceptance" in p01,
+        "P01 selected commit must remain provisionally paused",
+    )
     require("Do not run physical-host collection" in p01, "P01 pause instruction missing")
     require("P01 is paused" in handoff or "P01: PAUSED" in handoff, "handoff does not pause P01")
 
     candidate = index.get("phase0c19_deep_workspace_reconciliation")
     require(isinstance(candidate, dict), "machine candidate record missing")
     require(candidate.get("status") == "candidate_in_review", "machine candidate status mismatch")
+    require(candidate.get("source_merge") == source_merge, "machine source merge mismatch")
     require(candidate.get("mechanical_capability_count") == 22, "machine capability count mismatch")
     require(candidate.get("mapping_count") == 28, "machine mapping count mismatch")
     require(candidate.get("fixture_count") == 20, "machine fixture count mismatch")
@@ -188,7 +226,7 @@ def validate(root: Path) -> dict[str, Any]:
     return {
         "record_type": "ptah.phase0c19.deep_workspace_roadmap_reconciliation_validation",
         "status": "candidate_valid_non_authorizing",
-        "source_merge": "23dc4b19a0189ba55e08dfa124761efa806bd68b",
+        "source_merge": source_merge,
         "mechanical_capability_count": 22,
         "roadmap_mapping_count": len(PACKAGE_IDS),
         "new_core_entity_required": False,
