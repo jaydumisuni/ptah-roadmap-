@@ -49,6 +49,13 @@ def main() -> None:
         require(index.get("active_work_unit") == "P01-physical-host-and-ADR-0033-closure", "master-plan index active work mismatch")
 ''',
     )
+    patch(
+        "tools/check_master_plan_closure.py",
+        '    require_text(handoff, "Runtime implementation: NOT AUTHORIZED", "AI handoff boundary")\n',
+        '''    require_text(handoff, "Runtime implementation: NOT AUTHORIZED", "AI handoff boundary")
+    require_absent(handoff, "Runtime implementation: AUTHORIZED", "AI handoff authorization claim")
+''',
+    )
 
     patch(
         "tools/check_archive_campaign_complete.py",
