@@ -113,7 +113,11 @@ class CampaignClosureTests(unittest.TestCase):
         self.expect_fail(lambda: self.edit_text("CURRENT_STATE.md", "Runtime implementation:** NOT AUTHORIZED", "Runtime implementation: AUTHORIZED"))
 
     def test_20_adr_acceptance_fails(self):
-        self.expect_fail(lambda: self.edit_text("CURRENT_STATE.md", "ADR-0033 remains proposed", "ADR-0033 remains accepted"))
+        self.expect_fail(lambda: self.edit_text(
+            "CURRENT_STATE.md",
+            "- proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.",
+            "- ADR-0033: ACCEPTED `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`.",
+        ))
 
     def test_21_p01_removal_fails(self):
         self.expect_fail(lambda: self.edit_text("CURRENT_STATE.md", "P01", "PX1"))
