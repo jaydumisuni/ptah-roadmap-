@@ -2,7 +2,7 @@
 
 Status: accepted product and operating authority — runtime implementation remains unauthorized
 
-Version: 1.0.0
+Version: 1.1.0
 
 Recorded: 2026-07-21
 
@@ -728,10 +728,10 @@ ADR-0033: proposed.
 
 Runtime implementation: **NOT AUTHORIZED**.
 
-## 23. Phase 0C-19 candidate planning-load supplement
+## 23. Accepted Phase 0C-19 planning-load supplement
 
 <!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
 
-The deep Workspace operations study is reconciled through `planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md` as a candidate supplement to accepted version `1.0.0`.
+The deep Workspace operations study is accepted through ADR-0037 and `planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md` as part of operative version `1.1.0`.
 
-It adds implementation and proof detail only. It does not change Ptah's identity, add a Core family, reopen WP01–WP14, accept ADR-0033 or authorize runtime implementation. A separate ADR-0037 acceptance change is required before this supplement becomes operative version `1.1.0`.
+It adds implementation and proof detail only. It does not change Ptah's identity, add a Core family, reopen WP01–WP14, accept ADR-0033 or authorize runtime implementation. ADR-0037 makes the supplement operative while retaining every independent physical-host and runtime gate.

@@ -1,6 +1,6 @@
 # ADR-0037 — Deep Workspace operations roadmap reconciliation
 
-Status: proposed
+Status: accepted
 
 Recorded: 2026-07-24
 
@@ -12,11 +12,11 @@ Leaving those requirements only in a non-operative donor profile would force imp
 
 P01 proof-candidate selection was merged before this reconciliation was complete. The candidate is non-runtime and contains the deep study, but the selection must remain provisional until the complete planning load is accepted.
 
-## Proposed decision
+## Accepted decision
 
 Adopt `planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md` and Phase 0C-19 as the candidate supplement to Master Plan and implementation roadmap version `1.0.0`.
 
-The accepted change, if approved later, will:
+The accepted change:
 
 1. promote Master Plan and implementation roadmap to version `1.1.0`;
 2. make `ptah.workspace.operations.v2` a provider-independent behavioural profile supplement;
@@ -111,7 +111,7 @@ If implementation reveals a missing primitive, the affected work package must st
 
 Roadmap PR #46 and merge `675d28f5857e8fcaf16cee9dfabc6934331a009d` selected `Ptah-space` commit `23dc4b19a0189ba55e08dfa124761efa806bd68b`.
 
-During this proposed decision:
+Before acceptance, the candidate state was:
 
 ```text
 P01: PAUSED
@@ -119,11 +119,11 @@ selected proof commit: PROVISIONAL
 physical-host collection: NOT STARTED
 ```
 
-After ADR-0037 acceptance, the selected commit must be confirmed or superseded in a reviewed change before the physical proof command runs.
+At acceptance, `Ptah-space` main remains `23dc4b19a0189ba55e08dfa124761efa806bd68b` with no newer preparation commit. The selected commit is confirmed. Physical-host collection remains not started.
 
-## Conditions before acceptance
+## Acceptance evidence and preserved gates
 
-ADR-0037 remains proposed until:
+ADR-0037 is accepted after candidate exact-head validation and candidate merge `96d0d465fe74fb1ac2e469b69bfb3326d7d65138`. The accepted-state proof and operative merge are recorded separately before P01 execution.
 
 1. all canonical planning records are synchronized;
 2. all 22 capability requirements and affected packages/tracks are present;
@@ -145,9 +145,12 @@ ADR-0037 remains proposed until:
 ## Current boundary
 
 ```text
-ADR-0037: PROPOSED
-Phase 0C-19: CANDIDATE
-P01: PAUSED
+ADR-0037: ACCEPTED
+Phase 0C-19: COMPLETE
+Master Plan / roadmap: 1.1.0 / ACCEPTED
+P01: ACTIVE / BLOCKED ON EXACT PHYSICAL HOST
+P01 proof commit: CONFIRMED — 23dc4b19a0189ba55e08dfa124761efa806bd68b
+physical-host collection: NOT STARTED
 ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED
 ```

@@ -165,7 +165,9 @@ def validate(root: Path) -> dict[str, Any]:
     require("review_and_merge_master_plan_closure" not in blockers, "closed planning blocker remains active")
     require("ADR_0033_acceptance" in blockers, "ADR-0033 blocker missing")
 
-    require_text(master, "Version: 1.0.0", "MASTER_PLAN")
+    phase0c19_accepted = isinstance(phase0c19, dict) and phase0c19.get("status") == "accepted_complete"
+    expected_plan_version = "1.1.0" if phase0c19_accepted else "1.0.0"
+    require_text(master, f"Version: {expected_plan_version}", "MASTER_PLAN")
     require_text(master, "Status: accepted product and operating authority", "MASTER_PLAN")
     for heading in [
         "## 3. Problem Ptah solves",
@@ -190,7 +192,7 @@ def validate(root: Path) -> dict[str, Any]:
     require_absent(master, "Before an agent participates, Ptah compiles a bounded packet", "MASTER_PLAN forbidden context compiler")
     require_absent(master, "source-authority service", "MASTER_PLAN forbidden authority service")
 
-    require_text(roadmap, "Version: 1.0.0", "IMPLEMENTATION_ROADMAP")
+    require_text(roadmap, f"Version: {expected_plan_version}", "IMPLEMENTATION_ROADMAP")
     require_text(roadmap, "Status: accepted delivery authority", "IMPLEMENTATION_ROADMAP")
     positions(roadmap, ["## P00 —", "## P01 —", "# PROGRAMME A —"], "programme critical order")
     positions(roadmap, [f"## {package} —" for package in EXPECTED_PROGRAMME_A], "Programme A packages")

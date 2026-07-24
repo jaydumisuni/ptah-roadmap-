@@ -2,7 +2,7 @@
 
 Status: accepted delivery authority derived from `MASTER_PLAN.md` — runtime implementation remains unauthorized
 
-Version: 1.0.0
+Version: 1.1.0
 
 Recorded: 2026-07-21
 
@@ -1067,11 +1067,11 @@ Programmes B–F: PLANNED, dependency-ordered, and not active.
 
 Runtime implementation: **NOT AUTHORIZED**.
 
-# 8. Phase 0C-19 candidate amendments to the delivery load
+# 8. Accepted Phase 0C-19 amendments to the delivery load
 
 <!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
 
-Status: candidate supplement; accepted roadmap version `1.0.0` remains operative until ADR-0037 acceptance.
+Status: accepted supplement under ADR-0037; roadmap version `1.1.0` is operative.
 
 The following requirements are added to the named packages. They are not optional later enhancements; after acceptance they are part of each package's definition of done.
 
@@ -1149,12 +1149,13 @@ Run the deep-study positive and adversarial corpus: 22 capabilities, 20 fixtures
 
 ## P01 sequencing amendment
 
-P01 is paused while this candidate is reviewed. Roadmap PR #46's selected `Ptah-space` commit remains provisional. After ADR-0037 acceptance, a reviewed change must confirm or supersede that commit before physical-host collection begins.
+P01 resumes after ADR-0037 acceptance. The `Ptah-space` main head remains `23dc4b19a0189ba55e08dfa124761efa806bd68b` and is confirmed as the exact non-runtime physical-proof candidate. Physical-host collection has not started.
 
 ```text
-Phase 0C-19: CANDIDATE
-ADR-0037: PROPOSED
-P01: PAUSED
+Phase 0C-19: COMPLETE
+ADR-0037: ACCEPTED
+P01: ACTIVE / BLOCKED ON EXACT PHYSICAL HOST
+physical-host collection: NOT STARTED
 ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED
 ```

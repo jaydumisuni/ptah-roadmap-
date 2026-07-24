@@ -2,7 +2,7 @@
 
 Last updated: 2026-07-24
 
-Status: Campaign 001 accepted complete — Phase 0C-19 deep Workspace planning-load reconciliation active — P01 paused — runtime implementation unauthorized
+Status: Master Plan and roadmap 1.1.0 accepted — Campaign 001 complete — P01 physical-host closure active — runtime implementation unauthorized
 
 ## Read first
 
@@ -172,13 +172,13 @@ Runtime implementation: NOT AUTHORIZED
 
 No chat, model or owner-intent statement may replace the missing physical evidence and reviewed ADR-0033 closure.
 
-## Active Phase 0C-19 planning-load reconciliation
+## Accepted Phase 0C-19 planning-load reconciliation
 
 <!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
 
 The deep Workspace donor study merged in `Ptah-space` as `23dc4b19a0189ba55e08dfa124761efa806bd68b` after 26/26 study cases and all eleven exact-head workflows passed.
 
-It must be synchronized into the complete private planning load before P01 continues. Read:
+It is synchronized into the complete private planning load and accepted through ADR-0037 as Master Plan and roadmap version `1.1.0`. Read:
 
 1. `planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md`;
 2. `work-packages/PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION.md`;
@@ -188,13 +188,14 @@ It must be synchronized into the complete private planning load before P01 conti
 Current boundary:
 
 ```text
-Phase 0C-19: CANDIDATE / IN REVIEW
-ADR-0037: PROPOSED
-P01: PAUSED
-PR #46 proof commit: PROVISIONAL
+Phase 0C-19: COMPLETE
+ADR-0037: ACCEPTED
+Master Plan / roadmap: 1.1.0 / ACCEPTED
+P01: ACTIVE / BLOCKED ON EXACT PHYSICAL HOST
+PR #46 proof commit: CONFIRMED — 23dc4b19a0189ba55e08dfa124761efa806bd68b
 physical-host collection: NOT STARTED
 ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED
 ```
 
-Do not run the physical proof until Phase 0C-19 is accepted and the proof commit is confirmed or superseded.
+The next action is to run the proof kit on the exact physical host from confirmed commit `23dc4b19a0189ba55e08dfa124761efa806bd68b`. Do not accept ADR-0033 or authorize runtime without the resulting reviewed evidence.

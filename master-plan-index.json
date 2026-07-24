@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "record_type": "ptah.master_plan_index",
-  "status": "accepted_master_plan_authority_physical_host_open",
+  "status": "accepted_master_plan_1_1_authority_physical_host_open",
   "recorded_at": "2026-07-21",
   "roadmap_repository": "jaydumisuni/ptah-roadmap-",
   "implementation_repository": "jaydumisuni/Ptah-space",
   "planning_branch": "main",
   "phase": "0C",
-  "active_work_unit": "Phase-0C-19-deep-workspace-roadmap-reconciliation",
+  "active_work_unit": "P01-physical-host-and-ADR-0033-closure",
   "runtime_implementation_authorized": false,
   "authority_order": [
     "accepted_adrs_and_owner_decisions",
@@ -47,7 +47,7 @@
     "master_plan": {
       "path": "MASTER_PLAN.md",
       "status": "accepted",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "checkpoint_commit": "566a166054f894a7bb9cf37d33b558c9da481e24",
       "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
       "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
@@ -55,7 +55,7 @@
     "implementation_roadmap": {
       "path": "IMPLEMENTATION_ROADMAP.md",
       "status": "accepted",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "checkpoint_commit": "57453b2b074cdea7cd905f0a5331d2edb7d707a0",
       "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
       "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
@@ -98,7 +98,7 @@
     {
       "id": "P01",
       "name": "Physical-host and ADR-0033 closure",
-      "status": "paused_pending_phase0c19_acceptance_then_external_physical_host"
+      "status": "active_blocked_external_physical_host"
     },
     {
       "id": "A",
@@ -146,7 +146,7 @@
     "proof_command": "python3 tools/run_pinned_host_proof.py --repo-root . --output evidence/phase0c/pinned-host-candidate",
     "retention_command": "python3 tools/retain_verified_pinned_host_evidence.py --repo-root . --bundle-dir evidence/phase0c/pinned-host-candidate --output-dir evidence/phase0c/pinned-host-durable-candidate"
   },
-  "next_action": "Complete and accept Phase 0C-19 deep Workspace planning-load reconciliation, then confirm or supersede the provisional Ptah-space physical-proof commit before P01 resumes.",
+  "next_action": "Run the pinned-host proof kit on the exact Ubuntu Server 24.04.4 LTS / x86_64 / 6.8.0-136-generic physical host from confirmed Ptah-space commit 23dc4b19a0189ba55e08dfa124761efa806bd68b.",
   "acceptance_source_branch": "phase0c-master-plan-acceptance",
   "acceptance_evidence": {
     "candidate_exact_head": "37d23449fda9a426f56ee8b09042dda91587a6d1",
@@ -305,7 +305,7 @@
     }
   },
   "phase0c19_deep_workspace_reconciliation": {
-    "status": "candidate_in_review",
+    "status": "accepted_complete",
     "source_repository": "jaydumisuni/Ptah-space",
     "source_candidate_exact_head": "bf4ae98b9d492ad688644fd6a330aaf435ac70c1",
     "source_merge": "23dc4b19a0189ba55e08dfa124761efa806bd68b",
@@ -319,11 +319,21 @@
     "original_regression_count": 26,
     "new_core_entity_required": false,
     "frozen_contract_reopen_required": false,
-    "adr_0037_status": "proposed",
-    "p01_paused": true,
-    "provisional_proof_commit": "23dc4b19a0189ba55e08dfa124761efa806bd68b",
+    "adr_0037_status": "accepted",
+    "p01_paused": false,
+    "provisional_proof_commit": null,
     "physical_host_collection_started": false,
     "adr_0033_accepted": false,
-    "runtime_implementation_authorized": false
+    "runtime_implementation_authorized": false,
+    "candidate_merge": "96d0d465fe74fb1ac2e469b69bfb3326d7d65138",
+    "phase0c19_complete": true,
+    "master_plan_version": "1.1.0",
+    "implementation_roadmap_version": "1.1.0",
+    "p01_status": "active_blocked_external_physical_host",
+    "confirmed_proof_commit": "23dc4b19a0189ba55e08dfa124761efa806bd68b",
+    "proof_commit_confirmed": true,
+    "acceptance_record": "planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-ACCEPTANCE.md",
+    "accepted_state_proof_pending": true,
+    "operative_acceptance_merge_pending": true
   }
 }
