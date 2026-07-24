@@ -38,7 +38,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p evidence/phase0c19
-          python3 tools/apply_phase0c19_deep_workspace_sync.py 2>&1 | tee evidence/phase0c19/synchronization.txt
+          python3 tools/apply_phase0c19_deep_workspace_sync_v2.py 2>&1 | tee evidence/phase0c19/synchronization.txt
 
       - name: Run candidate regressions
         shell: bash
