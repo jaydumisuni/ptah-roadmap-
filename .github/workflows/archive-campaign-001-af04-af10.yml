@@ -1,4 +1,4 @@
-name: Archive Campaign 001 AF04-AF10 Candidate Closure
+name: Archive Campaign 001 AF04-AF10 Acceptance
 
 on:
   pull_request:
@@ -13,11 +13,11 @@ env:
   PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
-  archive-campaign-af04-af10:
+  archive-campaign-acceptance:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Check out exact candidate head
+      - name: Check out exact accepted-state head
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ env.PTAH_EXACT_SHA }}
@@ -31,35 +31,35 @@ jobs:
       - name: Verify exact checked-out head
         run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
 
-      - name: Run AF04-AF10 adversarial regressions
+      - name: Run accepted-state adversarial regressions
         run: |
-          mkdir -p conformance/reports/archive-campaign-001-af04-af10
+          mkdir -p conformance/reports/archive-campaign-001-acceptance
           set -o pipefail
-          python3 tools/test_check_archive_campaign_af04_af10.py -v 2>&1 \
-            | tee conformance/reports/archive-campaign-001-af04-af10/regressions.txt
+          python3 tools/test_check_archive_campaign_acceptance.py -v 2>&1 \
+            | tee conformance/reports/archive-campaign-001-acceptance/regressions.txt
 
-      - name: Validate AF04-AF10 candidate closure
+      - name: Validate accepted-state promotion
         run: |
           set -o pipefail
-          python3 tools/check_archive_campaign_af04_af10.py \
+          python3 tools/check_archive_campaign_acceptance.py \
             --repo-root . \
-            --output conformance/reports/archive-campaign-001-af04-af10/validation.json \
-            2>&1 | tee conformance/reports/archive-campaign-001-af04-af10/validator-output.txt
+            --output conformance/reports/archive-campaign-001-acceptance/validation.json \
+            2>&1 | tee conformance/reports/archive-campaign-001-acceptance/validator-output.txt
 
-      - name: Bind candidate evidence to exact head
+      - name: Bind accepted-state evidence to exact head
         run: |
           python3 - <<'PY'
           import hashlib, json, os, subprocess
           from datetime import datetime, timezone
           from pathlib import Path
-          root = Path("conformance/reports/archive-campaign-001-af04-af10")
+          root = Path("conformance/reports/archive-campaign-001-acceptance")
           report_path = root / "validation.json"
           report = json.loads(report_path.read_text(encoding="utf-8"))
           expected = os.environ["PTAH_EXACT_SHA"]
           checked = subprocess.run(["git","rev-parse","HEAD"],capture_output=True,text=True,check=True).stdout.strip()
           evidence = {
               "schema_version":"1.0.0",
-              "record_type":"ptah.archive_campaign_001_af04_af10_exact_head_evidence",
+              "record_type":"ptah.archive_campaign_001_acceptance_exact_head_evidence",
               "created_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),
               "implementation_commit":expected,
               "checked_out_commit":checked,
@@ -69,36 +69,31 @@ jobs:
           }
           (root / "exact-head-evidence.json").write_text(json.dumps(evidence,indent=2)+"\n",encoding="utf-8")
           if not evidence["exact_head_match"]:
-              raise SystemExit("campaign candidate did not test exact head")
-          if evidence["status"] != "af04_af10_candidate_complete_valid_non_authorizing":
-              raise SystemExit("campaign candidate status invalid")
+              raise SystemExit("accepted state did not test exact head")
+          if evidence["status"] != "campaign_acceptance_candidate_valid_non_authorizing":
+              raise SystemExit("accepted-state status invalid")
           expected_values = {
-              "formation_count":7,
-              "new_record_count":68,
-              "new_accepted_archive_record_count":62,
-              "new_blocked_record_count":6,
-              "new_remaining_evidence_count":0,
+              "promoted_formation_count":7,
+              "campaign_formation_count":10,
               "campaign_obligation_count":98,
-              "campaign_accepted_archive_record_count_if_promoted":91,
-              "campaign_blocked_record_count_if_promoted":7,
-              "campaign_completed_formation_count_if_promoted":10,
+              "campaign_accepted_archive_record_count":91,
+              "campaign_blocked_record_count":7,
+              "campaign_remaining_evidence_count":0,
+              "global_control_state_bound":False,
           }
           for key, value in expected_values.items():
               if evidence.get(key) != value:
-                  raise SystemExit(f"campaign candidate evidence mismatch: {key}")
-          for key in ("sergeant_reviews_complete",):
-              if evidence.get(key) is not True:
-                  raise SystemExit(f"campaign evidence missing: {key}")
+                  raise SystemExit(f"accepted-state evidence mismatch: {key}")
           for key in ("phase_0a_reopened","p01_closed","adr_0033_accepted","runtime_implementation_authorized"):
               if evidence.get(key) is not False:
-                  raise SystemExit(f"non-authorizing boundary violated: {key}")
+                  raise SystemExit(f"accepted-state authority boundary violated: {key}")
           PY
 
-      - name: Upload exact-head campaign evidence
+      - name: Upload exact-head accepted-state evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: archive-campaign-001-af04-af10-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
-          path: conformance/reports/archive-campaign-001-af04-af10/
+          name: archive-campaign-001-acceptance-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
+          path: conformance/reports/archive-campaign-001-acceptance/
           if-no-files-found: error
           retention-days: 30
