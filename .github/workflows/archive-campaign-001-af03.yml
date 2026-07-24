@@ -13,109 +13,28 @@ env:
   PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
-  af03-archive-closure:
+  af03-operative-campaign:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
-
+    timeout-minutes: 15
     steps:
-      - name: Check out exact AF03 accepted head
+      - name: Check out exact operative head
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ env.PTAH_EXACT_SHA }}
           persist-credentials: false
-
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: "3.13"
-
       - name: Verify exact checked-out head
         run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
-
-      - name: Run adversarial AF03 regressions
+      - name: Validate AF03 inside operative campaign
         run: |
           mkdir -p conformance/reports/archive-campaign-001-af03
           set -o pipefail
-          python3 tools/test_check_archive_af03.py -v 2>&1 \
-            | tee conformance/reports/archive-campaign-001-af03/regressions.txt
-
-      - name: Validate AF03 accepted closure
-        run: |
-          set -o pipefail
-          python3 tools/check_archive_af03.py \
-            --repo-root . \
-            --output conformance/reports/archive-campaign-001-af03/af03-validation.json \
-            2>&1 | tee conformance/reports/archive-campaign-001-af03/validator-output.txt
-
-      - name: Bind AF03 accepted evidence to exact head
-        run: |
-          python3 - <<'PY'
-          import hashlib
-          import json
-          import os
-          import subprocess
-          from datetime import datetime, timezone
-          from pathlib import Path
-
-          root = Path("conformance/reports/archive-campaign-001-af03")
-          report_path = root / "af03-validation.json"
-          report = json.loads(report_path.read_text(encoding="utf-8"))
-          expected = os.environ["PTAH_EXACT_SHA"]
-          checked_out = subprocess.run(
-              ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
-          ).stdout.strip()
-          evidence = {
-              "schema_version": "1.0.0",
-              "record_type": "ptah.archive_campaign_af03_exact_head_evidence",
-              "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-              "implementation_commit": expected,
-              "checked_out_commit": checked_out,
-              "exact_head_match": checked_out == expected,
-              "validation_report_sha256": hashlib.sha256(report_path.read_bytes()).hexdigest(),
-              **report,
-          }
-          (root / "exact-head-evidence.json").write_text(
-              json.dumps(evidence, indent=2) + "\n", encoding="utf-8"
-          )
-          if not evidence["exact_head_match"]:
-              raise SystemExit("AF03 did not test the exact head")
-          if evidence["status"] != "accepted_complete_valid_non_authorizing":
-              raise SystemExit("AF03 accepted validation status is invalid")
-          expected_values = {
-              "record_count": 10,
-              "accepted_archive_record_count": 10,
-              "blocked_record_count": 0,
-              "primary_worker_count": 10,
-              "verifier_worker_count": 10,
-              "checkpoint_count": 2,
-              "remaining_evidence_count": 0,
-              "sergeant_review_result": "pass_with_mandatory_retained_restrictions",
-              "sergeant_blocking_finding_count": 0,
-              "candidate_exact_head": "4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d",
-              "candidate_workflow_run": "30003085272",
-              "candidate_artifact_id": "8561809711",
-              "candidate_artifact_digest": "sha256:fa36506e788958d4b3d134f6f1286e4c2d47d309aa15529e6f1d384c9bdcd6a6",
-              "candidate_validation_report_sha256": "e437e8785a846710e2e2434fb3e537a3566fc6baf68b420da6610dd20571f302",
-              "candidate_merge": "d86218e1127c57bacfb4d88eff15b81d326995ba",
-              "acceptance_record": "archive/campaign-001/af03/ACCEPTANCE.md",
-          }
-          for key, value in expected_values.items():
-              if evidence.get(key) != value:
-                  raise SystemExit(f"AF03 accepted evidence mismatch: {key}")
-          for key in ("sergeant_review_complete", "af03_accepted"):
-              if evidence.get(key) is not True:
-                  raise SystemExit(f"AF03 accepted authority missing: {key}")
-          for key in (
-              "af04_started",
-              "phase_0a_reopened",
-              "adr_0033_accepted",
-              "runtime_implementation_authorized",
-          ):
-              if evidence.get(key) is not False:
-                  raise SystemExit(f"AF03 non-authorizing boundary violated: {key}")
-          PY
-
-      - name: Upload exact-head AF03 evidence
+          python3 tools/test_check_archive_campaign_complete.py -v 2>&1 | tee conformance/reports/archive-campaign-001-af03/regressions.txt
+          python3 tools/check_archive_campaign_complete.py --repo-root . --output conformance/reports/archive-campaign-001-af03/validation.json 2>&1 | tee conformance/reports/archive-campaign-001-af03/validator-output.txt
+      - name: Upload AF03 operative evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
