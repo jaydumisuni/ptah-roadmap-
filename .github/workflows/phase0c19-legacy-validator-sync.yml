@@ -32,24 +32,31 @@ jobs:
           test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
 
       - name: Apply guarded legacy-validator synchronization
-        run: python3 tools/apply_phase0c19_legacy_validator_sync.py
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p evidence/phase0c19-legacy
+          python3 tools/apply_phase0c19_legacy_validator_sync.py 2>&1 | tee evidence/phase0c19-legacy/synchronization.txt
 
       - name: Run affected permanent regression suites
         shell: bash
         run: |
-          set -euo pipefail
+          set -o pipefail
           PYTHONPATH=tools python3 -m unittest -v \
             tools/test_check_master_plan_closure.py \
             tools/test_check_archive_campaign_complete.py \
-            tools/test_check_platform_diagnostic_advisory.py
+            tools/test_check_platform_diagnostic_advisory.py \
+            2>&1 | tee evidence/phase0c19-legacy/regressions.txt
 
       - name: Run affected standalone validators
         shell: bash
         run: |
-          set -euo pipefail
-          python3 tools/check_master_plan_closure.py --repo-root .
-          python3 tools/check_archive_campaign_complete.py --repo-root .
-          python3 tools/check_platform_diagnostic_advisory.py --repo-root .
+          set -o pipefail
+          {
+            python3 tools/check_master_plan_closure.py --repo-root .
+            python3 tools/check_archive_campaign_complete.py --repo-root .
+            python3 tools/check_platform_diagnostic_advisory.py --repo-root .
+          } 2>&1 | tee evidence/phase0c19-legacy/validators.txt
 
       - name: Enforce four-file boundary
         shell: bash
@@ -81,3 +88,12 @@ jobs:
             tools/test_check_archive_campaign_complete.py
           git commit -m 'Allow permanent validators to recognize Phase 0C-19 candidate state'
           git push origin "HEAD:${BRANCH}"
+
+      - name: Retain synchronization diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: phase0c19-legacy-validator-diagnostics
+          path: evidence/phase0c19-legacy
+          if-no-files-found: warn
+          retention-days: 30
