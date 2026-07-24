@@ -78,6 +78,7 @@ Ptah exposes and preserves the records. The caller decides meaning, relevance, a
 15. **Completion is evidence-backed.** Source presence and UI claims are insufficient.
 16. **Ptah may diagnose its own platform condition without choosing the caller's work.** Missing capability, degradation or incompatibility may produce an evidence-backed advisory, but upgrade approval and task choice remain caller-owned.
 17. **Caller-given work may use bounded worker formations.** A caller-selected Recipe or Plan may apply the Sergeant-derived ten-for-two pattern for efficient parallel execution, while scope, semantic decomposition and result acceptance remain caller-owned.
+18. **Operational truth must be explicit at every boundary.** Operation effects, external access, Grants, approvals, reference/materialization state, preconditions, progress, partial outputs, result states, limits and post-condition proof may not be collapsed into optimistic success or hidden UI state.
 
 ## 5. Intended users and participants
 
@@ -163,6 +164,9 @@ Ptah Core owns:
 - caller-defined worker formation scheduling, checkpoint and evidence projections;
 - migrations, retention, supersession, tombstones and recovery projections;
 - evidence-backed diagnostic advisory Views and Artifacts over platform health, capability and execution records;
+- typed and lazily discoverable Facility/Provider operation descriptors, including effect class, schema version, limits, preconditions and expected Receipt states;
+- explicit external-reference, indexed-reference, mounted, materialized and generated-Artifact projections;
+- exact schedule kind/timing projections, stable large-result handles and incremental result Views;
 - neutral APIs and event envelopes.
 
 ### 6.2 First-class Facilities
@@ -227,6 +231,8 @@ The human shell must provide:
 - Node, Provider and health status;
 - platform diagnostic advisories, missing-capability explanations and caller-controlled upgrade responses;
 - worker formation, checkpoint, conflict and partial-result status;
+- operation effect, Provider-access, Grant and approval status shown as separate facts;
+- reference/materialization, schedule timing, exact-precondition conflict, partial-completion, stable-result and visible-limit panels;
 - approvals and security boundaries;
 - accessible desktop, tablet and mobile projections where practical.
 
@@ -248,6 +254,25 @@ The `ptah.workspace.ai_project.v1` profile composes neutral Ptah capabilities fo
 Hunter, Sergeant, humans or other applications perform context selection, source ranking, review, approval, candidate promotion and next-action choice. Ptah stores and executes the requested operations but does not make those decisions.
 
 This is a composition of frozen Ptah primitives, not a new ChatGPT-specific Core entity.
+
+### 6.6 Deep Workspace operations profile
+
+The compatible `ptah.workspace.operations.v2` profile supplements the AI Project Workspace profile with mechanical reliability requirements recovered from the deep observable Workspace study:
+
+- typed and lazily discoverable Facility/Provider operations;
+- effect classes `observe`, `draft`, `simulate`, `mutate`, `publish`, `destructive` and `external_side_effect`;
+- external Provider permission, Ptah Grant and caller approval as separate boundaries;
+- `external_reference`, `indexed_reference`, `mounted_read_only`, `materialized_copy` and `generated_artifact` availability states;
+- stable large-result handles with bounded reads, paging, exact search, digest and retention state;
+- progress Events and retained partial Artifacts;
+- one-off, recurring and condition-watch schedules with exact, flexible-window or condition-dependent timing;
+- exact Revision/head/freshness preconditions and expected/observed conflict Receipts;
+- observe/draft/simulate/execute/verify lifecycles;
+- distinct `succeeded`, `failed`, `declined`, `cancelled`, `not_run` and `partially_completed` results;
+- connector account/source provenance, freshness and visible limits;
+- continuity across interfaces, devices and replaceable intelligence providers.
+
+Ptah exposes and mechanically enforces these records. The caller still chooses the work, operation for semantic purpose, context, approval, acceptance, reconciliation and next action. No new Core entity family is introduced.
 
 ## 7. Explicit non-goals
 
@@ -702,3 +727,11 @@ Physical pinned-host evidence: open.
 ADR-0033: proposed.
 
 Runtime implementation: **NOT AUTHORIZED**.
+
+## 23. Phase 0C-19 candidate planning-load supplement
+
+<!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
+
+The deep Workspace operations study is reconciled through `planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md` as a candidate supplement to accepted version `1.0.0`.
+
+It adds implementation and proof detail only. It does not change Ptah's identity, add a Core family, reopen WP01–WP14, accept ADR-0033 or authorize runtime implementation. A separate ADR-0037 acceptance change is required before this supplement becomes operative version `1.1.0`.

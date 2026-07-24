@@ -321,3 +321,11 @@ Full decision: `decisions/ADR-0036-PLATFORM-DIAGNOSTIC-ADVISORY-BOUNDARY.md`.
 ### ADR-0033 — First vertical-slice host, licence, layout and backend selections
 
 **PROPOSED.** Master Plan/roadmap authority is complete. The physical pinned-host result, package and retention acceptance, final Phase 0C closure review and explicit runtime authorization remain open.
+
+### D-053 — Deep Workspace operations must be reconciled before P01 resumes
+
+**PROPOSED.** ADR-0037 maps the `ptah.workspace.operations.v2` deep-study profile into the complete Master Plan and roadmap load. The profile adds typed operations, effect classes, permission/Grant/approval separation, materialization truth, progress/partial retention, stable result handles, scheduling semantics, exact preconditions, honest result states, provenance, limits and cross-interface continuity without adding a Core family or reopening WP01–WP14.
+
+Until accepted, P01 is paused and the PR #46 proof commit remains provisional.
+
+Full decision: `decisions/ADR-0037-DEEP-WORKSPACE-OPERATIONS-ROADMAP-RECONCILIATION.md`.

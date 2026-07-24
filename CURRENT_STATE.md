@@ -3,9 +3,9 @@
 **Last updated:** 2026-07-21  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-04 / P01 — physical pinned-host proof, package review, durable evidence and ADR-0033 closure  
+**Active work unit:** Phase 0C-19 — deep Workspace study Master Plan and roadmap reconciliation; P01 paused  
 **Runtime implementation:** NOT AUTHORIZED  
-**Production dependency/backend selection:** EXACT RUST, DISTRIBUTED ARTIFACT, PROOF AND RETENTION TOOL LOCKS MERGED — APACHE-2.0 BOUNDARY ACCEPTED — PHYSICAL PINNED-HOST PROOF OPEN  
+**Production dependency/backend selection:** LOCKS MERGED — DEEP WORKSPACE PLANNING LOAD IN REVIEW — PHYSICAL PINNED-HOST PROOF PAUSED  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
@@ -466,6 +466,35 @@ This accepted clarification uses frozen primitives only, does not start AF03 and
 
 ---
 
+
+## Active Phase 0C-19 deep Workspace reconciliation
+
+<!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
+
+- deep study source merge: `23dc4b19a0189ba55e08dfa124761efa806bd68b`;
+- 22 mechanical capabilities, 28 mappings, 20 fixtures and 26 original cases;
+- zero new Core entities;
+- zero WP01–WP14 reopenings;
+- Master Plan and roadmap candidate supplement mapped across A, B, D, E and X1–X5;
+- ADR-0037: PROPOSED;
+- P01: PAUSED;
+- roadmap PR #46 proof-candidate selection: PROVISIONAL;
+- physical-host collection: NOT STARTED;
+- ADR-0033: PROPOSED;
+- runtime implementation: NOT AUTHORIZED.
+
+Immediate order:
+
+```text
+prove Phase 0C-19 candidate
+→ merge candidate evidence
+→ separately accept ADR-0037 and planning version 1.1.0
+→ confirm or supersede the P01 proof commit
+→ resume physical-host closure
+```
+
+---
+
 ## Active Phase 0C blockers
 
 Implementation remains unauthorized until all of the following are merged and reviewed:
@@ -527,9 +556,11 @@ Implementation becomes authorized only when a Phase 0C acceptance ADR and an exp
 
 ## Immediate continuation order
 
-1. Install or recover the exact Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
-2. Select and record the exact clean reviewed `Ptah-space` preparation commit.
-3. Run:
+1. Complete and exact-head validate Phase 0C-19 deep Workspace planning-load reconciliation.
+2. Merge the candidate evidence and separately accept ADR-0037 / Master Plan and roadmap version `1.1.0`.
+3. Confirm or supersede the provisional `Ptah-space` proof commit.
+4. Install or recover the exact Ubuntu Server 24.04.4 / `6.8.0-136-generic` proof host.
+5. Run:
 
 ```bash
 python3 tools/run_pinned_host_proof.py \

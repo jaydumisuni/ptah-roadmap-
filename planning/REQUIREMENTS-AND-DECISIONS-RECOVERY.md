@@ -362,3 +362,15 @@ Physical pinned-host evidence: OPEN.
 ADR-0033: PROPOSED.
 
 Runtime implementation: NOT AUTHORIZED.
+
+## Recovered deep Workspace operations supplement
+
+<!-- PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION -->
+
+`Ptah-space` PR #16 and merge `23dc4b19a0189ba55e08dfa124761efa806bd68b` add the provider-independent `ptah.workspace.operations.v2` behavioural profile.
+
+Recovered requirements include typed/lazy operation discovery, effect classes, permission/Grant/approval separation, reference/materialization truth, progress and partial retention, large-result handles, render-independent Views, exact/flexible/condition schedules, exact mutation preconditions, staged operation lifecycles, distinct result states, connector provenance, explicit limits and cross-interface continuity.
+
+The profile introduces no Core family and requires no WP01–WP14 reopening. Semantic context selection, Provider choice for purpose, reconciliation, approval, acceptance and next action remain caller-owned.
+
+Until ADR-0037 accepts the synchronized planning load, P01 is paused and the selected physical-proof commit is provisional.
