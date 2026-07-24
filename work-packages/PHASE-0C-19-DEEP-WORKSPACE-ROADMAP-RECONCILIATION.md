@@ -1,6 +1,6 @@
 # Phase 0C-19 — Deep Workspace donor roadmap reconciliation
 
-Status: CANDIDATE / IN REVIEW
+Status: COMPLETE / ACCEPTED
 
 Recorded: 2026-07-24
 
@@ -33,16 +33,16 @@ Move the proven deep Workspace donor lessons from non-operative `Ptah-space` evi
 10. positive and adversarial regressions;
 11. immutable exact-head workflow evidence.
 
-## Required candidate state
+## Accepted state
 
-- Phase 0C-19 is candidate/in review;
-- ADR-0037 remains proposed;
-- Master Plan/roadmap `1.0.0` remain the accepted authority until a separate acceptance change;
+- Phase 0C-19 is complete and accepted;
+- ADR-0037 is accepted;
+- Master Plan/roadmap `1.1.0` are the accepted authorities;
 - the candidate supplement maps all 22 mechanical capabilities;
 - no new Core entity is introduced;
 - WP01–WP14 remain frozen;
-- P01 is paused pending reconciliation acceptance;
-- the PR #46 candidate selection is provisional;
+- P01 is active and blocked on the exact physical host;
+- the PR #46 candidate is confirmed at `23dc4b19a0189ba55e08dfa124761efa806bd68b`;
 - physical-host collection has not begun;
 - ADR-0033 remains proposed;
 - runtime implementation remains unauthorized.
@@ -145,8 +145,9 @@ candidate exact-head proof
 This package is planning, mapping, governance and proof only. It implements no runtime Facility, Provider, Workspace, Activity, scheduling engine, connector, UI or result-handle service.
 
 ```text
-ADR-0037: PROPOSED
-P01: PAUSED
+ADR-0037: ACCEPTED
+P01: ACTIVE / BLOCKED ON EXACT PHYSICAL HOST
+physical-host collection: NOT STARTED
 ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED
 ```

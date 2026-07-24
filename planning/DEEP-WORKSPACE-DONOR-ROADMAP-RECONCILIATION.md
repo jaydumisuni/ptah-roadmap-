@@ -1,6 +1,6 @@
 # Deep Workspace donor to Master Plan and roadmap reconciliation
 
-Status: Phase 0C-19 candidate — non-operative until ADR-0037 acceptance
+Status: ACCEPTED OPERATIVE PLANNING SUPPLEMENT — ADR-0037 accepted
 
 Recorded: 2026-07-24
 
@@ -411,22 +411,21 @@ If implementation later proves a required behavior cannot be represented by the 
 
 Roadmap PR #46 selected `Ptah-space` commit `23dc4b19a0189ba55e08dfa124761efa806bd68b` before this full reconciliation was accepted.
 
-That selection remains a technically suitable non-runtime candidate because it contains the deep study itself, but it is **provisional** until Phase 0C-19 and ADR-0037 are accepted. No physical-host collection should begin before acceptance.
+That selection is confirmed because `Ptah-space` main remains `23dc4b19a0189ba55e08dfa124761efa806bd68b`, it contains the accepted study and all proof tooling, and no newer preparation commit exists. Physical-host collection has not started.
 
-After Phase 0C-19 acceptance:
-
-1. confirm that the same commit remains the final proof candidate, or select a newer reviewed non-runtime preparation commit;
-2. record that confirmation in the P01 selection record;
-3. only then run the exact physical-host proof.
+Acceptance confirms the same commit as the final proof candidate. P01 may resume, but the exact physical-host proof must still be run and independently accepted before ADR-0033 or runtime authorization can change.
 
 ## Candidate conclusion
 
 The study improves the complete implementation load without changing what Ptah is. It increases the proof burden before implementation rather than creating later patch work.
 
 ```text
-Phase 0C-19: CANDIDATE
-ADR-0037: PROPOSED
-P01: PAUSED pending reconciliation acceptance
+Phase 0C-19: COMPLETE
+ADR-0037: ACCEPTED
+Master Plan / roadmap: 1.1.0 / ACCEPTED
+P01: ACTIVE / BLOCKED ON EXACT PHYSICAL HOST
+P01 proof commit: CONFIRMED — 23dc4b19a0189ba55e08dfa124761efa806bd68b
+physical-host collection: NOT STARTED
 ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED
 ```

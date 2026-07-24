@@ -1,6 +1,6 @@
 # P01 / ADR-0033 physical-host proof candidate selection
 
-Status: provisional, non-authorizing — P01 paused pending Phase 0C-19 / ADR-0037 planning-load acceptance
+Status: CONFIRMED, non-authorizing — P01 active and blocked on the exact physical proof host
 
 Recorded: 2026-07-24
 
@@ -42,9 +42,7 @@ The complete PR matrix reached eleven passing exact-head workflows. The deep Wor
 
 ## Phase 0C-19 sequencing correction
 
-The exact commit below was selected before the complete deep Workspace study was reconciled into the private Master Plan and roadmap. It remains technically suitable and non-runtime, but it is provisional.
-
-Do not run physical-host collection until ADR-0037 accepts Phase 0C-19 and a reviewed change confirms this commit or selects a newer non-runtime preparation commit.
+The exact commit below was selected before the complete deep Workspace study was reconciled into the private Master Plan and roadmap. ADR-0037 now accepts that reconciliation. `Ptah-space` main remains `23dc4b19a0189ba55e08dfa124761efa806bd68b`, so the selection is confirmed. Physical-host collection has not started.
 
 ## Required proof-host identity
 
@@ -133,7 +131,7 @@ run exact physical-host proof
 ## Hard boundary
 
 ```text
-P01: PAUSED / provisional proof candidate
+P01: ACTIVE / confirmed proof candidate / blocked on exact physical host
 ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED
 ```

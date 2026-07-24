@@ -1,6 +1,6 @@
 # Ptah physical-host to authorization closure
 
-Status: exact closure procedure recorded — P01 paused pending Phase 0C-19 planning-load reconciliation, then blocked on access to the physical proof host
+Status: exact closure procedure recorded — P01 active and blocked on access to the physical proof host
 
 Recorded: 2026-07-21
 
@@ -72,7 +72,7 @@ Acceptance must confirm:
 
 ## Step 1A — accept the complete planning load
 
-Before selecting the final physical-proof commit, accept Phase 0C-19 / ADR-0037 and make Master Plan and implementation roadmap version `1.1.0` operative. The provisional selection from roadmap PR #46 cannot authorize collection.
+Phase 0C-19 / ADR-0037 are accepted and Master Plan/roadmap version `1.1.0` are operative. Roadmap PR #46's commit `23dc4b19a0189ba55e08dfa124761efa806bd68b` is confirmed as the exact physical-proof candidate. This completion does not itself authorize collection results or runtime.
 
 ## Step 2 — select the exact implementation candidate commit
 

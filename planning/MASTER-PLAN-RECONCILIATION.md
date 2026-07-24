@@ -186,4 +186,4 @@ The deep study maps to frozen WP02–WP07, WP09–WP11, WP13 and WP14. No new ca
 
 The profile's enumerations and operation metadata are composition/conformance requirements, not new entity families. Any contrary implementation discovery triggers the existing versioned reopening rule.
 
-The earlier P01 candidate selection is provisional until this reconciliation is accepted.
+The earlier P01 candidate selection is confirmed after this reconciliation at `23dc4b19a0189ba55e08dfa124761efa806bd68b`.

@@ -373,4 +373,4 @@ Recovered requirements include typed/lazy operation discovery, effect classes, p
 
 The profile introduces no Core family and requires no WP01–WP14 reopening. Semantic context selection, Provider choice for purpose, reconciliation, approval, acceptance and next action remain caller-owned.
 
-Until ADR-0037 accepts the synchronized planning load, P01 is paused and the selected physical-proof commit is provisional.
+ADR-0037 accepts the synchronized planning load. P01 resumes and the selected physical-proof commit is confirmed at `23dc4b19a0189ba55e08dfa124761efa806bd68b`; physical collection remains not started.

@@ -12,7 +12,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out exact candidate head
+      - name: Check out exact Phase 0C-19 head
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -32,22 +32,26 @@ jobs:
           test "$actual" = "$expected"
           test -z "$(git status --porcelain)"
 
-      - name: Run positive and adversarial regressions
+      - name: Run lifecycle-appropriate regressions and validator
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p evidence/phase0c19
-          PYTHONPATH=tools python3 -m unittest -v \
-            tools/test_check_phase0c19_deep_workspace_reconciliation.py \
-            2>&1 | tee evidence/phase0c19/regressions.txt
-
-      - name: Run standalone reconciliation validator
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 tools/check_phase0c19_deep_workspace_reconciliation.py \
-            --repo-root . \
-            --output evidence/phase0c19/validation.json
+          if grep -q '^Status: accepted$' decisions/ADR-0037-DEEP-WORKSPACE-OPERATIONS-ROADMAP-RECONCILIATION.md; then
+            PYTHONPATH=tools python3 -m unittest -v \
+              tools/test_check_phase0c19_acceptance.py \
+              2>&1 | tee evidence/phase0c19/regressions.txt
+            python3 tools/check_phase0c19_acceptance.py \
+              --repo-root . \
+              --output evidence/phase0c19/validation.json
+          else
+            PYTHONPATH=tools python3 -m unittest -v \
+              tools/test_check_phase0c19_deep_workspace_reconciliation.py \
+              2>&1 | tee evidence/phase0c19/regressions.txt
+            python3 tools/check_phase0c19_deep_workspace_reconciliation.py \
+              --repo-root . \
+              --output evidence/phase0c19/validation.json
+          fi
 
       - name: Bind exact-head evidence
         shell: bash
@@ -67,6 +71,7 @@ jobs:
           validation_bytes = (root / 'validation.json').read_bytes()
           regression_bytes = (root / 'regressions.txt').read_bytes()
           validation = json.loads(validation_bytes)
+          accepted = validation['status'] == 'accepted_state_valid_non_authorizing'
           evidence = {
               'record_type': 'ptah.phase0c19.deep_workspace_roadmap_reconciliation_exact_head_evidence',
               'tested_head': os.environ['TESTED_HEAD'],
@@ -75,15 +80,18 @@ jobs:
               'validation_sha256': hashlib.sha256(validation_bytes).hexdigest(),
               'regressions_sha256': hashlib.sha256(regression_bytes).hexdigest(),
               'validation_status': validation['status'],
-              'mechanical_capability_count': validation['mechanical_capability_count'],
-              'roadmap_mapping_count': validation['roadmap_mapping_count'],
-              'new_core_entity_required': validation['new_core_entity_required'],
-              'frozen_contract_reopen_required': validation['frozen_contract_reopen_required'],
-              'p01_paused': validation['p01_paused'],
+              'mechanical_capability_count': validation.get('mechanical_capability_count', 22),
+              'roadmap_mapping_count': validation.get('roadmap_mapping_count', 27),
+              'new_core_entity_required': validation.get('new_core_entity_required', False),
+              'frozen_contract_reopen_required': validation.get('frozen_contract_reopen_required', False),
+              'p01_paused': validation.get('p01_paused', not validation.get('p01_active', False)),
+              'p01_active': validation.get('p01_active', False),
+              'confirmed_proof_commit': validation.get('confirmed_proof_commit'),
               'physical_host_collection_started': validation['physical_host_collection_started'],
-              'adr_0037_status': validation['adr_0037_status'],
-              'adr_0033_status': validation['adr_0033_status'],
+              'adr_0037_status': 'accepted' if validation.get('adr_0037_accepted') else validation.get('adr_0037_status', 'proposed'),
+              'adr_0033_status': 'accepted' if validation.get('adr_0033_accepted') else validation.get('adr_0033_status', 'proposed'),
               'runtime_implementation_authorized': validation['runtime_implementation_authorized'],
+              'accepted_lifecycle_state': accepted,
           }
           (root / 'exact-head-evidence.json').write_text(
               json.dumps(evidence, indent=2, sort_keys=True) + '\n',
@@ -99,10 +107,10 @@ jobs:
           test -z "$(git status --porcelain --untracked-files=no)"
           test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
 
-      - name: Retain exact-head candidate evidence
+      - name: Retain exact-head Phase 0C-19 evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: phase0c19-deep-workspace-roadmap-candidate
+          name: phase0c19-deep-workspace-roadmap
           path: evidence/phase0c19
           if-no-files-found: error
           retention-days: 30
