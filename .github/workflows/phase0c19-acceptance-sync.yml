@@ -37,6 +37,7 @@ jobs:
           set -o pipefail
           mkdir -p evidence/phase0c19-acceptance
           python3 tools/apply_phase0c19_acceptance_sync.py 2>&1 | tee evidence/phase0c19-acceptance/synchronization.txt
+          python3 tools/apply_phase0c19_acceptance_legacy_sync.py 2>&1 | tee evidence/phase0c19-acceptance/legacy-synchronization.txt
 
       - name: Run accepted-state regressions
         shell: bash
@@ -87,6 +88,8 @@ jobs:
           planning/P01-ADR-0033-PROOF-CANDIDATE-SELECTION.md
           planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md
           planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md
+          tools/check_master_plan_closure.py
+          tools/test_check_archive_campaign_complete.py
           work-packages/PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION.md
           EOF
           sort -o /tmp/allowed.txt /tmp/allowed.txt
@@ -115,6 +118,8 @@ jobs:
             planning/P01-ADR-0033-PROOF-CANDIDATE-SELECTION.md \
             planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md \
             planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md \
+            tools/check_master_plan_closure.py \
+            tools/test_check_archive_campaign_complete.py \
             work-packages/PHASE-0C-19-DEEP-WORKSPACE-ROADMAP-RECONCILIATION.md
           git commit -m 'Accept deep Workspace planning load as version 1.1.0'
           git push origin "HEAD:${BRANCH}"
