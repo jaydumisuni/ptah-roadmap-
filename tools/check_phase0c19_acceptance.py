@@ -143,7 +143,7 @@ def validate(root: Path) -> dict:
     for key in ["master_plan", "implementation_roadmap"]:
         require(index.get("plan_documents", {}).get(key, {}).get("version") == "1.1.0", f"machine {key} version mismatch")
 
-    require("no Core family" in acceptance, "Core-extension boundary missing")
+    require("No Core family is added" in acceptance, "Core-extension boundary missing")
     require("no frozen contract is reopened" in acceptance, "frozen-contract boundary missing")
     require("Ptah does not choose work" in acceptance, "neutral Ptah boundary missing")
     require("The next action is to run the proof kit" in handoff, "handoff next action mismatch")
