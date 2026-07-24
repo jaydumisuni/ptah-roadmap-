@@ -34,13 +34,16 @@ jobs:
           test "$actual" = "$expected"
 
       - name: Apply guarded canonical synchronization
-        run: python3 tools/apply_phase0c19_deep_workspace_sync.py
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p evidence/phase0c19
+          python3 tools/apply_phase0c19_deep_workspace_sync.py 2>&1 | tee evidence/phase0c19/synchronization.txt
 
       - name: Run candidate regressions
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p evidence/phase0c19
           python3 -m unittest -v tools/test_check_phase0c19_deep_workspace_reconciliation.py 2>&1 | tee evidence/phase0c19/regressions.txt
 
       - name: Run standalone candidate validator
@@ -68,9 +71,7 @@ jobs:
           planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md
           EOF
           sort -o /tmp/allowed.txt /tmp/allowed.txt
-          if ! comm -23 /tmp/changed.txt /tmp/allowed.txt | grep -q .; then
-            :
-          else
+          if comm -23 /tmp/changed.txt /tmp/allowed.txt | grep -q .; then
             echo 'Unexpected synchronized files:'
             comm -23 /tmp/changed.txt /tmp/allowed.txt
             exit 1
@@ -106,9 +107,10 @@ jobs:
           git push origin "HEAD:${BRANCH}"
 
       - name: Retain exact-head candidate evidence
+        if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: phase0c19-deep-workspace-roadmap-candidate
           path: evidence/phase0c19
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 30
