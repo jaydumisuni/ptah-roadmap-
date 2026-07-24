@@ -206,7 +206,12 @@ def validate(root: Path) -> dict[str, Any]:
     require(not (root / "archive/campaign-001/af11").exists(), "unexpected AF11")
 
     current = (root / "CURRENT_STATE.md").read_text(encoding="utf-8")
-    require("**Active work unit:** 0C-04 / P01 — physical pinned-host proof" in current, "P01 current-state authority missing")
+    phase0c19_active = "**Active work unit:** Phase 0C-19 — deep Workspace study Master Plan and roadmap reconciliation; P01 paused" in current
+    p01_active = "**Active work unit:** 0C-04 / P01 — physical pinned-host proof" in current
+    require(phase0c19_active or p01_active, "current implementation-authorization work authority missing")
+    if phase0c19_active:
+        require("P01: PAUSED" in current, "Phase 0C-19 current state does not pause P01")
+        require("physical-host collection: NOT STARTED" in current, "physical-host collection started during Phase 0C-19")
     require("**Runtime implementation:** NOT AUTHORIZED" in current, "runtime non-authorization missing")
     require("- proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`." in current, "ADR-0033 proposed state missing")
     require("**Runtime implementation:** AUTHORIZED" not in current, "runtime authorized prematurely")
