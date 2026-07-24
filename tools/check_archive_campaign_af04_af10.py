@@ -125,8 +125,10 @@ def validate(repo_root: Path) -> dict[str, Any]:
     require(91 + 7 == 98, "full campaign obligation closure mismatch")
 
     current = (repo_root / "CURRENT_STATE.md").read_text(encoding="utf-8")
+    proposed_adr_line = "- proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`."
     require("P01" in current and "physical" in current.lower(), "P01 physical-host blocker missing")
-    require("ADR-0033" in current and "PROPOSED" in current, "ADR-0033 proposed state missing")
+    require(proposed_adr_line in current, "ADR-0033 proposed state missing")
+    require("ADR-0033: ACCEPTED" not in current, "ADR-0033 accepted prematurely")
     require("Runtime implementation:** NOT AUTHORIZED" in current or "Runtime implementation: NOT AUTHORIZED" in current, "runtime non-authorization missing")
     require("Runtime implementation: AUTHORIZED" not in current, "runtime authorized prematurely")
     manifest = (repo_root / "archive" / "CAMPAIGN-001-FORMATION-MANIFEST.md").read_text(encoding="utf-8")
