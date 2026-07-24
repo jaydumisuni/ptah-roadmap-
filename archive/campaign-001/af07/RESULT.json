@@ -1,25 +1,5 @@
 {
-  "schema_version":"1.0.0",
-  "record_type":"ptah.archive_campaign_formation_result",
-  "campaign_id":"CAMPAIGN-001",
-  "formation_id":"AF07",
-  "status":"candidate_evidence_complete_non_authorizing",
-  "base_authority_commit":"55d0613bc95ab83fcbd91541c29f436156ad5a64",
-  "protocol_version":"1.0.0",
-  "assigned_record_count":10,
-  "reconciled_record_count":10,
-  "accepted_archive_record_count":10,
-  "blocked_record_count":0,
-  "remaining_evidence_count":0,
-  "primary_worker_count":10,
-  "verifier_worker_count":10,
-  "checkpoint_05":"archive/campaign-001/af07/CHECKPOINT-05.md",
-  "checkpoint_10":"archive/campaign-001/af07/CHECKPOINT-10.md",
-  "sergeant_review":"archive/campaign-001/af07/SERGEANT-REVIEW.md",
-  "sergeant_review_complete":true,
-  "sergeant_review_target_head":"50b62cd8d4870eaf1a709d719a0939651fe54d80",
-  "sergeant_review_result":"pass_with_mandatory_retained_restrictions",
-  "sergeant_blocking_finding_count":0,
+  "schema_version":"1.0.0","record_type":"ptah.archive_campaign_formation_result","campaign_id":"CAMPAIGN-001","formation_id":"AF07","status":"accepted_complete_non_authorizing","base_authority_commit":"55d0613bc95ab83fcbd91541c29f436156ad5a64","protocol_version":"1.0.0","assigned_record_count":10,"reconciled_record_count":10,"accepted_archive_record_count":10,"blocked_record_count":0,"remaining_evidence_count":0,"primary_worker_count":10,"verifier_worker_count":10,"checkpoint_05":"archive/campaign-001/af07/CHECKPOINT-05.md","checkpoint_10":"archive/campaign-001/af07/CHECKPOINT-10.md","sergeant_review":"archive/campaign-001/af07/SERGEANT-REVIEW.md","sergeant_review_complete":true,"sergeant_review_target_head":"50b62cd8d4870eaf1a709d719a0939651fe54d80","sergeant_review_result":"pass_with_mandatory_retained_restrictions","sergeant_blocking_finding_count":0,
   "records":[
     {"id":"D041","source":"denoland/deno","branch":"main","commit":"39c22a203a2b6d7cd3d9d5149c5348fe2268e4a6","outcome":"accepted_for_archive_mit_script_runtime_with_permission_module_network_ffi_and_identity_boundaries","primary":"AF07-P01","verifier":"AF07-V01","path":"archive/campaign-001/af07/records/D041-DENO.md"},
     {"id":"D057","source":"anchore/grype","branch":"main","commit":"4562c55cebba5fe50a0c5afc7cec50a3b2392a87","outcome":"accepted_for_archive_apache_vulnerability_scanner_with_database_matcher_sbom_and_finding_limits","primary":"AF07-P02","verifier":"AF07-V02","path":"archive/campaign-001/af07/records/D057-GRYPE.md"},
@@ -32,8 +12,5 @@
     {"id":"D011","source":"oras-project/oras","branch":"main","commit":"e5f2178b4079d78b68fb2a31ac88543a6ab81722","outcome":"accepted_for_archive_apache_oci_artifact_client_with_registry_digest_credential_and_retention_boundaries","primary":"AF07-P09","verifier":"AF07-V09","path":"archive/campaign-001/af07/records/D011-ORAS.md"},
     {"id":"I001","source":"private:jaydumisuni/hunter","branch":"master","commit":"0c1e9154367e48afb807d4cf5ec6713df94c9ff0","outcome":"accepted_for_archive_private_hunter_application_requirements_and_adapter_boundary","primary":"AF07-P10","verifier":"AF07-V10","path":"archive/campaign-001/af07/records/I001-HUNTER-AI.md"}
   ],
-  "phase_0a_reopened":false,
-  "adr_0033_accepted":false,
-  "runtime_implementation_authorized":false,
-  "af08_started":false
+  "phase_0a_reopened":false,"adr_0033_accepted":false,"runtime_implementation_authorized":false,"candidate_exact_head":"6eed78a9acca4614d9dd99c175681ba4ff476c8e","candidate_workflow_run":"30076705760","candidate_artifact_id":"8590135926","candidate_artifact_digest":"sha256:c7e3a9be59b5ba859b67a1b352fee32b2c43c44e774e3e70b07aaac857d8b3a7","candidate_validation_report_sha256":"7a53cdccfb520cbc29dfb842b952dbcbca5800f02ed1ce2a67b8a3743180d247","candidate_merge":"ec78db9ce5b44a5d05465a1cb6271c7e6594079e","acceptance_record":"archive/campaign-001/af07/ACCEPTANCE.md","campaign_acceptance_record":"archive/campaign-001/ACCEPTANCE.md","formation_accepted":true,"campaign_complete_pending_binding":true
 }
