@@ -110,7 +110,11 @@ class CampaignClosureTests(unittest.TestCase):
         self.expect_fail(lambda: self.edit_json("af10", lambda d: d.__setitem__("sergeant_review_target_head", "0" * 40)))
 
     def test_19_runtime_authorization_fails(self):
-        self.expect_fail(lambda: self.edit_text("CURRENT_STATE.md", "Runtime implementation:** NOT AUTHORIZED", "Runtime implementation: AUTHORIZED"))
+        self.expect_fail(lambda: self.edit_text(
+            "CURRENT_STATE.md",
+            "**Runtime implementation:** NOT AUTHORIZED",
+            "**Runtime implementation:** AUTHORIZED",
+        ))
 
     def test_20_adr_acceptance_fails(self):
         self.expect_fail(lambda: self.edit_text(
