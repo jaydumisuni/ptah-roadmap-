@@ -57,14 +57,16 @@ jobs:
       - name: Run inherited permanent validators
         shell: bash
         run: |
-          set -euo pipefail
-          PYTHONPATH=tools python3 -m unittest -v \
-            tools/test_check_master_plan_closure.py \
-            tools/test_check_archive_campaign_complete.py \
-            tools/test_check_platform_diagnostic_advisory.py
-          python3 tools/check_master_plan_closure.py --repo-root .
-          python3 tools/check_archive_campaign_complete.py --repo-root .
-          python3 tools/check_platform_diagnostic_advisory.py --repo-root .
+          set -o pipefail
+          {
+            PYTHONPATH=tools python3 -m unittest -v \
+              tools/test_check_master_plan_closure.py \
+              tools/test_check_archive_campaign_complete.py \
+              tools/test_check_platform_diagnostic_advisory.py
+            python3 tools/check_master_plan_closure.py --repo-root .
+            python3 tools/check_archive_campaign_complete.py --repo-root .
+            python3 tools/check_platform_diagnostic_advisory.py --repo-root .
+          } 2>&1 | tee evidence/phase0c19-acceptance/inherited-validators.txt
 
       - name: Enforce accepted-state write boundary
         shell: bash
