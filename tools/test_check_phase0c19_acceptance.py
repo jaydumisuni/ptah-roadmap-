@@ -106,7 +106,7 @@ class Phase0C19AcceptanceTests(unittest.TestCase):
         root = self.copy_state(); self.replace(root, "IMPLEMENTATION_ROADMAP.md", "- **X5:**", "- **removed:**"); self.invalid(root)
 
     def test_21_core_boundary_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-ACCEPTANCE.md", "no Core family is added", "a Core family is added"); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-ACCEPTANCE.md", "No Core family is added", "A Core family is added"); self.invalid(root)
 
     def test_22_contract_boundary_fails(self) -> None:
         root = self.copy_state(); self.replace(root, "planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-ACCEPTANCE.md", "no frozen contract is reopened", "frozen contracts are reopened"); self.invalid(root)
