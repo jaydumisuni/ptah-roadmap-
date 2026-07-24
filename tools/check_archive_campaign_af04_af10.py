@@ -125,14 +125,16 @@ def validate(repo_root: Path) -> dict[str, Any]:
     require(91 + 7 == 98, "full campaign obligation closure mismatch")
 
     current = (repo_root / "CURRENT_STATE.md").read_text(encoding="utf-8")
+    active_p01_line = "**Active work unit:** 0C-04 / P01 — physical pinned-host proof, package review, durable evidence and ADR-0033 closure"
     proposed_adr_line = "- proposed `decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md`."
-    require("P01" in current and "physical" in current.lower(), "P01 physical-host blocker missing")
+    require(active_p01_line in current, "P01 physical-host active work unit missing")
     require(proposed_adr_line in current, "ADR-0033 proposed state missing")
     require("ADR-0033: ACCEPTED" not in current, "ADR-0033 accepted prematurely")
     require("**Runtime implementation:** NOT AUTHORIZED" in current, "runtime non-authorization field missing")
     require("**Runtime implementation:** AUTHORIZED" not in current, "runtime authorized prematurely")
     manifest = (repo_root / "archive" / "CAMPAIGN-001-FORMATION-MANIFEST.md").read_text(encoding="utf-8")
-    require("AF04" in manifest and "READY / NOT STARTED" in manifest, "candidate branch promoted campaign authority prematurely")
+    require("- next formation: AF04 READY / NOT STARTED" in manifest, "campaign next-formation authority drift")
+    require("## AF04\n\n- status: READY / NOT STARTED" in manifest, "AF04 candidate status promoted prematurely")
     require(not (repo_root / "archive" / "campaign-001" / "af11").exists(), "unexpected AF11 formation exists")
 
     return {
