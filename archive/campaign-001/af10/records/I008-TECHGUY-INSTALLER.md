@@ -16,6 +16,6 @@ The internal product requirement for Windows 10/11, Ubuntu, Office and prepared 
 
 Safe next action: identify or create the canonical private repository from the approved local project, pin a clean commit, inventory OS/media/licence assets and record install, rollback and verification boundaries.
 
-Restrictions: do not substitute adjacent repositories; no copying/adaptation from unrecovered source; no OS/Office entitlement claim; installation acknowledgement never equals boot/application verification.
+Restrictions: do not substitute adjacent repositories; copying or adaptation from unrecovered source remains prohibited; no OS/Office entitlement claim; installation acknowledgement never equals boot/application verification.
 
 This completed block does not authorize implementation.
