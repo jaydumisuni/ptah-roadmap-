@@ -37,6 +37,12 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
         data["product_clarifications"][INDEX_KEY][key] = value
         path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 
+    def mutate_campaign_state(self, root: Path, key: str, value: object) -> None:
+        path = root / "archive/campaign-001/OPERATIVE-STATE.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        data[key] = value
+        path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
     def assert_invalid(self, root: Path) -> None:
         with self.assertRaises(ValidationError):
             validate_repo(root)
@@ -55,9 +61,13 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
         self.assertTrue(result["af03_accepted"])
         self.assertTrue(result["af03_started"])
         self.assertTrue(result["af03_authorized"])
-        self.assertTrue(result["af04_ready"])
-        self.assertFalse(result["af04_started"])
-        self.assertFalse(result["af04_authorized"])
+        self.assertTrue(result["af04_accepted"])
+        self.assertFalse(result["af04_ready"])
+        self.assertTrue(result["af04_started"])
+        self.assertTrue(result["af04_authorized"])
+        self.assertTrue(result["archive_campaign_complete"])
+        self.assertFalse(result["adr_0033_accepted"])
+        self.assertFalse(result["runtime_implementation_authorized"])
 
     def test_protocol_cannot_become_consciousness_claim(self) -> None:
         root = self.make_repo()
@@ -289,14 +299,27 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
         self.mutate_index(root, "may_block_unrelated_capable_work", True)
         self.assert_invalid(root)
 
-    def test_af04_cannot_start(self) -> None:
+    def test_af04_acceptance_cannot_revert(self) -> None:
         root = self.make_repo()
         campaign = root / "archive/CAMPAIGN-001-FORMATION-MANIFEST.md"
         text = campaign.read_text(encoding="utf-8")
         before, after = text.split("## AF04", 1)
         af04, rest = after.split("## AF05", 1)
-        self.assertIn("- status: READY / NOT STARTED", af04)
-        campaign.write_text(before + "## AF04" + af04.replace("- status: READY / NOT STARTED", "- status: ACTIVE", 1) + "## AF05" + rest, encoding="utf-8")
+        self.assertIn("- status: ACCEPTED COMPLETE", af04)
+        campaign.write_text(
+            before + "## AF04" + af04.replace("- status: ACCEPTED COMPLETE", "- status: READY / NOT STARTED", 1) + "## AF05" + rest,
+            encoding="utf-8",
+        )
+        self.assert_invalid(root)
+
+    def test_campaign_completion_cannot_drift(self) -> None:
+        root = self.make_repo()
+        self.mutate_campaign_state(root, "completed_formation_count", 9)
+        self.assert_invalid(root)
+
+    def test_campaign_cannot_authorize_runtime(self) -> None:
+        root = self.make_repo()
+        self.mutate_campaign_state(root, "runtime_implementation_authorized", True)
         self.assert_invalid(root)
 
     def test_adr0033_cannot_be_accepted(self) -> None:
@@ -319,7 +342,6 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
                      "**Status:** REOPENED")
         self.assert_invalid(root)
 
-
     def test_accepted_protocol_cannot_revert(self) -> None:
         root = self.make_repo()
         self.replace(
@@ -339,6 +361,7 @@ class DiagnosticAndWorkerValidationTests(unittest.TestCase):
             "Status: proposed",
         )
         self.assert_invalid(root)
+
 
 if __name__ == "__main__":
     unittest.main()

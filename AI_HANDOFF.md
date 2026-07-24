@@ -1,8 +1,8 @@
 # Ptah durable AI/chat handoff
 
-Last updated: 2026-07-21
+Last updated: 2026-07-24
 
-Status: Master Plan and implementation roadmap accepted — P01 physical-host closure active — runtime implementation unauthorized
+Status: Master Plan and implementation roadmap accepted — Campaign 001 accepted complete — P01 physical-host closure active — runtime implementation unauthorized
 
 ## Read first
 
@@ -11,13 +11,15 @@ Status: Master Plan and implementation roadmap accepted — P01 physical-host cl
 3. `master-plan-index.json`
 4. `MASTER_PLAN.md`
 5. `IMPLEMENTATION_ROADMAP.md`
-6. `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`
-7. `planning/MASTER-PLAN-RECONCILIATION.md`
-8. `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`
-9. `PROGRESS.md`
-10. `DECISIONS.md` and the referenced ADRs
-11. `MEMORY_PROTOCOL.md`
-12. current source and evidence in `jaydumisuni/Ptah-space`
+6. `archive/campaign-001/OPERATIVE-BINDING.md`
+7. `archive/campaign-001/OPERATIVE-STATE.json`
+8. `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`
+9. `planning/MASTER-PLAN-RECONCILIATION.md`
+10. `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`
+11. `PROGRESS.md`
+12. `DECISIONS.md` and the referenced ADRs
+13. `MEMORY_PROTOCOL.md`
+14. current source and evidence in `jaydumisuni/Ptah-space`
 
 Do not ask the owner to repeat information recoverable from these records.
 
@@ -53,27 +55,37 @@ Programmes B–F — PLANNED
 ADR-0035: ACCEPTED
 Phase 0C-17: COMPLETE
 protocol version: 1.0.0
-candidate merge: c4973cbf4d02a34f14a7aefa85b8e2ea7b392752
-operative acceptance merge: 40ca127c6d3054bda785061090acefaefcf4cd42
-AF01: ACCEPTED COMPLETE
-AF02: ACCEPTED COMPLETE
-AF03: ACCEPTED COMPLETE
-AF04: READY / NOT STARTED
+formation-authority candidate merge: c4973cbf4d02a34f14a7aefa85b8e2ea7b392752
+formation-authority operative acceptance merge: 40ca127c6d3054bda785061090acefaefcf4cd42
+Campaign 001: ACCEPTED COMPLETE
+AF01–AF10: ACCEPTED COMPLETE
+obligations closed: 98 of 98
+accepted archive records: 91
+completed blocked outcomes: 7
+remaining evidence: 0
+AF11: DOES NOT EXIST
 ```
 
 Read when doing archive/recovery work:
 
 - `planning/PTAH-TENFOLD-ARCHIVE-FORMATION-PROTOCOL.md`;
 - `archive/CAMPAIGN-001-FORMATION-MANIFEST.md`;
+- `archive/campaign-001/ACCEPTANCE.md`;
+- `archive/campaign-001/OPERATIVE-BINDING.md`;
+- `archive/campaign-001/OPERATIVE-STATE.json`;
 - `archive/ARCHIVE-RECORD-TEMPLATE.md`;
 - accepted ADR-0035;
 - accepted Phase 0C-17 work package.
 
-Candidate evidence: exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`, run `29853954659`, artifact `8504497355`, digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`.
+Formation-authority candidate evidence: exact head `58b577b6793ec28de084e6d712c3c1e88bfe2d3a`, run `29853954659`, artifact `8504497355`, digest `sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4`.
 
-Accepted-state evidence: exact head `b96b84d17cf03e905bd0b1baf3c46b8aec09334a`, run `29855000427`, artifact `8504901567`, digest `sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2`. Operative merge: `40ca127c6d3054bda785061090acefaefcf4cd42`. Full record: `planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md`.
+Formation-authority accepted evidence: exact head `b96b84d17cf03e905bd0b1baf3c46b8aec09334a`, run `29855000427`, artifact `8504901567`, digest `sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2`. Operative merge: `40ca127c6d3054bda785061090acefaefcf4cd42`.
 
-Campaign 001 covers 98 source obligations with ten twenty-private formations and one primary/verifier pair per obligation. AF01 is accepted complete with nine accepted archive records and one completed MiniRouter source-reuse block. Evidence: exact head `f60e340cb856d50e88b4279147a933d838fce759`, run `29862087745`, artifact `8507695005`, candidate merge `0a35a8a904bdf235fa4989ea05b684443d5a879a`, acceptance record `archive/campaign-001/af01/ACCEPTANCE.md`. AF01 accepted closure merged as `ea2424bb5bc2bdb698bfc1bf389601457abd3c89`. AF02 is accepted complete with ten accepted archive records and zero blocks. AF03 is also accepted complete with ten accepted archive records and zero blocks. AF03 evidence: exact head `4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d`, run `30003085272`, artifact `8561809711`, candidate merge `d86218e1127c57bacfb4d88eff15b81d326995ba`, independent Sergeant result `pass_with_mandatory_retained_restrictions`, acceptance record `archive/campaign-001/af03/ACCEPTANCE.md`. AF04 is READY / NOT STARTED.
+Campaign AF04–AF10 candidate evidence: exact head `6eed78a9acca4614d9dd99c175681ba4ff476c8e`, run `30076705760`, artifact `8590135926`, digest `sha256:c7e3a9be59b5ba859b67a1b352fee32b2c43c44e774e3e70b07aaac857d8b3a7`, validation SHA-256 `7a53cdccfb520cbc29dfb842b952dbcbca5800f02ed1ce2a67b8a3743180d247`, candidate merge `ec78db9ce5b44a5d05465a1cb6271c7e6594079e`.
+
+Campaign accepted-state evidence: exact head `03e027b5b2898b096652688157623ad31d3c16d7`, run `30078410676`, artifact `8590777774`, digest `sha256:9a9948862f7c8af5f6551a239a19091c2e37a5565442be0ff9c90459932a2398`, validation SHA-256 `f78ebcbe2781480ce90472b5d373cc282cb13628acc3e7dcc853f8abe6ebab7f`. Operative acceptance merge: `f7280e4af1323096196ab0534e5f76b9375fd6d7`.
+
+The seven completed blocks are `D047`, `D065`, `I018`, `I008`, `I019`, `I024` and `I025`. They remain source/rights recovery blocks with retained safe next actions; campaign closure does not grant source reuse.
 
 The campaign is an archive/recovery workflow, not proof that a 200-agent runtime exists and not runtime implementation authority.
 
@@ -94,8 +106,7 @@ Human/calling application = intent, approval, acceptance and release
 
 Ptah does not select context, rank sources, approve work, issue review verdicts, promote candidates or choose the next agent/action. Private correction merge `fc8ac4c42a3358da37c4866879543a5d7c4d1885` is bound in `planning/PTAH-NEUTRAL-SUBSTRATE-CORRECTION-MERGE.md`.
 
-AF03 is ACCEPTED COMPLETE; AF04 is READY / NOT STARTED.
-
+Campaign 001 is ACCEPTED COMPLETE; all ten formation results remain non-authorizing archive evidence.
 
 ## Accepted diagnostic advisory and efficient worker boundary
 
@@ -112,7 +123,7 @@ Ptah may not choose caller work, invent semantic scope, approve a result, approv
 
 Evidence: exact head `d2608ba7c619c1c402091edd619a4b29813ee9a7`, run `29986975197`, artifact `8555395796`, digest `sha256:72025fb0aa5a969ea73abe95d7352f7cf14f1c847943955bd768a46d964a4c61`. Full record: `planning/PTAH-DIAGNOSTIC-WORKER-AUTHORITY-ACCEPTANCE.md`.
 
-AF03 is ACCEPTED COMPLETE; AF04 is READY / NOT STARTED.
+Campaign 001 archive closure does not change the Phase 0C-18 diagnostic authority boundary and does not authorize implementation.
 
 ## Exact next action
 
@@ -153,6 +164,7 @@ Physical pinned-host proof
 Master Plan: ACCEPTED
 Implementation roadmap: ACCEPTED
 ADR-0034: ACCEPTED
+Archive Campaign 001: ACCEPTED COMPLETE
 Physical-host proof: OPEN
 ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED

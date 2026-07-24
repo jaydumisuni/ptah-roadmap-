@@ -1,12 +1,14 @@
 # Ptah Archive Campaign 001 — Formation Manifest
 
-Status: accepted campaign backlog — no source record pre-accepted, no Phase 0A reopening and no runtime authorization
+Status: ACCEPTED COMPLETE — 98 obligations closed, non-authorizing archive authority
 
 Recorded: 2026-07-21
 
+Operative acceptance bound: 2026-07-24
+
 Seed evidence: uploaded `Ptah donor pool analysis.txt`, SHA-256 `267c559073225f9b03db04130a433fe81e964b6321d9d089634ec760f626e94f`.
 
-The seed is a queue source, not current authority. Every lane must reconcile against accepted roadmap records, exact current public source and approved private records.
+The seed is a queue source, not current authority. Every lane was reconciled against accepted roadmap records, exact public source evidence and approved private records. Record-level restrictions remain operative after campaign acceptance.
 
 ## Campaign totals
 
@@ -15,12 +17,15 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 - total obligations: 98
 - standard formations: 10
 - allocated privates: 200
-- coverage: one primary archivist and one independent verifier per obligation
+- coverage: one primary archivist and one independent verifier per assigned obligation
 - private verdict authority: none
-- completed formations: 3
-- accepted archive records: 29
-- blocked completed outcomes: 1
-- next formation: AF04 READY / NOT STARTED
+- completed formations: 10
+- accepted archive records: 91
+- blocked completed outcomes: 7
+- remaining evidence: 0
+- next formation: NONE — AF11 DOES NOT EXIST
+- operative state: `archive/campaign-001/OPERATIVE-STATE.json`
+- operative binding: `archive/campaign-001/OPERATIVE-BINDING.md`
 
 ## AF01
 
@@ -100,9 +105,14 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF04
 
-- status: READY / NOT STARTED
+- status: ACCEPTED COMPLETE
 - private count: 20
 - assigned records: 10
+- accepted archive records: 10
+- blocked completed outcomes: 0
+- remaining evidence: 0
+- result: `archive/campaign-001/af04/RESULT.json`
+- acceptance: `archive/campaign-001/af04/ACCEPTANCE.md`
 - reserve pairs: 0
 
 | Record | Source | Class/family | Primary | Verifier |
@@ -120,8 +130,14 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF05
 
+- status: ACCEPTED COMPLETE
 - private count: 20
 - assigned records: 10
+- accepted archive records: 9
+- blocked completed outcomes: 1
+- remaining evidence: 0
+- result: `archive/campaign-001/af05/RESULT.json`
+- acceptance: `archive/campaign-001/af05/ACCEPTANCE.md`
 - reserve pairs: 0
 
 | Record | Source | Class/family | Primary | Verifier |
@@ -139,8 +155,14 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF06
 
+- status: ACCEPTED COMPLETE
 - private count: 20
 - assigned records: 10
+- accepted archive records: 10
+- blocked completed outcomes: 0
+- remaining evidence: 0
+- result: `archive/campaign-001/af06/RESULT.json`
+- acceptance: `archive/campaign-001/af06/ACCEPTANCE.md`
 - reserve pairs: 0
 
 | Record | Source | Class/family | Primary | Verifier |
@@ -158,8 +180,14 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF07
 
+- status: ACCEPTED COMPLETE
 - private count: 20
 - assigned records: 10
+- accepted archive records: 10
+- blocked completed outcomes: 0
+- remaining evidence: 0
+- result: `archive/campaign-001/af07/RESULT.json`
+- acceptance: `archive/campaign-001/af07/ACCEPTANCE.md`
 - reserve pairs: 0
 
 | Record | Source | Class/family | Primary | Verifier |
@@ -177,8 +205,14 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF08
 
+- status: ACCEPTED COMPLETE
 - private count: 20
 - assigned records: 10
+- accepted archive records: 10
+- blocked completed outcomes: 0
+- remaining evidence: 0
+- result: `archive/campaign-001/af08/RESULT.json`
+- acceptance: `archive/campaign-001/af08/ACCEPTANCE.md`
 - reserve pairs: 0
 
 | Record | Source | Class/family | Primary | Verifier |
@@ -196,8 +230,14 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF09
 
+- status: ACCEPTED COMPLETE
 - private count: 20
 - assigned records: 10
+- accepted archive records: 10
+- blocked completed outcomes: 0
+- remaining evidence: 0
+- result: `archive/campaign-001/af09/RESULT.json`
+- acceptance: `archive/campaign-001/af09/ACCEPTANCE.md`
 - reserve pairs: 0
 
 | Record | Source | Class/family | Primary | Verifier |
@@ -215,9 +255,16 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## AF10
 
+- status: ACCEPTED COMPLETE
 - private count: 20
 - assigned records: 8
+- accepted archive records: 3
+- blocked completed outcomes: 5
+- remaining evidence: 0
+- result: `archive/campaign-001/af10/RESULT.json`
+- acceptance: `archive/campaign-001/af10/ACCEPTANCE.md`
 - reserve pairs: 2
+- reserve pairs used: 0
 
 | Record | Source | Class/family | Primary | Verifier |
 |---|---|---|---|---|
@@ -234,4 +281,6 @@ The seed is a queue source, not current authority. Every lane must reconcile aga
 
 ## Formation completion rule
 
-A formation is complete only when every assigned record is either independently reconciled and retained or explicitly blocked/parked with evidence and a safe next action. A green count without retained per-record evidence does not close the formation.
+A formation is complete only when every assigned record is independently reconciled and retained or explicitly blocked with evidence and a safe next action. A green count without retained per-record evidence does not close the formation.
+
+Campaign 001 satisfied this rule for all ten formations. Acceptance is archive authority only: Phase 0A remains frozen, P01 remains active, ADR-0033 remains proposed and runtime implementation remains unauthorized.

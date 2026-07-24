@@ -94,7 +94,10 @@ jobs:
               "af03_accepted",
               "af03_started",
               "af03_authorized",
-              "af04_ready",
+              "af04_accepted",
+              "af04_started",
+              "af04_authorized",
+              "archive_campaign_complete",
           )
           for key in expected_true:
               if evidence.get(key) is not True:
@@ -124,8 +127,7 @@ jobs:
               "may_block_unrelated_capable_work",
               "sergeant_review_authority_borrowed",
               "sergeant_mission_selection_borrowed",
-              "af04_started",
-              "af04_authorized",
+              "af04_ready",
               "phase_0a_reopened",
               "adr_0033_accepted",
               "runtime_implementation_authorized",

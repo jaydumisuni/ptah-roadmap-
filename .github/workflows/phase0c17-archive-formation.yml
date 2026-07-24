@@ -13,222 +13,32 @@ env:
   PTAH_EXACT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
 jobs:
-  archive-formation:
+  phase0c17-operative-campaign:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
-
+    timeout-minutes: 15
     steps:
-      - name: Check out exact archive-formation head
+      - name: Check out exact operative head
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ env.PTAH_EXACT_SHA }}
           persist-credentials: false
-
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: "3.13"
-
       - name: Verify exact checked-out head
         run: test "$(git rev-parse HEAD)" = "$PTAH_EXACT_SHA"
-
-      - name: Run adversarial archive regressions
+      - name: Validate operative tenfold campaign
         run: |
-          mkdir -p conformance/reports/archive-formation
+          mkdir -p conformance/reports/phase0c17-archive-campaign
           set -o pipefail
-          python3 tools/test_check_archive_formation.py -v 2>&1 \
-            | tee conformance/reports/archive-formation/regressions.txt
-
-      - name: Validate archive formation package
-        run: |
-          set -o pipefail
-          python3 tools/check_archive_formation.py \
-            --repo-root . \
-            --output conformance/reports/archive-formation/archive-formation-report.json \
-            2>&1 | tee conformance/reports/archive-formation/validator-output.txt
-
-      - name: Bind accepted evidence to exact head
-        run: |
-          python3 - <<'PY'
-          import hashlib
-          import json
-          import os
-          import subprocess
-          from datetime import datetime, timezone
-          from pathlib import Path
-
-          root = Path("conformance/reports/archive-formation")
-          report_path = root / "archive-formation-report.json"
-          report = json.loads(report_path.read_text(encoding="utf-8"))
-          master_index = json.loads(Path("master-plan-index.json").read_text(encoding="utf-8"))
-          archive = master_index["operational_protocols"]["tenfold_archive_formation"]
-          expected = os.environ["PTAH_EXACT_SHA"]
-          checked_out = subprocess.run(
-              ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
-          ).stdout.strip()
-          evidence = {
-              "schema_version": "1.0.0",
-              "record_type": "ptah.phase0c.archive_formation_exact_head_evidence",
-              "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-              "implementation_commit": expected,
-              "checked_out_commit": checked_out,
-              "exact_head_match": checked_out == expected,
-              "validation_report_sha256": hashlib.sha256(report_path.read_bytes()).hexdigest(),
-              **report,
-              "protocol_version": archive.get("protocol_version"),
-              "adr_0035_accepted": archive.get("adr_0035_accepted"),
-              "phase0c_17_complete": archive.get("phase0c_17_complete"),
-              "af01_status": archive.get("af01_status"),
-              "accepted_archive_record_count": archive.get("accepted_archive_record_count"),
-              "blocked_archive_record_count": archive.get("blocked_archive_record_count"),
-              "completed_formation_count": archive.get("completed_formation_count"),
-              "af02_status": archive.get("af02_status"),
-              "af02_started": archive.get("af02_started"),
-              "af02_authorized": archive.get("af02_authorized"),
-              "af02_mission": archive.get("af02_mission"),
-              "af02_accepted_archive_record_count": archive.get("af02_accepted_archive_record_count"),
-              "af02_remaining_evidence_count": archive.get("af02_remaining_evidence_count"),
-              "af02_candidate_exact_head": archive.get("af02_candidate_exact_head"),
-              "af02_candidate_workflow_run": archive.get("af02_candidate_workflow_run"),
-              "af02_candidate_artifact_id": archive.get("af02_candidate_artifact_id"),
-              "af02_candidate_artifact_digest": archive.get("af02_candidate_artifact_digest"),
-              "af02_candidate_validation_report_sha256": archive.get("af02_candidate_validation_report_sha256"),
-              "af02_candidate_merge": archive.get("af02_candidate_merge"),
-              "af02_acceptance_record": archive.get("af02_acceptance_record"),
-              "af03_status": archive.get("af03_status"),
-              "af03_started": archive.get("af03_started"),
-              "af03_authorized": archive.get("af03_authorized"),
-              "af03_accepted_archive_record_count": archive.get("af03_accepted_archive_record_count"),
-              "af03_blocked_record_count": archive.get("af03_blocked_record_count"),
-              "af03_remaining_evidence_count": archive.get("af03_remaining_evidence_count"),
-              "af03_candidate_exact_head": archive.get("af03_candidate_exact_head"),
-              "af03_candidate_workflow_run": archive.get("af03_candidate_workflow_run"),
-              "af03_candidate_artifact_id": archive.get("af03_candidate_artifact_id"),
-              "af03_candidate_artifact_digest": archive.get("af03_candidate_artifact_digest"),
-              "af03_candidate_validation_report_sha256": archive.get("af03_candidate_validation_report_sha256"),
-              "af03_candidate_merge": archive.get("af03_candidate_merge"),
-              "af03_acceptance_record": archive.get("af03_acceptance_record"),
-              "af03_sergeant_review_result": archive.get("af03_sergeant_review_result"),
-              "af03_sergeant_blocking_finding_count": archive.get("af03_sergeant_blocking_finding_count"),
-              "af04_status": archive.get("af04_status"),
-              "af04_started": archive.get("af04_started"),
-              "af04_authorized": archive.get("af04_authorized"),
-              "candidate_exact_head": archive.get("candidate_exact_head"),
-              "candidate_workflow_run": archive.get("candidate_workflow_run"),
-              "candidate_artifact_id": archive.get("candidate_artifact_id"),
-              "candidate_artifact_digest": archive.get("candidate_artifact_digest"),
-              "candidate_merge": archive.get("candidate_merge"),
-              "accepted_state_exact_head": archive.get("accepted_state_exact_head"),
-              "accepted_state_workflow_run": archive.get("accepted_state_workflow_run"),
-              "accepted_state_artifact_id": archive.get("accepted_state_artifact_id"),
-              "accepted_state_artifact_digest": archive.get("accepted_state_artifact_digest"),
-              "accepted_state_validation_report_sha256": archive.get("accepted_state_validation_report_sha256"),
-              "operative_acceptance_merge": archive.get("operative_acceptance_merge"),
-              "acceptance_record": archive.get("acceptance_record"),
-              "af01_candidate_exact_head": archive.get("af01_candidate_exact_head"),
-              "af01_candidate_workflow_run": archive.get("af01_candidate_workflow_run"),
-              "af01_candidate_artifact_id": archive.get("af01_candidate_artifact_id"),
-              "af01_candidate_artifact_digest": archive.get("af01_candidate_artifact_digest"),
-              "af01_candidate_validation_report_sha256": archive.get("af01_candidate_validation_report_sha256"),
-              "af01_candidate_merge": archive.get("af01_candidate_merge"),
-              "af01_acceptance_record": archive.get("af01_acceptance_record"),
-              "af01_acceptance_merge": archive.get("af01_acceptance_merge"),
-          }
-          (root / "exact-head-evidence.json").write_text(
-              json.dumps(evidence, indent=2) + "\n", encoding="utf-8"
-          )
-          if not evidence["exact_head_match"]:
-              raise SystemExit("archive formation did not test the exact head")
-          if evidence["status"] != "accepted_valid_non_authorizing":
-              raise SystemExit("accepted archive formation validation status is invalid")
-          expected_values = {
-              "private_force_multiplier": 10,
-              "minimum_private_force": 20,
-              "formation_count": 10,
-              "allocated_private_count": 200,
-              "assigned_record_count": 98,
-              "external_record_count": 69,
-              "internal_record_count": 29,
-              "primary_worker_slots": 100,
-              "verifier_worker_slots": 100,
-              "reserve_pair_count": 2,
-              "protocol_version": "1.0.0",
-              "af01_status": "accepted_complete",
-              "accepted_archive_record_count": 29,
-              "blocked_archive_record_count": 1,
-              "completed_formation_count": 3,
-              "af02_status": "accepted_complete",
-              "af02_started": True,
-              "af02_authorized": True,
-              "af02_mission": "archive/campaign-001/af02/MISSION.md",
-              "af02_accepted_archive_record_count": 10,
-              "af02_remaining_evidence_count": 0,
-              "af02_candidate_exact_head": "b710574b99269647cdd9029db5a2b217642aa344",
-              "af02_candidate_workflow_run": "29875542752",
-              "af02_candidate_artifact_id": "8512821506",
-              "af02_candidate_artifact_digest": "sha256:78c5b702aa6025f088e2c54002bbe84fead003c92e0bb98ec18fcd0220b1d81c",
-              "af02_candidate_validation_report_sha256": "e18dac8a154547deb30c4482027b10c40dd892fd8a1024cba78f7366b44c6fd9",
-              "af02_candidate_merge": "58d89dfd1d5348cc8423222e3aff256ee041dce2",
-              "af02_acceptance_record": "archive/campaign-001/af02/ACCEPTANCE.md",
-              "af03_status": "accepted_complete",
-              "af03_started": True,
-              "af03_authorized": True,
-              "af03_accepted_archive_record_count": 10,
-              "af03_blocked_record_count": 0,
-              "af03_remaining_evidence_count": 0,
-              "af03_candidate_exact_head": "4916f79ff3a0cbac8ee4ae53f9ac09a0065d7b7d",
-              "af03_candidate_workflow_run": "30003085272",
-              "af03_candidate_artifact_id": "8561809711",
-              "af03_candidate_artifact_digest": "sha256:fa36506e788958d4b3d134f6f1286e4c2d47d309aa15529e6f1d384c9bdcd6a6",
-              "af03_candidate_validation_report_sha256": "e437e8785a846710e2e2434fb3e537a3566fc6baf68b420da6610dd20571f302",
-              "af03_candidate_merge": "d86218e1127c57bacfb4d88eff15b81d326995ba",
-              "af03_acceptance_record": "archive/campaign-001/af03/ACCEPTANCE.md",
-              "af03_sergeant_review_result": "pass_with_mandatory_retained_restrictions",
-              "af03_sergeant_blocking_finding_count": 0,
-              "af04_status": "ready_not_started",
-              "af04_started": False,
-              "af04_authorized": False,
-              "candidate_exact_head": "58b577b6793ec28de084e6d712c3c1e88bfe2d3a",
-              "candidate_workflow_run": "29853954659",
-              "candidate_artifact_id": "8504497355",
-              "candidate_artifact_digest": "sha256:936740e8087e6f7f0a58b3d731117fcb9a4861edfd20c396fb1bb20a7d4f18f4",
-              "candidate_merge": "c4973cbf4d02a34f14a7aefa85b8e2ea7b392752",
-              "accepted_state_exact_head": "b96b84d17cf03e905bd0b1baf3c46b8aec09334a",
-              "accepted_state_workflow_run": "29855000427",
-              "accepted_state_artifact_id": "8504901567",
-              "accepted_state_artifact_digest": "sha256:9d96a1f299060e50ab63132d1bb1da0903d5435f73acdf4fa9e394cdcccf21d2",
-              "accepted_state_validation_report_sha256": "21d5338a7049dbc3a3af2e684efa21e19c281c52355007346291c74dfb7a1d3a",
-              "operative_acceptance_merge": "40ca127c6d3054bda785061090acefaefcf4cd42",
-              "acceptance_record": "planning/TENFOLD-ARCHIVE-AUTHORITY-ACCEPTANCE-MERGE.md",
-              "af01_candidate_exact_head": "f60e340cb856d50e88b4279147a933d838fce759",
-              "af01_candidate_workflow_run": "29862087745",
-              "af01_candidate_artifact_id": "8507695005",
-              "af01_candidate_artifact_digest": "sha256:4ea6bf77131834b48b9e35ad5eb88538a87b6f376f2be4984f077eb3eeed1267",
-              "af01_candidate_validation_report_sha256": "4a8cf20f3aacf8628c1de1b774cc93018705d0aa256a65208a8abf4311edc691",
-              "af01_candidate_merge": "0a35a8a904bdf235fa4989ea05b684443d5a879a",
-              "af01_acceptance_record": "archive/campaign-001/af01/ACCEPTANCE.md",
-              "af01_acceptance_merge": "ea2424bb5bc2bdb698bfc1bf389601457abd3c89",
-          }
-          for key, value in expected_values.items():
-              if evidence.get(key) != value:
-                  raise SystemExit(f"accepted archive formation mismatch: {key}")
-          for key in ("authority_sync_complete", "adr_0035_accepted", "phase0c_17_complete"):
-              if evidence.get(key) is not True:
-                  raise SystemExit(f"accepted archive authority missing: {key}")
-          for key in (
-              "phase_0a_reopened",
-              "adr_0033_accepted",
-              "runtime_implementation_authorized",
-          ):
-              if evidence.get(key) is not False:
-                  raise SystemExit(f"non-authorizing boundary violated: {key}")
-          PY
-
-      - name: Upload exact-head archive evidence
+          python3 tools/test_check_archive_campaign_complete.py -v 2>&1 | tee conformance/reports/phase0c17-archive-campaign/regressions.txt
+          python3 tools/check_archive_campaign_complete.py --repo-root . --output conformance/reports/phase0c17-archive-campaign/validation.json 2>&1 | tee conformance/reports/phase0c17-archive-campaign/validator-output.txt
+      - name: Upload Phase 0C-17 operative evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: phase-0c-17-archive-formation-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
-          path: conformance/reports/archive-formation/
+          name: phase0c17-archive-campaign-${{ env.PTAH_EXACT_SHA }}-${{ github.run_attempt }}
+          path: conformance/reports/phase0c17-archive-campaign/
           if-no-files-found: error
           retention-days: 30

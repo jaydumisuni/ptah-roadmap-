@@ -20,6 +20,7 @@ HANDOFF = Path("AI_HANDOFF.md")
 MASTER_INDEX = Path("master-plan-index.json")
 DONOR_REGISTER = Path("DONOR_RECOVERY.md")
 CAMPAIGN_MANIFEST = Path("archive/CAMPAIGN-001-FORMATION-MANIFEST.md")
+CAMPAIGN_STATE = Path("archive/campaign-001/OPERATIVE-STATE.json")
 ADR0033 = Path("decisions/ADR-0033-FIRST-VERTICAL-SLICE-HOST-LICENCE-LAYOUT-BACKENDS.md")
 CANDIDATE_HEAD = "d2608ba7c619c1c402091edd619a4b29813ee9a7"
 CANDIDATE_RUN = "29986975197"
@@ -42,6 +43,7 @@ REQUIRED_FILES = (
     MASTER_INDEX,
     DONOR_REGISTER,
     CAMPAIGN_MANIFEST,
+    CAMPAIGN_STATE,
     ADR0033,
 )
 
@@ -80,6 +82,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
     handoff = texts[HANDOFF]
     donor = texts[DONOR_REGISTER]
     campaign = texts[CAMPAIGN_MANIFEST]
+    campaign_state = json.loads(texts[CAMPAIGN_STATE])
     adr0033 = texts[ADR0033]
     index = json.loads(texts[MASTER_INDEX])
 
@@ -166,14 +169,14 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(decisions, "**ACCEPTED.**", "decision accepted state")
     require(current, "## Accepted Phase 0C-18 diagnostic and efficient-worker boundary", "current-state accepted section")
     require(current, "max(20, human-equivalent workers × 10)", "current worker equation")
-    require(current, "does not start AF03", "current AF03 boundary")
+    require(current, "does not start AF03", "historical current AF03 boundary")
     require(progress, "## Diagnostic advisory and efficient worker boundary — accepted", "progress accepted section")
     require(progress, "spread a caller-given job across bounded workers", "progress owner worker direction")
     require(progress, "implementation remains unauthorized", "progress runtime boundary")
     require(handoff, "## Accepted diagnostic advisory and efficient worker boundary", "handoff accepted section")
     require(handoff, "caller-submitted job and Recipe/Plan", "handoff worker boundary")
-    require(handoff, "AF03: ACCEPTED COMPLETE", "handoff AF03 accepted state")
-    require(handoff, "AF04: READY / NOT STARTED", "handoff AF04 boundary")
+    require(handoff, "Campaign 001: ACCEPTED COMPLETE", "handoff campaign accepted state")
+    require(handoff, "AF01–AF10: ACCEPTED COMPLETE", "handoff ten-formation state")
 
     # Machine-readable authority.
     if index.get("active_work_unit") != "P01-physical-host-and-ADR-0033-closure":
@@ -224,7 +227,7 @@ def validate_repo(root: Path) -> dict[str, Any]:
         if clarification.get(key) != value:
             raise ValidationError(f"diagnostic/worker machine-index mismatch: {key}")
 
-    # Unchanged gates.
+    # Unchanged authority gates plus the now-operative archive campaign.
     require(donor, "**Status:** COMPLETE AND FROZEN", "Phase 0A frozen")
     reject(donor, "**Status:** REOPENED", "Phase 0A reopened")
     require(campaign, "## AF03", "AF03 campaign section")
@@ -232,7 +235,25 @@ def validate_repo(root: Path) -> dict[str, Any]:
     require(af03, "- status: ACCEPTED COMPLETE", "AF03 accepted state")
     reject(af03, "- status: ACTIVE", "AF03 activation")
     af04 = campaign.split("## AF04", 1)[1].split("## AF05", 1)[0]
-    require(af04, "- status: READY / NOT STARTED", "AF04 ready state")
+    require(af04, "- status: ACCEPTED COMPLETE", "AF04 accepted state")
+    reject(af04, "- status: READY / NOT STARTED", "AF04 acceptance reversion")
+    reject(af04, "- status: ACTIVE", "AF04 incomplete activation")
+    if campaign_state.get("status") != "accepted_complete_non_authorizing":
+        raise ValidationError("Campaign 001 operative status drifted")
+    expected_campaign = {
+        "formation_count": 10,
+        "completed_formation_count": 10,
+        "obligation_count": 98,
+        "accepted_archive_record_count": 91,
+        "blocked_completed_outcome_count": 7,
+        "remaining_evidence_count": 0,
+        "p01_closed": False,
+        "adr_0033_accepted": False,
+        "runtime_implementation_authorized": False,
+    }
+    for key, value in expected_campaign.items():
+        if campaign_state.get(key) != value:
+            raise ValidationError(f"Campaign 001 operative-state mismatch: {key}")
     require(adr0033, "Status: proposed", "ADR-0033 proposed state")
     if re.search(r"^Status:\s+accepted", adr0033, re.MULTILINE | re.IGNORECASE):
         raise ValidationError("ADR-0033 became accepted")
@@ -264,9 +285,11 @@ def validate_repo(root: Path) -> dict[str, Any]:
         "af03_accepted": True,
         "af03_started": True,
         "af03_authorized": True,
-        "af04_ready": True,
-        "af04_started": False,
-        "af04_authorized": False,
+        "af04_accepted": True,
+        "af04_ready": False,
+        "af04_started": True,
+        "af04_authorized": True,
+        "archive_campaign_complete": True,
         "phase_0a_reopened": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
