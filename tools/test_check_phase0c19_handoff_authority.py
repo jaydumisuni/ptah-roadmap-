@@ -55,16 +55,16 @@ class Phase0C19HandoffAuthorityTests(unittest.TestCase):
         root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "## Current accepted planning authority", "## Accepted planning authority"); self.invalid(root)
 
     def test_04_current_master_plan_version_drift_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "Master Plan version: `1.1.0`", "Master Plan version: `1.0.0`"); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "- Master Plan version: `1.1.0`;", "- Master Plan version: `1.0.0`;"); self.invalid(root)
 
     def test_05_current_roadmap_version_drift_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "implementation roadmap version: `1.1.0`", "implementation roadmap version: `1.0.0`"); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "- implementation roadmap version: `1.1.0`;", "- implementation roadmap version: `1.0.0`;"); self.invalid(root)
 
     def test_06_adr0037_proposed_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "ADR-0037 — ACCEPTED", "ADR-0037 — PROPOSED"); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "- current supplement decision: ADR-0037 — ACCEPTED;", "- current supplement decision: ADR-0037 — PROPOSED;"); self.invalid(root)
 
     def test_07_phase0c19_incomplete_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "Phase 0C-19 — COMPLETE", "Phase 0C-19 — CANDIDATE"); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "- current supplement work package: Phase 0C-19 — COMPLETE;", "- current supplement work package: Phase 0C-19 — CANDIDATE;"); self.invalid(root)
 
     def test_08_stale_proposed_reading_entry_fails(self) -> None:
         root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", "3. accepted ADR-0037;", "3. proposed ADR-0037;"); self.invalid(root)
@@ -76,22 +76,22 @@ class Phase0C19HandoffAuthorityTests(unittest.TestCase):
         root = self.copy_state(); path = root / "AI_HANDOFF.md"; content = path.read_text(encoding="utf-8"); a = f"6. `{checker.BINDING}`"; b = "9. `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`"; self.assertIn(a, content); self.assertIn(b, content); content = content.replace(a, "6. `planning/PHYSICAL-HOST-TO-AUTHORIZATION-CLOSURE.md`", 1).replace(b, f"9. `{checker.BINDING}`", 1); path.write_text(content, encoding="utf-8"); self.invalid(root)
 
     def test_11_acceptance_merge_drift_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", checker.ACCEPTANCE_MERGE, "0" * 40); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", f"- planning-load acceptance merge: `{checker.ACCEPTANCE_MERGE}`;", "- planning-load acceptance merge: `" + "0" * 40 + "`;"); self.invalid(root)
 
     def test_12_binding_head_drift_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", checker.BINDING_HEAD, "0" * 40); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", f"- operative-binding exact head: `{checker.BINDING_HEAD}`;", "- operative-binding exact head: `" + "0" * 40 + "`;"); self.invalid(root)
 
     def test_13_binding_run_drift_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", checker.BINDING_RUN, "0"); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", f"- operative-binding workflow run: `{checker.BINDING_RUN}`;", "- operative-binding workflow run: `0`;"); self.invalid(root)
 
     def test_14_binding_artifact_drift_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", checker.BINDING_ARTIFACT, "0"); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", f"- operative-binding artifact: `{checker.BINDING_ARTIFACT}`;", "- operative-binding artifact: `0`;"); self.invalid(root)
 
     def test_15_binding_merge_drift_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", checker.BINDING_MERGE, "0" * 40); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", f"- operative recovery-binding merge: `{checker.BINDING_MERGE}`.", "- operative recovery-binding merge: `" + "0" * 40 + "`."); self.invalid(root)
 
     def test_16_proof_commit_drift_fails(self) -> None:
-        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", checker.PROOF_COMMIT, "0" * 40); self.invalid(root)
+        root = self.copy_state(); self.replace(root, "AI_HANDOFF.md", f"The next action is to run the proof kit on the exact physical host from confirmed commit `{checker.PROOF_COMMIT}`.", "The next action is to run the proof kit on the exact physical host from confirmed commit `" + "0" * 40 + "`."); self.invalid(root)
 
     def test_17_physical_collection_start_fails(self) -> None:
         root = self.copy_state(); self.replace(root, "CURRENT_STATE.md", "physical-host collection: NOT STARTED", "physical-host collection: STARTED"); self.invalid(root)
@@ -134,6 +134,9 @@ class Phase0C19HandoffAuthorityTests(unittest.TestCase):
 
     def test_30_binding_status_drift_fails(self) -> None:
         root = self.copy_state(); self.replace(root, checker.BINDING, "Status: OPERATIVE ACCEPTANCE BOUND", "Status: PENDING"); self.invalid(root)
+
+    def test_31_binding_self_merge_drift_fails(self) -> None:
+        root = self.copy_state(); self.replace(root, checker.BINDING, f"Operative recovery-binding merge: `{checker.BINDING_MERGE}`", "Operative recovery-binding merge: `" + "0" * 40 + "`"); self.invalid(root)
 
 
 if __name__ == "__main__":
