@@ -25,6 +25,7 @@
     "AI_HANDOFF.md",
     "CURRENT_STATE.md",
     "master-plan-index.json",
+    "planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md",
     "MASTER_PLAN.md",
     "IMPLEMENTATION_ROADMAP.md",
     "planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md",
@@ -50,7 +51,8 @@
       "version": "1.1.0",
       "checkpoint_commit": "566a166054f894a7bb9cf37d33b558c9da481e24",
       "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
-      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
+      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9",
+      "phase0c19_operative_acceptance_merge": "8f04e38f34df8c847af5548d0a31f63e8b396f6b"
     },
     "implementation_roadmap": {
       "path": "IMPLEMENTATION_ROADMAP.md",
@@ -58,7 +60,8 @@
       "version": "1.1.0",
       "checkpoint_commit": "57453b2b074cdea7cd905f0a5331d2edb7d707a0",
       "acceptance_merge": "2c24f9e6b0fc98d5e03605596db75d7495796353",
-      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9"
+      "operative_acceptance_merge": "66bd2410d4c777cd3fd3278107f40fe425e875e9",
+      "phase0c19_operative_acceptance_merge": "8f04e38f34df8c847af5548d0a31f63e8b396f6b"
     },
     "reconciliation": {
       "path": "planning/MASTER-PLAN-RECONCILIATION.md",
@@ -333,7 +336,15 @@
     "confirmed_proof_commit": "23dc4b19a0189ba55e08dfa124761efa806bd68b",
     "proof_commit_confirmed": true,
     "acceptance_record": "planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-ACCEPTANCE.md",
-    "accepted_state_proof_pending": true,
-    "operative_acceptance_merge_pending": true
+    "accepted_state_proof_pending": false,
+    "operative_acceptance_merge_pending": false,
+    "accepted_state_exact_head": "02e3ea2d26e39362ac8a90ad0bb7b248396476a6",
+    "accepted_state_workflow_run": "30097738203",
+    "accepted_state_artifact_id": "8598283488",
+    "accepted_state_artifact_digest": "sha256:1d571edbe7da273c98c01ec452c005d86dfda723f9483c44f54403d40ad7747c",
+    "accepted_state_validation_sha256": "258a0ea7aa8bf20ca744dbca546d2de34ab0f7cb61cfa9e7d780d1401717158f",
+    "accepted_state_regression_sha256": "39ac2470fa7140e9c0b3c65cc687d79838a70ddb6286a869da218cf8d36b1d23",
+    "operative_acceptance_merge": "8f04e38f34df8c847af5548d0a31f63e8b396f6b",
+    "operative_binding": "planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md"
   }
 }
