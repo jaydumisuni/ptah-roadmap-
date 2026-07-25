@@ -74,12 +74,16 @@ jobs:
             python3 tools/check_phase0c19_operational_binding.py --repo-root .
           } 2>&1 | tee evidence/phase0c19-handoff-correction/inherited-validation.txt
 
-      - name: Enforce one-file authority correction boundary
+      - name: Enforce two-file authority correction boundary
         shell: bash
         run: |
           set -euo pipefail
           git diff --name-only | sort > /tmp/changed.txt
-          printf '%s\n' AI_HANDOFF.md > /tmp/allowed.txt
+          cat > /tmp/allowed.txt <<'EOF'
+          AI_HANDOFF.md
+          planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md
+          EOF
+          sort -o /tmp/allowed.txt /tmp/allowed.txt
           diff -u /tmp/allowed.txt /tmp/changed.txt
 
       - name: Commit corrected handoff authority
@@ -91,7 +95,9 @@ jobs:
           set -euo pipefail
           git config user.name 'ptah-evidence-bot'
           git config user.email 'ptah-evidence-bot@users.noreply.github.com'
-          git add -- AI_HANDOFF.md
+          git add -- \
+            AI_HANDOFF.md \
+            planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md
           git commit -m 'Correct Ptah current handoff authority to version 1.1.0'
           git push origin "HEAD:${BRANCH}"
 
