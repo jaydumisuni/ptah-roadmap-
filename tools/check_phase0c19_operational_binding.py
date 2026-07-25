@@ -82,6 +82,7 @@ def validate(root: Path) -> dict:
     ]
     for token in all_tokens:
         require(token in binding, f"binding record missing: {token}")
+
     for token in [
         ACCEPTED_HEAD,
         ACCEPTED_RUN,
@@ -93,7 +94,39 @@ def validate(root: Path) -> dict:
         BINDING_PATH,
     ]:
         require(token in acceptance, f"acceptance record missing binding: {token}")
-        require(token in handoff, f"handoff missing binding: {token}")
+
+    require(
+        f"- accepted-state exact head: `{ACCEPTED_HEAD}`;" in handoff,
+        "handoff current accepted exact head missing",
+    )
+    require(
+        f"- accepted-state workflow run: `{ACCEPTED_RUN}`;" in handoff,
+        "handoff current accepted workflow run missing",
+    )
+    require(
+        f"- accepted-state artifact: `{ACCEPTED_ARTIFACT}`;" in handoff,
+        "handoff current accepted artifact missing",
+    )
+    require(
+        f"artifact digest: {ACCEPTED_ARTIFACT_DIGEST}" in handoff,
+        "handoff accepted artifact digest missing",
+    )
+    require(
+        f"validation SHA-256: {ACCEPTED_VALIDATION_SHA}" in handoff,
+        "handoff accepted validation digest missing",
+    )
+    require(
+        f"regression SHA-256: {ACCEPTED_REGRESSION_SHA}" in handoff,
+        "handoff accepted regression digest missing",
+    )
+    require(
+        f"- planning-load acceptance merge: `{OPERATIVE_MERGE}`;" in handoff,
+        "handoff current operative acceptance merge missing",
+    )
+    require(
+        f"operative binding: {BINDING_PATH}" in handoff,
+        "handoff operative binding path missing",
+    )
 
     require("P01: ACTIVE / BLOCKED ON EXACT PHYSICAL HOST" in current, "P01 active blocked state missing")
     require("physical-host collection: NOT STARTED" in current, "physical collection must remain not started")
