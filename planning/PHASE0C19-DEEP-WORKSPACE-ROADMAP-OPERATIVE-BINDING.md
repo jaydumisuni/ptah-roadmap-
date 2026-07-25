@@ -4,6 +4,12 @@ Status: OPERATIVE ACCEPTANCE BOUND
 
 Recorded: 2026-07-24
 
+Recovery record:
+
+```text
+planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md
+```
+
 ## Purpose
 
 Bind the accepted-state exact-head proof and operative acceptance merge for ADR-0037, Phase 0C-19, Master Plan version `1.1.0` and implementation roadmap version `1.1.0`.
