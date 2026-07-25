@@ -4,6 +4,8 @@ from __future__ import annotations
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+BINDING_PATH = "planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md"
+BINDING_MERGE = "d73a3c706e1c6cf326e67eb4e2f4247afbe0f69d"
 
 
 class CorrectionError(RuntimeError):
@@ -18,8 +20,8 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
 
 
 def main() -> None:
-    path = ROOT / "AI_HANDOFF.md"
-    text = path.read_text(encoding="utf-8")
+    handoff_path = ROOT / "AI_HANDOFF.md"
+    text = handoff_path.read_text(encoding="utf-8")
 
     text = replace_once(
         text,
@@ -119,8 +121,19 @@ The original accepted base remains retained as historical provenance beneath ope
         "handoff ADR-0037 reading state",
     )
 
-    path.write_text(text, encoding="utf-8")
-    print("Phase 0C-19 AI handoff authority correction applied")
+    handoff_path.write_text(text, encoding="utf-8")
+
+    binding_path = ROOT / BINDING_PATH
+    binding = binding_path.read_text(encoding="utf-8")
+    binding = replace_once(
+        binding,
+        "Recorded: 2026-07-24\n\nRecovery record:",
+        f"Recorded: 2026-07-24\n\nOperative recovery-binding merge: `{BINDING_MERGE}`\n\nRecovery record:",
+        "operative binding self-merge",
+    )
+    binding_path.write_text(binding, encoding="utf-8")
+
+    print("Phase 0C-19 AI handoff and operative binding authority correction applied")
 
 
 if __name__ == "__main__":
