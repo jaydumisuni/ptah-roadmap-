@@ -50,10 +50,10 @@ def validate(root: Path) -> dict:
     require("## Current accepted planning authority" in handoff, "current authority heading missing")
     require("### Historical 1.0 base authority" in handoff, "historical base heading missing")
     require("## Accepted planning authority" not in handoff, "ambiguous old authority heading remains")
-    require("Master Plan version: `1.1.0`" in handoff, "handoff current Master Plan version missing")
-    require("implementation roadmap version: `1.1.0`" in handoff, "handoff current roadmap version missing")
-    require("ADR-0037 — ACCEPTED" in handoff, "handoff ADR-0037 state missing")
-    require("Phase 0C-19 — COMPLETE" in handoff, "handoff Phase 0C-19 state missing")
+    require("- Master Plan version: `1.1.0`;" in handoff, "handoff current Master Plan version missing")
+    require("- implementation roadmap version: `1.1.0`;" in handoff, "handoff current roadmap version missing")
+    require("- current supplement decision: ADR-0037 — ACCEPTED;" in handoff, "handoff ADR-0037 state missing")
+    require("- current supplement work package: Phase 0C-19 — COMPLETE;" in handoff, "handoff Phase 0C-19 state missing")
     require("3. accepted ADR-0037;" in handoff, "handoff reading list still marks ADR-0037 proposed")
     require("3. proposed ADR-0037;" not in handoff, "stale proposed ADR-0037 text remains")
 
@@ -70,8 +70,30 @@ def validate(root: Path) -> dict:
     require(all(position >= 0 for position in positions), "handoff recovery order item missing")
     require(positions == sorted(positions), "handoff recovery order drifted")
 
-    for token in [ACCEPTANCE_MERGE, BINDING_HEAD, BINDING_RUN, BINDING_ARTIFACT, BINDING_MERGE, PROOF_COMMIT]:
-        require(token in handoff, f"handoff evidence missing: {token}")
+    require(
+        f"- planning-load acceptance merge: `{ACCEPTANCE_MERGE}`;" in handoff,
+        "current planning-load acceptance merge missing",
+    )
+    require(
+        f"- operative-binding exact head: `{BINDING_HEAD}`;" in handoff,
+        "current operative-binding exact head missing",
+    )
+    require(
+        f"- operative-binding workflow run: `{BINDING_RUN}`;" in handoff,
+        "current operative-binding workflow run missing",
+    )
+    require(
+        f"- operative-binding artifact: `{BINDING_ARTIFACT}`;" in handoff,
+        "current operative-binding artifact missing",
+    )
+    require(
+        f"- operative recovery-binding merge: `{BINDING_MERGE}`." in handoff,
+        "current operative recovery-binding merge missing",
+    )
+    require(
+        f"The next action is to run the proof kit on the exact physical host from confirmed commit `{PROOF_COMMIT}`." in handoff,
+        "current confirmed proof commit next action missing",
+    )
 
     require("Version: 1.1.0" in plan, "Master Plan is not 1.1.0")
     require("Version: 1.1.0" in roadmap, "roadmap is not 1.1.0")
@@ -82,7 +104,10 @@ def validate(root: Path) -> dict:
     require("**Runtime implementation:** AUTHORIZED" not in current, "runtime authorized prematurely")
 
     require("Status: OPERATIVE ACCEPTANCE BOUND" in binding, "operative binding is not bound")
-    require(BINDING_MERGE in binding, "operative binding merge missing from binding record")
+    require(
+        f"Operative recovery-binding merge: `{BINDING_MERGE}`" in binding,
+        "operative binding merge missing from binding record",
+    )
 
     phase = index.get("phase0c19_deep_workspace_reconciliation")
     require(isinstance(phase, dict), "machine Phase 0C-19 record missing")
