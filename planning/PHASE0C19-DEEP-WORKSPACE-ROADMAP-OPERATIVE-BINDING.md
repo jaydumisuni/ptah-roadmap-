@@ -4,6 +4,8 @@ Status: OPERATIVE ACCEPTANCE BOUND
 
 Recorded: 2026-07-24
 
+Operative recovery-binding merge: `d73a3c706e1c6cf326e67eb4e2f4247afbe0f69d`
+
 Recovery record:
 
 ```text
