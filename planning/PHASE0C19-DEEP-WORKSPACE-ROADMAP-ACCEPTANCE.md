@@ -1,6 +1,6 @@
 # Phase 0C-19 deep Workspace planning-load acceptance
 
-Status: ACCEPTED COMPLETE — accepted-state proof and operative merge pending
+Status: ACCEPTED COMPLETE — accepted-state proof and operative merge bound
 
 Recorded: 2026-07-24
 
@@ -41,6 +41,21 @@ candidate merge: 96d0d465fe74fb1ac2e469b69bfb3326d7d65138
 ```
 
 All eight permanent roadmap lanes passed at the exact candidate head. The Phase 0C-19 suite passed 30 valid and adversarial cases.
+
+## Accepted-state proof and operative binding
+
+```text
+accepted exact head: 02e3ea2d26e39362ac8a90ad0bb7b248396476a6
+accepted workflow run: 30097738203
+accepted artifact: 8598283488
+accepted artifact digest: sha256:1d571edbe7da273c98c01ec452c005d86dfda723f9483c44f54403d40ad7747c
+accepted validation SHA-256: 258a0ea7aa8bf20ca744dbca546d2de34ab0f7cb61cfa9e7d780d1401717158f
+accepted regression SHA-256: 39ac2470fa7140e9c0b3c65cc687d79838a70ddb6286a869da218cf8d36b1d23
+operative acceptance merge: 8f04e38f34df8c847af5548d0a31f63e8b396f6b
+operative binding: planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md
+```
+
+All nine permanent workflows passed at the accepted exact head. The accepted-state suite passed 25 cases; the guarded synchronization also passed 85 inherited regressions.
 
 ## Accepted capability load
 

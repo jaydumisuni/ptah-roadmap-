@@ -133,8 +133,8 @@ def validate(root: Path) -> dict:
         "physical_host_collection_started": False,
         "adr_0033_accepted": False,
         "runtime_implementation_authorized": False,
-        "accepted_state_proof_pending": True,
-        "operative_acceptance_merge_pending": True,
+        "accepted_state_proof_pending": False,
+        "operative_acceptance_merge_pending": False,
     }
     for key, value in expected.items():
         require(candidate.get(key) == value, f"machine Phase 0C-19 mismatch: {key}")

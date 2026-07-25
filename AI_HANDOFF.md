@@ -198,4 +198,19 @@ ADR-0033: PROPOSED
 Runtime implementation: NOT AUTHORIZED
 ```
 
+
+
+Accepted-state evidence:
+
+```text
+exact head: 02e3ea2d26e39362ac8a90ad0bb7b248396476a6
+workflow run: 30097738203
+artifact: 8598283488
+artifact digest: sha256:1d571edbe7da273c98c01ec452c005d86dfda723f9483c44f54403d40ad7747c
+validation SHA-256: 258a0ea7aa8bf20ca744dbca546d2de34ab0f7cb61cfa9e7d780d1401717158f
+regression SHA-256: 39ac2470fa7140e9c0b3c65cc687d79838a70ddb6286a869da218cf8d36b1d23
+operative acceptance merge: 8f04e38f34df8c847af5548d0a31f63e8b396f6b
+operative binding: planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md
+```
+
 The next action is to run the proof kit on the exact physical host from confirmed commit `23dc4b19a0189ba55e08dfa124761efa806bd68b`. Do not accept ADR-0033 or authorize runtime without the resulting reviewed evidence.
