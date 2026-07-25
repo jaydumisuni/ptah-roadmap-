@@ -1,6 +1,6 @@
 # Ptah Current State
 
-**Last updated:** 2026-07-21  
+**Last updated:** 2026-07-25  
 **Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
 **Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
 **Active work unit:** 0C-04 / P01 — physical pinned-host proof, package review, durable evidence and ADR-0033 closure  
@@ -68,9 +68,9 @@ These packages define implementation boundaries. They are not evidence that the 
 
 ---
 
-## Phase 0C candidate decisions and evidence now recorded
+## Phase 0C decisions and evidence now recorded
 
-The following records are merged or awaiting this evidence-sync merge:
+The following records are merged:
 
 - `work-packages/PHASE-0C-01-FIRST-SLICE-SELECTION-PROPOSAL.md`;
 - `work-packages/PHASE-0C-02-HOST-BASELINE-PIN.md`;
