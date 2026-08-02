@@ -53,6 +53,22 @@ operative acceptance merge: 8f04e38f34df8c847af5548d0a31f63e8b396f6b
 
 All nine permanent workflows passed on the accepted exact head. The accepted-state suite passed 25 cases; the guarded synchronization also passed 85 inherited Master Plan, campaign and diagnostic/worker regressions.
 
+## Post-binding first-read authority correction
+
+The later end-of-session recovery review found that `AI_HANDOFF.md` still presented version `1.0.0` as current in its first-read block even though the operative authority was already version `1.1.0`. The handoff was corrected and independently proven:
+
+```text
+correction exact head: 822b7bbb4509d96c41ce25b8ead12f947680bf54
+correction workflow run: 30167252025
+correction artifact: 8621920423
+correction artifact digest: sha256:1eddcbf1906c87cd7b4ea164bbdd3f293005ed0a3b653dd32dd7dd88a85d1f23
+correction validation SHA-256: 5669508d13d330dd31f92a6e584d91b3ceeac3eeb24cf428bb6435400704c659
+correction regression SHA-256: 88f05f1efd73881ff467ba8899689eb0af9e21d190f8d4345529a6bff33429e0
+correction merge: 15cb887f6fc47ff783e5700613cdf5ee40d0116e
+```
+
+All eleven permanent workflows passed at the correction exact head, and all 31 dedicated valid/adversarial cases passed. The corrected handoff was rendered and inspected visually page by page before merge.
+
 ## Operative authority
 
 ```text

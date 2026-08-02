@@ -2,32 +2,37 @@
 
 Status: exact closure procedure recorded — P01 active and blocked on access to the physical proof host
 
-Recorded: 2026-07-21
+Recorded: 2026-07-25
 
 ## Purpose
 
-Define the exact remaining sequence from the current planning state through physical-host proof, durable evidence acceptance, ADR-0033 acceptance and runtime implementation authorization.
+Define the exact remaining sequence from the current accepted planning state through physical-host proof, durable evidence acceptance, ADR-0033 acceptance and runtime implementation authorization.
 
 This document prevents a future chat or AI from treating donor completion, plan completion, CI success or owner intent alone as authorization.
 
 ## Current prerequisite state
 
-Complete or prepared:
+Complete and operative:
 
 - Phase 0A donor and requirement closure frozen;
 - WP01–WP14 contracts frozen;
+- Archive Campaign 001 accepted complete;
 - Phase 0C host, dependency, backend, signer, source-layout and proof-tool selections recorded;
 - Apache-2.0 public/private boundary accepted;
 - pinned-host proof and durable-retention tooling merged and regression-tested;
 - AI Project Workspace donor/profile recorded;
-- deep Workspace operations study merged in `Ptah-space` and Phase 0C-19 / ADR-0037 planning-load reconciliation in review;
-- complete Master Plan and detailed implementation roadmap candidate prepared on `phase0c-master-plan-roadmap-closure`.
+- deep Workspace operations study merged in `Ptah-space`;
+- Phase 0C-19 complete and ADR-0037 accepted;
+- Master Plan version `1.1.0` accepted and operative;
+- implementation roadmap version `1.1.0` accepted and operative;
+- accepted planning authority and exact-head evidence durably bound through merge `d73a3c706e1c6cf326e67eb4e2f4247afbe0f69d`;
+- current first-read handoff authority corrected through merge `15cb887f6fc47ff783e5700613cdf5ee40d0116e`;
+- exact non-runtime `Ptah-space` proof candidate confirmed as `23dc4b19a0189ba55e08dfa124761efa806bd68b`.
 
 Open:
 
-- Master Plan closure accepted and merged as `2c24f9e6b0fc98d5e03605596db75d7495796353`;
 - execution on the exact physical Ubuntu host;
-- package/package-artifact acceptance;
+- package and package-artifact acceptance;
 - durable host-bundle acceptance;
 - final Phase 0C consistency review;
 - ADR-0033 acceptance;
@@ -52,45 +57,54 @@ A generic CI runner, different point release, cloud-specific kernel, dirty check
 
 ## Step 1 — planning closure package accepted
 
-Review and merge the branch containing:
+The planning closure package is complete and accepted. The operative authority includes:
 
 - `planning/REQUIREMENTS-AND-DECISIONS-RECOVERY.md`;
-- `MASTER_PLAN.md`;
-- `IMPLEMENTATION_ROADMAP.md`;
+- `MASTER_PLAN.md` version `1.1.0`;
+- `IMPLEMENTATION_ROADMAP.md` version `1.1.0`;
 - `planning/MASTER-PLAN-RECONCILIATION.md`;
+- `planning/DEEP-WORKSPACE-DONOR-ROADMAP-RECONCILIATION.md`;
+- `planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-ACCEPTANCE.md`;
+- `planning/PHASE0C19-DEEP-WORKSPACE-ROADMAP-OPERATIVE-BINDING.md`;
 - this closure record;
 - `AI_HANDOFF.md`;
 - `master-plan-index.json`;
-- control-book repairs and Phase 0C-16 evidence.
+- permanent exact-head validators and adversarial regressions.
 
-Acceptance must confirm:
+The accepted planning closure confirms:
 
 - the product plan is complete enough to derive implementation;
 - every roadmap package maps to frozen contracts or an explicit parked/reopening rule;
 - the first vertical-slice task order is preserved;
-- no runtime implementation is claimed or authorized by the planning merge.
+- no runtime implementation is claimed or authorized by the planning merges.
 
-## Step 1A — accept the complete planning load
+## Step 1A — complete planning load accepted
 
-Phase 0C-19 / ADR-0037 are accepted and Master Plan/roadmap version `1.1.0` are operative. Roadmap PR #46's commit `23dc4b19a0189ba55e08dfa124761efa806bd68b` is confirmed as the exact physical-proof candidate. This completion does not itself authorize collection results or runtime.
-
-## Step 2 — select the exact implementation candidate commit
-
-After the planning merge:
-
-1. choose the exact clean `Ptah-space` commit that contains all accepted Phase 0C preparation and no runtime work;
-2. record that commit in the Phase 0C closure review candidate;
-3. clone or check out that exact commit on the physical proof host;
-4. confirm `git status --porcelain` is empty;
-5. remove any previous proof output directories.
-
-The current latest accepted preparation merge at the time this record was written is:
+Phase 0C-19 and ADR-0037 are accepted and Master Plan/roadmap version `1.1.0` are operative. Roadmap PR #46's selected commit was re-reviewed after reconciliation and confirmed as the exact physical-proof candidate:
 
 ```text
-d05653c5948727b58ead91088447d0b8ac4d9d9b
+23dc4b19a0189ba55e08dfa124761efa806bd68b
 ```
 
-A later reviewed non-runtime preparation commit may replace it, but the exact selected commit must be recorded before collection.
+This completion does not itself produce or accept physical-host evidence and does not authorize runtime implementation.
+
+## Step 2 — confirmed exact implementation-preparation commit
+
+The exact clean `Ptah-space` commit selected for physical proof is:
+
+```text
+23dc4b19a0189ba55e08dfa124761efa806bd68b
+```
+
+Before collection:
+
+1. clone or check out that exact commit on the physical proof host;
+2. confirm `git rev-parse HEAD` equals the selected commit;
+3. confirm `git status --porcelain` is empty;
+4. remove any previous proof output directories;
+5. do not modify, rebase or replace the selected checkout during collection or retention.
+
+A different commit may replace it only through a separate reviewed superseding selection that updates the planning authority before collection begins. No such superseding selection currently exists.
 
 ## Step 3 — collect the pinned-host candidate
 
@@ -178,14 +192,14 @@ The review record must begin as pending with all acceptance fields false.
 
 ## Step 7 — commit the durable candidate
 
-Commit the verified durable candidate to the accepted durable evidence Location without changing the selected implementation commit during collection/retention.
+Commit the verified durable candidate to the accepted durable evidence location without changing the selected implementation-preparation commit during collection or retention.
 
 Record:
 
 - source bundle aggregate digest;
 - durable bundle digest;
 - repository-binding digest;
-- selected implementation commit;
+- selected implementation-preparation commit;
 - collector and proof-runner digests;
 - exact durable evidence commit and repository path.
 
@@ -209,9 +223,9 @@ A reviewed change must update `pinned-host-review-record.json` or the accepted e
 
 Review together:
 
-- accepted Master Plan and implementation roadmap;
+- accepted Master Plan and implementation roadmap version `1.1.0`;
 - frozen WP01–WP14 contracts and conformance;
-- all Phase 0C-01 through Phase 0C-16 records;
+- Archive Campaign 001 and Phase 0C-01 through Phase 0C-19 records;
 - exact dependencies, binaries, signers and host packages;
 - physical-host source and durable bundles;
 - public/private and licence boundaries;
@@ -265,4 +279,8 @@ Owner intent cannot replace missing evidence because the accepted engineering pr
 
 ## Current next action
 
-Run the proof kit on the exact physical Ubuntu host from the selected clean reviewed `Ptah-space` commit.
+Run the proof kit on the exact physical Ubuntu host from clean confirmed `Ptah-space` commit:
+
+```text
+23dc4b19a0189ba55e08dfa124761efa806bd68b
+```
