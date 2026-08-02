@@ -1,0 +1,106 @@
+name: P01 Closure Current Authority
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact candidate head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+
+      - name: Verify exact clean head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
+          test -z "$(git status --porcelain)"
+
+      - name: Run P01 closure authority regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/p01-closure-current-authority
+          PYTHONPATH=tools python3 -m unittest -v \
+            tools/test_check_p01_closure_current_authority.py \
+            2>&1 | tee evidence/p01-closure-current-authority/regressions.txt
+
+      - name: Validate P01 closure authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/check_p01_closure_current_authority.py \
+            --repo-root . \
+            --output evidence/p01-closure-current-authority/validation.json
+
+      - name: Bind exact-head evidence
+        shell: bash
+        env:
+          TESTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path('evidence/p01-closure-current-authority')
+          validation_bytes = (root / 'validation.json').read_bytes()
+          regressions_bytes = (root / 'regressions.txt').read_bytes()
+          validation = json.loads(validation_bytes)
+          evidence = {
+              'record_type': 'ptah.p01.closure_current_authority_exact_head_evidence',
+              'tested_head': os.environ['TESTED_HEAD'],
+              'workflow_run_id': os.environ['RUN_ID'],
+              'workflow_run_attempt': os.environ['RUN_ATTEMPT'],
+              'validation_sha256': hashlib.sha256(validation_bytes).hexdigest(),
+              'regressions_sha256': hashlib.sha256(regressions_bytes).hexdigest(),
+              'validation_status': validation['status'],
+              'master_plan_version': validation['master_plan_version'],
+              'implementation_roadmap_version': validation['implementation_roadmap_version'],
+              'phase0c19_complete': validation['phase0c19_complete'],
+              'adr_0037_accepted': validation['adr_0037_accepted'],
+              'p01_active': validation['p01_active'],
+              'confirmed_proof_commit': validation['confirmed_proof_commit'],
+              'physical_host_collection_started': validation['physical_host_collection_started'],
+              'adr_0033_accepted': validation['adr_0033_accepted'],
+              'runtime_implementation_authorized': validation['runtime_implementation_authorized'],
+          }
+          (root / 'exact-head-evidence.json').write_text(
+              json.dumps(evidence, indent=2, sort_keys=True) + '\n',
+              encoding='utf-8',
+          )
+          print(json.dumps(evidence, indent=2, sort_keys=True))
+          PY
+
+      - name: Confirm repository remains unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain --untracked-files=no)"
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
+
+      - name: Retain P01 closure authority evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: p01-closure-current-authority
+          path: evidence/p01-closure-current-authority
+          if-no-files-found: error
+          retention-days: 30
