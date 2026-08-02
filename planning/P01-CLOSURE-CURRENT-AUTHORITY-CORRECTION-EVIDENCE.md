@@ -1,21 +1,27 @@
 # P01 closure current-authority correction evidence
 
-Status: PROVEN CANDIDATE — operative merge pending
+Status: OPERATIVE CORRECTION PROOF BOUND
 
 Recorded: 2026-08-02
 
-## Exact-head validation
+Operative correction merge:
 
 ```text
-candidate exact head: 9cd81c511c4ed13f0d2051a41b699dd05099afec
-workflow run: 30759204153
-artifact: 8836904914
-artifact digest: sha256:d0944e831b1b76469c03ca867446b537cb637956b6ae07dfae2e6b96d5684ab2
-validation SHA-256: 9a04d2ab85a236a1a6a8518cb9ee571f88ab56694a7fae14d2c6271ca0f117a9
-regression SHA-256: 86f9dbea9230a846e8147a853dd334ab17e4da6a46b075cef885536baac74f7e
+d4d67db0d725633e1865c3026ee4c2a16e42d074
 ```
 
-All twelve permanent roadmap workflows passed at the candidate exact head. The dedicated P01 closure suite passed all 18 valid/adversarial cases and returned:
+## Final exact-head validation
+
+```text
+final exact head: 88c873efb130d1e16fc7db48f78d0db6492be936
+workflow run: 30759408574
+artifact: 8836966662
+artifact digest: sha256:e1324147a0f56be186b9634c63785a9677f32490639f1a97561ee93523e295b4
+validation SHA-256: 9a04d2ab85a236a1a6a8518cb9ee571f88ab56694a7fae14d2c6271ca0f117a9
+regression SHA-256: fa240c1318695b431f23a74892d065d28997754a2a98e96617c55c0a324346cf
+```
+
+All twelve permanent roadmap workflows passed at the final exact head. The dedicated P01 closure suite passed all 18 valid/adversarial cases and returned:
 
 ```text
 status: current_authority_valid_non_authorizing
