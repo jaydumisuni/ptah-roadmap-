@@ -1,1 +1,0 @@
-This directory is populated only by the read-only P01 closure current-authority workflow and is not committed as runtime evidence.
