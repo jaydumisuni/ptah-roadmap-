@@ -1,8 +1,14 @@
 # P01 closure current-authority correction
 
-Status: PROVEN CANDIDATE — non-authorizing; operative merge pending
+Status: COMPLETE — OPERATIVE CORRECTION BOUND
 
 Recorded: 2026-08-02
+
+Operative correction merge:
+
+```text
+d4d67db0d725633e1865c3026ee4c2a16e42d074
+```
 
 ## Purpose
 
@@ -46,7 +52,7 @@ The active closure procedure now:
 
 ## Proof
 
-The permanent read-only validator passed on exact candidate head `9cd81c511c4ed13f0d2051a41b699dd05099afec`. All twelve permanent workflows passed, and the dedicated suite passed all 18 valid/adversarial cases.
+The permanent read-only validator passed on final exact head `88c873efb130d1e16fc7db48f78d0db6492be936`. All twelve permanent workflows passed, and the dedicated suite passed all 18 valid/adversarial cases.
 
 The corrected closure and updated operative binding were rendered together and inspected page by page. The full exact-head and visual proof is retained in:
 
