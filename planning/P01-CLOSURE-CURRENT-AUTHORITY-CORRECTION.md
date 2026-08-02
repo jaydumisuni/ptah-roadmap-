@@ -1,6 +1,6 @@
 # P01 closure current-authority correction
 
-Status: CANDIDATE — non-authorizing
+Status: PROVEN CANDIDATE — non-authorizing; operative merge pending
 
 Recorded: 2026-08-02
 
@@ -44,9 +44,15 @@ The active closure procedure now:
 - requires the final consistency review to include Phase 0C-01 through Phase 0C-19;
 - preserves the exact physical-host, ADR-0033 and runtime fail-closed boundaries.
 
-## Proof requirement
+## Proof
 
-A permanent read-only validator and adversarial regression suite must prove the corrected procedure on one exact clean head. The document must also be rendered and inspected visually before merge.
+The permanent read-only validator passed on exact candidate head `9cd81c511c4ed13f0d2051a41b699dd05099afec`. All twelve permanent workflows passed, and the dedicated suite passed all 18 valid/adversarial cases.
+
+The corrected closure and updated operative binding were rendered together and inspected page by page. The full exact-head and visual proof is retained in:
+
+```text
+planning/P01-CLOSURE-CURRENT-AUTHORITY-CORRECTION-EVIDENCE.md
+```
 
 ## Non-claims
 
