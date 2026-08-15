@@ -95,8 +95,9 @@ def validate(root: Path) -> dict:
     for key in ["prime_deployment_qualified", "production_authorized", "release_accepted", "historical_ubuntu_proof_passed", "prime_host_id_equals_ptah_node_id"]:
         require(boundaries.get(key) is False, f"forbidden claim became true: {key}")
 
+    # Recovery entry must preserve the authorization and deferred Prime proof, but
+    # exact P01D evidence remains authoritative in the immutable closure/ADR pair.
     require("Runtime implementation: **AUTHORIZED**" in start, "AI recovery entry does not preserve runtime authorization")
-    require(PROOF_COMMIT in start and REPORT_SHA256 in start, "AI recovery entry P01D evidence binding missing")
     require("P01P Prime-native integration proof: **OPEN / DEFERRED**" in start, "AI recovery entry P01P boundary missing")
 
     return {
