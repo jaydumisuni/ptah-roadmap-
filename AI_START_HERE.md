@@ -13,15 +13,16 @@ Do not answer from chat memory alone. Recover the project from this repository b
 5. `MASTER_ROADMAP.md`
 6. `PROGRESS.md`
 7. `DECISIONS.md`
-8. `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`
-9. `MEMORY_PROTOCOL.md`
-10. `DONOR_RECOVERY.md`
-11. `REQUIREMENT_CLOSURE_MATRIX.md`
-12. `WORK_ITEM_TEMPLATE.md`
-13. Current source and public-safe technical documentation in `jaydumisuni/Ptah-space`
-14. Any donor or internal repository directly related to the selected work item
+8. `DECISIONS_AMENDMENT_2026-08-15.md`
+9. `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`
+10. `MEMORY_PROTOCOL.md`
+11. `DONOR_RECOVERY.md`
+12. `REQUIREMENT_CLOSURE_MATRIX.md`
+13. `WORK_ITEM_TEMPLATE.md`
+14. Current source and public-safe technical documentation in `jaydumisuni/Ptah-space`
+15. Any donor or internal repository directly related to the selected work item
 
-The 2026-08-15 current-state amendment supersedes only the stale P01 standalone-Ubuntu host interpretation in `CURRENT_STATE.md`. Historical evidence remains preserved.
+The 2026-08-15 current-state and decision amendments supersede only the stale P01 standalone-Ubuntu host interpretation in `CURRENT_STATE.md` and proposed ADR-0033. Historical evidence remains preserved.
 
 ## Current position
 
@@ -91,7 +92,7 @@ Update:
 1. implementation and evidence;
 2. `PROGRESS.md`;
 3. current-state authority;
-4. `DECISIONS.md` when architecture changes;
+4. `DECISIONS.md` or the current decision amendment when architecture changes;
 5. `DONOR_RECOVERY.md` and the closure matrix when donor understanding changes;
 6. `MASTER_ROADMAP.md` only when the accepted plan genuinely changes.
 
