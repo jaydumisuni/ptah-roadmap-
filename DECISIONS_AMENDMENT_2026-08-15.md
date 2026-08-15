@@ -6,7 +6,7 @@ This amendment is part of current recovery authority. It indexes the owner-direc
 
 **ACCEPTED.** The standalone exact-Ubuntu physical-host interpretation of proposed ADR-0033 no longer blocks first Ptah runtime implementation. The host proof is split into two distinct obligations:
 
-- **P01D — physical development-host qualification:** a provider-neutral portable capability proof on the selected real development machine. P01D is the Phase 0C gate that may authorize A01 after exact physical evidence and independent review.
+- **P01D — physical development-host qualification:** a provider-neutral portable capability report generated on the selected real development machine, combined with independently reviewed external evidence that binds the execution to that physical machine. P01D is the Phase 0C gate that may authorize A01 after the combined evidence is accepted.
 - **P01P — Prime-native integration qualification:** a later integration proof against Prime's machine Capability Interface and Workload Policy. P01P remains open after P01D and does not block A01 runtime construction.
 
 The current selected private P01D machine and control path are recorded in `CURRENT_STATE_AMENDMENT_2026-08-15.md` and must not be copied into public Ptah source.
@@ -17,9 +17,9 @@ The original Ubuntu Server 24.04.4 / Noble GA `6.8.0-136-generic` proof kit rema
 
 Linux mechanisms such as cgroups, namespaces, seccomp, overlayfs and AppArmor remain real engineering obligations where Prime uses them. Their acceptance moves to P01P/Prime integration rather than acting as a Ptah distribution-identity lock.
 
-Public Ptah remains provider- and OS-neutral. Private execution/control receipts remain outside the public repository.
+Public Ptah remains provider- and OS-neutral. The public probe cannot claim physical-machine identity, host acceptance or runtime authorization. Private execution/control receipts remain outside the public repository and provide the machine-binding evidence for P01D review.
 
-Runtime implementation remains **NOT AUTHORIZED** until P01D has a passing physical report, exact clean repository binding, retained private control receipt, independent review, and explicit closure/authorization record.
+Runtime implementation remains **NOT AUTHORIZED** until P01D has `portable_capabilities_passed: true`, exact clean repository binding, a retained private MCP/RPC execution receipt establishing the selected physical machine, independent review of the combined evidence, and an explicit closure/authorization record.
 
 Full decision: `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`.
 
