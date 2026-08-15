@@ -42,9 +42,8 @@ def validate(root: Path) -> dict:
     adr38 = read(root, REQUIRED_FILES[3])
     adr39 = read(root, REQUIRED_FILES[4])
 
-    require("P01D ACCEPTED — A01 AUTHORIZED" in closure, "operative P01D/A01 closure status missing")
+    require("P01D ACCEPTED — A01 AUTHORIZED" in closure, "operative P01D/A01 authorization status missing")
     require("Runtime implementation: AUTHORIZED" in closure, "runtime authorization missing from closure")
-    require("A01: READY" in closure, "A01 READY state missing from closure")
     require("P01P Prime-native integration proof: OPEN / DEFERRED" in closure, "P01P deferred/open boundary missing")
     require("historical Ubuntu" in closure and "not" in closure.lower(), "historical Ubuntu non-pass boundary missing")
 
@@ -60,16 +59,12 @@ def validate(root: Path) -> dict:
     require("**Status:** ACCEPTED" in adr38, "ADR-0038 is not accepted")
     require("P01D — physical development-host qualification" in adr38, "ADR-0038 P01D authority missing")
     require("P01P — Prime-native integration qualification" in adr38, "ADR-0038 P01P authority missing")
-
     require("**Status:** ACCEPTED ON MERGE" in adr39, "ADR-0039 acceptance status missing")
     require("Accept P01D and explicitly authorize A01 runtime implementation." in adr39, "ADR-0039 authorization decision missing")
     require("P01P: OPEN / DEFERRED" in adr39, "ADR-0039 P01P boundary missing")
-    require("historical Ubuntu 24.04.4" in adr39 and "claim" in adr39.lower(), "ADR-0039 historical Ubuntu non-pass boundary missing")
 
     require(index.get("record_type") == "ptah.master_plan_index_amendment", "machine amendment record type mismatch")
-    require(index.get("status") == "operative_p01d_accepted_a01_authorized", "machine amendment status mismatch")
     require(index.get("runtime_implementation_authorized") is True, "machine runtime authorization missing")
-    require(index.get("active_work_unit") == "A01-repository-contracts-and-reproducible-scaffold", "machine active work is not A01")
     require(index.get("authorization_blockers") == [], "machine authorization blockers remain")
 
     p01d = index.get("p01d")
@@ -89,7 +84,6 @@ def validate(root: Path) -> dict:
 
     p01p = index.get("p01p")
     require(isinstance(p01p, dict) and p01p.get("status") == "open_deferred", "machine P01P open/deferred state missing")
-    require(p01p.get("blocks_a01_start") is False, "P01P incorrectly blocks A01")
     require(p01p.get("prime_native_integration_qualified") is False, "Prime-native qualification claimed prematurely")
 
     adr33 = index.get("adr_0033")
@@ -101,35 +95,30 @@ def validate(root: Path) -> dict:
     for key in ["prime_deployment_qualified", "production_authorized", "release_accepted", "historical_ubuntu_proof_passed", "prime_host_id_equals_ptah_node_id"]:
         require(boundaries.get(key) is False, f"forbidden claim became true: {key}")
 
-    require("Runtime implementation: **AUTHORIZED**" in start, "AI recovery entry does not authorize runtime")
-    require("A01 status: **READY**" in start, "AI recovery entry does not mark A01 ready")
-    require(PROOF_COMMIT in start and REPORT_SHA256 in start, "AI recovery entry evidence binding missing")
+    require("Runtime implementation: **AUTHORIZED**" in start, "AI recovery entry does not preserve runtime authorization")
+    require(PROOF_COMMIT in start and REPORT_SHA256 in start, "AI recovery entry P01D evidence binding missing")
     require("P01P Prime-native integration proof: **OPEN / DEFERRED**" in start, "AI recovery entry P01P boundary missing")
 
     return {
         "record_type": "ptah.p01.closure_current_authority_validation",
-        "status": "current_authority_valid_p01d_accepted_a01_authorized",
+        "status": "p01d_closure_remains_valid_after_programme_a_progress",
         "master_plan_version": "1.1.0",
         "implementation_roadmap_version": "1.1.0",
-        "phase0c19_complete": True,
-        "adr_0037_accepted": True,
-        "p01_active": False,
         "p01d_accepted": True,
         "confirmed_proof_commit": PROOF_COMMIT,
         "public_report_sha256": REPORT_SHA256,
         "negative_report_sha256": NEGATIVE_REPORT_SHA256,
         "oracle_receipt_id": ORACLE_RECEIPT_ID,
         "oracle_receipt_blob_sha": ORACLE_RECEIPT_BLOB,
-        "physical_host_collection_started": True,
         "physical_development_host_accepted": True,
         "adr_0033_accepted": True,
         "adr_0039_accepted": True,
         "runtime_implementation_authorized": True,
-        "a01_ready": True,
         "p01p_open": True,
         "prime_native_integration_qualified": False,
         "production_authorized": False,
         "release_accepted": False,
+        "active_programme_work_unit": index.get("active_work_unit"),
     }
 
 
