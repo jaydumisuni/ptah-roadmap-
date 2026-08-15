@@ -74,8 +74,10 @@ The authorized current control path for the Kratos proof is Oracle through MCP/R
 The Ptah public repository must not depend on Oracle or expose private THETECHGUY topology. Therefore:
 
 - the public Ptah development-host probe remains provider-neutral;
+- the public probe proves portable mechanical behavior and exact repository binding but deliberately does **not** claim physical-machine identity;
 - the private P01D evidence must retain the Oracle MCP/RPC invocation/response receipt separately;
-- MCP/RPC control evidence proves how the test was invoked and observed, not Ptah runtime correctness by itself;
+- the Oracle receipt is the external evidence used by independent review to establish that the public probe actually executed on Kratos;
+- MCP/RPC control evidence proves how and where the test was invoked and observed, not Ptah runtime correctness by itself;
 - direct ad-hoc coupling to Oracle internals is not permitted.
 
 ### 5. Prime remains machine authority; Ptah remains Ptah authority
@@ -129,11 +131,12 @@ A01 runtime implementation may be authorized only after all of the following exi
 
 1. a merged, provider-neutral development-host probe in `Ptah-space`;
 2. a clean exact checkout of that merged proof-tool commit on Kratos;
-3. a Kratos report with every required portable capability PASS and `development_host_eligible: true`;
-4. a retained private Oracle MCP/RPC execution receipt tied to that test run;
-5. repository binding showing the proof tool commit and clean state before/after collection;
-6. independent review of the report and transport receipt;
-7. a final roadmap closure record that explicitly authorizes A01 while keeping P01P open.
+3. a Kratos-generated public probe report with every required portable capability PASS, empty probe failure sets and `portable_capabilities_passed: true`;
+4. the same public report still states `physical_host_identity_verified: false`, `development_host_accepted: false` and `runtime_implementation_authorized: false` because those are not public-probe claims;
+5. a retained private Oracle MCP/RPC execution receipt tied to that exact test run and establishing execution on Kratos;
+6. repository binding showing the proof tool commit and clean state before/after collection;
+7. independent review that combines the public report, private transport/machine receipt and retained negative evidence;
+8. a final private roadmap closure record that explicitly accepts P01D and authorizes A01 while keeping P01P open.
 
 Until those conditions are met, runtime implementation remains unauthorized.
 
@@ -142,6 +145,7 @@ Until those conditions are met, runtime implementation remains unauthorized.
 - Ptah can be developed and physically tested now without waiting for Prime or installing another server OS.
 - Prime can evolve independently while exposing the machine capabilities Ptah will later consume.
 - The resource-wasting second-OS interpretation is removed.
+- Hosted CI may prove portable cross-platform behavior but can never become the Kratos physical-host proof by wording alone.
 - The old exact-Ubuntu evidence work is preserved rather than falsified or silently deleted.
 - Final Prime integration still carries a real proof burden.
 - Public Ptah remains neutral; private machine names, Oracle topology and Prime integration policy stay in private recovery/authorization authority.
@@ -153,5 +157,6 @@ Until those conditions are met, runtime implementation remains unauthorized.
 - Ptah does not own boot, kernel, drivers or Prime Host identity.
 - Provider/backend identifiers remain aliases, not canonical Ptah identities.
 - Evidence is not acceptance.
-- A development-host PASS is not a Prime-native PASS.
+- Portable capability PASS is not physical-host acceptance.
+- P01D acceptance is not a Prime-native P01P PASS.
 - No runtime authorization is inferred from this ADR alone.
