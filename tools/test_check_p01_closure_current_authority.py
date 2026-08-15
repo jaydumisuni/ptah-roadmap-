@@ -55,7 +55,7 @@ class P01ClosureCurrentAuthorityTests(unittest.TestCase):
 
     def test_02_wrong_final_proof_commit_fails(self) -> None:
         root = self.copy_state()
-        self.replace(root, checker.REQUIRED_FILES[0], checker.PROOF_COMMIT, "0" * 40)
+        self.mutate_index(root, ("p01d", "ptah_space_proof_commit"), "0" * 40)
         self.invalid(root)
 
     def test_03_wrong_report_digest_fails(self) -> None:
