@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "ptah.master_plan_index_amendment",
+  "status": "operative_p01d_accepted_a01_authorized",
+  "recorded_at": "2026-08-15",
+  "applies_after_roadmap_commit": "73439f20b2ff91812adeb979729b0431d5cb4bbd",
+  "supersedes_fields_in_master_plan_index": [
+    "status",
+    "active_work_unit",
+    "runtime_implementation_authorized",
+    "programmes.P01.status",
+    "programmes.A.status",
+    "authorization_blockers",
+    "physical_host_target",
+    "next_action"
+  ],
+  "phase": "0C",
+  "p01d": {
+    "status": "accepted_complete",
+    "physical_development_host_accepted": true,
+    "ptah_space_proof_commit": "f6064c98c58e369f621b1800632a0169d8fb0785",
+    "public_report_sha256": "598dbde9d5b3061ba9dfd29baf31ce2007718f0010db67ee96f2dc2b13e00083",
+    "public_probe_portable_capabilities_passed": true,
+    "public_probe_failure_sets_empty": true,
+    "public_probe_self_acceptance_fields_false": true,
+    "oracle_live_receipt_id": "0000-ptah-p01d-final-kratos-proof-20260815-194730z",
+    "oracle_live_receipt_blob_sha": "bf81cc24f7fce84d777da3c668b8716b475e8002",
+    "oracle_live_transport": "oracle.live.v1",
+    "github_interactive_path_used": false,
+    "negative_report_sha256": "cc1a91ac0e19bd3c108c4a85ccd2fa54fd688975398a90eb0da41c34e261a46d",
+    "negative_evidence_retained": true,
+    "independent_review_action": "APPROVE",
+    "independent_review_status": "pass",
+    "independent_review_confidence": 0.88,
+    "independent_review_required_actions": []
+  },
+  "p01p": {
+    "status": "open_deferred",
+    "blocks_a01_start": false,
+    "prime_native_integration_qualified": false
+  },
+  "adr_0033": {
+    "status": "accepted_as_amended",
+    "host_requirement_superseded_by": "ADR-0038",
+    "acceptance_decision": "ADR-0039",
+    "historical_exact_ubuntu_proof_passed": false
+  },
+  "runtime_implementation_authorized": true,
+  "active_work_unit": "A01-repository-contracts-and-reproducible-scaffold",
+  "programmes": {
+    "P01D": "accepted_complete",
+    "A01": "ready",
+    "P01P": "open_deferred"
+  },
+  "authorization_blockers": [],
+  "next_action": "Begin A01 — Repository, contracts and reproducible scaffold — under the accepted roadmap and frozen WP01-WP14 contracts.",
+  "claim_boundaries": {
+    "prime_deployment_qualified": false,
+    "production_authorized": false,
+    "release_accepted": false,
+    "historical_ubuntu_proof_passed": false,
+    "prime_host_id_equals_ptah_node_id": false
+  }
+}

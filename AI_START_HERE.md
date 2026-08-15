@@ -6,42 +6,61 @@ Do not answer from chat memory alone. Recover the project from this repository b
 
 ## Required reading order
 
-1. `CURRENT_STATE_AMENDMENT_2026-08-15.md`
-2. `CURRENT_STATE.md` for preserved historical context
-3. `MASTER_PLAN.md`
-4. `IMPLEMENTATION_ROADMAP.md`
-5. `MASTER_ROADMAP.md`
-6. `PROGRESS_AMENDMENT_2026-08-15.md`
-7. `PROGRESS.md`
-8. `DECISIONS.md`
-9. `DECISIONS_AMENDMENT_2026-08-15.md`
-10. `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`
-11. `MEMORY_PROTOCOL.md`
-12. `DONOR_RECOVERY.md`
-13. `REQUIREMENT_CLOSURE_MATRIX.md`
-14. `WORK_ITEM_TEMPLATE.md`
-15. Current source and public-safe technical documentation in `jaydumisuni/Ptah-space`
-16. Any donor or internal repository directly related to the selected work item
+1. `CURRENT_STATE_CLOSURE_2026-08-15.md`
+2. `master-plan-index-amendment-2026-08-15.json`
+3. `decisions/ADR-0039-P01D-ACCEPTANCE-A01-AUTHORIZATION.md`
+4. `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`
+5. `CURRENT_STATE_AMENDMENT_2026-08-15.md` for the immediately preceding P01D state
+6. `CURRENT_STATE.md` for preserved historical context
+7. `MASTER_PLAN.md`
+8. `IMPLEMENTATION_ROADMAP.md`
+9. `MASTER_ROADMAP.md`
+10. `PROGRESS_AMENDMENT_2026-08-15.md`
+11. `PROGRESS.md`
+12. `DECISIONS.md` and `DECISIONS_AMENDMENT_2026-08-15.md`
+13. `MEMORY_PROTOCOL.md`
+14. `DONOR_RECOVERY.md`
+15. `REQUIREMENT_CLOSURE_MATRIX.md`
+16. `WORK_ITEM_TEMPLATE.md`
+17. current source and public-safe technical documentation in `jaydumisuni/Ptah-space`
+18. any donor or internal repository directly related to the selected work item
 
-The 2026-08-15 current-state, progress and decision amendments supersede only stale continuation/host-qualification wording. Historical evidence remains preserved and must not be rewritten into a false pass.
+The 2026-08-15 closure and machine amendment are the current P01/A01 authority. Older records remain historical provenance and must not be rewritten into a false pass.
 
 ## Current position
 
-- Ptah architecture: accepted planning baseline
-- Active phase: Phase 0C
-- Active work unit: **P01D — Kratos physical development-host qualification**
-- P01D tool state: **provider-neutral public probe merged and ready for physical execution**
-- Exact Ptah-space proof commit: `d9474acaaa01bce27c0b34c951a5dc7faec75081`
-- Public tracking issue: Ptah-space #20
-- Selected physical development machine: Kratos
-- Kratos system rule: use the current installed system; no Ptah-specific second server OS or dedicated guest VM is required
-- Private control boundary: Oracle MCP/RPC
-- P01D physical evidence: not yet accepted
-- Runtime implementation: **NOT AUTHORIZED**
-- A01: not started / not authorized
-- Prime-native integration proof: P01P — deferred/open; does not block A01 after P01D closure
-- Public implementation repo: `jaydumisuni/Ptah-space`
-- Detailed roadmap and authorization repo: this repository
+- Ptah architecture: accepted planning baseline.
+- Phase 0C P01D: **ACCEPTED / COMPLETE**.
+- Physical development host: **accepted for Ptah development**.
+- Exact accepted Ptah-space proof commit: `f6064c98c58e369f621b1800632a0169d8fb0785`.
+- Accepted public report SHA-256: `598dbde9d5b3061ba9dfd29baf31ce2007718f0010db67ee96f2dc2b13e00083`.
+- Runtime implementation: **AUTHORIZED**.
+- Active work unit: **A01 — Repository, contracts and reproducible scaffold**.
+- A01 status: **READY**.
+- P01P Prime-native integration proof: **OPEN / DEFERRED**; it does not block A01.
+- Prime-native deployment qualification: **not claimed**.
+- Production/release acceptance: **not claimed**.
+- Public implementation repo: `jaydumisuni/Ptah-space`.
+- Detailed roadmap and authorization repo: this repository.
+
+## Accepted P01D proof boundary
+
+The corrected physical proof executed on Kratos through the existing Oracle Live MCP/RPC control path.
+
+Private execution evidence records:
+
+```text
+receipt: 0000-ptah-p01d-final-kratos-proof-20260815-194730z
+receipt blob: bf81cc24f7fce84d777da3c668b8716b475e8002
+transport: oracle.live.v1
+githubInteractivePathUsed: false
+```
+
+The public report proves portable mechanics and exact clean repository binding. It deliberately keeps physical-host acceptance and runtime-authorization fields false because public evidence cannot accept itself.
+
+The private closure in `CURRENT_STATE_CLOSURE_2026-08-15.md` joins the public report, private execution receipt, retained negative evidence and independent Sergeant review and is the authority that accepts P01D.
+
+The first Kratos report with SHA-256 `cc1a91ac0e19bd3c108c4a85ccd2fa54fd688975398a90eb0da41c34e261a46d` remains retained negative/correction evidence because it leaked an absolute local checkout path. PR #22 corrected that defect before the final accepted run.
 
 ## Core identity
 
@@ -59,26 +78,20 @@ Ptah stays OS-neutral. In the intended Prime deployment, Prime owns machine auth
 Prime Host ID != Ptah Node ID
 ```
 
-## Current host/testing rule
+## Host and integration rule
 
-- Use Kratos's current installed system for P01D physical development testing.
 - Do not install or boot a second server OS solely for Ptah.
 - Do not create a dedicated guest VM solely to satisfy the superseded host pin.
-- Use Oracle MCP/RPC as the current private control path for the Kratos proof.
-- Execute the exact merged Ptah-space proof commit `d9474acaaa01bce27c0b34c951a5dc7faec75081`.
+- Oracle/MCP/RPC is private control/evidence infrastructure, not a Ptah Core dependency.
 - Keep public Ptah proof tooling provider-neutral; private machine/control topology stays outside public Ptah source.
-- The public report proves portable mechanics + exact repository binding only. It must keep physical-host acceptance and runtime authorization false.
-- The private Oracle MCP/RPC receipt establishes that the exact public probe execution occurred on Kratos.
-- Independent review must combine the public report and private receipt before P01D can be accepted.
 - Preserve the old Ubuntu 24.04.4 / `6.8.0-136-generic` proof kit as historical evidence; do not claim it passed.
-- Move Prime-owned isolation/resource mechanisms to the later P01P Prime-native capability proof rather than binding Ptah to an Ubuntu distribution identity.
+- Prime-owned isolation/resource mechanisms belong to the later P01P Prime-native capability proof.
 
 ## Mandatory rules
 
 - Do not put the complete private roadmap into the public Ptah repository.
 - Do not expose private consumers, machine names, private control topology or private operating-system integration publicly.
-- Do not start implementation unless the exact item is on the roadmap, selected in current authority, dependency-ready and approved.
-- Do not begin A01 merely because the public probe is merged or hosted CI is green.
+- Implement only roadmap-authorized work with satisfied dependencies.
 - Recover existing internal work before recommending a rebuild.
 - Inspect donors beyond README claims.
 - Record canonical upstream, pinned version, licence, exact components, limitations, code boundary, exit strategy and proof.
@@ -91,15 +104,20 @@ Prime Host ID != Ptah Node ID
 
 ## Exact next operation
 
-1. Recover/confirm Oracle MCP/RPC live access to Kratos.
-2. Recover an exact clean checkout of Ptah-space `d9474acaaa01bce27c0b34c951a5dc7faec75081` on Kratos.
-3. Execute the merged provider-neutral development-host probe according to `host/DEVELOPMENT-HOST-PROOF-RUNBOOK.md`, writing evidence outside the checkout.
-4. Retain the public report and private Oracle MCP/RPC execution receipt separately.
-5. Preserve any negative/partial attempt.
-6. Independently review both evidence layers.
-7. Accept P01D and authorize A01 only on a complete PASS.
+Begin **A01 — Repository, contracts and reproducible scaffold**.
 
-If the approved MCP/RPC control path is unavailable, do not silently substitute hosted CI, another machine or an ad-hoc shell. Restore the approved path or formally change the authority first.
+Before editing runtime source:
+
+1. recover A01 requirements from `IMPLEMENTATION_ROADMAP.md`, the Master Plan and frozen WP01–WP14 contracts;
+2. inspect the current `Ptah-space` scaffold so existing work is not duplicated;
+3. identify the exact A01 gap;
+4. build only the authorized A01 scope;
+5. review the diff independently;
+6. freeze an exact candidate head;
+7. run positive, negative, reproducibility, source/licence and exact-head proof gates;
+8. merge only the proved head.
+
+P01P stays open until Prime exposes the required machine Capability Interface for final integration qualification.
 
 ## Before doing work
 
@@ -117,13 +135,4 @@ State:
 
 ## After approved work
 
-Update:
-
-1. implementation and evidence;
-2. `PROGRESS.md` or the current progress amendment without falsifying old history;
-3. current-state authority;
-4. `DECISIONS.md` or the current decision amendment when architecture changes;
-5. `DONOR_RECOVERY.md` and the closure matrix when donor understanding changes;
-6. `MASTER_ROADMAP.md` only when the accepted plan genuinely changes.
-
-Do not ask the user to repeat information recoverable from these sources.
+Update the current recovery/decision/progress authority without falsifying historical records. Do not ask the owner to repeat information recoverable from these sources.
