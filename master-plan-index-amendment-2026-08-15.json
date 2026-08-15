@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "record_type": "ptah.master_plan_index_amendment",
-  "status": "operative_p01d_accepted_a01_authorized",
+  "status": "operative_p01d_accepted_a01_complete_a02_ready",
   "recorded_at": "2026-08-15",
-  "applies_after_roadmap_commit": "73439f20b2ff91812adeb979729b0431d5cb4bbd",
+  "applies_after_roadmap_commit": "b8152305eeb7c7c4f4f953ee5a964174e6b563dd",
   "supersedes_fields_in_master_plan_index": [
     "status",
     "active_work_unit",
@@ -36,7 +36,7 @@
   },
   "p01p": {
     "status": "open_deferred",
-    "blocks_a01_start": false,
+    "blocks_programme_a": false,
     "prime_native_integration_qualified": false
   },
   "adr_0033": {
@@ -45,16 +45,39 @@
     "acceptance_decision": "ADR-0039",
     "historical_exact_ubuntu_proof_passed": false
   },
+  "a01": {
+    "status": "accepted_complete",
+    "ptah_space_pr": 23,
+    "candidate_exact_head": "d12feedb5b66a39d5649b1d3ffea752deb5692c6",
+    "merge_commit": "d33122c8cc625d38f2394d57fcbd2a3ef7027b08",
+    "workflow_run": 31906473232,
+    "all_exact_head_workflows_passed": true,
+    "final_proof_artifact_id": 9252486137,
+    "final_proof_artifact_digest": "sha256:0cec2c980df82a7136fb9c2869eb8ee8ad1bf343faf054b2917a1bf4a5f59c19",
+    "rust_browser_artifact_id": 9252484615,
+    "rust_browser_artifact_digest": "sha256:dd26318a8efc946f9f96789bdc67da64f6bc085c249f5630f126bddb3c4ff138",
+    "generated_binding_artifact_id": 9252481776,
+    "generated_binding_artifact_digest": "sha256:e3985416625a8e4c60d01eb696a8a3d76a67d52bf64fb0d056aa4fdc86093901",
+    "conformance_artifact_id": 9252481161,
+    "conformance_artifact_digest": "sha256:080126f89d793232b99859377c0e9c6e1f06745d60928a7dd1356444f8bf35c2",
+    "static_adversarial_artifact_id": 9252478248,
+    "static_adversarial_artifact_digest": "sha256:a3b3651a45fe7c6d8885759d11eea513c3fcaa89bf89d696a04fcf626d93fb68",
+    "runtime_semantics_claimed": false,
+    "prime_integration_qualified": false,
+    "production_or_release_accepted": false
+  },
   "runtime_implementation_authorized": true,
-  "active_work_unit": "A01-repository-contracts-and-reproducible-scaffold",
+  "active_work_unit": "A02-node-identity-generation-and-host-truth",
   "programmes": {
     "P01D": "accepted_complete",
-    "A01": "ready",
+    "A01": "accepted_complete",
+    "A02": "ready",
     "P01P": "open_deferred"
   },
   "authorization_blockers": [],
-  "next_action": "Begin A01 — Repository, contracts and reproducible scaffold — under the accepted roadmap and frozen WP01-WP14 contracts.",
+  "next_action": "Begin A02 — Node identity, Generation and host truth — from frozen WP01, WP02, WP04 and WP11 contracts.",
   "claim_boundaries": {
+    "node_runtime_proven": false,
     "prime_deployment_qualified": false,
     "production_authorized": false,
     "release_accepted": false,

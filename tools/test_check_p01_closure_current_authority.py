@@ -44,14 +44,14 @@ class P01ClosureCurrentAuthorityTests(unittest.TestCase):
         with self.assertRaises(checker.ValidationError):
             checker.validate(root)
 
-    def test_01_current_closure_passes(self) -> None:
+    def test_01_current_closure_passes_after_a01_progress(self) -> None:
         report = checker.validate(self.copy_state())
-        self.assertEqual(report["status"], "current_authority_valid_p01d_accepted_a01_authorized")
+        self.assertEqual(report["status"], "p01d_closure_remains_valid_after_programme_a_progress")
         self.assertTrue(report["p01d_accepted"])
         self.assertTrue(report["runtime_implementation_authorized"])
-        self.assertTrue(report["a01_ready"])
         self.assertTrue(report["p01p_open"])
         self.assertFalse(report["prime_native_integration_qualified"])
+        self.assertEqual(report["active_programme_work_unit"], "A02-node-identity-generation-and-host-truth")
 
     def test_02_wrong_final_proof_commit_fails(self) -> None:
         root = self.copy_state()
@@ -78,10 +78,11 @@ class P01ClosureCurrentAuthorityTests(unittest.TestCase):
         self.mutate_index(root, ("runtime_implementation_authorized",), False)
         self.invalid(root)
 
-    def test_07_a01_not_ready_fails(self) -> None:
+    def test_07_programme_a_advance_does_not_invalidate_p01(self) -> None:
         root = self.copy_state()
-        self.mutate_index(root, ("active_work_unit",), "P01D")
-        self.invalid(root)
+        self.mutate_index(root, ("active_work_unit",), "A09-future-work")
+        report = checker.validate(root)
+        self.assertEqual(report["active_programme_work_unit"], "A09-future-work")
 
     def test_08_p01p_false_acceptance_fails(self) -> None:
         root = self.copy_state()
@@ -98,7 +99,7 @@ class P01ClosureCurrentAuthorityTests(unittest.TestCase):
         self.mutate_index(root, ("claim_boundaries", "production_authorized"), True)
         self.invalid(root)
 
-    def test_11_ai_start_state_drift_fails(self) -> None:
+    def test_11_ai_start_runtime_authority_drift_fails(self) -> None:
         root = self.copy_state()
         self.replace(root, "AI_START_HERE.md", "Runtime implementation: **AUTHORIZED**", "Runtime implementation: **NOT AUTHORIZED**")
         self.invalid(root)
