@@ -37,7 +37,7 @@ jobs:
             tools/test_check_a01_acceptance_current_authority.py \
             2>&1 | tee evidence/a01-acceptance-current-authority/regressions.txt
 
-      - name: Validate A01 current authority
+      - name: Validate A01 acceptance invariant
         run: |
           set -euo pipefail
           python3 tools/check_a01_acceptance_current_authority.py \
@@ -58,7 +58,7 @@ jobs:
           regressions_bytes = (root/'regressions.txt').read_bytes()
           validation = json.loads(validation_bytes)
           evidence = {
-              'record_type': 'ptah.a01.acceptance_current_authority_exact_head_evidence',
+              'record_type': 'ptah.a01.acceptance_invariant_exact_head_evidence',
               'tested_head': os.environ['TESTED_HEAD'],
               'workflow_run_id': os.environ['RUN_ID'],
               'workflow_run_attempt': os.environ['RUN_ATTEMPT'],
@@ -69,9 +69,7 @@ jobs:
               'a01_merge': validation['a01_merge'],
               'a01_workflow_run': validation['a01_workflow_run'],
               'a01_complete': validation['a01_complete'],
-              'a02_ready': validation['a02_ready'],
               'runtime_implementation_authorized': validation['runtime_implementation_authorized'],
-              'node_runtime_proven': validation['node_runtime_proven'],
               'p01p_open': validation['p01p_open'],
           }
           (root/'exact-head-evidence.json').write_text(json.dumps(evidence, indent=2, sort_keys=True)+'\n')
