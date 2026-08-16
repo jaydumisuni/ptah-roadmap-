@@ -1,0 +1,117 @@
+name: A02 Acceptance Current Authority
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out exact candidate head
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+        with:
+          python-version: '3.12'
+
+      - name: Verify exact clean head
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
+          test -z "$(git status --porcelain)"
+
+      - name: Prove historical A01 authority survives progression
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/a02-acceptance-current-authority
+          PYTHONPATH=tools python3 -m unittest -v \
+            tools/test_check_a01_acceptance_current_authority.py \
+            2>&1 | tee evidence/a02-acceptance-current-authority/a01-lifecycle-regressions.txt
+          python3 tools/check_a01_acceptance_current_authority.py \
+            --repo-root . \
+            --output evidence/a02-acceptance-current-authority/a01-historical-validation.json
+
+      - name: Run A02 authority adversarial regressions
+        run: |
+          set -euo pipefail
+          PYTHONPATH=tools python3 -m unittest -v \
+            tools/test_check_a02_acceptance_current_authority.py \
+            2>&1 | tee evidence/a02-acceptance-current-authority/a02-regressions.txt
+
+      - name: Validate A02 current authority
+        run: |
+          set -euo pipefail
+          python3 tools/check_a02_acceptance_current_authority.py \
+            --repo-root . \
+            --output evidence/a02-acceptance-current-authority/a02-validation.json
+
+      - name: Bind exact-head authority evidence
+        env:
+          TESTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, subprocess
+          from pathlib import Path
+          root = Path('evidence/a02-acceptance-current-authority')
+          a01 = json.loads((root/'a01-historical-validation.json').read_text())
+          a02 = json.loads((root/'a02-validation.json').read_text())
+          files = [
+              'a01-lifecycle-regressions.txt',
+              'a01-historical-validation.json',
+              'a02-regressions.txt',
+              'a02-validation.json',
+          ]
+          report = {
+              'record_type': 'ptah.a02.acceptance_current_authority_exact_head_evidence',
+              'tested_head': os.environ['TESTED_HEAD'],
+              'checked_out_head': subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
+              'workflow_run_id': os.environ['RUN_ID'],
+              'workflow_run_attempt': os.environ['RUN_ATTEMPT'],
+              'file_sha256': {name: hashlib.sha256((root/name).read_bytes()).hexdigest() for name in files},
+              'a01_historical_status': a01['status'],
+              'a01_complete': a01['a01_complete'],
+              'a02_status': a02['status'],
+              'a02_candidate': a02['a02_candidate'],
+              'a02_merge': a02['a02_merge'],
+              'a02_complete': a02['a02_complete'],
+              'a03_ready': a02['a03_ready'],
+              'runtime_implementation_authorized': a02['runtime_implementation_authorized'],
+              'node_runtime_proven': a02['node_runtime_proven'],
+              'ledger_persistence_proven': a02['ledger_persistence_proven'],
+              'activity_runtime_proven': a02['activity_runtime_proven'],
+              'physical_proof_passed': a02['physical_proof_passed'],
+              'sergeant_review_passed': a02['sergeant_review_passed'],
+              'p01p_open': a02['p01p_open'],
+          }
+          if report['tested_head'] != report['checked_out_head']:
+              raise SystemExit('EXACT_HEAD_BINDING_MISMATCH')
+          (root/'exact-head-evidence.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
+          print(json.dumps(report, indent=2, sort_keys=True))
+          PY
+
+      - name: Confirm repository remains unchanged
+        run: |
+          set -euo pipefail
+          test -z "$(git status --porcelain --untracked-files=no)"
+          test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
+
+      - name: Retain A02 authority evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: a02-acceptance-current-authority-${{ github.event.pull_request.head.sha || github.sha }}
+          path: evidence/a02-acceptance-current-authority
+          if-no-files-found: error
+          retention-days: 30
