@@ -38,19 +38,21 @@ def validate(root: Path) -> dict:
     index = json.loads(read(root, REQUIRED_FILES[1]))
     start = read(root, REQUIRED_FILES[2])
 
+    # Preserve the accepted A01 checkpoint exactly. Later programme progress must
+    # not rewrite the historical A01 acceptance or its machine amendment.
     require("**Status:** ACCEPTED COMPLETE" in acceptance, "A01 acceptance status missing")
     for token in [CANDIDATE, MERGE, str(RUN), str(FINAL_ARTIFACT), FINAL_DIGEST]:
         require(token in acceptance, f"A01 acceptance evidence token missing: {token}")
     require("all 13 workflows on the exact candidate head: PASS" in acceptance, "A01 exact-head workflow closure missing")
-    require("A02 — Node identity, Generation and host truth — is READY" in acceptance, "A02 readiness decision missing")
+    require("A02 — Node identity, Generation and host truth — is READY" in acceptance, "historical A02 readiness decision missing")
     require("Prime-native integration: NOT QUALIFIED" in acceptance, "Prime integration non-claim missing")
     require("Production: NOT AUTHORIZED" in acceptance, "production non-claim missing")
     require("Release: NOT ACCEPTED" in acceptance, "release non-claim missing")
 
-    require(index.get("status") == "operative_p01d_accepted_a01_complete_a02_ready", "machine authority status mismatch")
-    require(index.get("runtime_implementation_authorized") is True, "runtime authorization was lost")
-    require(index.get("active_work_unit") == "A02-node-identity-generation-and-host-truth", "machine active work is not A02")
-    require(index.get("authorization_blockers") == [], "unexpected authorization blockers remain")
+    require(index.get("status") == "operative_p01d_accepted_a01_complete_a02_ready", "historical machine authority status mismatch")
+    require(index.get("runtime_implementation_authorized") is True, "historical runtime authorization was lost")
+    require(index.get("active_work_unit") == "A02-node-identity-generation-and-host-truth", "historical A01 exit work unit is not A02")
+    require(index.get("authorization_blockers") == [], "unexpected historical authorization blockers remain")
 
     a01 = index.get("a01")
     require(isinstance(a01, dict), "machine A01 acceptance record missing")
@@ -68,35 +70,40 @@ def validate(root: Path) -> dict:
     programmes = index.get("programmes")
     require(isinstance(programmes, dict), "machine programme states missing")
     require(programmes.get("A01") == "accepted_complete", "machine A01 programme state mismatch")
-    require(programmes.get("A02") == "ready", "machine A02 readiness missing")
+    require(programmes.get("A02") == "ready", "historical A02 readiness missing")
     require(programmes.get("P01P") == "open_deferred", "P01P boundary drifted")
 
     boundaries = index.get("claim_boundaries")
     require(isinstance(boundaries, dict), "claim boundaries missing")
     for key in ["node_runtime_proven", "prime_deployment_qualified", "production_authorized", "release_accepted", "historical_ubuntu_proof_passed", "prime_host_id_equals_ptah_node_id"]:
-        require(boundaries.get(key) is False, f"forbidden claim became true: {key}")
+        require(boundaries.get(key) is False, f"forbidden A01 checkpoint claim became true: {key}")
 
-    require("A01 — Repository, contracts and reproducible scaffold: **FROZEN / PROVEN / COMPLETE**" in start, "AI recovery entry lacks A01 completion")
-    require("Active work unit: **A02 — Node identity, Generation and host truth**" in start, "AI recovery entry is not on A02")
-    require("A02 status: **READY**" in start, "AI recovery entry lacks A02 readiness")
-    require(CANDIDATE in start and MERGE in start and str(RUN) in start, "AI recovery entry A01 evidence binding missing")
+    # Current recovery may advance beyond A02, but it must continue to preserve
+    # the accepted A01 completion and exact evidence binding.
+    require("A01 — Repository, contracts and reproducible scaffold: **FROZEN / PROVEN / COMPLETE**" in start, "AI recovery entry lost A01 completion")
+    require(CANDIDATE in start and MERGE in start and str(RUN) in start, "AI recovery entry lost A01 evidence binding")
 
     return {
         "record_type": "ptah.a01.acceptance_current_authority_validation",
-        "status": "a01_accepted_complete_a02_ready",
+        "status": "a01_historical_checkpoint_valid",
         "a01_candidate": CANDIDATE,
         "a01_merge": MERGE,
         "a01_workflow_run": RUN,
         "a01_final_artifact": FINAL_ARTIFACT,
         "a01_final_artifact_digest": FINAL_DIGEST,
         "a01_complete": True,
-        "a02_ready": True,
+        "a02_ready_at_a01_exit": True,
+        "later_programme_progression_allowed": True,
         "runtime_implementation_authorized": True,
+        "node_runtime_proven_at_a01_exit": False,
+        "p01p_open_at_a01_exit": True,
+        "prime_deployment_qualified_at_a01_exit": False,
+        "production_authorized_at_a01_exit": False,
+        "release_accepted_at_a01_exit": False,
+        # Backward-compatible fields consumed by the retained A01 workflow.
+        "a02_ready": True,
         "node_runtime_proven": False,
         "p01p_open": True,
-        "prime_deployment_qualified": False,
-        "production_authorized": False,
-        "release_accepted": False,
     }
 
 
