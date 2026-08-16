@@ -1,4 +1,4 @@
-name: A02 Acceptance Current Authority
+name: A02 Acceptance Invariant
 
 on:
   pull_request:
@@ -29,21 +29,21 @@ jobs:
           test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
           test -z "$(git status --porcelain)"
 
-      - name: Run A01 and A02 authority regressions
+      - name: Run A01 and A02 invariant regressions
         run: |
           set -euo pipefail
-          mkdir -p evidence/a02-acceptance-current-authority
+          mkdir -p evidence/a02-acceptance-invariant
           PYTHONPATH=tools python3 -m unittest -v \
             tools/test_check_a01_acceptance_current_authority.py \
             tools/test_check_a02_acceptance_current_authority.py \
-            2>&1 | tee evidence/a02-acceptance-current-authority/regressions.txt
+            2>&1 | tee evidence/a02-acceptance-invariant/regressions.txt
 
-      - name: Validate A02 current authority
+      - name: Validate A02 acceptance invariant
         run: |
           set -euo pipefail
           python3 tools/check_a02_acceptance_current_authority.py \
             --repo-root . \
-            --output evidence/a02-acceptance-current-authority/validation.json
+            --output evidence/a02-acceptance-invariant/validation.json
 
       - name: Bind exact-head evidence
         env:
@@ -54,12 +54,12 @@ jobs:
           python3 - <<'PY'
           import hashlib, json, os
           from pathlib import Path
-          root = Path('evidence/a02-acceptance-current-authority')
+          root = Path('evidence/a02-acceptance-invariant')
           validation_bytes = (root/'validation.json').read_bytes()
           regressions_bytes = (root/'regressions.txt').read_bytes()
           validation = json.loads(validation_bytes)
           evidence = {
-              'record_type': 'ptah.a02.acceptance_current_authority_exact_head_evidence',
+              'record_type': 'ptah.a02.acceptance_invariant_exact_head_evidence',
               'tested_head': os.environ['TESTED_HEAD'],
               'workflow_run_id': os.environ['RUN_ID'],
               'workflow_run_attempt': os.environ['RUN_ATTEMPT'],
@@ -68,11 +68,8 @@ jobs:
               'validation_status': validation['status'],
               'a02_candidate': validation['a02_candidate'],
               'a02_merge': validation['a02_merge'],
-              'a02_workflow_run': validation['a02_workflow_run'],
               'a02_complete': validation['a02_complete'],
-              'a03_ready': validation['a03_ready'],
               'node_runtime_proven': validation['node_runtime_proven'],
-              'ledger_runtime_proven': validation['ledger_runtime_proven'],
               'p01p_open': validation['p01p_open'],
           }
           (root/'exact-head-evidence.json').write_text(json.dumps(evidence, indent=2, sort_keys=True)+'\n')
@@ -85,10 +82,10 @@ jobs:
           test -z "$(git status --porcelain --untracked-files=no)"
           test "$(git rev-parse HEAD)" = '${{ github.event.pull_request.head.sha || github.sha }}'
 
-      - name: Retain A02 authority evidence
+      - name: Retain A02 invariant evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: a02-acceptance-current-authority
-          path: evidence/a02-acceptance-current-authority
+          name: a02-acceptance-invariant
+          path: evidence/a02-acceptance-invariant
           if-no-files-found: error
           retention-days: 30
