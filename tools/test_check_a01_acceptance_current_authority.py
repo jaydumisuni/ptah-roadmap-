@@ -44,12 +44,10 @@ class A01AcceptanceAuthorityTests(unittest.TestCase):
         with self.assertRaises(checker.ValidationError):
             checker.validate(root)
 
-    def test_01_current_a01_acceptance_passes(self) -> None:
+    def test_01_a01_acceptance_invariant_passes_after_later_packages(self) -> None:
         report = checker.validate(self.copy_state())
-        self.assertEqual(report["status"], "a01_accepted_complete_a02_ready")
+        self.assertEqual(report["status"], "a01_accepted_complete")
         self.assertTrue(report["a01_complete"])
-        self.assertTrue(report["a02_ready"])
-        self.assertFalse(report["node_runtime_proven"])
 
     def test_02_candidate_drift_fails(self) -> None:
         root = self.copy_state()
@@ -76,24 +74,19 @@ class A01AcceptanceAuthorityTests(unittest.TestCase):
         self.mutate_index(root, ("programmes", "A01"), "active")
         self.invalid(root)
 
-    def test_07_a02_not_ready_fails(self) -> None:
-        root = self.copy_state()
-        self.mutate_index(root, ("programmes", "A02"), "blocked")
-        self.invalid(root)
-
-    def test_08_node_runtime_false_claim_fails(self) -> None:
-        root = self.copy_state()
-        self.mutate_index(root, ("claim_boundaries", "node_runtime_proven"), True)
-        self.invalid(root)
-
-    def test_09_prime_qualification_false_claim_fails(self) -> None:
+    def test_07_prime_qualification_false_claim_fails(self) -> None:
         root = self.copy_state()
         self.mutate_index(root, ("claim_boundaries", "prime_deployment_qualified"), True)
         self.invalid(root)
 
-    def test_10_ai_recovery_a02_drift_fails(self) -> None:
+    def test_08_production_false_claim_fails(self) -> None:
         root = self.copy_state()
-        self.replace(root, "AI_START_HERE.md", "A02 status: **READY**", "A02 status: **BLOCKED**")
+        self.mutate_index(root, ("claim_boundaries", "production_authorized"), True)
+        self.invalid(root)
+
+    def test_09_ai_recovery_a01_drift_fails(self) -> None:
+        root = self.copy_state()
+        self.replace(root, "AI_START_HERE.md", "A01 — Repository, contracts and reproducible scaffold: **FROZEN / PROVEN / COMPLETE**", "A01 — Repository, contracts and reproducible scaffold: **ACTIVE**")
         self.invalid(root)
 
 
