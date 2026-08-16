@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.1.0",
+  "record_type": "ptah.master_plan_index_amendment",
+  "status": "operative_p01d_accepted_a01_complete_a02_complete_a03_ready",
+  "recorded_at": "2026-08-16",
+  "supersedes_amendment": "master-plan-index-amendment-2026-08-15.json",
+  "applies_after_ptah_space_merge": "1603ac80b5d2c5925fde62392ec0fff4b07a1219",
+  "phase": "Programme A",
+  "p01d": {
+    "status": "accepted_complete",
+    "physical_development_host_accepted": true
+  },
+  "p01p": {
+    "status": "open_deferred",
+    "blocks_programme_a": false,
+    "prime_native_integration_qualified": false
+  },
+  "a01": {
+    "status": "accepted_complete",
+    "merge_commit": "d33122c8cc625d38f2394d57fcbd2a3ef7027b08"
+  },
+  "a02": {
+    "status": "accepted_complete",
+    "ptah_space_pr": 24,
+    "candidate_exact_head": "80adcd0aefe0053b2354b26676bfc9e28d9b8ec3",
+    "candidate_tree": "9b477dc1bf9ab2dd466da9615dbbd0e881216ed6",
+    "merge_commit": "1603ac80b5d2c5925fde62392ec0fff4b07a1219",
+    "workflow_run": 31909732507,
+    "all_exact_head_workflows_passed": true,
+    "exact_head_artifact_id": 9253318003,
+    "exact_head_artifact_digest": "sha256:dbafc252ab2fb3e2eb9938de6648bca0105f698d27321be9eb2bdb1a3782ba0a",
+    "external_registry_package_count": 81,
+    "git_dependency_count": 0,
+    "cargo_lock_sha256": "73bfc13e9e73a465c8271a3a26a2a688b3abf2c3734a016307aba94c4a8c5c32",
+    "physical_proof": {
+      "oracle_payload_commit": "8522f104474f404a73c74fadc3bcf9c3e81664b3",
+      "bundle_sha256": "04fa242442f916391c5cbc130c3ff32a6b98cde0b1149d81aa0ce9a479875671",
+      "receipt_id": "0000-ptah-a02-kratos-physical-proof-20260816-013450z",
+      "transport": "oracle.live.v1",
+      "github_interactive_path_used": false,
+      "architecture": "x86_64",
+      "identifiers_tests_passed": 9,
+      "node_agent_tests_passed": 17,
+      "test_failures": 0
+    },
+    "independent_review": {
+      "sergeant_commit": "56961f12e5cc97cde447e5150e7a00ef3a8deba8",
+      "evidence_commit": "a6f2a3d216e7e4061771d76f1dead3f5c838409a",
+      "model_support_enabled": false,
+      "depth": "maximum",
+      "verdict": "PASS",
+      "consensus": "PASS",
+      "blocking": 0,
+      "needs_work": 0
+    },
+    "ledger_persistence_claimed": false,
+    "activity_runtime_claimed": false,
+    "prime_integration_qualified": false,
+    "production_or_release_accepted": false
+  },
+  "runtime_implementation_authorized": true,
+  "active_work_unit": "A03-ledger-schema-versions-crash-safe-migrations",
+  "programmes": {
+    "P01D": "accepted_complete",
+    "A01": "accepted_complete",
+    "A02": "accepted_complete",
+    "A03": "ready",
+    "P01P": "open_deferred"
+  },
+  "authorization_blockers": [],
+  "next_action": "Begin A03 — Ledger, schema versions and crash-safe migrations — from the accepted A02 merge and frozen WP01-WP06 contracts.",
+  "claim_boundaries": {
+    "node_runtime_proven": true,
+    "ledger_persistence_proven": false,
+    "activity_runtime_proven": false,
+    "prime_deployment_qualified": false,
+    "production_authorized": false,
+    "release_accepted": false,
+    "historical_ubuntu_proof_passed": false,
+    "prime_host_id_equals_ptah_node_id": false
+  }
+}
