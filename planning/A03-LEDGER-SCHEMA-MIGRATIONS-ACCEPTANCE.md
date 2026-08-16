@@ -1,8 +1,8 @@
 # A03 — Ledger, schema versions and crash-safe migrations acceptance
 
-**Status:** ACCEPTED COMPLETE  
-**Recorded:** 2026-08-16  
-**Roadmap item:** A03 / P0C-I003  
+**Status:** ACCEPTED COMPLETE
+**Recorded:** 2026-08-16
+**Roadmap item:** A03 / P0C-I003
 **Dependencies:** A01 and A02 accepted complete
 
 ## Accepted implementation
