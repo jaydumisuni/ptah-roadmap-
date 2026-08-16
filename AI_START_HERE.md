@@ -6,28 +6,29 @@ Do not answer from chat memory alone. Recover the project from this repository b
 
 ## Required reading order
 
-1. `planning/A02-NODE-IDENTITY-GENERATION-HOST-TRUTH-ACCEPTANCE.md`
-2. `planning/A01-REPOSITORY-CONTRACTS-SCAFFOLD-ACCEPTANCE.md`
-3. `master-plan-index-amendment-2026-08-15.json`
-4. `CURRENT_STATE_CLOSURE_2026-08-15.md`
-5. `decisions/ADR-0039-P01D-ACCEPTANCE-A01-AUTHORIZATION.md`
-6. `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`
-7. `CURRENT_STATE_AMENDMENT_2026-08-15.md` for the preceding P01D state
-8. `CURRENT_STATE.md` for preserved historical context
-9. `MASTER_PLAN.md`
-10. `IMPLEMENTATION_ROADMAP.md`
-11. `MASTER_ROADMAP.md`
-12. `PROGRESS_AMENDMENT_2026-08-15.md`
-13. `PROGRESS.md`
-14. `DECISIONS.md` and `DECISIONS_AMENDMENT_2026-08-15.md`
-15. `MEMORY_PROTOCOL.md`
-16. `DONOR_RECOVERY.md`
-17. `REQUIREMENT_CLOSURE_MATRIX.md`
-18. `WORK_ITEM_TEMPLATE.md`
-19. current source and public-safe technical documentation in `jaydumisuni/Ptah-space`
-20. any donor or internal repository directly related to the selected work item
+1. `planning/A03-LEDGER-SCHEMA-MIGRATIONS-ACCEPTANCE.md`
+2. `planning/A02-NODE-IDENTITY-GENERATION-HOST-TRUTH-ACCEPTANCE.md`
+3. `planning/A01-REPOSITORY-CONTRACTS-SCAFFOLD-ACCEPTANCE.md`
+4. `master-plan-index-amendment-2026-08-15.json`
+5. `CURRENT_STATE_CLOSURE_2026-08-15.md`
+6. `decisions/ADR-0039-P01D-ACCEPTANCE-A01-AUTHORIZATION.md`
+7. `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`
+8. `CURRENT_STATE_AMENDMENT_2026-08-15.md` for the preceding P01D state
+9. `CURRENT_STATE.md` for preserved historical context
+10. `MASTER_PLAN.md`
+11. `IMPLEMENTATION_ROADMAP.md`
+12. `MASTER_ROADMAP.md`
+13. `PROGRESS_AMENDMENT_2026-08-15.md`
+14. `PROGRESS.md`
+15. `DECISIONS.md` and `DECISIONS_AMENDMENT_2026-08-15.md`
+16. `MEMORY_PROTOCOL.md`
+17. `DONOR_RECOVERY.md`
+18. `REQUIREMENT_CLOSURE_MATRIX.md`
+19. `WORK_ITEM_TEMPLATE.md`
+20. current source and public-safe technical documentation in `jaydumisuni/Ptah-space`
+21. any donor or internal repository directly related to the selected work item
 
-The 2026-08-15 P01D closure, A01 acceptance, 2026-08-16 A02 acceptance and machine amendment are current authority. Older records remain historical provenance and must not be rewritten into false passes.
+The 2026-08-15 P01D closure, A01 acceptance, 2026-08-16 A02 acceptance, 2026-08-16 A03 acceptance and machine amendment are current authority. Older records remain historical provenance and must not be rewritten into false passes.
 
 ## Current position
 
@@ -37,19 +38,40 @@ The 2026-08-15 P01D closure, A01 acceptance, 2026-08-16 A02 acceptance and machi
 - Runtime implementation: **AUTHORIZED**.
 - A01 — Repository, contracts and reproducible scaffold: **FROZEN / PROVEN / COMPLETE**.
 - A02 — Node identity, Generation and host truth: **FROZEN / PROVEN / COMPLETE**.
-- A02 exact candidate: `80adcd0aefe0053b2354b26676bfc9e28d9b8ec3`.
-- A02 merge: `1603ac80b5d2c5925fde62392ec0fff4b07a1219`.
-- A02 exact-head workflow run: `31909732507` — all 13 repository workflows PASS.
-- A02 proof artifact: `9253318003`, digest `sha256:dbafc252ab2fb3e2eb9938de6648bca0105f698d27321be9eb2bdb1a3782ba0a`.
-- A02 physical Kratos proof: `ptah-identifiers` 9/9 and `ptah-node-agent` 17/17 PASS via `oracle.live.v1` with checksum-bound executables from the exact frozen source.
-- A02 independent Sergeant review: exact review commit `56961f12e5cc97cde447e5150e7a00ef3a8deba8`, PASS, 0 blocking, 0 needs-work.
-- Active work unit: **A03 — Ledger, schema versions and crash-safe migrations**.
-- A03 status: **READY**.
+- A03 — Ledger, schema versions and crash-safe migrations: **FROZEN / PROVEN / COMPLETE**.
+- A03 exact candidate: `19d390e22807a8540c7c4c5c3a94a37b93f5e3be`.
+- A03 merge: `da35986327010cba575093d905875ee966e3d755`.
+- A03 physical proof: `0000-ptah-a03-pass-b-physical-proof-20260816-1528z` via `oracle.live.v1`; proof manifest SHA-256 `26d684fb63e36b159e5a83c373bcd3a02dee04e893e00e282ae60b1cf400f861`.
+- A03 proof results: rustfmt PASS; scoped Clippy `-D warnings` PASS; ledger 19/19; crash/recovery 4/4; complete workspace tests PASS; checksum-bound direct test binaries PASS against native SQLite.
+- A03 independent Sergeant review: PASS / APPROVE, 0 admitted findings, 0 unresolved assurances; packet SHA-256 `520f82f371e3a0b39183044ead54331542d82ea85c27ee2226496e23a8256ad5`.
+- Active work unit: **A04 — Activity, Operation, Attempt, Event and Receipt runtime**.
+- A04 status: **READY**.
 - P01P Prime-native integration proof: **OPEN / DEFERRED**; it does not block Programme A development.
 - Prime-native deployment qualification: **not claimed**.
 - Production/release acceptance: **not claimed**.
 - Public implementation repo: `jaydumisuni/Ptah-space`.
 - Detailed roadmap and authorization repo: this repository.
+
+## A03 accepted evidence
+
+A03 promotes only the repository-owned persistence substrate. It does not pull A04 Activity execution, A05 PTY/process, Workspace/Object work, Prime-native integration or production authorization forward.
+
+Retained proof:
+
+```text
+Ptah-space PR: #25
+candidate: 19d390e22807a8540c7c4c5c3a94a37b93f5e3be
+merge: da35986327010cba575093d905875ee966e3d755
+Oracle Pass B: 0000-ptah-a03-pass-b-physical-proof-20260816-1528z
+receipt blob: dd78ee595abfec5a96250f060505df8e5d19765b
+proof manifest: 26d684fb63e36b159e5a83c373bcd3a02dee04e893e00e282ae60b1cf400f861
+Kratos: ledger 19/19; crash/recovery 4/4; full workspace PASS
+Sergeant packet: 520f82f371e3a0b39183044ead54331542d82ea85c27ee2226496e23a8256ad5 — PASS / 0 admitted / 0 unresolved
+```
+
+A03 proved canonical record persistence, frozen schema registration, deterministic directional migrations, fail-closed incompatible state, transaction rollback, committed WAL recovery after abrupt process death, checkpoint policy, canonical query boundaries, and isolation of Ptah identity from SQLite row identity.
+
+A03-specific GitHub Actions runtime-proof workflows were removed before freeze. Its physical proof authority is the Oracle MCP/RPC receipt and checksum-bound Pass B evidence.
 
 ## A02 accepted evidence
 
@@ -128,25 +150,25 @@ Prime Host ID != Ptah Node ID
 
 ## Exact next operation
 
-Begin **A03 — Ledger, schema versions and crash-safe migrations**.
+Begin **A04 — Activity, Operation, Attempt, Event and Receipt runtime**.
 
 Before implementation:
 
-1. recover A03 requirements from `IMPLEMENTATION_ROADMAP.md`, P0C-I003 and frozen WP01–WP06 contracts;
-2. inspect the current `ptah-ledger`, `ptah-identifiers`, generated contracts and dependency locks so existing boundaries are extended rather than replaced;
-3. implement repository-owned ledger interfaces and a SQLite WAL backend;
-4. implement canonical entity/schema-version storage without exposing SQLite row IDs as Ptah identity;
-5. implement immutable numbered directional migrations and fail closed on incompatible/newer schema versions;
-6. make writes transactional and define an explicit WAL checkpoint policy;
-7. keep queries behind repository-owned boundaries;
-8. prove canonical records survive reopen/restart;
-9. prove an interrupted/uncommitted write cannot manufacture success;
-10. prove migration replay is deterministic and incompatible migration state fails closed;
-11. freeze an exact candidate only after independent review is clean;
-12. prove the exact frozen candidate in CI and on the accepted physical development host where the A03 runtime semantics require host evidence;
-13. merge only the proved exact head.
+1. recover A04 requirements from `IMPLEMENTATION_ROADMAP.md`, P0C-I004 and frozen WP02, WP04, WP11 and WP12 contracts;
+2. inspect the current `ptah-activity-runtime`, `ptah-events`, `ptah-receipts`, A03 ledger boundary and A02 identity/Generation primitives before adding code;
+3. implement independent Activity, Operation and Attempt lifecycle engines without collapsing their identities;
+4. add the Activity registry and scheduling queue with bounded concurrency and failure isolation;
+5. implement retry, scoped cancellation and failure propagation so retry always creates a new Attempt;
+6. stream Events and generate immutable Receipts without treating acknowledgement as completion;
+7. support caller-defined Recipe/Plan worker formations, declared independent verification lanes, checkpoints, partial results and visible conflicts;
+8. preserve Policy authority for retries and any effectful continuation; diagnostics may advise but may not self-start work;
+9. prove at least ten independent Activities can run concurrently and one failure does not collapse unrelated work;
+10. prove reused Attempt identity fails, acknowledgement-only completion fails, failed/cancelled work remains queryable, and cancellation stays scoped;
+11. prove the caller-selected two-human-equivalent ten-for-two Recipe creates twenty bounded worker slots without silently collapsing verifier independence;
+12. prove conflicting worker outputs remain visible and worker completion cannot become result acceptance;
+13. freeze an exact candidate only after independent review is clean, then prove those exact bytes through the accepted MCP/RPC host path before merge.
 
-A04 Activity execution remains out of A03 scope. P01P remains open until Prime exposes the required machine Capability Interface.
+A05 PTY/process execution, A06 Workspace persistence, P01P Prime-native integration and production/release acceptance remain out of A04 scope.
 
 ## Before doing work
 
