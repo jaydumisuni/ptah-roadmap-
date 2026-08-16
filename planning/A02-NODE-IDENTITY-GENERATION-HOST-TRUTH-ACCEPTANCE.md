@@ -19,7 +19,7 @@ A02 proves the Node identity/Generation/host-truth runtime slice only. It does n
 - A02 exact-head workflow run: `31909732507`;
 - all 13 repository workflows on the exact candidate head: PASS;
 - retained A02 proof artifact: `9253318003`;
-- retained A02 proof digest: `sha256:dbafc252ab2fb3e2eb9938de6648bca0105f698d27321be9eb2bdb1a3782ba0`;
+- retained A02 proof digest: `sha256:dbafc252ab2fb3e2eb9938de6648bca0105f698d27321be9eb2bdb1a3782ba0a`;
 - external Cargo universe: 81 registry packages / 0 Git packages.
 
 ## Physical Kratos proof
