@@ -44,12 +44,13 @@ class A01AcceptanceAuthorityTests(unittest.TestCase):
         with self.assertRaises(checker.ValidationError):
             checker.validate(root)
 
-    def test_01_current_a01_acceptance_passes(self) -> None:
+    def test_01_historical_a01_acceptance_passes_after_progression(self) -> None:
         report = checker.validate(self.copy_state())
-        self.assertEqual(report["status"], "a01_accepted_complete_a02_ready")
+        self.assertEqual(report["status"], "a01_historical_checkpoint_valid")
         self.assertTrue(report["a01_complete"])
-        self.assertTrue(report["a02_ready"])
-        self.assertFalse(report["node_runtime_proven"])
+        self.assertTrue(report["a02_ready_at_a01_exit"])
+        self.assertTrue(report["later_programme_progression_allowed"])
+        self.assertFalse(report["node_runtime_proven_at_a01_exit"])
 
     def test_02_candidate_drift_fails(self) -> None:
         root = self.copy_state()
@@ -76,12 +77,12 @@ class A01AcceptanceAuthorityTests(unittest.TestCase):
         self.mutate_index(root, ("programmes", "A01"), "active")
         self.invalid(root)
 
-    def test_07_a02_not_ready_fails(self) -> None:
+    def test_07_historical_a02_exit_not_ready_fails(self) -> None:
         root = self.copy_state()
         self.mutate_index(root, ("programmes", "A02"), "blocked")
         self.invalid(root)
 
-    def test_08_node_runtime_false_claim_fails(self) -> None:
+    def test_08_a01_checkpoint_node_runtime_false_claim_fails(self) -> None:
         root = self.copy_state()
         self.mutate_index(root, ("claim_boundaries", "node_runtime_proven"), True)
         self.invalid(root)
@@ -91,9 +92,21 @@ class A01AcceptanceAuthorityTests(unittest.TestCase):
         self.mutate_index(root, ("claim_boundaries", "prime_deployment_qualified"), True)
         self.invalid(root)
 
-    def test_10_ai_recovery_a02_drift_fails(self) -> None:
+    def test_10_current_ai_recovery_may_advance_beyond_a02_ready(self) -> None:
         root = self.copy_state()
-        self.replace(root, "AI_START_HERE.md", "A02 status: **READY**", "A02 status: **BLOCKED**")
+        text = (root / "AI_START_HERE.md").read_text(encoding="utf-8")
+        self.assertIn("A03 status: **READY**", text)
+        report = checker.validate(root)
+        self.assertTrue(report["later_programme_progression_allowed"])
+
+    def test_11_current_ai_recovery_cannot_drop_a01_completion(self) -> None:
+        root = self.copy_state()
+        self.replace(
+            root,
+            "AI_START_HERE.md",
+            "A01 — Repository, contracts and reproducible scaffold: **FROZEN / PROVEN / COMPLETE**",
+            "A01 — Repository, contracts and reproducible scaffold: **UNKNOWN**",
+        )
         self.invalid(root)
 
 
