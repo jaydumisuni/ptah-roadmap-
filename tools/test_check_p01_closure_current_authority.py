@@ -44,14 +44,16 @@ class P01ClosureCurrentAuthorityTests(unittest.TestCase):
         with self.assertRaises(checker.ValidationError):
             checker.validate(root)
 
-    def test_01_current_closure_passes_after_a01_progress(self) -> None:
-        report = checker.validate(self.copy_state())
+    def test_01_current_closure_passes_after_programme_a_progress(self) -> None:
+        root = self.copy_state()
+        index = json.loads((root / "master-plan-index-amendment-2026-08-15.json").read_text(encoding="utf-8"))
+        report = checker.validate(root)
         self.assertEqual(report["status"], "p01d_closure_remains_valid_after_programme_a_progress")
         self.assertTrue(report["p01d_accepted"])
         self.assertTrue(report["runtime_implementation_authorized"])
         self.assertTrue(report["p01p_open"])
         self.assertFalse(report["prime_native_integration_qualified"])
-        self.assertEqual(report["active_programme_work_unit"], "A02-node-identity-generation-and-host-truth")
+        self.assertEqual(report["active_programme_work_unit"], index["active_work_unit"])
 
     def test_02_wrong_final_proof_commit_fails(self) -> None:
         root = self.copy_state()
