@@ -7,16 +7,16 @@ import tempfile
 import unittest
 from pathlib import Path
 
-import check_a01_acceptance_current_authority as checker
+import check_a02_acceptance_current_authority as checker
 
 
-class A01AcceptanceAuthorityTests(unittest.TestCase):
+class A02AcceptanceAuthorityTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.source = Path(__file__).resolve().parents[1]
 
     def copy_state(self) -> Path:
-        root = Path(tempfile.mkdtemp(prefix="a01-acceptance-authority-"))
+        root = Path(tempfile.mkdtemp(prefix="a02-acceptance-authority-"))
         self.addCleanup(lambda: shutil.rmtree(root, ignore_errors=True))
         for rel in checker.REQUIRED_FILES:
             src = self.source / rel
@@ -44,49 +44,62 @@ class A01AcceptanceAuthorityTests(unittest.TestCase):
         with self.assertRaises(checker.ValidationError):
             checker.validate(root)
 
-    def test_01_a01_acceptance_invariant_passes_after_later_packages(self) -> None:
+    def test_01_current_a02_acceptance_passes(self) -> None:
         report = checker.validate(self.copy_state())
-        self.assertEqual(report["status"], "a01_accepted_complete")
-        self.assertTrue(report["a01_complete"])
+        self.assertEqual(report["status"], "a02_accepted_complete_a03_ready")
+        self.assertTrue(report["a02_complete"])
+        self.assertTrue(report["a03_ready"])
+        self.assertTrue(report["node_runtime_proven"])
+        self.assertFalse(report["ledger_runtime_proven"])
 
     def test_02_candidate_drift_fails(self) -> None:
         root = self.copy_state()
-        self.mutate_index(root, ("a01", "candidate_exact_head"), "0" * 40)
+        self.mutate_index(root, ("a02", "candidate_exact_head"), "0" * 40)
         self.invalid(root)
 
     def test_03_merge_drift_fails(self) -> None:
         root = self.copy_state()
-        self.mutate_index(root, ("a01", "merge_commit"), "0" * 40)
+        self.mutate_index(root, ("a02", "merge_commit"), "0" * 40)
         self.invalid(root)
 
     def test_04_workflow_drift_fails(self) -> None:
         root = self.copy_state()
-        self.mutate_index(root, ("a01", "workflow_run"), 0)
+        self.mutate_index(root, ("a02", "workflow_run"), 0)
         self.invalid(root)
 
     def test_05_artifact_digest_drift_fails(self) -> None:
         root = self.copy_state()
-        self.mutate_index(root, ("a01", "final_proof_artifact_digest"), "sha256:" + "0" * 64)
+        self.mutate_index(root, ("a02", "proof_artifact_digest"), "sha256:" + "0" * 64)
         self.invalid(root)
 
-    def test_06_a01_not_complete_fails(self) -> None:
+    def test_06_kratos_proof_drift_fails(self) -> None:
         root = self.copy_state()
-        self.mutate_index(root, ("programmes", "A01"), "active")
+        self.mutate_index(root, ("a02", "kratos_node_agent_tests_passed"), 16)
         self.invalid(root)
 
-    def test_07_prime_qualification_false_claim_fails(self) -> None:
+    def test_07_sergeant_review_drift_fails(self) -> None:
+        root = self.copy_state()
+        self.mutate_index(root, ("a02", "sergeant_blocking_findings"), 1)
+        self.invalid(root)
+
+    def test_08_a03_not_ready_fails(self) -> None:
+        root = self.copy_state()
+        self.mutate_index(root, ("programmes", "A03"), "blocked")
+        self.invalid(root)
+
+    def test_09_ledger_runtime_false_claim_fails(self) -> None:
+        root = self.copy_state()
+        self.mutate_index(root, ("claim_boundaries", "ledger_runtime_proven"), True)
+        self.invalid(root)
+
+    def test_10_prime_qualification_false_claim_fails(self) -> None:
         root = self.copy_state()
         self.mutate_index(root, ("claim_boundaries", "prime_deployment_qualified"), True)
         self.invalid(root)
 
-    def test_08_production_false_claim_fails(self) -> None:
+    def test_11_ai_recovery_a03_drift_fails(self) -> None:
         root = self.copy_state()
-        self.mutate_index(root, ("claim_boundaries", "production_authorized"), True)
-        self.invalid(root)
-
-    def test_09_ai_recovery_a01_drift_fails(self) -> None:
-        root = self.copy_state()
-        self.replace(root, "AI_START_HERE.md", "A01 — Repository, contracts and reproducible scaffold: **FROZEN / PROVEN / COMPLETE**", "A01 — Repository, contracts and reproducible scaffold: **ACTIVE**")
+        self.replace(root, "AI_START_HERE.md", "A03 status: **READY**", "A03 status: **BLOCKED**")
         self.invalid(root)
 
 
