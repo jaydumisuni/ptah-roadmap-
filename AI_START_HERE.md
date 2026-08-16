@@ -38,6 +38,9 @@ The accepted P01D closure plus A01, A02, A03 and A04 acceptance records are curr
 - Physical development host: **accepted for Ptah development**.
 - Runtime implementation: **AUTHORIZED**.
 - A01 — Repository, contracts and reproducible scaffold: **FROZEN / PROVEN / COMPLETE**.
+- A01 exact candidate: `d12feedb5b66a39d5649b1d3ffea752deb5692c6`.
+- A01 merge: `d33122c8cc625d38f2394d57fcbd2a3ef7027b08`.
+- A01 exact-head workflow run: `31906473232`.
 - A02 — Node identity, Generation and host truth: **FROZEN / PROVEN / COMPLETE**.
 - A03 — Ledger, schema versions and crash-safe migrations: **FROZEN / PROVEN / COMPLETE**.
 - A04 — Activity, Operation, Attempt, Event and Receipt runtime: **FROZEN / PROVEN / COMPLETE**.
@@ -58,7 +61,7 @@ The accepted P01D closure plus A01, A02, A03 and A04 acceptance records are curr
 
 ## A04 accepted evidence
 
-A04 promotes the orchestration/proof substrate only. It does not pull A05 process/PTTY execution, A06 Workspace persistence, Prime-native integration or production/release acceptance forward.
+A04 promotes the orchestration/proof substrate only. It does not pull A05 process/PTY execution, A06 Workspace persistence, Prime-native integration or production/release acceptance forward.
 
 Retained proof:
 
@@ -85,7 +88,7 @@ A04 runtime execution/proof authority is Oracle MCP/RPC. GitHub Actions are not 
 
 A03 remains the accepted durable ledger/migration substrate. Its exact candidate is `19d390e22807a8540c7c4c5c3a94a37b93f5e3be`, merge `da35986327010cba575093d905875ee966e3d755`, and physical proof authority remains its accepted Oracle MCP/RPC evidence.
 
-A02 remains the accepted Node identity/Generation/host-truth substrate. A01 remains the accepted repository/contracts/reproducibility substrate. P01D remains the accepted development-host/runtime-authorization boundary.
+A02 remains the accepted Node identity/Generation/host-truth substrate. A01 remains the accepted repository/contracts/reproducibility substrate with exact candidate `d12feedb5b66a39d5649b1d3ffea752deb5692c6`, merge `d33122c8cc625d38f2394d57fcbd2a3ef7027b08`, and exact-head workflow run `31906473232`. P01D remains the accepted development-host/runtime-authorization boundary.
 
 These older acceptance records are invariants. Their original non-claims remain historical truth even after later phases complete.
 
