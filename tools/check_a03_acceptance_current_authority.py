@@ -16,7 +16,6 @@ SQLITE = "c43daabc6597cb20c84ae5b785d7c6072220966bd79dd12b961b98fb48ba224a"
 REQUIRED_FILES = [
     "planning/A03-LEDGER-SCHEMA-MIGRATIONS-ACCEPTANCE.md",
     "master-plan-index-amendment-2026-08-15.json",
-    "AI_START_HERE.md",
 ]
 
 
@@ -38,7 +37,6 @@ def read(root: Path, path: str) -> str:
 def validate(root: Path) -> dict:
     acceptance = read(root, REQUIRED_FILES[0])
     index = json.loads(read(root, REQUIRED_FILES[1]))
-    start = read(root, REQUIRED_FILES[2])
 
     require("**Status:** ACCEPTED COMPLETE" in acceptance, "A03 acceptance status missing")
     for token in [CANDIDATE, MERGE, RECEIPT, RECEIPT_BLOB, PROOF, SERGEANT, SQLITE]:
@@ -49,20 +47,8 @@ def validate(root: Path) -> dict:
         "A03-specific GitHub Actions runtime-proof workflows were removed before freeze" in acceptance,
         "A03 MCP/RPC proof-route boundary missing",
     )
-    require(
-        "A04 — Activity, Operation, Attempt, Event and Receipt runtime — is **READY**" in acceptance,
-        "A04 readiness decision missing",
-    )
 
-    require(
-        index.get("status") == "operative_p01d_accepted_a01_complete_a02_complete_a03_complete_a04_ready",
-        "machine authority status mismatch",
-    )
     require(index.get("runtime_implementation_authorized") is True, "runtime authorization was lost")
-    require(
-        index.get("active_work_unit") == "A04-activity-operation-attempt-event-receipt-runtime",
-        "machine active work is not A04",
-    )
     require(index.get("authorization_blockers") == [], "unexpected authorization blockers remain")
 
     a03 = index.get("a03")
@@ -94,7 +80,7 @@ def validate(root: Path) -> dict:
     require(a03.get("sergeant_review_status") == "pass", "A03 Sergeant review is not PASS")
     require(a03.get("sergeant_admitted_findings") == 0, "A03 Sergeant admitted findings present")
     require(a03.get("sergeant_unresolved_assurances") == 0, "A03 Sergeant unresolved assurances present")
-    require(a03.get("a04_activity_execution_implemented") is False, "A03 falsely claims A04 implementation")
+    require(a03.get("a04_activity_execution_implemented") is False, "A03 historical non-claim drifted")
     require(a03.get("prime_integration_qualified") is False, "A03 falsely claims Prime qualification")
     require(a03.get("production_or_release_accepted") is False, "A03 falsely claims production/release")
 
@@ -102,7 +88,6 @@ def validate(root: Path) -> dict:
     require(isinstance(programmes, dict), "machine programme states missing")
     for key in ["A01", "A02", "A03"]:
         require(programmes.get(key) == "accepted_complete", f"{key} accepted prerequisite drifted")
-    require(programmes.get("A04") == "ready", "A04 readiness missing")
     require(programmes.get("P01P") == "open_deferred", "P01P boundary drifted")
 
     boundaries = index.get("claim_boundaries")
@@ -110,7 +95,6 @@ def validate(root: Path) -> dict:
     require(boundaries.get("node_runtime_proven") is True, "accepted A02 Node runtime proof missing")
     require(boundaries.get("ledger_runtime_proven") is True, "accepted A03 ledger proof missing")
     for key in [
-        "activity_runtime_proven",
         "prime_deployment_qualified",
         "production_authorized",
         "release_accepted",
@@ -119,29 +103,15 @@ def validate(root: Path) -> dict:
     ]:
         require(boundaries.get(key) is False, f"forbidden claim became true: {key}")
 
-    require(
-        "A03 — Ledger, schema versions and crash-safe migrations: **FROZEN / PROVEN / COMPLETE**" in start,
-        "AI recovery entry lacks A03 completion",
-    )
-    require(
-        "Active work unit: **A04 — Activity, Operation, Attempt, Event and Receipt runtime**" in start,
-        "AI recovery entry is not on A04",
-    )
-    require("A04 status: **READY**" in start, "AI recovery entry lacks A04 readiness")
-    for token in [CANDIDATE, MERGE, RECEIPT, PROOF, SERGEANT]:
-        require(token in start, f"AI recovery A03 evidence missing: {token}")
-
     return {
-        "record_type": "ptah.a03.acceptance_current_authority_validation",
-        "status": "a03_accepted_complete_a04_ready",
+        "record_type": "ptah.a03.acceptance_invariant_validation",
+        "status": "a03_acceptance_invariant_valid",
         "a03_candidate": CANDIDATE,
         "a03_merge": MERGE,
         "a03_complete": True,
-        "a04_ready": True,
         "runtime_implementation_authorized": True,
         "node_runtime_proven": True,
         "ledger_runtime_proven": True,
-        "activity_runtime_proven": False,
         "p01p_open": True,
         "prime_deployment_qualified": False,
         "production_authorized": False,

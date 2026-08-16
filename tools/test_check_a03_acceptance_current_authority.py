@@ -10,13 +10,13 @@ from pathlib import Path
 import check_a03_acceptance_current_authority as checker
 
 
-class A03AcceptanceAuthorityTests(unittest.TestCase):
+class A03AcceptanceInvariantTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.source = Path(__file__).resolve().parents[1]
 
     def copy_state(self) -> Path:
-        root = Path(tempfile.mkdtemp(prefix="a03-acceptance-authority-"))
+        root = Path(tempfile.mkdtemp(prefix="a03-acceptance-invariant-"))
         self.addCleanup(lambda: shutil.rmtree(root, ignore_errors=True))
         for rel in checker.REQUIRED_FILES:
             src = self.source / rel
@@ -44,13 +44,11 @@ class A03AcceptanceAuthorityTests(unittest.TestCase):
         with self.assertRaises(checker.ValidationError):
             checker.validate(root)
 
-    def test_01_current_a03_acceptance_passes(self) -> None:
+    def test_01_current_a03_acceptance_invariant_passes(self) -> None:
         report = checker.validate(self.copy_state())
-        self.assertEqual(report["status"], "a03_accepted_complete_a04_ready")
+        self.assertEqual(report["status"], "a03_acceptance_invariant_valid")
         self.assertTrue(report["a03_complete"])
-        self.assertTrue(report["a04_ready"])
         self.assertTrue(report["ledger_runtime_proven"])
-        self.assertFalse(report["activity_runtime_proven"])
 
     def test_02_candidate_drift_fails(self) -> None:
         root = self.copy_state()
@@ -82,32 +80,27 @@ class A03AcceptanceAuthorityTests(unittest.TestCase):
         self.mutate_index(root, ("a03", "sergeant_admitted_findings"), 1)
         self.invalid(root)
 
-    def test_08_a04_not_ready_fails(self) -> None:
-        root = self.copy_state()
-        self.mutate_index(root, ("programmes", "A04"), "blocked")
-        self.invalid(root)
-
-    def test_09_ledger_proof_loss_fails(self) -> None:
+    def test_08_ledger_proof_loss_fails(self) -> None:
         root = self.copy_state()
         self.mutate_index(root, ("claim_boundaries", "ledger_runtime_proven"), False)
         self.invalid(root)
 
-    def test_10_activity_false_claim_fails(self) -> None:
-        root = self.copy_state()
-        self.mutate_index(root, ("claim_boundaries", "activity_runtime_proven"), True)
-        self.invalid(root)
-
-    def test_11_prime_false_claim_fails(self) -> None:
+    def test_09_prime_false_claim_fails(self) -> None:
         root = self.copy_state()
         self.mutate_index(root, ("claim_boundaries", "prime_deployment_qualified"), True)
         self.invalid(root)
 
-    def test_12_ai_handoff_drift_fails(self) -> None:
+    def test_10_p01p_false_completion_fails(self) -> None:
         root = self.copy_state()
-        self.replace(root, "AI_START_HERE.md", "A04 status: **READY**", "A04 status: **BLOCKED**")
+        self.mutate_index(root, ("programmes", "P01P"), "accepted_complete")
         self.invalid(root)
 
-    def test_13_runtime_proof_route_drift_fails(self) -> None:
+    def test_11_historical_a04_nonclaim_drift_fails(self) -> None:
+        root = self.copy_state()
+        self.mutate_index(root, ("a03", "a04_activity_execution_implemented"), True)
+        self.invalid(root)
+
+    def test_12_runtime_proof_route_drift_fails(self) -> None:
         root = self.copy_state()
         self.replace(
             root,
@@ -116,6 +109,13 @@ class A03AcceptanceAuthorityTests(unittest.TestCase):
             "A03-specific GitHub Actions runtime-proof workflows were used for proof",
         )
         self.invalid(root)
+
+    def test_13_later_a04_completion_does_not_falsify_a03(self) -> None:
+        root = self.copy_state()
+        self.mutate_index(root, ("programmes", "A04"), "accepted_complete")
+        self.mutate_index(root, ("claim_boundaries", "activity_runtime_proven"), True)
+        report = checker.validate(root)
+        self.assertEqual(report["status"], "a03_acceptance_invariant_valid")
 
 
 if __name__ == "__main__":
