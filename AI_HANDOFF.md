@@ -61,7 +61,7 @@ transport: oracle.live.v1
 githubInteractivePathUsed: false
 ```
 
-A05 remains the accepted native process/PTA/terminal Provider substrate. Its original A06 non-claim remains historical truth and is not rewritten by A06 completion.
+A05 remains the accepted native process/PTY/terminal Provider substrate. Its original A06 non-claim remains historical truth and is not rewritten by A06 completion.
 
 ## Earlier accepted invariants
 
