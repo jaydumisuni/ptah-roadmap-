@@ -54,16 +54,16 @@ def validate(root: Path) -> dict:
     require("A05 — Native process, PTY and multi-terminal Provider — is **READY**" in acceptance, "A05 readiness decision missing")
     require("A04 is **FROZEN / PROVEN / COMPLETE**" in acceptance, "A04 completion decision missing")
 
-    require(index.get("schema_version") == "1.4.0", "machine index schema version mismatch")
+    require(index.get("schema_version") == "1.5.0", "machine index schema version mismatch")
     require(
-        index.get("status") == "operative_p01d_accepted_a01_complete_a02_complete_a03_complete_a04_complete_a05_ready",
+        index.get("status") == "operative_p01d_accepted_a01_complete_a02_complete_a03_complete_a04_complete_a05_complete_a06_ready",
         "machine authority status mismatch",
     )
     require(index.get("runtime_implementation_authorized") is True, "runtime authorization was lost")
     require(index.get("authorization_blockers") == [], "unexpected authorization blockers remain")
     require(
-        index.get("active_work_unit") == "A05-native-process-pty-multi-terminal-provider",
-        "machine active work is not A05",
+        index.get("active_work_unit") == "A06-persistent-workspace-session-authority-projection",
+        "machine active work is not A06",
     )
 
     a04 = index.get("a04")
@@ -97,9 +97,9 @@ def validate(root: Path) -> dict:
 
     programmes = index.get("programmes")
     require(isinstance(programmes, dict), "machine programme states missing")
-    for key in ["A01", "A02", "A03", "A04"]:
+    for key in ["A01", "A02", "A03", "A04", "A05"]:
         require(programmes.get(key) == "accepted_complete", f"{key} accepted prerequisite drifted")
-    require(programmes.get("A05") == "ready", "A05 readiness missing")
+    require(programmes.get("A06") == "ready", "A06 readiness missing")
     require(programmes.get("P01P") == "open_deferred", "P01P boundary drifted")
 
     boundaries = index.get("claim_boundaries")
@@ -107,6 +107,8 @@ def validate(root: Path) -> dict:
     require(boundaries.get("node_runtime_proven") is True, "accepted A02 Node runtime proof missing")
     require(boundaries.get("ledger_runtime_proven") is True, "accepted A03 ledger proof missing")
     require(boundaries.get("activity_runtime_proven") is True, "accepted A04 Activity runtime proof missing")
+    require(boundaries.get("native_process_pty_runtime_proven") is True, "accepted A05 native process/PTY proof missing")
+    require(boundaries.get("workspace_runtime_proven") is False, "A06 Workspace runtime falsely proven")
     for key in [
         "prime_deployment_qualified",
         "production_authorized",
@@ -121,26 +123,31 @@ def validate(root: Path) -> dict:
         "AI recovery entry lacks A04 completion",
     )
     require(
-        "Active work unit: **A05 — Native process, PTY and multi-terminal Provider**" in start,
-        "AI recovery entry is not on A05",
+        "A05 — Native process, PTY and multi-terminal Provider: **FROZEN / PROVEN / COMPLETE**" in start,
+        "AI recovery entry lacks A05 completion",
     )
-    require("A05 status: **READY**" in start, "AI recovery entry lacks A05 readiness")
+    require(
+        "Active work unit: **A06 — Persistent Workspace, Session and authority projection**" in start,
+        "AI recovery entry is not on A06",
+    )
+    require("A06 status: **READY**" in start, "AI recovery entry lacks A06 readiness")
     require("A04 runtime execution/proof authority is Oracle MCP/RPC" in start, "AI recovery proof route drifted")
     for token in [CANDIDATE, MERGE, FREEZE, PASS_B, SQLITE_SUPPLEMENT, SERGEANT]:
         require(token in start, f"AI recovery A04 evidence missing: {token}")
 
-    require("A05 — READY / CURRENT WORK UNIT" in handoff, "durable handoff is not on A05")
+    require("A06 — READY / CURRENT WORK UNIT" in handoff, "durable handoff is not on A06")
     require("GitHub Actions are not the A04 runtime execution/proof authority" in handoff, "handoff proof route drifted")
     for token in [CANDIDATE, MERGE, FREEZE, PASS_B, SQLITE_SUPPLEMENT, SERGEANT]:
         require(token in handoff, f"durable handoff A04 evidence missing: {token}")
 
     return {
         "record_type": "ptah.a04.acceptance_current_authority_validation",
-        "status": "a04_accepted_complete_a05_ready",
+        "status": "a04_invariant_valid_under_a05_complete_a06_ready",
         "a04_candidate": CANDIDATE,
         "a04_merge": MERGE,
         "a04_complete": True,
-        "a05_ready": True,
+        "a05_complete": True,
+        "a06_ready": True,
         "runtime_implementation_authorized": True,
         "node_runtime_proven": True,
         "ledger_runtime_proven": True,
