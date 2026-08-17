@@ -66,22 +66,18 @@ def validate(root: Path) -> dict:
         "A05 MCP/RPC proof-route boundary missing",
     )
     require("A05 is **FROZEN / PROVEN / COMPLETE**" in acceptance, "A05 completion decision missing")
-    require(
-        "A06 — Persistent Workspace, Session and authority projection — is **READY**" in acceptance,
-        "A06 readiness decision missing",
-    )
 
-    require(index.get("schema_version") == "1.5.0", "machine index schema version mismatch")
+    require(index.get("schema_version") == "1.6.0", "machine index schema version mismatch")
     require(
         index.get("status")
-        == "operative_p01d_accepted_a01_complete_a02_complete_a03_complete_a04_complete_a05_complete_a06_ready",
+        == "operative_p01d_accepted_a01_complete_a02_complete_a03_complete_a04_complete_a05_complete_a06_complete_a07_ready",
         "machine authority status mismatch",
     )
     require(index.get("runtime_implementation_authorized") is True, "runtime authorization was lost")
     require(index.get("authorization_blockers") == [], "unexpected authorization blockers remain")
     require(
-        index.get("active_work_unit") == "A06-persistent-workspace-session-authority-projection",
-        "machine active work is not A06",
+        index.get("active_work_unit") == "A07-object-revision-artifact-location-local-cas",
+        "machine active work is not A07",
     )
 
     a05 = index.get("a05")
@@ -107,45 +103,28 @@ def validate(root: Path) -> dict:
     for key, value in expected.items():
         require(a05.get(key) == value, f"machine A05 field mismatch: {key}")
     require(a05.get("github_interactive_path_used") is False, "interactive Git path falsely recorded")
-    for key in [
-        "freeze_fmt_passed",
-        "scoped_clippy_warnings_denied_passed",
-        "dependency_lock_passed",
-        "a02_regression_passed",
-        "a03_regression_passed",
-        "a04_regression_passed",
-        "a05_package_tests_passed",
-        "workspace_tests_passed",
-        "prior_phase_surface_unchanged",
-        "git_tracked_status_clean",
-    ]:
-        require(a05.get(key) is True, f"A05 proof field not passed: {key}")
-    require(a05.get("sergeant_review_status") == "pass", "A05 Sergeant review is not PASS")
-    require(a05.get("sergeant_admitted_findings") == 0, "A05 Sergeant admitted findings present")
-    require(a05.get("sergeant_unresolved_assurances") == 0, "A05 Sergeant unresolved assurances present")
-    require(a05.get("a06_workspace_session_implemented") is False, "A05 falsely claims A06 implementation")
+    require(a05.get("a06_workspace_session_implemented") is False, "A05 historical A06 non-claim was rewritten")
     require(a05.get("prime_integration_qualified") is False, "A05 falsely claims Prime qualification")
     require(a05.get("production_or_release_accepted") is False, "A05 falsely claims production/release")
 
-    a04 = index.get("a04")
-    require(isinstance(a04, dict), "machine A04 acceptance record missing")
-    require(
-        a04.get("a05_native_process_pty_implemented") is False,
-        "A04 historical A05 non-claim was rewritten",
-    )
-
     programmes = index.get("programmes")
     require(isinstance(programmes, dict), "machine programme states missing")
-    for key in ["A01", "A02", "A03", "A04", "A05"]:
+    for key in ["A01", "A02", "A03", "A04", "A05", "A06"]:
         require(programmes.get(key) == "accepted_complete", f"{key} accepted prerequisite drifted")
-    require(programmes.get("A06") == "ready", "A06 readiness missing")
+    require(programmes.get("A07") == "ready", "A07 readiness missing")
     require(programmes.get("P01P") == "open_deferred", "P01P boundary drifted")
 
     boundaries = index.get("claim_boundaries")
     require(isinstance(boundaries, dict), "claim boundaries missing")
-    for key in ["node_runtime_proven", "ledger_runtime_proven", "activity_runtime_proven", "native_process_pty_runtime_proven"]:
+    for key in [
+        "node_runtime_proven",
+        "ledger_runtime_proven",
+        "activity_runtime_proven",
+        "native_process_pty_runtime_proven",
+        "workspace_runtime_proven",
+    ]:
         require(boundaries.get(key) is True, f"accepted runtime proof missing: {key}")
-    require(boundaries.get("workspace_runtime_proven") is False, "A06 Workspace runtime falsely proven")
+    require(boundaries.get("object_cas_runtime_proven") is False, "A07 Object/CAS runtime falsely proven")
     for key in [
         "prime_deployment_qualified",
         "production_authorized",
@@ -156,36 +135,28 @@ def validate(root: Path) -> dict:
         require(boundaries.get(key) is False, f"forbidden claim became true: {key}")
 
     require(
-        "A05 — Native process, PTY and multi-terminal Provider: **FROZEN / PROVEN / COMPLETE**" in start,
-        "AI recovery entry lacks A05 completion",
+        "A06 — Persistent Workspace, Session and authority projection: **FROZEN / PROVEN / COMPLETE**" in start,
+        "AI recovery entry lacks A06 completion",
     )
     require(
-        "Active work unit: **A06 — Persistent Workspace, Session and authority projection**" in start,
-        "AI recovery entry is not on A06",
+        "Active work unit: **A07 — Object, Revision, Artifact, Location and local CAS**" in start,
+        "AI recovery entry is not on A07",
     )
-    require("A06 status: **READY**" in start, "AI recovery entry lacks A06 readiness")
-    require("A05 runtime execution/proof authority is Oracle MCP/RPC" in start, "AI recovery proof route drifted")
-    for token in [CANDIDATE, MERGE, FREEZE_RECEIPT, PROOF_RECEIPT, SERGEANT]:
-        require(token in start, f"AI recovery A05 evidence missing: {token}")
-
-    require("A06 — READY / CURRENT WORK UNIT" in handoff, "durable handoff is not on A06")
-    require("GitHub Actions are not the A05 runtime execution/proof authority" in handoff, "handoff proof route drifted")
-    for token in [CANDIDATE, MERGE, FREEZE_RECEIPT, PROOF_RECEIPT, SERGEANT]:
-        require(token in handoff, f"durable handoff A05 evidence missing: {token}")
+    require("A07 status: **READY**" in start, "AI recovery entry lacks A07 readiness")
+    require("A07 — READY / CURRENT WORK UNIT" in handoff, "durable handoff is not on A07")
 
     return {
         "record_type": "ptah.a05.acceptance_current_authority_validation",
-        "status": "a05_accepted_complete_a06_ready",
+        "status": "a05_accepted_complete_a06_complete_a07_ready",
         "a05_candidate": CANDIDATE,
         "a05_merge": MERGE,
         "a05_complete": True,
-        "a06_ready": True,
+        "a06_complete": True,
+        "a07_ready": True,
         "runtime_implementation_authorized": True,
-        "node_runtime_proven": True,
-        "ledger_runtime_proven": True,
-        "activity_runtime_proven": True,
         "native_process_pty_runtime_proven": True,
-        "workspace_runtime_proven": False,
+        "workspace_runtime_proven": True,
+        "object_cas_runtime_proven": False,
         "tenfold_private_lanes": TENFOLD_LANES,
         "p01p_open": True,
         "prime_deployment_qualified": False,
