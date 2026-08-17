@@ -92,7 +92,7 @@ A06 runtime execution/proof authority is Oracle MCP/RPC. GitHub Actions are not 
 
 ## Preserved earlier acceptance
 
-A05 remains the accepted native process/PTA/terminal Provider substrate; its original A06 non-claim remains historical truth. A04 remains the accepted orchestration/proof substrate. A03 remains the accepted durable ledger/migration substrate. A02 remains the accepted Node identity/Generation/host-truth substrate. A01 remains the accepted repository/contracts/reproducibility substrate. P01D remains the accepted development-host/runtime-authorization boundary.
+A05 remains the accepted native process/PTY/terminal Provider substrate; its original A06 non-claim remains historical truth. A04 remains the accepted orchestration/proof substrate. A03 remains the accepted durable ledger/migration substrate. A02 remains the accepted Node identity/Generation/host-truth substrate. A01 remains the accepted repository/contracts/reproducibility substrate. P01D remains the accepted development-host/runtime-authorization boundary.
 
 These older acceptance records are invariants. Their original non-claims remain historical truth even after later phases complete.
 
