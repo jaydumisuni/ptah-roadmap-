@@ -15,7 +15,8 @@ A01 — ACCEPTED COMPLETE
 A02 — ACCEPTED COMPLETE
 A03 — ACCEPTED COMPLETE
 A04 — ACCEPTED COMPLETE
-A05 — READY / CURRENT WORK UNIT
+A05 — ACCEPTED COMPLETE
+A06 — READY / CURRENT WORK UNIT
 P01P Prime-native integration — OPEN / DEFERRED
 Production authorization — FALSE
 Release acceptance — FALSE
@@ -23,11 +24,29 @@ Release acceptance — FALSE
 
 ## Exact current pickup
 
-Begin **A05 — Native process, PTY and multi-terminal Provider** from P0C-I005 and frozen WP02, WP04, WP05, WP09 and WP11 contracts.
+Begin **A06 — Persistent Workspace, Session and authority projection** from P0C-I006, frozen WP05, WP09 and WP11 contracts, and the AI Project Workspace profile.
 
-A05 depends on the accepted A04 orchestration/proof substrate. Inspect existing public implementation in `jaydumisuni/Ptah-space` before adding code.
+A06 depends on the accepted A03 durability, A04 orchestration/proof and A05 native process/terminal Provider substrates. Inspect existing public implementation in `jaydumisuni/Ptah-space` before adding code.
 
-Do not widen A05 into A06 persistent Workspace/Session work, Object work, P01P Prime-native integration, production or release claims.
+Do not widen A06 into A07 Object/CAS work, P01P Prime-native integration, production or release claims.
+
+## A05 accepted implementation
+
+```text
+Ptah-space PR: #27
+frozen candidate: 4be4f170219701841aca367dd98c7b746fdd444c
+merge: 34bc4beed57517532a1d79ae64131835a395f7b2
+freeze-quality receipt: 0000-ptah-a05-freeze-quality-20260817-0155z
+frozen exact-head proof receipt: 0000-ptah-a05-frozen-proof-fast-20260817-0204z
+Tenfold final-review packet SHA-256: 627074b11c36014d8f8c391bdbcecbb5130a68e0fbbe8151d8af03aa700b9061
+Tenfold private lanes: 150
+transport: oracle.live.v1
+githubInteractivePathUsed: false
+```
+
+A05 proved canonical Provider revision/instance/Generation context, PID-as-alias semantics, independent pipe stdout/stderr, truthful PTY merged-stream limitations, independent exit observation, input/resize, retained detach/reconnect, Policy-required disconnect termination, fenced attachments/control leases, visible stream ordering/truncation, multi-terminal independence and exact A04 Attempt-context binding.
+
+GitHub Actions are not the A05 runtime execution/proof authority. The accepted proof path is Oracle MCP/RPC on the accepted development host.
 
 ## A04 accepted implementation
 

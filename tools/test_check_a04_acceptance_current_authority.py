@@ -46,9 +46,10 @@ class A04AcceptanceAuthorityTests(unittest.TestCase):
 
     def test_01_current_a04_acceptance_passes(self) -> None:
         report = checker.validate(self.copy_state())
-        self.assertEqual(report["status"], "a04_accepted_complete_a05_ready")
+        self.assertEqual(report["status"], "a04_invariant_valid_under_a05_complete_a06_ready")
         self.assertTrue(report["a04_complete"])
-        self.assertTrue(report["a05_ready"])
+        self.assertTrue(report["a05_complete"])
+        self.assertTrue(report["a06_ready"])
         self.assertTrue(report["activity_runtime_proven"])
         self.assertEqual(report["tenfold_private_lanes"], 190)
 
@@ -114,7 +115,7 @@ class A04AcceptanceAuthorityTests(unittest.TestCase):
 
     def test_14_ai_handoff_drift_fails(self) -> None:
         root = self.copy_state()
-        self.replace(root, "AI_START_HERE.md", "A05 status: **READY**", "A05 status: **BLOCKED**")
+        self.replace(root, "AI_START_HERE.md", "A06 status: **READY**", "A06 status: **BLOCKED**")
         self.invalid(root)
 
     def test_15_runtime_proof_route_drift_fails(self) -> None:

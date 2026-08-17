@@ -6,30 +6,32 @@ Do not answer from chat memory alone. Recover the project from this repository b
 
 ## Required reading order
 
-1. `planning/A04-ACTIVITY-OPERATION-ATTEMPT-RUNTIME-ACCEPTANCE.md`
-2. `planning/A03-LEDGER-SCHEMA-MIGRATIONS-ACCEPTANCE.md`
-3. `planning/A02-NODE-IDENTITY-GENERATION-HOST-TRUTH-ACCEPTANCE.md`
-4. `planning/A01-REPOSITORY-CONTRACTS-SCAFFOLD-ACCEPTANCE.md`
-5. `master-plan-index-amendment-2026-08-15.json`
-6. `CURRENT_STATE_CLOSURE_2026-08-15.md`
-7. `decisions/ADR-0039-P01D-ACCEPTANCE-A01-AUTHORIZATION.md`
-8. `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`
-9. `CURRENT_STATE_AMENDMENT_2026-08-15.md` for the preceding P01D state
-10. `CURRENT_STATE.md` for preserved historical context
-11. `MASTER_PLAN.md`
-12. `IMPLEMENTATION_ROADMAP.md`
-13. `MASTER_ROADMAP.md`
-14. `PROGRESS_AMENDMENT_2026-08-15.md`
-15. `PROGRESS.md`
-16. `DECISIONS.md` and `DECISIONS_AMENDMENT_2026-08-15.md`
-17. `MEMORY_PROTOCOL.md`
-18. `DONOR_RECOVERY.md`
-19. `REQUIREMENT_CLOSURE_MATRIX.md`
-20. `WORK_ITEM_TEMPLATE.md`
-21. current source and public-safe technical documentation in `jaydumisuni/Ptah-space`
-22. any donor or internal repository directly related to the selected work item
+1. `planning/A05-NATIVE-PROCESS-PTY-PROVIDER-ACCEPTANCE.md`
+2. `planning/A04-ACTIVITY-OPERATION-ATTEMPT-RUNTIME-ACCEPTANCE.md`
+3. `planning/A03-LEDGER-SCHEMA-MIGRATIONS-ACCEPTANCE.md`
+4. `planning/A02-NODE-IDENTITY-GENERATION-HOST-TRUTH-ACCEPTANCE.md`
+5. `planning/A01-REPOSITORY-CONTRACTS-SCAFFOLD-ACCEPTANCE.md`
+6. `master-plan-index-amendment-2026-08-15.json`
+7. `CURRENT_STATE_CLOSURE_2026-08-15.md`
+8. `decisions/ADR-0039-P01D-ACCEPTANCE-A01-AUTHORIZATION.md`
+9. `decisions/ADR-0038-PRIME-HOST-DEVELOPMENT-QUALIFICATION.md`
+10. `CURRENT_STATE_AMENDMENT_2026-08-15.md` for the preceding P01D state
+11. `CURRENT_STATE.md` for preserved historical context
+12. `MASTER_PLAN.md`
+13. `IMPLEMENTATION_ROADMAP.md`
+14. `MASTER_ROADMAP.md`
+15. `PROGRESS_AMENDMENT_2026-08-15.md`
+16. `PROGRESS.md`
+17. `DECISIONS.md` and `DECISIONS_AMENDMENT_2026-08-15.md`
+18. `MEMORY_PROTOCOL.md`
+19. `DONOR_RECOVERY.md`
+20. `REQUIREMENT_CLOSURE_MATRIX.md`
+21. `WORK_ITEM_TEMPLATE.md`
+22. current source and public-safe technical documentation in `jaydumisuni/Ptah-space`
+23. any donor or internal repository directly related to the selected work item
 
-The accepted P01D closure plus A01, A02, A03 and A04 acceptance records are current authority. Older records remain historical provenance and must not be rewritten into false passes.
+The accepted P01D closure plus A01, A02, A03, A04 and A05 acceptance records are current authority. Older records remain historical provenance and must not be rewritten into false passes.
+
 
 ## Current position
 
@@ -51,13 +53,45 @@ The accepted P01D closure plus A01, A02, A03 and A04 acceptance records are curr
 - A04 SQLite supplement SHA-256: `bd65b89e5cc1180b96612b18901c530892d5b753123c5b1ea237a0bd8a1fb734`.
 - A04 independent Sergeant review: **PASS / APPROVE**, 190 Tenfold private lanes, 0 admitted findings, 0 unresolved assurances; packet SHA-256 `8f471eee95374fcad509aff88b80be08b95eae22dd719934978feac70ddb53d4`.
 - A04 physical proof transport: `oracle.live.v1`; `githubInteractivePathUsed: false`.
-- Active work unit: **A05 — Native process, PTY and multi-terminal Provider**.
-- A05 status: **READY**.
+- A05 — Native process, PTY and multi-terminal Provider: **FROZEN / PROVEN / COMPLETE**.
+- A05 exact candidate: `4be4f170219701841aca367dd98c7b746fdd444c`.
+- A05 merge: `34bc4beed57517532a1d79ae64131835a395f7b2`.
+- A05 freeze-quality receipt: `0000-ptah-a05-freeze-quality-20260817-0155z`.
+- A05 frozen exact-head proof receipt: `0000-ptah-a05-frozen-proof-fast-20260817-0204z`.
+- A05 independent Sergeant review: **PASS / APPROVE**, 150 Tenfold private lanes, 0 admitted findings, 0 unresolved assurances; packet SHA-256 `627074b11c36014d8f8c391bdbcecbb5130a68e0fbbe8151d8af03aa700b9061`.
+- A05 physical proof transport: `oracle.live.v1`; `githubInteractivePathUsed: false`.
+- Active work unit: **A06 — Persistent Workspace, Session and authority projection**.
+- A06 status: **READY**.
 - P01P Prime-native integration proof: **OPEN / DEFERRED**; it does not block Programme A development.
 - Prime-native deployment qualification: **not claimed**.
 - Production/release acceptance: **not claimed**.
 - Public implementation repo: `jaydumisuni/Ptah-space`.
 - Detailed roadmap and authorization repo: this repository.
+
+## A05 accepted evidence
+
+A05 promotes the native process/terminal Provider only. It does not pull A06 Workspace persistence, A07 Object/CAS work, Prime-native integration or production/release acceptance forward.
+
+Retained proof:
+
+```text
+Ptah-space PR: #27
+candidate: 4be4f170219701841aca367dd98c7b746fdd444c
+merge: 34bc4beed57517532a1d79ae64131835a395f7b2
+freeze-quality receipt: 0000-ptah-a05-freeze-quality-20260817-0155z
+frozen exact-head proof receipt: 0000-ptah-a05-frozen-proof-fast-20260817-0204z
+Tenfold final review packet: 627074b11c36014d8f8c391bdbcecbb5130a68e0fbbe8151d8af03aa700b9061
+Tenfold private lanes: 150
+transport: oracle.live.v1
+githubInteractivePathUsed: false
+Rust/Cargo: 1.97.1
+Cargo.lock: cbcec35bac0fb9c08782390e28398d0f451cbd97e35381ee418f66574c6e4f0e
+portable-pty 0.9.0 checksum: b4a596a2b3d2752d94f51fac2d4a96737b8705dddd311a32b9af47211f08671e
+```
+
+A05 proved Provider Revision/Instance/Generation binding; PID-as-alias semantics; independent pipe stdout/stderr; truthful merged PTY-stream limitation; input/resize; durable detach/reconnect; Policy-required disconnect termination; stale attachment/lease fencing; visible stream sequence/truncation; several independent PTYs; independent exit observation; and exact A04 Attempt-context binding.
+
+A05 runtime execution/proof authority is Oracle MCP/RPC. GitHub Actions are not the A05 runtime proof path.
 
 ## A04 accepted evidence
 
@@ -129,26 +163,27 @@ Prime Host ID != Ptah Node ID
 
 ## Exact next operation
 
-Begin **A05 — Native process, PTY and multi-terminal Provider**.
+Begin **A06 — Persistent Workspace, Session and authority projection**.
 
 Before implementation:
 
-1. recover A05 requirements from `IMPLEMENTATION_ROADMAP.md`, P0C-I005 and frozen WP02, WP04, WP05, WP09 and WP11 contracts;
-2. inspect current process/terminal/provider scaffolds and A04 Activity/Operation/Attempt/Event/Receipt runtime before adding code;
-3. implement a native process Provider without collapsing OS process IDs into Ptah identities;
-4. implement PTY-backed terminal Activities with independent stdout/stderr evidence where applicable;
-5. implement input, resize, detach and reconnect;
-6. implement terminal attachment and control leases with explicit stale-lease fencing;
-7. bind Provider revision and Generation to execution evidence;
-8. retain truncation, ordering and stream limitation records instead of hiding data loss;
-9. prove several terminals remain independent;
-10. prove client disconnect does not terminate a durable terminal unless Policy requires it;
-11. prove stale terminal attachment and stale control lease fail closed;
-12. prove stream ordering/truncation limits remain visible;
-13. independently verify process exit rather than treating launch/ACK as completion;
-14. freeze an exact candidate only after independent Review is clean, then prove those exact bytes through the accepted MCP/RPC host path before merge.
+1. recover A06 requirements from `IMPLEMENTATION_ROADMAP.md`, P0C-I006, frozen WP05/WP09/WP11 contracts and the AI Project Workspace profile;
+2. inspect A03 durability, A04 Activity/Operation/Attempt/Event/Receipt runtime and A05 Provider/terminal foundations before adding code;
+3. implement persistent Workspace identity and Workspace revisions/provider bindings without replacing identity on Session changes;
+4. implement Session attach/detach and stale-Session authority fencing;
+5. project Workspace-scoped Objects, Activities, terminals and Policies without yet implementing A07 Object/CAS semantics;
+6. implement participant and Grant projection with fail-closed cross-Workspace retrieval;
+7. implement restart-recovery projection for Workspace/session state and missing attachments;
+8. preserve worker formation role, independence, checkpoint, partial-result and conflict evidence across interruption/recovery;
+9. implement the basic handoff record required by A06;
+10. prove Workspace identity survives disconnect and runtime restart;
+11. prove Session changes do not replace Workspace identity;
+12. prove missing attachments remain explicit and stale Session authority fails closed;
+13. prove cross-Workspace retrieval fails without Grant;
+14. prove agent replacement preserves authority/handoff state and interrupted worker formations recover without losing evidence;
+15. freeze an exact candidate only after independent Review is clean, then prove those exact bytes through the accepted Oracle MCP/RPC host path before merge.
 
-A06 persistent Workspace/Session work, Object work, P01P Prime-native integration and production/release acceptance remain out of A05 scope.
+A07 Object/CAS work, P01P Prime-native integration and production/release acceptance remain out of A06 scope.
 
 ## Before doing work
 

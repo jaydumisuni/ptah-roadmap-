@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.4.0",
+  "schema_version": "1.5.0",
   "record_type": "ptah.master_plan_index_amendment",
-  "status": "operative_p01d_accepted_a01_complete_a02_complete_a03_complete_a04_complete_a05_ready",
-  "recorded_at": "2026-08-16",
-  "applies_after_roadmap_commit": "4c6c1693207c9c485c6d1eaabb60e921e6aad574",
+  "status": "operative_p01d_accepted_a01_complete_a02_complete_a03_complete_a04_complete_a05_complete_a06_ready",
+  "recorded_at": "2026-08-17",
+  "applies_after_roadmap_commit": "f1239935e29d69f0c24e4d0fea8024d22a1b74ea",
   "supersedes_fields_in_master_plan_index": [
     "status",
     "active_work_unit",
@@ -143,18 +143,19 @@
     "production_or_release_accepted": false
   },
   "runtime_implementation_authorized": true,
-  "active_work_unit": "A05-native-process-pty-multi-terminal-provider",
+  "active_work_unit": "A06-persistent-workspace-session-authority-projection",
   "programmes": {
     "P01D": "accepted_complete",
     "A01": "accepted_complete",
     "A02": "accepted_complete",
     "A03": "accepted_complete",
     "A04": "accepted_complete",
-    "A05": "ready",
-    "P01P": "open_deferred"
+    "A05": "accepted_complete",
+    "P01P": "open_deferred",
+    "A06": "ready"
   },
   "authorization_blockers": [],
-  "next_action": "Begin A05 — Native process, PTY and multi-terminal Provider — from P0C-I005 and frozen WP02, WP04, WP05, WP09 and WP11 contracts.",
+  "next_action": "Begin A06 \u2014 Persistent Workspace, Session and authority projection \u2014 from P0C-I006, frozen WP05, WP09 and WP11 contracts, and the AI Project Workspace profile.",
   "claim_boundaries": {
     "node_runtime_proven": true,
     "ledger_runtime_proven": true,
@@ -163,6 +164,43 @@
     "production_authorized": false,
     "release_accepted": false,
     "historical_ubuntu_proof_passed": false,
-    "prime_host_id_equals_ptah_node_id": false
+    "prime_host_id_equals_ptah_node_id": false,
+    "native_process_pty_runtime_proven": true,
+    "workspace_runtime_proven": false
+  },
+  "a05": {
+    "status": "accepted_complete",
+    "ptah_space_pr": 27,
+    "candidate_exact_head": "4be4f170219701841aca367dd98c7b746fdd444c",
+    "merge_commit": "34bc4beed57517532a1d79ae64131835a395f7b2",
+    "freeze_quality_receipt": "0000-ptah-a05-freeze-quality-20260817-0155z",
+    "frozen_exact_head_proof_receipt": "0000-ptah-a05-frozen-proof-fast-20260817-0204z",
+    "physical_proof_transport": "oracle.live.v1",
+    "github_interactive_path_used": false,
+    "rust_toolchain": "1.97.1",
+    "freeze_fmt_passed": true,
+    "scoped_clippy_warnings_denied_passed": true,
+    "dependency_lock_passed": true,
+    "a02_regression_passed": true,
+    "a03_regression_passed": true,
+    "a04_regression_passed": true,
+    "a05_package_tests_passed": true,
+    "workspace_tests_passed": true,
+    "prior_phase_surface_unchanged": true,
+    "git_tracked_status_clean": true,
+    "tenfold_private_lanes": 150,
+    "sergeant_review_packet_sha256": "627074b11c36014d8f8c391bdbcecbb5130a68e0fbbe8151d8af03aa700b9061",
+    "sergeant_review_status": "pass",
+    "sergeant_admitted_findings": 0,
+    "sergeant_unresolved_assurances": 0,
+    "cargo_lock_sha256": "cbcec35bac0fb9c08782390e28398d0f451cbd97e35381ee418f66574c6e4f0e",
+    "portable_pty_version": "0.9.0",
+    "portable_pty_checksum": "b4a596a2b3d2752d94f51fac2d4a96737b8705dddd311a32b9af47211f08671e",
+    "native_process_source_sha256": "994d47d4db7c30973be12d5653e2e1bbe62e85b640e85fa05e6e43b81d06105b",
+    "acceptance_test_sha256": "1f5246af783d2f75413532778a347f280a903303e41f9cbeed4d22baa06d2530",
+    "provider_api_source_sha256": "8422c7cd6640615c3243483758c1241660a0c5979d3e09006014c0ea903e5a60",
+    "a06_workspace_session_implemented": false,
+    "prime_integration_qualified": false,
+    "production_or_release_accepted": false
   }
 }
