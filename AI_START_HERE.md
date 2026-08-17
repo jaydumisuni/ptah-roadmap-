@@ -40,6 +40,9 @@ The accepted P01D closure plus A01–A06 acceptance records are current authorit
 - Physical development host: **accepted for Ptah development**.
 - Runtime implementation: **AUTHORIZED**.
 - A01 — Repository, contracts and reproducible scaffold: **FROZEN / PROVEN / COMPLETE**.
+- A01 exact candidate: `d12feedb5b66a39d5649b1d3ffea752deb5692c6`.
+- A01 merge: `d33122c8cc625d38f2394d57fcbd2a3ef7027b08`.
+- A01 exact-head workflow run: `31906473232`.
 - A02 — Node identity, Generation and host truth: **FROZEN / PROVEN / COMPLETE**.
 - A03 — Ledger, schema versions and crash-safe migrations: **FROZEN / PROVEN / COMPLETE**.
 - A04 — Activity, Operation, Attempt, Event and Receipt runtime: **FROZEN / PROVEN / COMPLETE**.
