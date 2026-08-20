@@ -1,12 +1,14 @@
 # Ptah durable AI/chat handoff
 
-Last updated: 2026-08-20
+Last updated: 2026-08-21
 
 ## Operative authority
 
-This file is a recovery handoff, not an implementation authority by itself. Read `AI_START_HERE.md`, `master-plan-index-amendment-2026-08-15.json`, the current accepted planning record and the public implementation before doing work.
+This file is a recovery handoff, not implementation authority by itself. Read `AI_START_HERE.md`, `master-plan-index-amendment-2026-08-15.json`, the current accepted planning record and the public implementation before doing work.
 
 Recover repository and proof evidence before reasoning. Do not infer acceptance from branch existence, PR state, command success or GitHub CI alone.
+
+Ptah construction is executed through the existing Tenfold campaign in the working environment. Use Tenfold OM-001 (Private Workspace / Canonical Milestone Promotion) with PM-PTAH-001. The workspace is the execution plane; `jaydumisuni/Ptah-space` is the canonical promotion surface. Only reviewed/frozen product candidates enter canonical history.
 
 Current operative state:
 
@@ -20,11 +22,11 @@ A04 — ACCEPTED COMPLETE
 A05 — ACCEPTED COMPLETE
 A06 — ACCEPTED COMPLETE
 A07 — SOURCE FROZEN / REVIEW RECONCILED / awaiting accepted Oracle physical Pass B / UNMERGED
-A08 — SOURCE FROZEN / exact-head proof PASS / blocked behind A07 acceptance / UNMERGED
-A09 — SOURCE FROZEN / private proof PASS / blocked behind A08+A07 acceptance / UNMERGED
-A10 — independently re-proven against actual frozen A07 predecessor; recover exact current lane before modifying
-A11 — CURRENT PRIVATE CONSTRUCTION FRONTIER: Browser Provider on corrected A08 substrate
-A12 — CANONICAL SOURCE CANDIDATE PUBLISHED / private proof PASS / exact-head proof lane requires final re-verification / UNMERGED
+A08 — SOURCE FROZEN + EXACT-HEAD PROVEN / blocked behind A07 acceptance / UNMERGED
+A09 — SOURCE FROZEN + PRIVATE PROVEN / blocked behind A08+A07 acceptance / UNMERGED
+A10 — independently re-proven against actual frozen A07 predecessor; canonical product lane must be recovered before A13
+A11 — FROZEN + EXACT-HEAD PHYSICAL BROWSER PROVEN / canonical PR #48 READY / blocked behind A08+A07 acceptance / UNMERGED
+A12 — CANONICAL SOURCE CANDIDATE PUBLISHED + PRIVATE PROVEN / disposable exact-head proof lane still requires repair/re-run / UNMERGED
 A13–A15 — NOT COMPLETE
 Programmes B–F — NOT COMPLETE
 P01P Prime-native integration — OPEN / DEFERRED
@@ -32,56 +34,131 @@ Production authorization — FALSE
 Release acceptance — FALSE
 ```
 
-## Exact current pickup — 2026-08-20
+## Exact current pickup — 2026-08-21
 
-Continue the roadmap continuously from the recovered frontier. Do not restart at A07 and do not announce phase-by-phase transitions merely to narrate progress.
+Do **not** restart A11. A11 source is frozen and its exact canonical bytes have passed physical Playwright/Chromium qualification.
 
-Primary active construction lane:
+The next safe Tenfold frontier is:
 
-**A11 — Browser Provider** on exact corrected A08 substrate.
+1. repair and rerun **A12 exact-head proof PR #45** without modifying canonical A12 source;
+2. recover the exact **A10 product lane/source authority** before A13 instead of inferring it from the disposable A07 export/re-proof record;
+3. recalculate A13 readiness only after A10/A11/A12 evidence is reconciled;
+4. preserve the unresolved A07 physical acceptance gate and canonical promotion order throughout.
 
-```text
-A08 exact substrate:
-d19bcf3e86373b2710fbf731e094a9a3f8e2a469
+Later construction may continue on a safe dependency frontier, but no later milestone may merge ahead of its unaccepted predecessor.
 
-A08 exact tree:
-4eb5ffe1686e1b472ed2c6959679fe54c891fb30
+## A11 — Browser Provider — FROZEN + PROVEN
 
-A08 source archive SHA-256 recovered for A11:
-45bd0e04dcab9f555c7506fbdff89133e929be4fcbb9a5142ccf1cc8fdcc0c04
-
-A08 Cargo.lock SHA-256:
-6e7ef35fd0419f75dd0f2b4f9c9c173be1b4a050b26970bb80e3e1cff89c56e3
-```
-
-Disposable A11 source-export PR #46 completed and was closed without merge. It contained no product changes.
-
-A11 Browser authority already recovered from the frozen roadmap/contracts:
-
-- Browser Provider supervises binary/process/pool/local-resource mechanics; backend IDs remain aliases/evidence.
-- persistent Browser Profile identity is separate from Profile Revision, Process, Context and Page generations;
-- writable Profile sharing requires canonical Lease/fence control and must fail closed across mutually untrusted Workspaces;
-- Context/Page/Frame references are generation-bound and stale references must be rejected after restart/navigation drift;
-- browser downloads must enter A08 Transfer and A07 Content/Object verification rather than becoming browser-owned storage truth;
-- response source, DOM, accessibility, pixels/screenshot, trace/video, console and network evidence remain separate Views/Artifacts;
-- MFA, CAPTCHA, passkey, consent, restricted access and human completion are explicit states; Ptah has no bypass authority;
-- crash recovery preserves safe evidence/partial results and must not blindly replay non-idempotent actions.
-
-Recovered browser dependency locks for the implementation lane:
+Canonical source:
 
 ```text
-Node.js          24.18.0
-Playwright       1.60.0
-playwright-core  1.60.0
-Chromium         148.0.7778.96
-Chromium revision 1223
+Ptah-space canonical PR: #48
+branch: a11-browser-provider
+candidate commit: cf02bec49775479ede404f0a80d1aa5cd03742e5
+candidate tree:   9fa433d36c272badf72d5c2af41f5994a258bd82
+parent A08:       d19bcf3e86373b2710fbf731e094a9a3f8e2a469
+commit count over A08: 1
+changed files: 19
+PR state: open / ready for review / unmerged
 ```
 
-Before adding A11 source, inspect current `jaydumisuni/Ptah-space`, the WP08 browser/live-research architecture and frozen WP09 Application/Browser/Semantic/Shell contracts. Preserve Ptah's neutral mechanical boundary; Browser-Use reasoning/memory/model behavior remains caller-side, not Ptah Core.
+A11 was constructed on the exact corrected A08 substrate and delivers:
+
+- mechanical Playwright/Chromium Browser Provider;
+- canonical Browser Profile, Process, Context and Page projections;
+- Provider/Context/Page Generation fencing;
+- writable Profile Lease/fence ownership with serialized writer lifecycle;
+- fresh A04 Attempt binding for navigation, with navigation ACK separated from page-state success;
+- explicit Challenge fencing for MFA, CAPTCHA, passkey, consent and human-completion boundaries;
+- A08-backed bounded download integration and upload mechanics;
+- screenshot, console, network, response-source and DOM/accessibility evidence foundations under A07 truth boundaries;
+- detach/reconnect behavior;
+- privacy filtering and personal-profile protection.
+
+Review corrected real product defects before Freeze, including incomplete generation fencing, unbounded browser-download reads, Challenge-to-ready escape, Attempt reuse, transient writable-Profile authority, profileless ephemeral Page mismatch, browser error-detail privacy leakage and Linux Chrome personal-profile detection.
+
+Private Tenfold Review/Freeze evidence:
+
+```text
+exact A08 substrate: d19bcf3e86373b2710fbf731e094a9a3f8e2a469
+A08 tree:            4eb5ffe1686e1b472ed2c6959679fe54c891fb30
+freeze payload SHA-256:
+6858c55f0623d1a5a524cadae0f743f6e94d6d740e814a9568c8ec912625ab00
+private freeze manifest SHA-256:
+2a1ea239216515805a480c772c40595f1ffa23ce86804384e4d33c91bce599fb
+Rust/Cargo: 1.97.1
+fmt: PASS
+strict scoped Clippy -D warnings: PASS
+A11 Rust acceptance: 11/11 PASS
+Provider API: 4/4 PASS
+full locked Rust workspace: 182/182 PASS
+Node mechanical Browser corpus: 15/15 PASS
+registry packages: 97
+resolved packages: 117
+Git dependencies: 0
+```
+
+### A11 canonical packaging record
+
+Disposable PR #47 reconstructed the SHA-256-bound private freeze payload, verified every frozen file and exact candidate scope, and generated the canonical commit object above.
+
+Three packaging-runner defects were retained as tooling evidence and did not change product bytes:
+
+1. unstaged new files were initially omitted from `git diff --name-only` scope calculation;
+2. `git commit-tree` initially lacked hosted-runner author identity;
+3. the GitHub Actions token could create the commit object but could not update a ref containing a newly added workflow file.
+
+The already-retained canonical object `cf02bec...` was attached to `a11-browser-provider` through the connected GitHub authority without byte mutation. PR #47 is closed without merge. No `.a11-pack` or disposable packaging workflow entered canonical product history.
+
+### A11 exact-head physical Browser proof
+
+The first canonical PR #48 exact-head run passed every substantive Rust, Node and real Chromium gate but failed its final retention cleanliness assertion because `npm ci` generated `browser-provider/node_modules/`, while the root ignore rule covered only `/node_modules/`. This was classified as a proof-runner retention defect, not a product-source defect.
+
+Disposable PR #49 therefore checked out the exact frozen canonical commit and reran the complete proof without modifying canonical A11 bytes. It removed only generated `browser-provider/node_modules/` before the final clean-tree assertion.
+
+Accepted exact-head Browser proof:
+
+```text
+workflow run: 32423596200
+job:          96600708972
+result:       PASS
+candidate:    cf02bec49775479ede404f0a80d1aa5cd03742e5
+tree:         9fa433d36c272badf72d5c2af41f5994a258bd82
+parent A08:   d19bcf3e86373b2710fbf731e094a9a3f8e2a469
+Rust/Cargo:   1.97.1
+Node:         24.18.0
+Playwright:   1.60.0
+playwright-core: 1.60.0
+Chrome for Testing: 148.0.7778.96
+Chromium revision: 1223
+A11 Rust acceptance: 11/11 PASS
+Provider API: 4/4 PASS
+full locked Rust workspace: 182/182 PASS
+Browser mechanical corpus: 15/15 PASS
+real Chromium physical qualification: 1/1 PASS
+post-qualification tracked/untracked source cleanliness: PASS
+exact commit/tree recheck: PASS
+registry packages: 97
+resolved packages: 117
+Git dependencies: 0
+```
+
+Retained proof:
+
+```text
+proof JSON SHA-256:
+54f61ec131df7547acd212882243934fff30511584e61ddd1816ded9f6b08692
+artifact ID: 9426621460
+artifact SHA-256:
+aa395a6e6ce5b409df4fed198c39e7b6b11c3a62b9104f6cbd5f8645eb66a1a6
+artifact retention: through 2026-09-19
+```
+
+PR #49 is closed without merge. Canonical PR #48 is **FROZEN + PROVEN**, but must remain unmerged until A07 then A08 are accepted/promoted in dependency order. A11 is not `COMPLETE` merely because its own proof passed.
 
 ## A12 current canonical candidate
 
-A12 archive decomposition was constructed privately, reviewed, frozen, proven, byte-verified during transport, and then published as exactly one canonical product commit over frozen A07.
+A12 archive decomposition was constructed privately, reviewed, frozen, proven, byte-verified during transport, and published as exactly one canonical product commit over frozen A07.
 
 ```text
 Ptah-space canonical PR: #44
@@ -129,27 +206,30 @@ C -fanalyzer: PASS
 
 The physical suite rejects a wrong libarchive version and proves the exact 3.8.7 helper. Do not downgrade this to the host libarchive 3.7.4.
 
-### A12 exact-head proof lane status
+### A12 exact-head proof lane — CURRENT NEXT ACTION
 
-Disposable proof PR #45 is **DO NOT MERGE** and exists only to independently prove the canonical candidate.
-
-The candidate source itself did not move during proof-lane corrections.
-
-Two proof-environment defects were found after publication:
-
-1. hosted Ubuntu runner lacked required liblzma/compression development headers for the static helper build; the disposable workflow was amended to provision the required development libraries;
-2. after proof-only commits accumulated above the candidate, the ancestry assertion became stale; it was corrected so the disposable branch anchors the immutable candidate below workflow-only commits.
-
-Current disposable proof branch correction head at handoff:
+Disposable proof PR #45 is **DO NOT MERGE** and exists only to independently prove canonical A12.
 
 ```text
-temp/a12-exact-proof-20260820
-b9105b0b5de8e01076b5c5718086d86ac23d57c3
+proof branch: temp/a12-exact-proof-20260820
+current proof head: b9105b0b5de8e01076b5c5718086d86ac23d57c3
+canonical A12 that must remain unchanged:
+2e98ddccd99775e4e7fab61936b4b7f9b319c162
 ```
 
-A new chat must check the latest workflow run on PR #45 before claiming exact-head GitHub proof completion. Do not alter canonical A12 `2e98ddc...` merely to repair the disposable proof environment.
+Latest known exact-head proof run on `b9105b0...` is still failed. The known defect is in proof-runner ancestry/scope logic: proof-only commits accumulated above the immutable candidate and an ancestry-depth assertion became stale. Do not mutate canonical A12 to repair this.
+
+Repair the disposable workflow so it binds directly to explicit canonical candidate SHA/tree/base identities rather than assuming `HEAD~N` ancestry depth. Then rerun the full exact-head/physical proof, retain the artifact, close PR #45 without merge and reconcile the successful receipt into canonical PR #44.
 
 A12 must not merge ahead of A07 acceptance order.
+
+## A10 recovery requirement before A13
+
+A10 — OCI container Provider — was independently re-proven against its actual roadmap predecessor A07 after Tenfold detected contamination risk from later A08/A09 work.
+
+The currently discoverable Ptah-space record is disposable PR #38, `TEMP — exact A07 source export for A10`, closed without merge at `feaff614b401636d3e46c552dda02dd3878d2150`.
+
+Do not treat that disposable transport/export branch as the canonical A10 product lane. Before A13 construction, recover the exact A10 frozen product bytes/candidate authority from Tenfold private campaign evidence or another durable source and reconcile a canonical product lane if one is absent.
 
 ## A09 current frozen candidate
 
@@ -195,7 +275,7 @@ source state: REVIEW-RECONCILED / FROZEN
 
 A07's GitHub exact-head confirmation passed, including 27/27 A07 behavior and 47/47 A03/A04 regression tests. It remains explicitly **not COMPLETE and not merge-authorized** until accepted final physical Pass B executes from a fresh detached checkout through Oracle MCP/RPC (`oracle.live.v1`, non-GitHub interactive path), matching the A06 acceptance class.
 
-Do not let later privately constructed/frozen milestones erase this dependency gate.
+Do not let later privately constructed/frozen/proven milestones erase this dependency gate.
 
 ## A06 accepted implementation
 
@@ -260,25 +340,29 @@ For every authorized work item:
 Understand → Build → Review → Freeze → Prove → Submit / Ship
 ```
 
-Recover documented evidence before reasoning. Do not treat command success as mission acceptance. After freeze, do not alter the frozen candidate; prove those exact bytes from an independent/fresh checkout.
+Recover documented evidence before reasoning. Do not treat command success as mission acceptance. After Freeze, do not alter the frozen candidate; prove those exact bytes from an independent/fresh checkout.
 
 Current owner execution instruction:
 
 - continue through the full roadmap rather than stopping to ask permission between normal phases;
 - do not provide narration merely announcing movement to the next phase;
-- use Tenfold/private construction machinery where appropriate and move only reviewed/frozen outputs into canonical product history;
+- use the existing Tenfold Ptah campaign in the working environment and move only reviewed/frozen outputs into canonical product history;
+- use exact-predecessor construction and recalculate the safe dependency frontier when a proof/promotion gate is blocked;
+- classify proof-runner, stale-workspace/substrate and product defects before mutating source;
 - preserve dependency order and truthful acceptance states even when later work is constructed in parallel;
 - no reboot/restart operations unless the owner explicitly changes that instruction.
 
 ## Recovery rule
 
-Do not ask the owner to repeat information recoverable from this repository, `jaydumisuni/Ptah-space`, or directly relevant accepted internal evidence. Historical documents below current amendments remain provenance, not current machine authority.
+Do not ask the owner to repeat information recoverable from this repository, `jaydumisuni/Ptah-space`, Tenfold campaign evidence or directly relevant accepted internal evidence. Historical documents below current amendments remain provenance, not current machine authority.
 
 When another chat picks up:
 
 1. read this handoff first;
 2. inspect current Ptah-space PR/branch heads because proof-only lanes may have advanced after this timestamp;
-3. verify A12 PR #45 latest exact-head proof result without changing canonical A12 bytes;
-4. continue A11 from exact corrected A08 `d19bcf3e...` using the recovered Browser contracts and locked dependency set;
-5. continue the remaining roadmap after each Review/Freeze boundary while preserving the unresolved A07 physical acceptance gate;
-6. never claim A13–A15, Programmes B–F, production or release acceptance unless evidence actually closes them.
+3. do not rebuild or re-open A11 unless `cf02bec...` itself moves or a new grounded defect is found;
+4. repair/rerun A12 PR #45 against immutable canonical A12 `2e98ddc...`, then reconcile its successful exact-head proof into PR #44;
+5. recover the exact A10 product lane before A13;
+6. recalculate the A13 frontier through Tenfold after A10/A11/A12 are reconciled;
+7. preserve A07 → A08 → later canonical promotion order;
+8. never claim A13–A15, Programmes B–F, production or release acceptance unless evidence actually closes them.
