@@ -1,14 +1,48 @@
 # Ptah Current State
 
-**Last updated:** 2026-07-25  
-**Overall status:** PHASE 0B FROZEN — PHASE 0C ACTIVE  
-**Current phase:** Phase 0C — implementation selection, licensing, repository layout and authorization  
-**Active work unit:** 0C-04 / P01 — physical pinned-host proof, package review, durable evidence and ADR-0033 closure  
-**Runtime implementation:** NOT AUTHORIZED  
-**Production dependency/backend selection:** LOCKS MERGED — DEEP WORKSPACE PLANNING LOAD ACCEPTED — PHYSICAL PINNED-HOST PROOF OPEN  
+**Last updated:** 2026-10-01  
+**Overall status:** PROGRAMME E ACTIVE — E05 COMPLETE / RELEASED  
+**Current phase:** Programme E — Distributed Ptah  
+**Active work unit:** E06 — intermittent/local-first operation, discovery, synchronization and reconciliation — NOT STARTED  
+**Runtime implementation:** AUTHORIZED / ACTIVE through the accepted E05 release lineage  
+**Current public release:** E05 frozen release `90a3ad012f0b3e15bd871e6e955dd79bbf757ded`; integrated `Ptah-space/main` `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`  
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
+
+## Current implementation synchronization — 2026-10-01
+
+The Phase 0C authorization language retained later in this file is historical checkpoint evidence. It no longer describes current implementation state.
+
+Accepted Programme E lineage:
+
+```text
+E01 merge: 18c1bb26bf074fd8146c2dd8e47838d658af8561
+E02 merge: 4b745e7ee0712df0458c1adf55feafdbcc42d9d4
+E03 merge: d25679c7f039d7328fe1a785af91e82bd403b44e
+E04 merge: 77bbd876aaefd78fed2c0583b2b124eee428eb5f
+E05 proven candidate: aa2c8b5efef87787354e41075f3d35efc573b960
+E05 frozen release: 90a3ad012f0b3e15bd871e6e955dd79bbf757ded
+current Ptah-space main: e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9
+```
+
+E05 Task-10 release identity is exact:
+
+- release parent 1 is accepted E04 `77bbd876...`;
+- release parent 2 is proven E05 `aa2c8b5...`;
+- release tree `58312f1e72dd05a28978c52e04268c5db30dd2db` is identical to the proven candidate tree;
+- unchanged-candidate pull-request proof run `36847594835` passed and retained artifact `11154237301`, digest `sha256:84c0d617824a0fc90fbba512716319216a8e7cbebc9e8c75f75ea07ee5c8c8ce`;
+- integration PR #107 preserved the intervening operational mainline and merged the immutable E05 release forward.
+
+A bounded private live-consumption proof has also exercised the released E01/A02/E05/E02/A05 composition against a real consumer workload. Machine-specific and credential evidence remains outside this public roadmap repository. That proof does not claim permanent daemon installation or production credential enrollment.
+
+**Next dependency-ordered package:** E06. No E06 implementation is claimed by this record.
+
+---
+
+## Historical Phase 0A–0C and planning record
+
+The material below is retained for decision and proof history. Where it says runtime was not authorized, P01 was active, or Programme E had not started, read that statement as the status at that historical checkpoint; it is superseded by the current implementation synchronization above.
 
 ## Frozen checkpoints
 
