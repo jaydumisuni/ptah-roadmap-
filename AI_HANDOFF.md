@@ -1,6 +1,50 @@
 # Ptah durable AI/chat handoff
 
-Last updated: 2026-08-21
+Last updated: 2026-10-01
+
+## Current pickup override — 2026-10-01
+
+The August construction-state material retained later in this file is historical. Do not resume A07/A12 or Phase 0C from that old snapshot.
+
+Current accepted implementation boundary:
+
+```text
+Programme E — Distributed Ptah
+E01 — COMPLETE
+E02 — COMPLETE
+E03 — COMPLETE
+E04 — COMPLETE
+E05 — COMPLETE / RELEASED
+E06 — NOT STARTED / NEXT
+E07 — NOT STARTED
+```
+
+Exact current public release state:
+
+```text
+E04 accepted merge: 77bbd876aaefd78fed2c0583b2b124eee428eb5f
+E05 proven candidate: aa2c8b5efef87787354e41075f3d35efc573b960
+E05 frozen release: 90a3ad012f0b3e15bd871e6e955dd79bbf757ded
+E05 release tree: 58312f1e72dd05a28978c52e04268c5db30dd2db
+current Ptah-space/main: e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9
+```
+
+The unchanged E05 candidate passed pull-request exact-head proof run `36847594835`; the frozen release passed integration proof run `36848216032`; PR #107 merged the immutable E05 release forward without rewriting the intervening operational mainline.
+
+A bounded private live-consumption proof also exercised the released Ptah authority chain against a real workload. Machine-specific and credential details remain in private ecosystem evidence, not this public handoff. That proof does not claim a permanently installed Ptah daemon or production credential enrollment.
+
+**Zero-context recovery order now:**
+
+1. `TTG-progress/projects/ptah-space/CURRENT.md`;
+2. `TTG-ecosystem/docs/PTAH_RECOVERY.md`;
+3. `ptah-roadmap-/CURRENT_STATE.md`;
+4. `ptah-roadmap-/IMPLEMENTATION_ROADMAP.md`, Programme E / E06;
+5. frozen E05 release `90a3ad012f0b3e15bd871e6e955dd79bbf757ded`;
+6. current `Ptah-space/main` `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`.
+
+No E06 implementation is claimed by this handoff.
+
+---
 
 ## Operative authority
 
