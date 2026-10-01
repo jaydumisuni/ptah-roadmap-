@@ -1,8 +1,8 @@
 # Ptah durable AI/chat handoff
 
-Last updated: 2026-10-01
+Last updated: 2026-10-02
 
-## Current pickup override — 2026-10-01
+## Current pickup override — 2026-10-02
 
 The August construction-state material retained later in this file is historical. Do not resume A07/A12 or Phase 0C from that old snapshot.
 
@@ -15,7 +15,7 @@ E02 — COMPLETE
 E03 — COMPLETE
 E04 — COMPLETE
 E05 — COMPLETE / RELEASED
-E06 — NOT STARTED / NEXT
+E06 — RECOVERY / DESIGN ACTIVE / IMPLEMENTATION NOT STARTED
 E07 — NOT STARTED
 ```
 
@@ -30,6 +30,8 @@ current Ptah-space/main: e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9
 ```
 
 The unchanged E05 candidate passed pull-request exact-head proof run `36847594835`; the frozen release passed integration proof run `36848216032`; PR #107 merged the immutable E05 release forward without rewriting the intervening operational mainline.
+
+Supervisor auto-continuation has consumed the completed E05 handoff. The bounded E06 recovery/design branch `e06-intermittent-local-first` is published at accepted base/head `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`; Cookpit E06 micro and heavy recovery proofs pass. This opens E06 recovery/design only and does not claim an E06 implementation delta.
 
 A bounded private live-consumption proof also exercised the released Ptah authority chain against a real workload. Machine-specific and credential details remain in private ecosystem evidence, not this public handoff. That proof does not claim a permanently installed Ptah daemon or production credential enrollment.
 

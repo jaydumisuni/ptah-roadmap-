@@ -1,11 +1,11 @@
 # Ptah Current State
 
-**Last updated:** 2026-10-01  
-**Overall status:** PROGRAMME E ACTIVE — E05 COMPLETE / RELEASED  
-**Current phase:** Programme E — Distributed Ptah  
-**Active work unit:** E06 — intermittent/local-first operation, discovery, synchronization and reconciliation — NOT STARTED  
-**Runtime implementation:** AUTHORIZED / ACTIVE through the accepted E05 release lineage  
-**Current public release:** E05 frozen release `90a3ad012f0b3e15bd871e6e955dd79bbf757ded`; integrated `Ptah-space/main` `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`  
+**Last updated:** 2026-10-02
+**Overall status:** PROGRAMME E ACTIVE — E05 COMPLETE / RELEASED; E06 RECOVERY / DESIGN ACTIVE
+**Current phase:** Programme E — Distributed Ptah
+**Active work unit:** E06 — intermittent/local-first operation, discovery, synchronization and reconciliation — RECOVERY / DESIGN ACTIVE; IMPLEMENTATION NOT STARTED
+**Runtime implementation:** AUTHORIZED / ACTIVE through the accepted E05 release lineage
+**Current public release:** E05 frozen release `90a3ad012f0b3e15bd871e6e955dd79bbf757ded`; integrated `Ptah-space/main` `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`
 **Public implementation repository:** `jaydumisuni/Ptah-space`
 
 ---
@@ -36,7 +36,7 @@ E05 Task-10 release identity is exact:
 
 A bounded private live-consumption proof has also exercised the released E01/A02/E05/E02/A05 composition against a real consumer workload. Machine-specific and credential evidence remains outside this public roadmap repository. That proof does not claim permanent daemon installation or production credential enrollment.
 
-**Next dependency-ordered package:** E06. No E06 implementation is claimed by this record.
+**Active dependency-ordered package:** E06. Automatic Supervisor continuation opened branch `e06-intermittent-local-first` from accepted main `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`; Cookpit micro/heavy recovery proofs PASS. No E06 implementation delta is claimed by this record.
 
 ---
 

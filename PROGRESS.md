@@ -9,9 +9,9 @@ Tick only work backed by source inspection, pinned commits, accepted decisions, 
 
 ---
 
-# Current implementation synchronization — 2026-10-01
+# Current implementation synchronization — 2026-10-02
 
-**Status:** PROGRAMME E ACTIVE — E05 COMPLETE / RELEASED; E06 NEXT
+**Status:** PROGRAMME E ACTIVE — E05 COMPLETE / RELEASED; E06 RECOVERY / DESIGN ACTIVE
 
 This synchronization supersedes the old Phase 0C / runtime-not-authorized state as the current status while retaining the historical ledger below.
 
@@ -25,7 +25,7 @@ This synchronization supersedes the old Phase 0C / runtime-not-authorized state 
 - [x] E05 frozen release `90a3ad012f0b3e15bd871e6e955dd79bbf757ded` has exact accepted E04 + proven E05 parents and candidate-identical tree `58312f1e72dd05a28978c52e04268c5db30dd2db`;
 - [x] E05 integrated to current `Ptah-space/main` as `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9` through PR #107 without rewriting the intervening operational mainline;
 - [x] bounded private live consumer proof completed without widening public Ptah authority claims;
-- [ ] E06 — intermittent/local-first operation, discovery, synchronization and reconciliation — NOT STARTED;
+- [-] E06 — intermittent/local-first operation, discovery, synchronization and reconciliation — recovery/design frontier ACTIVE on `e06-intermittent-local-first` at accepted base `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`; micro/heavy recovery proofs PASS; implementation source delta NOT STARTED;
 - [ ] E07 — distributed acceptance — NOT STARTED.
 
 **Claim boundary:** E05 completion does not itself claim a permanently installed Ptah daemon or production Node credential enrollment.
