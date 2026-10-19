@@ -1,12 +1,44 @@
 # Ptah Current State
 
 **Last updated:** 2026-10-20 (E06 merged source implementation; E05 frozen release unchanged)
-**Overall status:** E05 RELEASED; E06 core + reconnect source MERGED, production release OPEN; optional E07 native production NO-GO; F01–F07 staged candidates
+**Overall status:** E05 RELEASED; E06 DONE (core offline queue and reconnect source tested + merged); any extra live/hardware reliability qualification is NON-BLOCKING. E07 optional native capability and standalone F01–F03 have their own work; Prime OS LAST.
 **Current phase:** Programme E release qualification, Programme F non-activating preparation
-**Active work unit:** E06 physical native reconciliation qualification; optional E07 two-host acceptance; F01–F03 standalone completion
+**Active work unit:** E07 optional native capability and F01–F03 standalone completion. E06 supplementary physical/reconnect evidence is non-blocking and never an additional Ptah login/admission.
 **Runtime implementation:** AUTHORIZED through accepted E05 lineage; newer production services not self-authorized
 **Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space E06 source main merged through eefeeafeaf89551e7d891598db20366e1aaa4939 (not a release tag)
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## E06 status correction — binding operational meaning (2026-10-20)
+
+**E06 = DONE for source implementation:** its offline queue, durable journal recovery,
+immutable reconnect references, read-only comparison and unknown-outcome
+classification are implemented, tested and merged into Ptah main (PR #137
+and PR #140). Normal Ptah workspace operation is NOT conditional upon
+further E06 tests, release ceremonies, native multi-host proofs or any
+Ptah-side caller approval.
+
+Previously listed "live authenticated reconnect" means an **optional
+real-world transport/session recovery reliability test** using existing
+upstream access. It is **not** a Ptah login, enrollment, Grant, authorization
+or extra user/agent acceptance procedure. "Physical recovery and final
+production acceptance" means additional evidence for a particular
+deployment's stronger durability/recovery claim, **not** a workspace
+access gate. These checks may be performed when the relevant hardware
+and deployment are available without blocking unrelated capabilities.
+
+Ptah's only operational limitation is the actual technical state of a
+requested operation: disconnected host, missing tool, corrupt data, stale
+handle, resource exhaustion or unsafe unverified effect. Report the
+failure of that operation truthfully; do not restrict the whole workspace
+or substitute Ptah's approval judgment. Knights remains outside Ptah
+implementation; Oracle transports; the caller selects the task.
+
+**Next Ptah scope:** E07 optional native execution and F01–F03 standalone
+capabilities. **Prime OS integration LAST.** Historical dated checkpoints
+below retain their original evidence and are superseded where they describe
+E06 tests or sign-offs as blockers to using Ptah.
 
 ---
 
@@ -34,8 +66,8 @@ This is a GitHub integration gate, **not a Ptah-side permission decision**.
 No Knights implementation, settings, cybersecurity, or identity system was
 modified.
 
-**Next standalone order:** finish E06 external reconnect qualification
-and optional E07 native production as distinct lanes, complete F01 package
+**Next standalone order:** E06 is DONE (extra reconnect evidence non-blocking);
+continue optional E07 native capabilities, F01 package
 workflow, F02 device-support and F03 VM/rollback acceptance. **Prime OS
 integration comes LAST.** Ptah remains a shared workspace; Oracle only
 transports caller-selected operations.
