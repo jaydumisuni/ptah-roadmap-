@@ -29,12 +29,14 @@ passed. Draft device rules are inert commented examples, not installed
 udev policy, service access or production-qualified drivers.
 
 F03 candidate PR #144, branch feat/f03-bounded-kvm-boot-proof-20261019,
-exact head 103a7fd8b3a56ffea9736fe19dd5422928411eb8. Physical KRATOS
+exact head 6e2a0c9646ca36f7b76e91546d18f8d79a2a7b58. Physical KRATOS
 QEMU/KVM executed a 512-byte deterministic BIOS test sector, emitted the
 expected guest debug marker, and left a disposable disk byte-identical.
 No networking, guest OS, persistent VM, root escalation or Node service
 installation. Combined 29 local conformance tests, A01 and Phase0C checks
-passed. Hosted CI was pending when this note was recorded. F03 still lacks
+passed. All 13/13 exact-head hosted CI workflows passed after the
+KVM-negative test was made portable to runners without QEMU tooling.
+PR #144 is ready for review, not merged or released. F03 still lacks
 Linux/Windows guest OS isolation, crash recovery and independent production
 admission; a boot-sector proof is not full OS-ready acceptance.
 
