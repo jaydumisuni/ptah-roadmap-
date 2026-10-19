@@ -6,6 +6,27 @@ Version: 1.1.0
 
 Recorded: 2026-07-21
 
+## E06 completion interpretation — no workspace blockers (2026-10-20)
+
+E06 implementation is **DONE**: durable offline queue, crash-safe journal
+integrity, stored reconnect reference/generation comparison and
+uncertain-effect classification are tested and merged into Ptah main
+(PRs #137 and #140). No remaining E06 authentication, reconnect,
+physical recovery or production sign-off is an entry prerequisite to
+use Ptah or any other available capability.
+
+Optional live reconnect testing observes recovery of an existing
+transport/session; it does **not** introduce Ptah credentials, approval,
+owner enrollment or per-tool Grants. Optional physical crash/power
+recovery tests determine what reliability guarantees a specific
+deployment can truthfully advertise. They do not deny general workspace
+use and must not be marked "BLOCKED" dependencies for other tasks.
+Technical impossibility or inconsistent/unknown effects are accurately
+reported for the affected operation, not promoted into policy vetoes.
+
+Continue optional E07 native execution and F01–F03 standalone engineering,
+then integrate Prime OS last. Do not modify Knights.
+
 ## 2026-10-19 owner correction — Knights-only security, Ptah is an open workspace
 
 **Controlling architecture for all current and future Ptah work** (supersedes
@@ -995,7 +1016,7 @@ Admit in order based on proof need:
 - macOS Node;
 - Android/Device Nodes.
 
-## E06 — Intermittent and local-first operation
+## E06 — Intermittent and local-first operation (source DONE; reliability proofs non-blocking)
 
 Deliver offline queues, local authority boundaries, sync/reconciliation and useful degraded operation.
 
