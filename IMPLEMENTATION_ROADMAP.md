@@ -1,6 +1,6 @@
 # Ptah Space — Detailed Implementation Roadmap
 
-Status: accepted delivery authority derived from `MASTER_PLAN.md` — runtime implementation remains unauthorized
+Status: historical delivery roadmap with the 2026-10-19 Knights/Ptah owner correction below controlling current runtime access; runtime implementation is authorized, and Ptah has no independent caller admission.
 
 Version: 1.1.0
 
