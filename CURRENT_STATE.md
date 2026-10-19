@@ -10,6 +10,37 @@
 
 ---
 
+## F03 fully green exact-head update / E07 blocker distinction — 2026-10-19
+
+Ptah-space PR #146 exact head 335e9a5487c8b6ee921c2ee648da7cda7baf0c1f
+is source-qualified with 13/13 exact-head hosted workflows green and ready
+for independent review. On KRATOS, all 41 conformance tests passed, two
+initial live COW crash/rollback boots passed, followed by six further
+two-boot SIGKILL rollback/restart cycles. The first guest's BIOS ACK
+was NOT a durable disk effect in any of the six repeated crashes; the raw
+baseline stayed byte-identical and the clean overlay restarted successfully.
+No persistent VM processes or temporary files remain. This qualifies only
+disposable QEMU process-crash rollback; F03 guest-OS boot, filesystem
+durability, physical power-cut, adversarial VM isolation and independent
+admission are not claimed.
+
+A read-only attempt to use KRATOS's existing kernel for guest-OS boot
+was denied by the Oracle-hosted execution environment's no-new-privileges
+restriction. No host kernel permissions or services were changed.
+Oracle currently shows KRATOS connected, ATHENA absent. Thus E07's
+two-host native acceptance is not evidenced.
+
+Ptah-space PR #138 E07 historical D01 and A14 CI failures are distinct
+single-predecessor frozen locks: they explicitly require separate old C11
+and A13 parent commits, whereas E07's real integration base is E06.
+Do not alter, bypass or falsify their phase-owned acceptance. 16/18
+integration-head checks passed, but optional production release remains
+NO-GO until genuine independent E07 admission and owner decision.
+
+Prime OS integration remains the FINAL step, not a Ptah duplicate of OS
+boot/installation/update/desktop code.
+
+---
 ## F03 crash-recovery qualification — 2026-10-19
 
 Oracle connectivity returned for KRATOS, which is the only enrolled node

@@ -1,3 +1,5 @@
+F03 candidate PR #146: 13/13 CI and 6/6 additional process-crash recovery cycles; real Linux guest/physical power test NOT accepted. E07 older D01/A14 phase CI predecessor mismatch is not an independent E07 release. ATHENA not currently Oracle-reachable. Prime OS last. See CURRENT_STATE.md.
+
 F03 COW crash/rollback and guest restart candidate PR #146 is source-verified and physically tested on KRATOS; still not host power-loss or guest OS acceptance. ATHENA not currently reachable via Oracle. Prime OS is LAST. See CURRENT_STATE.md.
 
 Continue standalone Ptah first: qualified F02 candidate PR #143; F03 bounded KVM guest boot PR #144 (13/13 exact-head CI pass, ready for review). Keep Prime OS F04-F07 system integration last; Oracle is transport and Ptah shared workspace. See CURRENT_STATE.md for scope/acceptance distinctions.
