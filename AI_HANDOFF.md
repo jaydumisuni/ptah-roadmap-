@@ -1,3 +1,5 @@
+Current additional qualified candidates: E06 reconnect PR #140 and unsigned F01 package PR #141; both source review ready and 13/13 hosted CI green, still not released. See CURRENT_STATE.md for exact acceptance gates.
+
 # Current continuation — 2026-10-19
 
 The authoritative status is CURRENT_STATE.md. Oracle is machine transport;

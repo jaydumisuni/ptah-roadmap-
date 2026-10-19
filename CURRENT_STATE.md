@@ -10,6 +10,33 @@
 
 ---
 
+## Engineering progress addendum — 2026-10-19
+
+E06-03 non-authorizing reconnect comparison is now code-qualified in Ptah
+PR #140, exact commit feb45001be28015e9deec4f728a9980a5c8cfc3c.
+All 13 hosted workflows and the physical KRATOS full Rust workspace suite
+passed. It refuses to let untrusted observations insert permanent negative
+receipts; only independently verified owner evidence can settle native
+E01–E05 authority. Authenticated production reconnect and final E06
+review/release are still unproven.
+
+F01 unsigned deterministic Control/Node packaging candidate is Ptah PR #141,
+commit b267bf4715459255fb1543d016afd00f256cad6b. All 13 hosted
+workflows and 27 combined local F tests passed. On KRATOS, both actual
+Ptah executables were built, bundled and archive-verified twice; both
+temporary 66,652,160-byte archives had SHA-256
+254a066f54ab67ce3eb4af26229566b810c380ca65b9633015e2a77f3d65e31c.
+No signature, independent two-builder provenance, installation or native
+execution claim is made; the archives were cleaned afterward.
+
+A bounded attempted F03 real kernel/guest boot was stopped by KRATOS
+kernel-file read permissions at /boot, not successful guest initialization.
+Do not change host permission or infer full VM admission. No production
+host power cycle, deployment-owned E01 keys, owner approval or service
+cutover occurred. F02–F07 implementations remain open.
+
+---
+
 ## Superseding live evidence checkpoint — 2026-10-19
 
 Architecture: Oracle remains authenticated machine transport for ChatGPT,
