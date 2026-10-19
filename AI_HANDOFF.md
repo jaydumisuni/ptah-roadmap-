@@ -1,3 +1,5 @@
+Continue standalone Ptah first: qualified F02 candidate PR #143; F03 bounded KVM guest boot PR #144 (CI pending at initial report). Keep Prime OS F04-F07 system integration last; Oracle is transport and Ptah shared workspace. See CURRENT_STATE.md for scope/acceptance distinctions.
+
 Current additional qualified candidates: E06 reconnect PR #140 and unsigned F01 package PR #141; both source review ready and 13/13 hosted CI green, still not released. See CURRENT_STATE.md for exact acceptance gates.
 
 # Current continuation — 2026-10-19

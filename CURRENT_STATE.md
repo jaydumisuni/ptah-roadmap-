@@ -10,6 +10,41 @@
 
 ---
 
+## Pre-Prime-OS standalone Ptah qualification — 2026-10-19 (continuation)
+
+Owner sequencing correction: complete Ptah E06/E07 and its standalone F01,
+F02, F03 infrastructure first. Prime OS owns the OS boot image, installation,
+update/rollback, encryption, selected compositor/desktop and final OS-ready
+system acceptance; postpone Prime OS integration work (roadmap F04–F07)
+until the Ptah standalone boundaries and acceptance are settled. Ptah
+must not create a second competing operating system, authorization service
+or machine transport. Oracle is the machine transport to both hosts.
+
+F02 candidate source PR #143, branch
+feat/f02-usb-safe-profile-20261019, exact head
+2a5eaee56d2bae20407080ef890ef0f602d932e6. Physical KRATOS passive
+USB inventory identified five vendor/product classes and collected no
+serial numbers or device paths. 11 focused tests and 14/14 hosted workflows
+passed. Draft device rules are inert commented examples, not installed
+udev policy, service access or production-qualified drivers.
+
+F03 candidate PR #144, branch feat/f03-bounded-kvm-boot-proof-20261019,
+exact head 103a7fd8b3a56ffea9736fe19dd5422928411eb8. Physical KRATOS
+QEMU/KVM executed a 512-byte deterministic BIOS test sector, emitted the
+expected guest debug marker, and left a disposable disk byte-identical.
+No networking, guest OS, persistent VM, root escalation or Node service
+installation. Combined 29 local conformance tests, A01 and Phase0C checks
+passed. Hosted CI was pending when this note was recorded. F03 still lacks
+Linux/Windows guest OS isolation, crash recovery and independent production
+admission; a boot-sector proof is not full OS-ready acceptance.
+
+F01 PR #141 remained separately ready for review and unsigned-only. E06
+PRs #137 and #140 remain candidates, not authenticated-owner reconnect
+release. E07 production native approval remains independent and NO-GO.
+No Prime OS work has been executed under these PRs.
+
+---
+
 ## Engineering progress addendum — 2026-10-19
 
 E06-03 non-authorizing reconnect comparison is now code-qualified in Ptah
