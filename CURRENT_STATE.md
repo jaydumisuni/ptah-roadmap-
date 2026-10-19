@@ -10,6 +10,60 @@
 
 ---
 
+## E06 physical-host reliability completion evidence — 2026-10-20
+
+**E06 remains DONE, with NO Ptah workspace access or other-workstream blocker.**
+The two requested follow-up checks were executed on real enrolled computers
+using Oracle as transport. They do not constitute a Ptah-side login,
+user-authorization decision, Grants requirement, or external security change.
+
+**1. Live authenticated transport / reconnect readback and reconciliation**
+- Oracle reported both KRATOS and ATHENA ready; independent calls to the
+  two hosts succeeded. Both computed SHA-256
+  `51844a16014ef4a8fa2238042d4a1f838acdb3cda77ac5b7ebd066bf699d7e18`
+  for the same synthetic test marker.
+- KRATOS reopened a separately-created, physically persisted E06 SQLite
+  journal in a *new authenticated Oracle invocation*. Intent, Node,
+  contiguous origin sequence and saved reconnect references survived.
+- The actual Ptah `DurableIntentJournal::observe_reconnect` implementation
+  was run against the re-opened journal, with 23 entries: matching saved
+  references produced the non-dispatching comparison outcome; stale E02
+  fence, changed E03 object generation and uncertain prior effect yielded
+  the correct distinct negative classifications. Zero observation writes
+  and no change to unrelated workspace execution.
+
+**2. Physical-host process interruption / durable recovery**
+- KRATOS storage verified as **/dev/nvme0n1p2, ext4**, not RAM-only.
+  Disposable test journal used SQLite WAL with synchronous FULL (2).
+- 44 independent E06 CLI worker attempts; **22 explicitly SIGKILLed**
+  while running and 22 completed with process receipts. One original
+  bound intent plus the 22 completed workers yielded **23 persisted entries**
+  after recovery, with a contiguous `1..23` Node sequence and cursor 23.
+- Reopening in a later Oracle invocation: `PRAGMA integrity_check = ok`,
+  23 rows, zero stored reconciliation findings and no leftover worker
+  processes. No data rewrite, replay or invented authority.
+- Tamper tests on disposable **copies**: deleting
+  `reconciliation_findings` or corrupting the saved-generation JSON caused
+  the live Ptah CLI to **fail closed**. The original journal retained
+  23 entries and integrity `ok`. Corrupt copies were deleted.
+- The real physical hosts, production services, Knights and any user
+  workspace data were NOT rebooted, powered off, disconnected or altered.
+  Only disposable E06 worker processes and files were used.
+
+**Precise proof boundary:** this is live Oracle session continuity with
+persisted reconciliation and real NVMe process-crash recovery. No deliberate
+network outage or host mains-power interruption was performed, so it does
+not prove such failure modes. Those are optional deployment-specific
+reliability experiments, **not unfinished E06 features, security approval
+steps, permissions, release gates or workspace blockers**. No automated
+replay of an uncertain external effect was attempted. Existing technical
+failure detection remains intact.
+
+**Disposition: E06 closed for the tested standalone Ptah functionality.**
+Continue optional E07 and standalone F01–F03. Prime OS integration LAST.
+
+---
+
 ## E06 status correction — binding operational meaning (2026-10-20)
 
 **E06 = DONE for source implementation:** its offline queue, durable journal recovery,
