@@ -6,6 +6,24 @@ Version: 1.1.0
 
 Recorded: 2026-07-21
 
+## E06 empirical reliability evidence (non-blocking) — 2026-10-20
+
+Two follow-up checks were performed, not merely documented: independent
+authenticated Oracle transport calls to KRATOS and ATHENA with matching
+test digest, and a later Oracle invocation reopening and reconciling
+E06's physically persisted journal. A 44-attempt real NVMe (ext4)
+worker stress test included 22 SIGKILL interruptions and recovered
+23 contiguous durable records with SQLite integrity `ok`; two
+disposable schema/reference corruption tests correctly failed closed.
+
+**E06 is DONE.** This evidence closes the specifically requested
+bounded live-session readback and physical process-crash checks.
+A deliberate network outage or mains-power failure was not performed
+and is not an E06 workstream/permission gate. No production service,
+Knights system or Oracle configuration was changed; ordinary Ptah
+operation cannot be held pending such optional reliability experiments.
+Details: CURRENT_STATE.md, E06 physical-host reliability evidence.
+
 ## E06 completion interpretation — no workspace blockers (2026-10-20)
 
 E06 implementation is **DONE**: durable offline queue, crash-safe journal
