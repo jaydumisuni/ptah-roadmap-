@@ -1,3 +1,13 @@
+# Current continuation — 2026-10-19
+
+The authoritative status is CURRENT_STATE.md. Oracle is machine transport;
+Ptah is neutral shared workspace. E06 #137 passed CI but release is open;
+optional native E07 #138 remains physical NO-GO; Programme F #139 is a
+non-activating candidate, with all F stages still unaccepted. Review the
+exact branch, owner and physical evidence gates before claiming completion.
+
+---
+
 # Ptah durable AI/chat handoff
 
 Last updated: 2026-10-02

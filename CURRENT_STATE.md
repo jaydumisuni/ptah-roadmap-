@@ -1,12 +1,55 @@
 # Ptah Current State
 
-**Last updated:** 2026-10-02
-**Overall status:** PROGRAMME E ACTIVE — E05 COMPLETE / RELEASED; E06 RECOVERY / DESIGN ACTIVE
-**Current phase:** Programme E — Distributed Ptah
-**Active work unit:** E06 — intermittent/local-first operation, discovery, synchronization and reconciliation — RECOVERY / DESIGN ACTIVE; IMPLEMENTATION NOT STARTED
-**Runtime implementation:** AUTHORIZED / ACTIVE through the accepted E05 release lineage
-**Current public release:** E05 frozen release `90a3ad012f0b3e15bd871e6e955dd79bbf757ded`; integrated `Ptah-space/main` `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`
+**Last updated:** 2026-10-19 (candidate verification; E05 release unchanged)
+**Overall status:** E05 RELEASED; E06 source/CI qualified, release OPEN; optional E07 native production NO-GO; F01–F07 preflight candidate only
+**Current phase:** Programme E release qualification, Programme F non-activating preparation
+**Active work unit:** E06 authenticated reconciliation; optional E07 physical acceptance; Programme F OS foundation
+**Runtime implementation:** AUTHORIZED through accepted E05 lineage; newer production services not self-authorized
+**Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space main last verified e03feb709e99f1024af2b932e83828c0d36ee39d
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## Superseding live evidence checkpoint — 2026-10-19
+
+Architecture: Oracle remains authenticated machine transport for ChatGPT,
+Hunter and other agents on KRATOS/ATHENA/Nodie. Ptah is the neutral shared
+workspace, not a transport, planning authority, or prerequisite enrollment
+gate. Supervisor/Cookpit, Hunter, Sergeant/Patrol and the owner retain their
+own independent authority.
+
+E06: Source candidate jaydumisuni/Ptah-space PR #137 at
+58f11d9fda0adeb50433150884328b0c7ff22137 passed all 15 exact-head
+CI workflows, including universal admission, security/licensing policy and
+E06 atomic journal. KRATOS disposable SIGKILL test: 80 bounded attempts,
+13 killed, 67 durable contiguous records, zero gaps, no execution authority.
+E06 remains unreleased: owner-verified current E01–E05 reconnect, independent
+review, and E06-07 final qualification are not proven.
+
+E07: Optional native gateway candidate PR #138 at
+5c68f2bbb73b82bf12d08f8eb023a99226d3caf7 passed relevant local
+Control/Node and client tests, but D01/A14 historical predecessor CI checks
+fail. Real production E01/Node certificates, E05 two-host profiles, E02
+dispatch, independent A05 effects, hard-reboot recovery, Sergeant/Patrol
+review and owner GO are outstanding. Ordinary Ptah workspace use through
+Oracle does not depend on this native service.
+
+Programme F: Non-activating candidate PR #139 at
+d93fa2006337e6e2a03c05682140123c50aeabea adds a seven-phase profile,
+21 explicit missing proof types, 19 adversarial/passive tests, and exact
+head non-activating CI. F01 through F07 are NOT implemented or accepted.
+KRATOS local KVM/QEMU bounded no-boot smoke and disposable QCOW2 check
+passed; neither booted an OS nor proved a full guest recovery. ATHENA
+has virtualization capability but no observed installed Ptah native
+service, QEMU or VirtualBox.
+
+Host caveat: KRATOS kernel observed 7.0.0-38-generic differs from
+historical E05 frozen 6.8.0-136, and system storage is tight. No
+silent E05 requalification, production certificate changes, Node service
+activation, reboot, data-disk writes or Supervisor route changes occurred.
+
+Use current exact branch and hosted status to resume; old text below is
+retained as a historical checkpoint, not the current implementation truth.
 
 ---
 
