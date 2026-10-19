@@ -10,6 +10,37 @@
 
 ---
 
+## F03 crash-recovery qualification — 2026-10-19
+
+Oracle connectivity returned for KRATOS, which is the only enrolled node
+visible to the Oracle session at this checkpoint. ATHENA was not connected.
+The delayed disposable COW recovery implementation now lives in Ptah PR #146
+(head 335e9a5487c8b6ee921c2ee648da7cda7baf0c1f) stacked on the
+F03 guest-execution PR #144, NOT merged into production mainline.
+
+The explicit F03 process-crash runner boots an x86 BIOS test payload under
+QEMU/KVM, issues a guest IDE sector-write, records its ACK, SIGKILLs only the
+owned QEMU guest, classifies the post-crash effect as UNTRUSTED, discards the
+COW child, and recreates a clean child against a SHA-256-verified unchanged
+1 MiB base. A second disposable guest successfully starts from that image.
+KRATOS: 41/41 combined local tests, two initial process recovery runs and
+six subsequent repeated recovery cycles pass. In all six repeat cycles the
+acknowledged pre-crash write did NOT appear reliably in the projected COW
+sector, confirming it cannot be promoted to a durable execution receipt.
+The original disk remains byte-identical. All temporary files removed.
+The dedicated exact-head hosted workflow passed; broader CI pending at
+initial publication.
+
+**Release limits:** this is a synthetic BIOS sector, not a Linux guest,
+filesystem write/fsync acceptance, multi-workload isolation, hypervisor
+security, physical power interruption, or E01/E02/E05 Node admission.
+F03 production acceptance remains OPEN, as do E06 authenticated owner
+reconnect and optional E07 two-host native production admission. F01 real
+signer and deployment, F02 physical device policy and independent review
+remain open. The wider OS image, installation, OS updates/rollback and
+desktop work belongs to Prime OS and stays strictly LAST.
+
+---
 ## Pre-Prime-OS standalone Ptah qualification — 2026-10-19 (continuation)
 
 Owner sequencing correction: complete Ptah E06/E07 and its standalone F01,
