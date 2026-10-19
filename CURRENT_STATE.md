@@ -1,12 +1,44 @@
 # Ptah Current State
 
-**Last updated:** 2026-10-19 (candidate verification; E05 release unchanged)
-**Overall status:** E05 RELEASED; E06 source/CI qualified, release OPEN; optional E07 native production NO-GO; F01–F07 preflight candidate only
+**Last updated:** 2026-10-20 (E06 merged source implementation; E05 frozen release unchanged)
+**Overall status:** E05 RELEASED; E06 core + reconnect source MERGED, production release OPEN; optional E07 native production NO-GO; F01–F07 staged candidates
 **Current phase:** Programme E release qualification, Programme F non-activating preparation
-**Active work unit:** E06 authenticated reconciliation; optional E07 physical acceptance; Programme F OS foundation
+**Active work unit:** E06 physical native reconciliation qualification; optional E07 two-host acceptance; F01–F03 standalone completion
 **Runtime implementation:** AUTHORIZED through accepted E05 lineage; newer production services not self-authorized
-**Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space main last verified e03feb709e99f1024af2b932e83828c0d36ee39d
+**Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space E06 source main merged through eefeeafeaf89551e7d891598db20366e1aaa4939 (not a release tag)
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## Ptah E06 merged source checkpoint — 2026-10-20
+
+**Confirmed on Ptah-space main:**
+- E06 durable offline queue, immutable reconciliation receipt recovery and
+  versioned queued reconnect reference storage — PR #137 merged as
+  `23ed17a7c71f6547aa4dba6662e2e5a3f21fe014`.
+- E06-03 read-only reconnect comparison against the *stored* session, fence,
+  object generation, checkpoint and host-generation facts — PR #140 merged
+  as `eefeeafeaf89551e7d891598db20366e1aaa4939`.
+- Earlier uncertainty from a possible external effect takes precedence over
+  newly mismatched digest/fence evidence; corrupt journals cannot silently
+  lose negative reconciliation receipts.
+- KRATOS Rust tests, E06 strict Clippy and accepted GitHub required checks
+  passed. These merges are source-level completion only, not claims of a
+  live E01-E05 authenticated production replay, physical host power cut,
+  E07 native two-host enrollment or final E06 release sign-off.
+
+**Ptah correction status:** PR #147 Search and PR #148 Browser are merged.
+PR #150 (D02/D03/D05 and browser-choice runtime admission refactor)
+remains unmerged due Ptah repository protected CI requirements.
+This is a GitHub integration gate, **not a Ptah-side permission decision**.
+No Knights implementation, settings, cybersecurity, or identity system was
+modified.
+
+**Next standalone order:** finish E06 external reconnect qualification
+and optional E07 native production as distinct lanes, complete F01 package
+workflow, F02 device-support and F03 VM/rollback acceptance. **Prime OS
+integration comes LAST.** Ptah remains a shared workspace; Oracle only
+transports caller-selected operations.
 
 ---
 
