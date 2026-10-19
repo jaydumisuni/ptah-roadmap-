@@ -1,3 +1,21 @@
+# E06 supplementary physical evidence completed — 2026-10-20
+
+E06 is DONE, tests executed on KRATOS and ATHENA through already
+authenticated Oracle transports. Separate real Oracle invocation
+reopened an NVMe/ext4-backed E06 journal and Ptah's reconnect comparator
+detected matching, stale fence, changed generation and uncertain prior
+effect without any automatic replay, login, second approval or journal
+writes. Physical KRATOS: 44 CLI worker attempts / 22 SIGKILLs, 23
+persisted consecutive queue entries, sqlite integrity=ok and zero
+extra worker processes; disposable deleted-receipt-table and invalid
+generation-JSON copies failed closed. No host reboot, mains-power cut or
+forced network outage was run. Those are optional further reliability
+experiments, NEVER workspace access/feature blockers. Do not reopen E06
+as unfinished simply because a different deployment asks for stronger
+durability proof. Knights left alone; Oracle transport only; Prime OS LAST.
+
+---
+
 # E06 closure / no second Ptah gate — 2026-10-20 (read first)
 
 E06 source implementation is DONE and merged in Ptah-space/main:
