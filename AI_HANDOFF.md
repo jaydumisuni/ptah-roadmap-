@@ -1,3 +1,41 @@
+# CURRENT OWNER ARCHITECTURE — 2026-10-19 (read first)
+
+Knights handles external security and future cybersecurity; while unfinished
+the Ptah development workspace remains open. Ptah must NEVER invent a second
+login, authorization, owner enrollment, agent registration, per-tool Grant,
+policy approval, semantic tool choice, or release gate to let an admitted
+human/AI work. Oracle ONLY transports commands to machines. Caller chooses
+tools/tasks. Ptah executes available capabilities or reports precise
+technical errors. Preserve mechanical process/lease/ledger isolation, never
+fabricate authority. See IMPLEMENTATION_ROADMAP.md section 2026-10-19
+Owner Correction and CURRENT_STATE.md.
+
+Return to standalone E06/E07 and F01-F03 implementation; Prime OS comes LAST.
+Track PR #147 Search, PR #148 Browser and PR #150 D02/D03/D05/shared
+workspace migration without conflating review with a permissions office.
+Older authentication/Grant approvals below are historical and not binding
+authorization for an already admitted caller.
+
+---
+
+F03 candidate PR #146: 13/13 CI and 6/6 additional process-crash recovery cycles; real Linux guest/physical power test NOT accepted. E07 older D01/A14 phase CI predecessor mismatch is not an independent E07 release. ATHENA not currently Oracle-reachable. Prime OS last. See CURRENT_STATE.md.
+
+F03 COW crash/rollback and guest restart candidate PR #146 is source-verified and physically tested on KRATOS; still not host power-loss or guest OS acceptance. ATHENA not currently reachable via Oracle. Prime OS is LAST. See CURRENT_STATE.md.
+
+Continue standalone Ptah first: qualified F02 candidate PR #143; F03 bounded KVM guest boot PR #144 (13/13 exact-head CI pass, ready for review). Keep Prime OS F04-F07 system integration last; Oracle is transport and Ptah shared workspace. See CURRENT_STATE.md for scope/acceptance distinctions.
+
+Current additional qualified candidates: E06 reconnect PR #140 and unsigned F01 package PR #141; both source review ready and 13/13 hosted CI green, still not released. See CURRENT_STATE.md for exact acceptance gates.
+
+# Current continuation — 2026-10-19
+
+The authoritative status is CURRENT_STATE.md. Oracle is machine transport;
+Ptah is neutral shared workspace. E06 #137 passed CI but release is open;
+optional native E07 #138 remains physical NO-GO; Programme F #139 is a
+non-activating candidate, with all F stages still unaccepted. Review the
+exact branch, owner and physical evidence gates before claiming completion.
+
+---
+
 # Ptah durable AI/chat handoff
 
 Last updated: 2026-10-02

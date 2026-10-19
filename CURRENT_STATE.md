@@ -1,12 +1,216 @@
 # Ptah Current State
 
-**Last updated:** 2026-10-02
-**Overall status:** PROGRAMME E ACTIVE — E05 COMPLETE / RELEASED; E06 RECOVERY / DESIGN ACTIVE
-**Current phase:** Programme E — Distributed Ptah
-**Active work unit:** E06 — intermittent/local-first operation, discovery, synchronization and reconciliation — RECOVERY / DESIGN ACTIVE; IMPLEMENTATION NOT STARTED
-**Runtime implementation:** AUTHORIZED / ACTIVE through the accepted E05 release lineage
-**Current public release:** E05 frozen release `90a3ad012f0b3e15bd871e6e955dd79bbf757ded`; integrated `Ptah-space/main` `e11c744c4e9900c460e3c4a3fda9fe385f6e1dc9`
+**Last updated:** 2026-10-19 (candidate verification; E05 release unchanged)
+**Overall status:** E05 RELEASED; E06 source/CI qualified, release OPEN; optional E07 native production NO-GO; F01–F07 preflight candidate only
+**Current phase:** Programme E release qualification, Programme F non-activating preparation
+**Active work unit:** E06 authenticated reconciliation; optional E07 physical acceptance; Programme F OS foundation
+**Runtime implementation:** AUTHORIZED through accepted E05 lineage; newer production services not self-authorized
+**Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space main last verified e03feb709e99f1024af2b932e83828c0d36ee39d
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## Owner's binding Knights / Oracle / Ptah correction — 2026-10-19
+
+**NO Ptah-side login, owner approval, per-agent enrollment, per-tool Grant,
+browser/search permission, semantic task choice or secondary admission.**
+Knights owns security/cybersecurity once implemented; currently the
+development workspace is open. Trusted ingress hands Ptah an already
+admitted caller. Ptah executes caller-selected tools and returns actual
+results or technical errors. Oracle transports to machines, not decisions.
+Keep record identity, provider process generations, transport integrity,
+evidence and resource accounting mechanical; they are NOT access votes.
+
+Verified runtime candidates (not merged production at this checkpoint):
+Ptah-space PR #147 corrects agent-neutral Search access; PR #148 removes
+frozen Node qualification as Browser's live launch veto; global runtime
+PR #150 changes the native D02 workspace bridge and D02 reader, D03
+queries, D05 package/activation path and headed browser opt-in. Exact
+historical contracts are retained as data/provenance, not caller gates.
+Global owner correction issue #149 is the tracking reference. If live
+runtime tests or PR review have not passed, record actual status, not
+imagined implementation.
+
+The previous E06/E07 owner-login or individual native release GO/NO-GO
+descriptions apply only to optional independently accepted native
+distributed production; they NEVER deny normal Ptah workspace use over
+Oracle. Local Ptah authorizations are not delegated security authority.
+
+**Prime OS integration must be LAST**, following standalone E06/E07 and
+F01–F03 work, and Prime owns boot, installer, OS update/rollback, encryption
+and desktop rather than Ptah duplicating an operating system.
+
+**Live Oracle update:** at this audit Oracle reports both KRATOS and ATHENA
+ready; earlier "ATHENA absent" notes below are dated historical snapshots.
+
+---
+
+## F03 fully green exact-head update / E07 blocker distinction — 2026-10-19
+
+Ptah-space PR #146 exact head 335e9a5487c8b6ee921c2ee648da7cda7baf0c1f
+is source-qualified with 13/13 exact-head hosted workflows green and ready
+for independent review. On KRATOS, all 41 conformance tests passed, two
+initial live COW crash/rollback boots passed, followed by six further
+two-boot SIGKILL rollback/restart cycles. The first guest's BIOS ACK
+was NOT a durable disk effect in any of the six repeated crashes; the raw
+baseline stayed byte-identical and the clean overlay restarted successfully.
+No persistent VM processes or temporary files remain. This qualifies only
+disposable QEMU process-crash rollback; F03 guest-OS boot, filesystem
+durability, physical power-cut, adversarial VM isolation and independent
+admission are not claimed.
+
+A read-only attempt to use KRATOS's existing kernel for guest-OS boot
+was denied by the Oracle-hosted execution environment's no-new-privileges
+restriction. No host kernel permissions or services were changed.
+Oracle currently shows KRATOS connected, ATHENA absent. Thus E07's
+two-host native acceptance is not evidenced.
+
+Ptah-space PR #138 E07 historical D01 and A14 CI failures are distinct
+single-predecessor frozen locks: they explicitly require separate old C11
+and A13 parent commits, whereas E07's real integration base is E06.
+Do not alter, bypass or falsify their phase-owned acceptance. 16/18
+integration-head checks passed, but optional production release remains
+NO-GO until genuine independent E07 admission and owner decision.
+
+Prime OS integration remains the FINAL step, not a Ptah duplicate of OS
+boot/installation/update/desktop code.
+
+---
+## F03 crash-recovery qualification — 2026-10-19
+
+Oracle connectivity returned for KRATOS, which is the only enrolled node
+visible to the Oracle session at this checkpoint. ATHENA was not connected.
+The delayed disposable COW recovery implementation now lives in Ptah PR #146
+(head 335e9a5487c8b6ee921c2ee648da7cda7baf0c1f) stacked on the
+F03 guest-execution PR #144, NOT merged into production mainline.
+
+The explicit F03 process-crash runner boots an x86 BIOS test payload under
+QEMU/KVM, issues a guest IDE sector-write, records its ACK, SIGKILLs only the
+owned QEMU guest, classifies the post-crash effect as UNTRUSTED, discards the
+COW child, and recreates a clean child against a SHA-256-verified unchanged
+1 MiB base. A second disposable guest successfully starts from that image.
+KRATOS: 41/41 combined local tests, two initial process recovery runs and
+six subsequent repeated recovery cycles pass. In all six repeat cycles the
+acknowledged pre-crash write did NOT appear reliably in the projected COW
+sector, confirming it cannot be promoted to a durable execution receipt.
+The original disk remains byte-identical. All temporary files removed.
+The dedicated exact-head hosted workflow passed; broader CI pending at
+initial publication.
+
+**Release limits:** this is a synthetic BIOS sector, not a Linux guest,
+filesystem write/fsync acceptance, multi-workload isolation, hypervisor
+security, physical power interruption, or E01/E02/E05 Node admission.
+F03 production acceptance remains OPEN, as do E06 authenticated owner
+reconnect and optional E07 two-host native production admission. F01 real
+signer and deployment, F02 physical device policy and independent review
+remain open. The wider OS image, installation, OS updates/rollback and
+desktop work belongs to Prime OS and stays strictly LAST.
+
+---
+## Pre-Prime-OS standalone Ptah qualification — 2026-10-19 (continuation)
+
+Owner sequencing correction: complete Ptah E06/E07 and its standalone F01,
+F02, F03 infrastructure first. Prime OS owns the OS boot image, installation,
+update/rollback, encryption, selected compositor/desktop and final OS-ready
+system acceptance; postpone Prime OS integration work (roadmap F04–F07)
+until the Ptah standalone boundaries and acceptance are settled. Ptah
+must not create a second competing operating system, authorization service
+or machine transport. Oracle is the machine transport to both hosts.
+
+F02 candidate source PR #143, branch
+feat/f02-usb-safe-profile-20261019, exact head
+2a5eaee56d2bae20407080ef890ef0f602d932e6. Physical KRATOS passive
+USB inventory identified five vendor/product classes and collected no
+serial numbers or device paths. 11 focused tests and 14/14 hosted workflows
+passed. Draft device rules are inert commented examples, not installed
+udev policy, service access or production-qualified drivers.
+
+F03 candidate PR #144, branch feat/f03-bounded-kvm-boot-proof-20261019,
+exact head 6e2a0c9646ca36f7b76e91546d18f8d79a2a7b58. Physical KRATOS
+QEMU/KVM executed a 512-byte deterministic BIOS test sector, emitted the
+expected guest debug marker, and left a disposable disk byte-identical.
+No networking, guest OS, persistent VM, root escalation or Node service
+installation. Combined 29 local conformance tests, A01 and Phase0C checks
+passed. All 13/13 exact-head hosted CI workflows passed after the
+KVM-negative test was made portable to runners without QEMU tooling.
+PR #144 is ready for review, not merged or released. F03 still lacks
+Linux/Windows guest OS isolation, crash recovery and independent production
+admission; a boot-sector proof is not full OS-ready acceptance.
+
+F01 PR #141 remained separately ready for review and unsigned-only. E06
+PRs #137 and #140 remain candidates, not authenticated-owner reconnect
+release. E07 production native approval remains independent and NO-GO.
+No Prime OS work has been executed under these PRs.
+
+---
+
+## Engineering progress addendum — 2026-10-19
+
+E06-03 non-authorizing reconnect comparison is now code-qualified in Ptah
+PR #140, exact commit feb45001be28015e9deec4f728a9980a5c8cfc3c.
+All 13 hosted workflows and the physical KRATOS full Rust workspace suite
+passed. It refuses to let untrusted observations insert permanent negative
+receipts; only independently verified owner evidence can settle native
+E01–E05 authority. Authenticated production reconnect and final E06
+review/release are still unproven.
+
+F01 unsigned deterministic Control/Node packaging candidate is Ptah PR #141,
+commit b267bf4715459255fb1543d016afd00f256cad6b. All 13 hosted
+workflows and 27 combined local F tests passed. On KRATOS, both actual
+Ptah executables were built, bundled and archive-verified twice; both
+temporary 66,652,160-byte archives had SHA-256
+254a066f54ab67ce3eb4af26229566b810c380ca65b9633015e2a77f3d65e31c.
+No signature, independent two-builder provenance, installation or native
+execution claim is made; the archives were cleaned afterward.
+
+A bounded attempted F03 real kernel/guest boot was stopped by KRATOS
+kernel-file read permissions at /boot, not successful guest initialization.
+Do not change host permission or infer full VM admission. No production
+host power cycle, deployment-owned E01 keys, owner approval or service
+cutover occurred. F02–F07 implementations remain open.
+
+---
+
+## Superseding live evidence checkpoint — 2026-10-19
+
+Architecture: Oracle remains authenticated machine transport for ChatGPT,
+Hunter and other agents on KRATOS/ATHENA/Nodie. Ptah is the neutral shared
+workspace, not a transport, planning authority, or prerequisite enrollment
+gate. Supervisor/Cookpit, Hunter, Sergeant/Patrol and the owner retain their
+own independent authority.
+
+E06: Source candidate jaydumisuni/Ptah-space PR #137 at
+58f11d9fda0adeb50433150884328b0c7ff22137 passed all 15 exact-head
+CI workflows, including universal admission, security/licensing policy and
+E06 atomic journal. KRATOS disposable SIGKILL test: 80 bounded attempts,
+13 killed, 67 durable contiguous records, zero gaps, no execution authority.
+E06 remains unreleased: owner-verified current E01–E05 reconnect, independent
+review, and E06-07 final qualification are not proven.
+
+E07: Optional native gateway candidate PR #138 at
+5c68f2bbb73b82bf12d08f8eb023a99226d3caf7 passed relevant local
+Control/Node and client tests, but D01/A14 historical predecessor CI checks
+fail. Real production E01/Node certificates, E05 two-host profiles, E02
+dispatch, independent A05 effects, hard-reboot recovery, Sergeant/Patrol
+review and owner GO are outstanding. Ordinary Ptah workspace use through
+Oracle does not depend on this native service.
+
+Programme F: Non-activating candidate PR #139 at
+d93fa2006337e6e2a03c05682140123c50aeabea adds a seven-phase profile,
+21 explicit missing proof types, 19 adversarial/passive tests, and exact
+head non-activating CI. F01 through F07 are NOT implemented or accepted.
+KRATOS local KVM/QEMU bounded no-boot smoke and disposable QCOW2 check
+passed; neither booted an OS nor proved a full guest recovery. ATHENA
+has virtualization capability but no observed installed Ptah native
+service, QEMU or VirtualBox.
+
+Host caveat: KRATOS kernel observed 7.0.0-38-generic differs from
+historical E05 frozen 6.8.0-136, and system storage is tight. No
+silent E05 requalification, production certificate changes, Node service
+activation, reboot, data-disk writes or Supervisor route changes occurred.
+
+Use current exact branch and hosted status to resume; old text below is
+retained as a historical checkpoint, not the current implementation truth.
 
 ---
 
