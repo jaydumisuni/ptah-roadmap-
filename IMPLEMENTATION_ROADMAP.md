@@ -6,6 +6,62 @@ Version: 1.1.0
 
 Recorded: 2026-07-21
 
+## 2026-10-19 owner correction — Knights-only security, Ptah is an open workspace
+
+**Controlling architecture for all current and future Ptah work** (supersedes
+conflicting historical owner/Grant/approval language below, which remains
+as background contract and audit history until its runtime migration is
+complete):
+
+- **Knights is the sole security/cybersecurity department.** Only the trusted
+  ingress decides initial admission. Knights is still under construction.
+  During development Ptah remains openly usable by its reachable callers;
+  do NOT invent a temporary Ptah login, user role approval, per-agent
+  enrollment, per-tool Grant, provider-specific approval or deployment-identity
+  gate merely because Knights has not been finished.
+- **Ptah is one shared workspace**, never a transport, a security/permission
+  authority, an AI scheduler, a task selector, an owner approver, or an
+  independent policy decision point. Once the trusted ingress has admitted a
+  human or AI, Ptah must provide the requested available tool or explain
+  the real technical failure. Every caller has the same workspace capability
+  model; Hunter, ChatGPT, other AIs and humans require no second Ptah admission.
+- **Oracle is only authenticated machine transport** (KRATOS, ATHENA,
+  Nodie and other enrolled nodes); Oracle does not select tasks or approve
+  users. A transport restriction must not be implemented as a Ptah decision.
+- **Caller decides** the work, tool, timing, and next action. Ptah neither
+  denies a task because a policy committee was not asked nor silently
+  substitutes other tools.
+- **Mechanical invariants survive:** exact workspace/record identity and
+  ledger consistency, process ownership and generation fencing, session
+  coordination, actual installed runtime compatibility, resource budgets,
+  bounded IO, audit evidence, licence/provenance integrity, and actual
+  technical errors. A stale handle, unavailable binary, failed network
+  call, bad package or exhausted device is a technical fact, NOT a Ptah
+  authorization verdict. Never forge an approval record or expose another
+  workspace by an accidental record-routing mismatch.
+- Historical A06/D02/D03/D05 membership, Grant and owner-reference schemas
+  may remain as durable provenance formats. They must not become **new caller
+  permission prerequisites** for ordinary shared workspace operations.
+  Frozen exact-head historical CI proves its historical baseline only, not a
+  mandate to retain a production access lock. Test the new operational path
+  independently rather than changing or falsifying historical proofs.
+
+**Implementation closure checklist, independent of production acceptance:**
+Ptah-space #147 (agent-neutral Search descriptor and CLI), #148 (A11 browser
+runtime compatibility), #150 (D02/D03/D05 workspace runtime no second Grant,
+headed browser caller opt-in). Global architectural correction #149.
+No single component alone proves all providers are deployed. All reachable
+capabilities should remain usable while optional production-native E07 is
+being separately qualified. New runtime functionality must never wait for
+Prime OS integration.
+
+**Priority order**: finish standalone E06 offline/reconnect reliability;
+finish optional native E07 capability/host tests without blocking normal
+Oracle-backed Ptah work; finish standalone F01 packaging, F02 hardware
+inventory/device rules, F03 virtualization/recovery; **integrate Prime OS
+LAST**. Prime owns kernel, boot/install, updates, encryption and desktop;
+Ptah only integrates with Prime, never develops a competing OS.
+
 ## 1. Purpose and authority
 
 This roadmap converts the Ptah Master Plan into dependency-ordered, evidence-gated implementation work.
@@ -46,7 +102,7 @@ Every implementation work package must record:
 - exact Provider revision and Generation evidence;
 - retained logs, Receipts, reports and Artifacts;
 - limitations and unsupported cases;
-- operation effect class, exact precondition, Provider-access, Grant and approval boundaries where applicable;
+- operation effect class, exact precondition, upstream Knights ingress provenance and mechanical Provider/process lease boundaries (never a second Ptah caller approval/Grant gate);
 - Object/reference materialization state, schedule kind/timing mode, partial-output and result-state evidence where applicable;
 - explicit resource, Provider and product limits with no silent semantic scope reduction;
 - reviewer outcome;

@@ -10,6 +10,41 @@
 
 ---
 
+## Owner's binding Knights / Oracle / Ptah correction — 2026-10-19
+
+**NO Ptah-side login, owner approval, per-agent enrollment, per-tool Grant,
+browser/search permission, semantic task choice or secondary admission.**
+Knights owns security/cybersecurity once implemented; currently the
+development workspace is open. Trusted ingress hands Ptah an already
+admitted caller. Ptah executes caller-selected tools and returns actual
+results or technical errors. Oracle transports to machines, not decisions.
+Keep record identity, provider process generations, transport integrity,
+evidence and resource accounting mechanical; they are NOT access votes.
+
+Verified runtime candidates (not merged production at this checkpoint):
+Ptah-space PR #147 corrects agent-neutral Search access; PR #148 removes
+frozen Node qualification as Browser's live launch veto; global runtime
+PR #150 changes the native D02 workspace bridge and D02 reader, D03
+queries, D05 package/activation path and headed browser opt-in. Exact
+historical contracts are retained as data/provenance, not caller gates.
+Global owner correction issue #149 is the tracking reference. If live
+runtime tests or PR review have not passed, record actual status, not
+imagined implementation.
+
+The previous E06/E07 owner-login or individual native release GO/NO-GO
+descriptions apply only to optional independently accepted native
+distributed production; they NEVER deny normal Ptah workspace use over
+Oracle. Local Ptah authorizations are not delegated security authority.
+
+**Prime OS integration must be LAST**, following standalone E06/E07 and
+F01–F03 work, and Prime owns boot, installer, OS update/rollback, encryption
+and desktop rather than Ptah duplicating an operating system.
+
+**Live Oracle update:** at this audit Oracle reports both KRATOS and ATHENA
+ready; earlier "ATHENA absent" notes below are dated historical snapshots.
+
+---
+
 ## F03 fully green exact-head update / E07 blocker distinction — 2026-10-19
 
 Ptah-space PR #146 exact head 335e9a5487c8b6ee921c2ee648da7cda7baf0c1f
