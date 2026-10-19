@@ -1,3 +1,23 @@
+# E06 closure / no second Ptah gate — 2026-10-20 (read first)
+
+E06 source implementation is DONE and merged in Ptah-space/main:
+PR #137 durable queue, journal and saved reconnect references;
+PR #140 strict comparison, stale versions and unknown-outcome priority.
+Further live session/reconnect and physical crash/power tests are
+**optional reliability evidence**, not blockers for accessing Ptah,
+other providers, E07 work or standalone F01–F03. Do not create new
+Ptah owner login, "authenticated reconnect" enrollment, release GO/NO-GO,
+per-agent Grants or physical test prerequisites to let an upstream-admitted
+caller use the workspace. Technical errors remain actual errors for only
+the affected operation; process/journal integrity is not an access policy.
+Knights stays entirely out of scope. Oracle is transport. Caller chooses
+tools. Prime OS integration LAST.
+
+Older contradictory E06 "NOT STARTED", "release OPEN" or "blocked"
+paragraphs below are historical snapshots, not present-day instructions.
+
+---
+
 # CURRENT OWNER ARCHITECTURE — 2026-10-19 (read first)
 
 Knights handles external security and future cybersecurity; while unfinished
