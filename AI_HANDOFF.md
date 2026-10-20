@@ -1,3 +1,34 @@
+# E07 Native E02/A05 mainline integration — 2026-10-20 (read FIRST)
+
+E07 source PR #153 is now MERGED into Ptah-space/main (de627797).
+Windows SQLite exact dependency PR #154 is MERGED (c2c0a1d).
+The entire KRATOS Rust workspace suite, native strict Clippy and
+A01/Phase0C historical scaffold checks passed.
+
+Six KRATOS Control journal dispatches match six ATHENA durable completed
+native A05 executions by dispatch ID, fence, generation and connection
+epoch. All exit 0 with output SHA-256; both journals integrity=ok.
+Control retains honest sent_unconfirmed, ATHENA stores actual local effects.
+
+Windows task Ptah-E07-Native-Node automatically restarted the persistent
+Node worker at 13:36:48 local after worker termination (PID 30756 alive).
+The sixth verified completed dispatch was ~13:28 (BEFORE restart).
+At ~14:50 ATHENA changed Wi-Fi to 192.168.1.155 while KRATOS's
+Control listener used 192.168.238.52:47821; ATHENA TCP failed and a
+fresh post-restart dispatch timed out WITHOUT new completion.
+Never claim E07 post-restart full end-to-end effect until a reachable
+transport path exists and another dispatch is recorded in both journals.
+
+E07 physical remote A05 execution is REAL and source-integrated; worker
+restart resilience is REAL independently; split-subnet transport is a
+per-operation technical limitation, NEVER a global workspace gate.
+Ptah is a workspace; Oracle transports; the caller decides. Knights
+files/systems stay untouched. E06 and F01-F03 are merged.
+Prime OS integration LAST. Older E07 "not yet implemented" entries
+below are historical and superseded.
+
+---
+
 # E07 physical two-host E01 qualification — VERIFIED 2026-10-20 (read first)
 
 Ptah-space PR #152 merged into protected main at
