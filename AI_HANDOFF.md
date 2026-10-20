@@ -1,3 +1,29 @@
+# Ptah closure — 2026-10-20 VERIFIED CURRENT STATUS (read first)
+
+**E07 source integration FINISHED and MERGED** — Ptah-space PR #138 at
+`982210d25c15e5a1c69d9c2f2a318e096e4d9309`.
+**Shared Ptah workspace runtime correction FINISHED and MERGED** — PR #150
+at `aa413dc3140fbd8a5273c8870eb06d17be51080c`.
+**Current-head CI and trusted-base integrity migration MERGED** — PR #151
+at `7c6080964768732b9166bbb1d7233b0ad11cae78`.
+Branch protection stays strict with A01, Rust dependency, static,
+artifact and signature checks plus trusted-base integrity and actual
+current-head integration tests. The original historic exact-predecessor
+workflows remain as dated audit evidence, not a merge veto against normal
+new source maintenance.
+
+E06 and F01–F03 are DONE at tested standalone source level. Ptah is a
+shared workspace; no duplicate login, per-user Grants, individual tool
+approvals, or Ptah task-decider. Oracle transports requests to nodes.
+This work **did not touch Knights**. E07 physical native two-host
+deployment was not claimed as proven, but is optional and does not block
+using existing workspace tools. Prime OS integration LAST.
+
+**ALL prior notes below calling PR #138 or #150 "not merged" or a required
+CI problem are historical snapshots, superseded by this verified record.**
+
+---
+
 # Latest Ptah integration status — 2026-10-20 (current)
 
 **Read before resuming:** PR #138 E07 latest `785f202b7b43a799a13330653009721f44b3d177`; exact E07 local-only Cargo.lock change now reconstructs unchanged historical E01/E06 lock bytes and tests pass; A01 and Phase0C local + hosted static checks PASS; GitHub current-head universal admission PASS. **The protected GitHub A11 governance check refuses edits to trusted `tools/check_current_pr_admission.py`**, making PR #138 unmergeable as presently structured (GitHub 405). Four legacy predecessor proofs remain red, and they are NOT genuine E07 native runtime tests. Correct the repository's approved governance mechanism; do not bypass protection or claim a merge.
