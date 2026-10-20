@@ -1,3 +1,21 @@
+# E07 current review/merge checkpoint — 2026-10-20
+
+PR #138 current head `b95eaac5c1d022d78ba5e66f0b1d130d193ad5eb`
+fixes three actual Ptah E07 defects: exact persisted A05 process/Attempt
+identity for completion; private Control SQLite/lock creation (0600 Unix);
+live expiry time after TLS+Hello and owner lock. Full KRATOS Rust workspace
+tests, 29 Python client tests and strict native component Clippy passed.
+All three review threads are resolved. **E07 remains unmerged** because
+GitHub protected main reports 3 of 9 required status checks failing,
+principally legacy historical phase/scope/lock proof. This does not
+authorize Ptah to deny normal workspace access or to invent additional
+security/approval steps. No live two-host native production activated,
+no Knights changes, Oracle remains transport. PR #150 cross-tool caller
+boundary is also open. F01–F03 remain MERGED/DONE at standalone level;
+Prime OS integration LAST. Continue Ptah engineering from these facts.
+
+---
+
 # Current Ptah build completion checkpoint — 2026-10-20
 
 F01–F03 standalone Ptah capabilities are **MERGED in Ptah-space main**
@@ -8,7 +26,7 @@ tested. Do not label them unfinished or create an extra Ptah-side access
 approval. Prime OS integration is LAST.
 
 E07 optional native Control/Node gateway PR #138 is **source-tested but
-NOT merged** as of head 4813d82. Fresh KRATOS full Rust workspace tests,
+NOT merged** as of reviewed head b95eaac. Fresh KRATOS full Rust workspace tests,
 29 Python client tests and strict Control/Node/Node-link Clippy pass.
 Older E01/D01/D08/A14 and exact-head predecessor workflows report failures;
 the Cargo.lock historical E06 extension checker also rejects E07's
