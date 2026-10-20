@@ -6,6 +6,36 @@ Version: 1.1.0
 
 Recorded: 2026-07-21
 
+## Current E07 native remote operation — 2026-10-20
+
+Native E02 reservation/lease/fence plus remote A05 execution are implemented
+and merged in Ptah-space PR #153 (commit de627797). The exact Windows
+SQLite-build dependency fix is merged as PR #154 (commit c2c0a1d).
+Both current Rust and historical scaffold tests passed.
+
+KRATOS Control journal and ATHENA native Node journal contain **six exactly
+matched E02 dispatches / local A05 completed attempts**, with matching
+fence, generation, epoch and exit_code=0 on each Node record; both SQLite
+integrity checks pass. ATHENA's scheduled native Node worker restarted
+unattended after a deliberate process termination and continued its
+bounded retry loop. These are actual physical-machine achievements, not
+mocked execution or permission approvals.
+
+Do not fabricate a post-restart remote effect: the latest verified completed
+dispatch preceded worker restart (13:28 vs 13:36 local time). A subsequent
+listener failed TCP reachability because ATHENA changed to 192.168.1.155
+and KRATOS Control was on 192.168.238.52; no new E02 session completed
+over that split LAN. This requires a real reachable route to validate
+post-restart end-to-end execution. It is **not a workspace access gate**,
+does not involve Knights, and does not constrain unrelated Ptah capabilities
+through Oracle. Native Control is on-demand; Windows Node stays persistent.
+No new Ptah login, Grant or task-approval step is introduced.
+
+E06 DONE; F01–F03 MERGED. Prime OS integration LAST. Historical E07
+E01-only notes below are superseded by this measured native execution
+checkpoint.
+
+---
 ## E07 physical KRATOS–ATHENA E01 link verified — 20 October 2026
 
 **New evidence, superseding older statements that no real two-host E01
