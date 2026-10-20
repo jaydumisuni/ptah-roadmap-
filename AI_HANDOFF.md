@@ -1,3 +1,13 @@
+# Latest Ptah integration status — 2026-10-20 (current)
+
+**Read before resuming:** PR #138 E07 latest `785f202b7b43a799a13330653009721f44b3d177`; exact E07 local-only Cargo.lock change now reconstructs unchanged historical E01/E06 lock bytes and tests pass; A01 and Phase0C local + hosted static checks PASS; GitHub current-head universal admission PASS. **The protected GitHub A11 governance check refuses edits to trusted `tools/check_current_pr_admission.py`**, making PR #138 unmergeable as presently structured (GitHub 405). Four legacy predecessor proofs remain red, and they are NOT genuine E07 native runtime tests. Correct the repository's approved governance mechanism; do not bypass protection or claim a merge.
+
+PR #150 shared workspace runtime has latest merged Ptah main on head `1356736a06e1c165daa7a526ffe84e508ef48dd1`, physical KRATOS full Rust workspace test PASS and 6 native D02 bridge tests PASS. Old A11/D02/D03/D05 exact-head checks still reject the cross-module maintenance; protected merge remains open. No Knights changes.
+
+E06 and F01–F03 are MERGED/DONE at standalone source level. Oracle remains machine transport, Ptah a workspace, caller decides tasks. No owner permission, second login, individual approval, or per-tool Grant is a prerequisite. E07 optional native work does not gate normal Ptah. Prime OS integration LAST.
+
+---
+
 # E07 current review/merge checkpoint — 2026-10-20
 
 PR #138 current head `b95eaac5c1d022d78ba5e66f0b1d130d193ad5eb`
