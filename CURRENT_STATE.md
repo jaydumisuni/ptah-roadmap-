@@ -1,12 +1,30 @@
 # Ptah Current State
 
 **Last updated:** 2026-10-20 (E06 merged source implementation; E05 frozen release unchanged)
-**Overall status:** E05 RELEASED; E06 DONE (core offline queue and reconnect source tested + merged); any extra live/hardware reliability qualification is NON-BLOCKING. E07 optional native capability and standalone F01–F03 have their own work; Prime OS LAST.
+**Overall status:** E05 RELEASED; E06 DONE; standalone F01–F03 source, tests and hardware/VM evidence MERGED into Ptah main. E07 optional native capability under separate source review; no workspace access blocker. Prime OS integration LAST.
 **Current phase:** Programme E release qualification, Programme F non-activating preparation
-**Active work unit:** E07 optional native capability and F01–F03 standalone completion. E06 supplementary physical/reconnect evidence is non-blocking and never an additional Ptah login/admission.
+**Active work unit:** E07 optional native capability and existing shared-workspace runtime source integration (PR #150). Standalone F01–F03 merged. Extra production/physical tests are evidence, never an additional Ptah login or workspace gate.
 **Runtime implementation:** AUTHORIZED through accepted E05 lineage; newer production services not self-authorized
 **Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space E06 source main merged through eefeeafeaf89551e7d891598db20366e1aaa4939 (not a release tag)
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## E07 and standalone F01–F03 verified progress — 2026-10-20
+
+**F01–F03 DONE at standalone Ptah implementation level, merged into main:**
+- Foundation profiles/preflight: PR #139 → `ef7c980`, exact-head evidence binding and output-alias safeguards
+- F01 binary archive and verification: PR #141 → `a780d94`, full canonical tar verification, manifest schema, safe concurrent output
+- F01 detached Ed25519 signature integrity: PR #145 → `524a654`, immutable archive/public-key snapshots, 19 passing focused tests
+- F02 read-only USB inventory/rule drafting: PR #143 → `1cf04a0`, 11 tests and five actual KRATOS USB classes
+- F03 bounded QEMU/KVM guest boot: PR #144 → `440aebb`, real CPU marker and host disk unchanged
+- F03 COW crash rollback/restart: PR #146 → `12d31be`, real KRATOS guest process SIGKILL, byte-exact restored backing image and clean repeat boot
+
+These are capabilities for Ptah's standalone workspace, not a second OS or an entry permission system. Physical mains-power loss and Prime OS integration were not tested and are not blockers for unrelated Ptah use.
+
+**E07 source candidate** remains optional and independently testable. PR #138 source head `4813d82` is current-main reconciled with a session lifecycle interface fix; KRATOS full Rust workspace tests, 29 Python client tests and strict Control/Node/Node-link Clippy pass. GitHub exact-head checks and final merge still require verification, so DO NOT mark E07 merged or activated. ATHENA has Python/Git but no native Rust build tools in PATH; no persistent native service, production transport migration or second workspace authentication was installed. Oracle remains the actual host transport.
+
+**PR #150** for removal of redundant Ptah-side secondary caller checks is separately tracked until merged. Tests or PR reviews must never be mislabeled as permission to use the workspace. No work on Knights is authorized by this checkpoint.
 
 ---
 
