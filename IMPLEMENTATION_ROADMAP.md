@@ -6,6 +6,28 @@ Version: 1.1.0
 
 Recorded: 2026-07-21
 
+## E07 + shared Ptah runtime source closeout — 2026-10-20
+
+The agreed standalone implementation sequence has now been delivered
+through protected main: E06 PRs #137/#140; F01–F03 merged source branches;
+E07 native optional integration PR #138 at
+`982210d25c15e5a1c69d9c2f2a318e096e4d9309`; shared workspace
+correction PR #150 at `aa413dc3140fbd8a5273c8870eb06d17be51080c`.
+
+The old exact-predecessor CI conflict was corrected through PR #151
+(`7c6080964768732b9166bbb1d7233b0ad11cae78`) using a separate
+actual current-head Rust/Python/native/browser test and a read-only
+trusted-base integrity check. Six prior baseline/security checks remain
+required and strict GitHub branch protection remains enabled. Historic
+phase workflows remain unchanged for their original evidentiary purpose.
+
+Ptah does not decide task authority or create additional logins/Grants.
+The caller chooses the operation; Oracle provides external transport.
+Actual technical failures apply to the affected capability only.
+Optional two-host native deployment tests are not yet proven and must
+not be misrepresented, but **do not block Ptah workspace operation**.
+No Knights implementation touched. **Prime OS integration LAST.**
+
 ## E06 empirical reliability evidence (non-blocking) — 2026-10-20
 
 Two follow-up checks were performed, not merely documented: independent
