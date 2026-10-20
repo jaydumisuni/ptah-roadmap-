@@ -1,12 +1,22 @@
 # Ptah Current State
 
-**Last updated:** 2026-10-20 (E06 merged source implementation; E05 frozen release unchanged)
-**Overall status:** E05 RELEASED; E06 DONE; standalone F01–F03 source, tests and hardware/VM evidence MERGED into Ptah main. E07 optional native capability under separate source review; no workspace access blocker. Prime OS integration LAST.
+**Last updated:** 2026-10-20 (E07 and shared Ptah runtime correction merged into protected main)
+**Overall status:** E06 DONE; E07 optional native source MERGED; F01–F03 standalone MERGED; shared-workspace runtime correction MERGED. Ptah workspace has no second caller-approval gate. Prime OS integration LAST.
 **Current phase:** Programme E release qualification, Programme F non-activating preparation
-**Active work unit:** E07 optional native capability and existing shared-workspace runtime source integration (PR #150). Standalone F01–F03 merged. Extra production/physical tests are evidence, never an additional Ptah login or workspace gate.
+**Active work unit:** No outstanding E07/#150 source merge; move to remaining standalone Ptah capability review and eventually Prime OS integration. Optional native two-host field testing and deployments are separate technical evidence, never permission gates for the shared workspace.
 **Runtime implementation:** AUTHORIZED through accepted E05 lineage; newer production services not self-authorized
 **Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space E06 source main merged through eefeeafeaf89551e7d891598db20366e1aaa4939 (not a release tag)
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## Protected Ptah source closeout — VERIFIED 2026-10-20
+
+- **E07 PR #138 MERGED** into Ptah `main` at `982210d25c15e5a1c69d9c2f2a318e096e4d9309`. Optional Control/Node native interfaces, Node-link session fix, Python client, gateway proof and verified-readback source are integrated. Protected current-head CI and Rust workspace tests passed. Native two-host production enrollment/transport demonstration is **not claimed**; E07 is optional and cannot block Oracle-backed Ptah operation.
+- **Ptah shared-workspace PR #150 MERGED** at `aa413dc3140fbd8a5273c8870eb06d17be51080c`. D02 native shared workspace, D02 retrieval, D03 query, D05 package/activation and headed-browser caller choice no longer require additional Ptah per-caller enrollment, owner approval or Grants. Mechanical ledger, process, artifact and runtime integrity checks remain. The head passed the complete KRATOS Rust workspace tests, 29 Python client tests, six native bridge tests, browser routing tests (4 pass, physical-only 1 skip) and required hosted current-head integration checks.
+- **Governance migration PR #151 MERGED** at `7c6080964768732b9166bbb1d7233b0ad11cae78`. The new required `ptah-current-head-integration` and `ptah-trusted-base-integrity` checks were installed and verified; the six previous baseline contexts remain required and `strict=true` remains set. Frozen historical phase workflows were not deleted, altered, or falsely called passing. Their predecessor-only failures are recorded as historical and do not bar unrelated maintenance from main.
+- **Previous dated PR #138/#150 NOT MERGED notes below are SUPERSEDED.** E06 and F01–F03 were already merged. User and AI work in Ptah requires no second Ptah policy vote; an actual missing device or technical error is reported against that operation only.
+- **No Knights files, repository, configurations or security code touched. Oracle remains the external transport. Prime OS integration LAST.**
 
 ---
 
