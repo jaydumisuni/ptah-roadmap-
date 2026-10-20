@@ -10,6 +10,14 @@
 
 ---
 
+## E07 and workspace correction — latest source and protected integration evidence (2026-10-20)
+
+- **E07 PR #138** is pushed at `785f202b7b43a799a13330653009721f44b3d177`. The current-head A01 and Phase0C scaffold checks, exact reviewed E07 Cargo.lock reconstruction and independent PR applicability tests pass. The reconstructed historical lock digest, external registry package set and immutable original phase proofs are preserved; 18/22 hosted PR workflows pass, with four historic predecessor-bound workflows failing as nonapplicable. **Required `a11-governance-integrity` rejects changed `tools/check_current_pr_admission.py`**, despite the separately verified current-head check passing. GitHub 405 confirms **NOT MERGED**. No admission/login/Gate/Grant was added to normal Ptah workspace access; no native E07 two-host runtime was activated.
+- **Workspace PR #150** is rebased through current Ptah main at `1356736a06e1c165daa7a526ffe84e508ef48dd1`, source checked on physical KRATOS. Full offline Rust workspace and six native D02 bridge tests PASS. Its merge is **NOT COMPLETE**: historical D02/D03/D05/A11 scoped CI still fails and GitHub protected merge rejects missing/failed required checks. The source fixes remain isolated on its branch, not claimed deployed.
+- The **remaining release issue is repository-level governance/CI applicability**, not user/agent access. No developer shall bypass protected main, fabricate historical phase checks, reintroduce Ptah-side authorization, or touch Knights. Native E07 remains optional; Oracle transports. The real capability continues to be developed and tested irrespective of review status. F01–F03 and E06 remain merged. **Prime OS last.**
+
+---
+
 ## E07 review-defect correction — 2026-10-20
 
 **E07 optional native Ptah code has the three reviewed defects fixed**, pushed
