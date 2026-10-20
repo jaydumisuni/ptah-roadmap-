@@ -1,3 +1,24 @@
+# E07 physical two-host E01 qualification — VERIFIED 2026-10-20 (read first)
+
+Ptah-space PR #152 merged into protected main at
+`1f39acec718acebb48b7fba3ed614762e0e91b85`.
+Real KRATOS Rust `ptah-enrollment-gateway` ↔ ATHENA Windows Python
+Ptah wire client over TLS 1.3 passed NodeHello/HelloAck, 3
+heartbeats and close, then second connection with 2 heartbeats.
+Wrong canonical Node ID and absent TLS client certificate were rejected.
+35 Python tests and 16 hosted PR workflows passed. Test-only
+certificates and temporary listeners/files were removed.
+
+This CLOSES the previously missing physical two-host E01 transport
+evidence. Do NOT re-report it as untested. It does not claim a
+production-installed native Node, remote E02/E05/A05 dispatch, or
+persistent system deployment; these are separate optional technical
+features, **never workspace security/access blockers**. Ptah is a shared
+workspace; Oracle only transports. No Knights modifications or Ptah
+login/Grants. E06, E07 source, F01–F03 and shared-workspace source
+remain merged. **Prime OS integration LAST.**
+
+---
 # Ptah closure — 2026-10-20 VERIFIED CURRENT STATUS (read first)
 
 **E07 source integration FINISHED and MERGED** — Ptah-space PR #138 at
