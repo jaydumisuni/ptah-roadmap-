@@ -1,3 +1,29 @@
+# Current Ptah build completion checkpoint — 2026-10-20
+
+F01–F03 standalone Ptah capabilities are **MERGED in Ptah-space main**
+(PRs #139, #141, #143, #144, #145, #146). F01 deterministic binary
+archive + detached Ed25519 integrity, F02 passive USB inventories and
+inert rules, and F03 physical KRATOS KVM guest/COW crash recovery were
+tested. Do not label them unfinished or create an extra Ptah-side access
+approval. Prime OS integration is LAST.
+
+E07 optional native Control/Node gateway PR #138 is **source-tested but
+NOT merged** as of head 4813d82. Fresh KRATOS full Rust workspace tests,
+29 Python client tests and strict Control/Node/Node-link Clippy pass.
+Older E01/D01/D08/A14 and exact-head predecessor workflows report failures;
+the Cargo.lock historical E06 extension checker also rejects E07's
+additional local package dependencies. These are *repository integration
+and evidence-classification issues*, not authority to block an admitted
+user's ordinary Ptah workspace. No permanent Control/Node service or
+two-host native deployment was activated. Oracle remains machine transport.
+
+The separately tracked shared workspace caller-gate runtime PR #150 has
+not been merged. Continue that Ptah correction without touching Knights,
+without disabling record consistency or process integrity, and without
+introducing another Ptah login, Grant or tool approval.
+
+---
+
 # E06 supplementary physical evidence completed — 2026-10-20
 
 E06 is DONE, tests executed on KRATOS and ATHENA through already
