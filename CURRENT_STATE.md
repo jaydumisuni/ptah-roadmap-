@@ -1,12 +1,60 @@
 # Ptah Current State
 
-**Last updated:** 2026-10-20 (E07 physical two-host E01 acceptance merged in PR #152)
+**Last updated:** 2026-10-20 (native E07 E02/A05 source merged; physical durable Windows worker verified)
 **Overall status:** E06 DONE; E07 optional native source MERGED; F01–F03 standalone MERGED; shared-workspace runtime correction MERGED. Ptah workspace has no second caller-approval gate. Prime OS integration LAST.
 **Current phase:** Programme E release qualification, Programme F non-activating preparation
-**Active work unit:** E07 physical two-host E01 connection verified. Next: move on toward Prime OS integration LAST; any production remote E02/A05 dispatch is a distinct optional capability, not a workspace access gate.
+**Active work unit:** E07 native E02/A05 cross-host source merged and six real durable effects independently verified. Windows Node auto-restart verified. Optional post-restart live dispatch awaits reachable KRATOS–ATHENA TCP route after their network split; this is NOT a Ptah workspace gate. Prime OS integration LAST.
 **Runtime implementation:** AUTHORIZED through accepted E05 lineage; newer production services not self-authorized
 **Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space E06 source main merged through eefeeafeaf89551e7d891598db20366e1aaa4939 (not a release tag)
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## Latest E07 native remote execution checkpoint — 20 October 2026 (controlling)
+
+**Source integrated:** Ptah-space PR #153 MERGED on main as
+`de6277979727cb11cb2396a4e4ce7972a26f272a`. PR #154 MERGED as
+`c2c0a1dc6a2890c87605a18fc132ee37388de45a`, qualifying the exact
+Windows bundled-SQLite Cargo.lock change without altering frozen A01.
+Complete Rust workspace tests, native Control/Node strict Clippy and A01 /
+Phase 0C scaffold checks passed. Main's protected required checks accepted
+PR #153. This is a real native E02 → A05 implementation, not E01-only.
+
+**Real cross-machine durable effects VERIFIED:** KRATOS Control and ATHENA
+native Node SQLite journals, read independently over Oracle on 2026-10-20,
+both passed PRAGMA integrity_check. Six of six Control dispatch identifiers
+match ATHENA completed native A05 attempts exactly, including fence,
+Node generation and epoch. All six Node records have exit_code 0 and output
+SHA-256. Control correctly retains sent_unconfirmed (no fake independent
+effect witness from an Ack); ATHENA is the actual A05 local completion source.
+
+**Persistent worker VERIFIED:** ATHENA existing Ptah-E07-Native-Node
+Scheduled Task restarted its process after the worker was forcibly
+terminated. The process began at 13:36:48 local and was verified alive at
+14:50 as PID 30756. The service keeps retrying absent Control without
+a Ptah-side login, Task approval or Grants. Control is caller-selected and
+not an indiscriminate automatic dispatch daemon.
+
+**Precise residual transport limit:** most recent verified dispatch #6
+occurred about 13:28 local, BEFORE the 13:36 unattended worker restart.
+A fresh post-restart attempt listened at KRATOS 192.168.238.52:47821,
+but ATHENA had changed Wi-Fi to 192.168.1.155/24 and could not reach
+that old private-LAN address; it timed out before any E01 connection.
+No completed dispatch #7 is claimed. The current LAN split, not a Ptah
+permission gate, prevents qualifying a live dispatch AFTER restart.
+Restore/establish a genuine network path before claiming that specific
+further result. Never change Knights, Oracle, Wi-Fi or unrelated tools
+merely to claim it passed.
+
+**Disposition:** E07 native source MERGED; cross-machine native E02/A05
+effects demonstrated and durable; unattended Windows worker restart
+demonstrated; post-restart cross-subnet dispatch NOT demonstrated.
+This non-global technical reachability condition must not block any
+other available Ptah workspace tool. Oracle remains transport;
+caller chooses work. F01–F03 remain merged. Prime OS integration LAST.
+
+Older dated E07 no-native-execution statements below are historical and
+superseded by this section.
 
 ---
 
