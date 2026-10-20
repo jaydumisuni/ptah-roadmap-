@@ -10,6 +10,32 @@
 
 ---
 
+## E07 review-defect correction — 2026-10-20
+
+**E07 optional native Ptah code has the three reviewed defects fixed**, pushed
+to PR #138 at `b95eaac5c1d022d78ba5e66f0b1d130d193ad5eb`. The Node
+journal now ties each completion receipt to the exact process identity stored
+by its own spawn; a different process from the same Provider/Node generation
+is rejected, and persisted identity survives reopen. New Control dispatch
+journals and lockfiles are created with private Unix mode 0600. Optional
+TLS enrollment expiry is checked at the actual post-handshake/Hello owner-lock
+admission point, not a stale pre-accept timestamp.
+
+Physical KRATOS: full Rust workspace test suite, 29 Python client tests and
+strict Control/Node/Node-link Clippy PASS. **All three PR #138 inline review
+threads are resolved**. This is not a native two-host production deployment.
+
+**PR #138 remains open and unmerged:** GitHub rejected the merge with
+"3 of 9 required status checks are failing". The historical A01/Phase0C
+Cargo.lock scope and phase-exact-predecessor evidence workflows do not
+currently admit this additive optional cross-phase PR. These are GitHub
+repository integration checks, NOT Ptah workspace access/login rules.
+Do not bypass protected main, fake a historic proof or change Knights.
+Ordinary Ptah through Oracle continues unaffected. PR #150 separate caller
+access cleanup also remains unmerged. The roadmap preserves **Prime OS LAST**.
+
+---
+
 ## E07 and standalone F01–F03 verified progress — 2026-10-20
 
 **F01–F03 DONE at standalone Ptah implementation level, merged into main:**
