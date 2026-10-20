@@ -6,6 +6,35 @@ Version: 1.1.0
 
 Recorded: 2026-07-21
 
+## E07 physical KRATOS–ATHENA E01 link verified — 20 October 2026
+
+**New evidence, superseding older statements that no real two-host E01
+transport had been demonstrated:** Ptah-space PR #152 MERGED at
+`1f39acec718acebb48b7fba3ed614762e0e91b85`. The actual Rust
+`ptah-enrollment-gateway` ran on KRATOS Linux, and a new Ptah-protocol
+Python 3.10 client connected from ATHENA Windows over private LAN:
+mutual TLS **1.3**; canonical NodeHello/HelloAck; three heartbeats,
+Close; then a second successful E01 connection with two heartbeats.
+A changed canonical Node ID was rejected, and omitting the TLS client
+certificate produced `TLSV13_ALERT_CERTIFICATE_REQUIRED`. The
+repo-only test certificates, listener, setup files and both host test
+directories were removed. No OS, Windows installation, firewall, other
+services, Knights code or Prime OS settings changed. All 35 Python
+client tests and 16 protected hosted PR workflows passed.
+
+**Qualification boundary:** this is an actual physical two-host
+**E01 connection/heartbeat acceptance**, using temporary test-only TLS
+enrollment. It is NOT a persistent production deployment and does not
+prove cross-host E02 Lease/Fence dispatch or remote A05 process effects.
+`ptah-node`'s Rust CLI still has a connection-configuration placeholder;
+the new client is a portable E01 wire peer. Any further production
+native-execution work is a distinct *optional capability*, NEVER a
+condition for Ptah workspace access, and cannot turn into a second Ptah
+user login, approval, per-tool Grant or task selector. Oracle is
+external machine transport. **Prime OS integration remains LAST.**
+
+---
+
 ## E07 + shared Ptah runtime source closeout — 2026-10-20
 
 The agreed standalone implementation sequence has now been delivered
