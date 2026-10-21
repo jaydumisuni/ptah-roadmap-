@@ -10,6 +10,42 @@
 
 ---
 
+## E07 Oracle-carried physical native cross-host acceptance — 2026-10-21
+
+**New physical proof (Ptah PR #157, branch head dfcda5f):** KRATOS
+Control established native E01 TLS and sent E02 Reservation/Lease/Dispatch
+through opaque Oracle-transported packet batches to a separate ATHENA
+Windows native Node. ATHENA executed a real local A05 cmd.exe echo with
+exit 0. Both physical SQLite journals passed integrity verification.
+Dispatch 01a15e28-646a-7023-a574-c5b28b885826 and attempt
+01a15e28-646a-7023-a574-c58a6570bc53 matched on both computers.
+ATHENA completed stdout SHA-256
+sha256:2344e34e044bc52acc3bc4f659ad04a8a8437db66e42b1913d7cb246b639bb6e;
+independent Windows echo verification reproduced that digest.
+
+The first test found a real E02 expiry defect: Control calculated
+reservation lifetime before slow E01 negotiation. Corrected Control
+starts bounded lease lifetime at actual dispatch issuance (direct
+LAN unchanged; Oracle-carried 240s reservation / 210s lease), tested
+including overflow. No third-party relay or new Ptah caller permission.
+
+**Scope boundary:** native cross-host E01/E02/A05 while an existing
+Oracle tool caller actively transports batches is now physically
+VERIFIED. The transport adapter still depends on that live caller;
+there is NO verified unattended always-on Oracle packet-forwarding
+service. Do not label the stronger permanent roaming capability
+complete or equate a Node ACK with independent Control-side effect
+witnessing. The existing ATHENA persistent Scheduled Task, Knights,
+Oracle settings and system networking were not changed. Ordinary Ptah
+capabilities remain open even without native E07 forwarding.
+
+PR #157 is tested and pushed, NOT YET MERGED. The historical
+cross-phase CI checks are repository governance, not an execution
+permission requirement. Earlier relay PR #155 is not the chosen path.
+Prime OS integration remains LAST.
+
+---
+
 ## E07 external-service correction — 2026-10-21
 
 **Railway is NOT part of Ptah's required architecture.** The attempt
