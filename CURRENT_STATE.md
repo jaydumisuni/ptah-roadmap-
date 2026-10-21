@@ -1,12 +1,26 @@
 # Ptah Current State
 
-**Last updated:** 2026-10-21 (E07 post-restart native E02/A05 execution physically verified)
-**Overall status:** E06 DONE; E07 native source MERGED and post-restart physical E02/A05 execution VERIFIED; F01–F03 standalone MERGED; shared Ptah runtime correction MERGED. No Ptah-side second caller approval. Prime OS integration LAST.
-**Current phase:** Programme E release qualification, Programme F non-activating preparation
-**Active work unit:** E07 post-restart execution evidence CLOSED: 7 matching native dispatch/completions, latest fence 7, exit 0. Programme E has no defined E08; next distinct programme is Prime OS F04–F07 integration LAST.
+**Last updated:** 2026-10-22 (owner hardware/Node independence correction; E07 tested scope complete)
+**Overall status:** E06 DONE; E07 tested native Control/Node physical E02/A05 MERGED; F01–F03 MERGED; individual KRATOS/ATHENA Nodes independent. Prime OS F04–F07 integration LAST, with only genuine planned-hardware tests deferred.
+**Current phase:** Prime OS final-stage integration planning/interfaces, while each Ptah standalone tool remains usable
+**Active work unit:** Prime OS interface and ordinary engineering using existing Nodes; selected GPU-intensive/specialized hardware tests deferred until planned target Node is available
 **Runtime implementation:** Ptah workspace executes caller-selected available tools without independent user approval; per-operation transport and journal integrity still apply.
 **Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space E06 source main merged through eefeeafeaf89551e7d891598db20366e1aaa4939 (not a release tag)
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## Controlling hardware-dependency and E07 scope correction — 2026-10-22
+
+**Ptah standalone engineering is ready to move on.** E06 is DONE, E07's tested native KRATOS/ATHENA E02/A05 execution is merged and verified, and F01–F03 are merged. No present workstream or Prime OS design/integration needs an unattended distributed-computing service.
+
+**Hardware is planned, not an emergency dependency.** Continue design, coding, integration and ordinary tests using KRATOS/ATHENA independently. Park only a specific heavy or specialized test that actually needs its designated future GT502, GDX Spark or other planned hardware; record that missing *evidence* without classifying the whole product as blocked.
+
+Per selected task/Node, use the following operational reporting contract: `READY` (execute with available resources), `CAPABILITY_MISSING` (the current Node lacks a capability actually required for this operation), `PLANNED_HARDWARE_DEPENDENCY` (this specific test is intentionally deferred for designated future hardware). These statuses are diagnostic scheduling facts, **not** permissions, Grants or workspace-level denials. Do not automatically treat an unproven unattended cross-network mode as `PLANNED_HARDWARE_DEPENDENCY`; it would be `CAPABILITY_MISSING` **only if the caller explicitly requests that mode now**.
+
+**E07 truth boundary:** real native E01/E02/A05 execution and post-restart journal results are proven on the tested setup; Oracle-mediated roaming worked with an active caller. Autonomous permanent cross-network packet forwarding is not proven, and is not required for independent normal Ptah use. Do not build a new relay, synthetic daemon, shared compute scheduler or third-party service to manufacture "permanence." No Knights changes. Oracle is transport.
+
+**Next:** Prime OS integration (OS-owned F04–F07), the final planned integration stage. Start with interface/contract development on currently available machines. Defer only workload-specific tests whose documented target hardware has not arrived. Old dated E07 "blocking roaming" and "PR #157 unmerged" notes below are superseded for current decisions.
 
 ---
 
