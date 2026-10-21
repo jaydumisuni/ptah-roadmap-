@@ -1,12 +1,63 @@
 # Ptah Current State
 
-**Last updated:** 2026-10-20 (native E07 E02/A05 source merged; physical durable Windows worker verified)
-**Overall status:** E06 DONE; E07 optional native source MERGED; F01–F03 standalone MERGED; shared-workspace runtime correction MERGED. Ptah workspace has no second caller-approval gate. Prime OS integration LAST.
+**Last updated:** 2026-10-21 (E07 post-restart native E02/A05 execution physically verified)
+**Overall status:** E06 DONE; E07 native source MERGED and post-restart physical E02/A05 execution VERIFIED; F01–F03 standalone MERGED; shared Ptah runtime correction MERGED. No Ptah-side second caller approval. Prime OS integration LAST.
 **Current phase:** Programme E release qualification, Programme F non-activating preparation
-**Active work unit:** E07 native E02/A05 cross-host source merged and six real durable effects independently verified. Windows Node auto-restart verified. Optional post-restart live dispatch awaits reachable KRATOS–ATHENA TCP route after their network split; this is NOT a Ptah workspace gate. Prime OS integration LAST.
-**Runtime implementation:** AUTHORIZED through accepted E05 lineage; newer production services not self-authorized
+**Active work unit:** E07 post-restart execution evidence CLOSED: 7 matching native dispatch/completions, latest fence 7, exit 0. Programme E has no defined E08; next distinct programme is Prime OS F04–F07 integration LAST.
+**Runtime implementation:** Ptah workspace executes caller-selected available tools without independent user approval; per-operation transport and journal integrity still apply.
 **Current public release:** E05 frozen 90a3ad012f0b3e15bd871e6e955dd79bbf757ded; Ptah-space E06 source main merged through eefeeafeaf89551e7d891598db20366e1aaa4939 (not a release tag)
 **Public implementation repository:** `jaydumisuni/Ptah-space`
+
+---
+
+## E07 post-restart E02/A05 physical execution — VERIFIED 2026-10-21 (controlling)
+
+**E07 source and native runtime evidence COMPLETE for the tested Ptah
+configuration.** The previously missing post-restart execution has now
+been observed and independently checked.
+
+- Oracle Live verified both KRATOS and ATHENA available. Actual private-LAN
+  addresses had returned to the same 192.168.238.0/24 segment; this
+  supersedes the 2026-10-20 cross-subnet routing limitation.
+- The latest test initially reached E01 but failed TLS with `UnknownCA`.
+  Cause identified: ATHENA's Ptah Node worker used a newly installed
+  certificate authority while KRATOS Control retained the previous CA.
+  Existing certificate backups on ATHENA matched KRATOS's actual trusted
+  CA and previously enrolled Node certificate **by exact DER SHA-256**.
+  That backed-up Node certificate matched the *existing* private key.
+- Updated only ATHENA's Ptah worker.json certificate file references,
+  saving a rollback copy `worker.json.before-e07-reconnect-20261021`.
+  Restarted only the existing Ptah-E07-Native-Node Scheduled Task.
+  Worker PID changed from 30756 to **31572** and remained Running.
+  No Knights, Oracle, network adapter, Wi-Fi, firewall or unrelated
+  machine services were reconfigured.
+- KRATOS launched the existing `ptah-e07-control-dispatch` with its
+  existing enrolled Node identity and harmless A05 fixture
+  `cmd.exe /C echo PTAH_E07_ATHENA_A05_REAL_20261020`.
+  E01 connected and E02 reservation, lease and dispatch frames were
+  sent; A05 completion acknowledgment was received. The new **fence 7**
+  and dispatch/attempt IDs are independently visible in both journals.
+- Control SQLite: **7** dispatches, `PRAGMA integrity_check=ok`, most
+  recent phase `sent_unconfirmed` (an Ack is not an effect witness).
+  ATHENA Node SQLite: **7** attempts, integrity `ok`, latest
+  `completed`, exit code **0**, durable process_ref and output SHA-256.
+  Dispatch, Attempt, Node, generation, connection epoch, fence and
+  request digest all match exactly between the latest Control and Node
+  records; ATHENA stdout SHA-256 independently matched the real Windows
+  CRLF `echo` output. No fabricated confirmation was written.
+- This proves a new **native E02/A05 execution AFTER the Node worker
+  restarted**, closing the last previously identified E07 physical
+  acceptance gap. Live use is not contingent on another Ptah user
+  approval, login, Grants or release ceremony.
+- E06 remains DONE; standalone F01–F03 are MERGED. Prime OS integration
+  LAST. The published Programme E roadmap defines **E01–E07 only;
+  there is no separately specified E08**. Do not invent or mark a
+  nonexistent E08 milestone complete.
+
+**Limit of claim:** one successful physically executed post-restart
+benign A05 command under the current network/certificate configuration.
+This does not assert universal production reliability, automated recovery
+from every outage, or independent Control-side effect proof.
 
 ---
 
