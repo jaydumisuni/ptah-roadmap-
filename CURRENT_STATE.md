@@ -10,6 +10,31 @@
 
 ---
 
+## E07 external-service correction — 2026-10-21
+
+**Railway is NOT part of Ptah's required architecture.** The attempt
+to provision a Railway TCP relay was not requested and must not be
+treated as authorization to install a third-party service or charge
+an account. KRATOS and ATHENA are already reachable by the established
+Oracle machine transport on unrelated networks. Reuse and test those
+existing capabilities first; any truly native E07 stream requirement
+must be proven against the actual supported transport, not inferred.
+
+Ptah PR #155 is an **unmerged, optional generic relay experiment**.
+It does not authorize a Railway deployment, provider account, new
+Ptah login, or an additional workspace prerequisite. Existing direct
+native E07 and Oracle-assisted workflows remain available. No
+cross-network native E02/A05 proof is claimed merely because Oracle
+can connect to both computers. Whether a third-party Railway project
+was provisioned outside Ptah is still unverified; local absence of
+the Railway executable cannot prove an external resource does not
+exist. Do not touch Knights, install Railway, or change host networking.
+
+The historical relay proposal below records its technical exploration,
+not a mandated deployment choice. Prime OS integration remains last.
+
+---
+
 ## E07 roaming correction — ATHENA travels (2026-10-21)
 
 **Binding requirement:** E07 native E02/A05 must operate when ATHENA is away
