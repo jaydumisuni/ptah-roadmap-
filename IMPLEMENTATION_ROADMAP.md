@@ -6,6 +6,34 @@ Version: 1.1.0
 
 Recorded: 2026-07-21
 
+## E07 final physical native execution — 2026-10-21 (latest)
+
+**E07 post-restart runtime gap CLOSED on the existing Ptah configuration.**
+After ATHENA and KRATOS returned to the same LAN, a technical
+`UnknownCA` mismatch was resolved using ATHENA's already-existing
+Ptah certificate backups (private-key match and KRATOS Node enrollment
+fingerprint verified). Only ATHENA's Ptah worker configuration changed,
+with rollback saved; only its own scheduled worker was restarted.
+KRATOS's native Control then sent E02 frames to ATHENA, and ATHENA
+executed the selected harmless A05 `cmd /C echo` command **after restart**.
+Control and Node SQLite journals both have seven matching dispatch/attempt
+records, exact Node/fence 7/generation/epoch/digest match, SQLite integrity
+`ok`, and the Node records completed/exit 0 and an independently matched
+stdout digest. Control correctly remains sent_unconfirmed rather than
+fabricating a second effect witness. Details: CURRENT_STATE.md.
+
+**Programme E finishes at E07 in this roadmap. E08 is not defined.**
+Do not invent a new E08 gate or mislabel the earlier E07 post-restart
+gap as a separate milestone. E06/E07 and F01–F03 are complete for
+their documented, tested standalone capabilities. Prime OS integration
+remains the final stage, via Programme F's OS-owned F04–F07.
+
+Ptah is only the shared workspace; caller selects execution;
+Oracle transports between machines. Technical limits are per-operation
+facts, not permissions or blanket workspace blockers. No Knights work.
+
+---
+
 ## Current E07 native remote operation — 2026-10-20
 
 Native E02 reservation/lease/fence plus remote A05 execution are implemented
