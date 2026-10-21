@@ -1,3 +1,32 @@
+## Binding Ptah hardware-and-Node workflow correction — 2026-10-22
+
+**This is the controlling roadmap decision.** Earlier E07 roaming/permanent-forwarding language remains historical engineering context, **not** a prerequisite for using Ptah, declaring the tested standalone E07 work complete, or starting Prime OS integration.
+
+**Build products now; run genuinely hardware-dependent tests when their planned hardware is available.** Required future computing resources (including GT502, GDX Spark or another designated Node) are deliberate roadmap dependencies, not unexpected blockers, missing approvals, or a reason to invent distributed-computing infrastructure.
+
+| Stage | Work | Resources | Disposition |
+| --- | --- | --- | --- |
+| 1 — Design and development | Architecture, source code, UI, integrations, artifact and interface contracts | Existing KRATOS or ATHENA | **Proceed now** |
+| 2 — Ordinary validation | Unit/integration tests, existing-machine builds, debugging, bounded physical checks | Existing machine with necessary local capability | **Proceed now** |
+| 3 — Planned hardware-dependent validation | GPU-intensive jobs, large local models, specialized workloads, tests explicitly requiring future compute | Designated future GT502, GDX Spark or other planned Node | **Defer only that test**, preserve the evidence gap; keep development moving |
+| 4 — Target deployment | Operate and qualify the product on its intended dedicated hardware | Designated deployed Node | **Schedule against that hardware**, not as a present Ptah-access gate |
+
+**Task-specific machine capability reporting (not a Ptah permissions engine):**
+
+- `READY`: the selected Node has what the current task needs; execute on that Node.
+- `CAPABILITY_MISSING`: the selected Node lacks an executable, feature or connection the *current task* requires. Report what is missing for that operation, offer other available choices where appropriate; do not disable the workspace or pretend to succeed.
+- `PLANNED_HARDWARE_DEPENDENCY`: this exact workload/test intentionally waits for a documented future device or compute upgrade. Record which future Node and what test is deferred. This is **not** a fault or a reason to block code, other tests, other Nodes or Prime OS design work.
+
+Each Node remains independent: local-first tools stay usable, KRATOS need not rely on ATHENA, ATHENA need not rely on KRATOS, and neither needs a continuously running remote forwarder to be a Ptah workspace. Use Oracle only when the caller actually selects a remote-machine action. Do **not** add a relay, central compute scheduler, always-on forwarding daemon, external Railway service, Ptah approval layer, or extra user/agent login to compensate for already-planned hardware.
+
+**E07 scope resolved:** E07 native Control/Node source is merged; physical KRATOS E02 dispatch → ATHENA A05 completion and existing worker restart/readback are verified for the tested configuration. An Oracle-carried on-demand remote session has been exercised. Fully unattended cross-network packet forwarding is **not** demonstrated; this is an *optional distinct transport capability if specifically requested*, not an unfinished critical-path E07 requirement and **not** automatically a planned-hardware dependency. If a particular task explicitly needs it, report `CAPABILITY_MISSING` for that requested mode rather than inventing another backend. Normal Ptah and each independent Node remain available.
+
+**Sequence:** E06 DONE; E07 tested/merged standalone scope DONE; F01–F03 standalone foundations MERGED. **Proceed to Prime OS integration LAST** for the OS-owned features F04–F07, starting with architecture/contracts and ordinary tests on current hardware. Defer **only** identified hardware-dependent qualification to the hardware roadmap; do not implement Prime OS boot/kernel/update/desktop facilities inside Ptah. Knights is entirely outside this work.
+
+This section supersedes older descriptions of unattended E07 roaming or future GPU compute as universal blockers. Keep earlier evidence accurately labeled, but never turn optional enhanced qualification into a new permission or workstop requirement.
+
+---
+
 ## Consumer-workflow clarification — Hardware Studio / Cookpit / Creative Studio (2026-10-22)
 
 **Scope:** This is a private **consumer-workspace mapping**, not a new Ptah milestone or an extra Ptah login/release condition. The definitive integration note is [Hardware Studio / Cookpit / Creative Studio Ptah mapping](planning/HARDWARE-STUDIO-COOKPIT-CREATIVE-STUDIO-PTAH-CONSUMER-MAPPING-2026-10-22.md).
