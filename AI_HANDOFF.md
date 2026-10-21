@@ -1,3 +1,32 @@
+# Latest E07 post-restart A05 physical success — 2026-10-21 (READ FIRST)
+
+E07's last measured runtime gap is CLOSED. KRATOS and ATHENA are back on
+the same private LAN. The E01 `UnknownCA` technical error was traced to
+ATHENA's newer Ptah CA being inconsistent with KRATOS Control; re-used
+existing ATHENA Ptah backup CA and Node certificate, verified the
+original private-key match and Control enrollment fingerprint, saved the
+previous worker.json and restarted only ATHENA's Ptah worker. New PID 31572.
+
+KRATOS's existing native dispatch succeeded after that restart:
+E02 frames delivered, A05 `cmd /C echo` completion acknowledged. Independent
+read-only journals: Control 7 dispatches; Node 7 attempts. Exact latest
+dispatch/attempt/Node generation/epoch/fence **7**/request digest match.
+Node completed, exit code **0**, durable output SHA-256 independently
+matches expected Windows CRLF echo. Both SQLite integrity checks pass.
+Control truthfully retains sent_unconfirmed (does not claim an independent
+Control effect receipt). This is a qualified physical post-restart E07
+native execution, not an invented promise or new Ptah access gate.
+
+**There is NO defined Programme E08 in IMPLEMENTATION_ROADMAP.md**.
+Programme E ends at E07. Do not introduce an E08 approval process;
+F01–F03 standalone Ptah foundations are already merged; Prime OS
+integration (F04–F07) remains LAST. Knights and Oracle settings remain
+untouched; Ptah's own worker configuration was the only live adjustment.
+The previous E07 cross-subnet and unverified-post-restart paragraphs
+below are historical and superseded.
+
+---
+
 # E07 Native E02/A05 mainline integration — 2026-10-20 (read FIRST)
 
 E07 source PR #153 is now MERGED into Ptah-space/main (de627797).
