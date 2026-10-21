@@ -1,3 +1,17 @@
+## 2026-10-22 — Node-local independence / conditional placement correction
+
+Confirmed that accepted Master Plan modes already cover independent
+single-local-Node, hybrid, offline and optional distributed operation.
+Added a controlling private roadmap clarification to prevent E07
+cross-machine qualification being used as a prerequisite for ordinary
+Cookpit/Hunter Ptah work. Work stays on the selected Node, software
+building continues on existing hardware and optional hardware-intensive
+tests remain deferred. This is documentation/priority alignment only,
+not a new runtime feature, hardware activation or E07 proof claim.
+See `planning/NODE-LOCAL-INDEPENDENCE-AND-CONDITIONAL-PLACEMENT-2026-10-22.md`.
+
+---
+
 # Ptah Progress Ledger
 
 Tick only work backed by source inspection, pinned commits, accepted decisions, tests or live evidence.

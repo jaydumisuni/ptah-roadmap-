@@ -1,3 +1,25 @@
+# CONTROLLING Node-local independence correction — 2026-10-22
+
+Read [Node-local independence / conditional placement](planning/NODE-LOCAL-INDEPENDENCE-AND-CONDITIONAL-PLACEMENT-2026-10-22.md)
+before routing any Cookpit, Hunter or other product workload through
+Ptah. Existing Master Plan operating modes stand: selected machine
+executes locally using its own persistent Ptah workspace. KRATOS and
+portable ATHENA are independent. Neither requires the other to be
+running. Real capability shortages are reported rather than fabricating
+cross-machine dependencies. Planned GT502/GDX Spark resource-heavy
+testing remains parked; current AI models are online. Remote E07 is
+optional for specifically selected or technically necessary workloads,
+not the default development path. Cookpit preserves its current workers,
+timeouts, supervisor ownership and local work. The Cookpit #72 E07
+short-job adapter is **not** a general workspace migration, and its
+25-second restriction is **not** a Ptah architectural requirement.
+
+This note changes roadmap priorities and interpretation, not E07 proof
+status, Ptah source, Node configuration, hardware roadmap or Knights.
+Programme E still ends at E07; Prime OS F04–F07 stays LAST.
+
+---
+
 # E07 Oracle-first real E02/A05 proof, 2026-10-21
 
 The native cross-host result is now **PHYSICALLY VERIFIED** via

@@ -1,6 +1,28 @@
+## Current operating clarification — independent Node-local Ptah (2026-10-22)
+
+The accepted [Node-local independence and conditional placement clarification](planning/NODE-LOCAL-INDEPENDENCE-AND-CONDITIONAL-PLACEMENT-2026-10-22.md)
+controls consumer workspace routing. KRATOS and ATHENA are
+independently usable Ptah Nodes; selected-Node local execution and
+durable workspace reuse are the normal path. Remote E07 dispatch is
+optional for specifically chosen/hardware-requiring work, never a
+general project prerequisite. Ordinary builds and current online
+model-assisted engineering do not require distributing compute. Missing
+compute/software/connected-device capability is a precise technical
+observation; heavy GT502/GDX Spark hardware-stage work remains
+intentionally planned/deferred. Do not change Cookpit's existing
+worker duration, migrate local jobs to E07, or mark E07 unattended
+roaming as globally required.
+
+**Status:** Roadmap interpretation clarified; Node-local consumer
+rollout is **not claimed completed by this documentation**. Prior
+E07 physical tests retain their exact evidence status. No workspaces,
+workers, runtime files or device settings were changed here.
+
+---
+
 # Ptah Current State
 
-**Last updated:** 2026-10-21 (E07 post-restart native E02/A05 execution physically verified)
+**Last updated:** 2026-10-22 (Node-local independence roadmap clarification; E07 physical evidence preserved)
 **Overall status:** E06 DONE; E07 native source MERGED and post-restart physical E02/A05 execution VERIFIED; F01–F03 standalone MERGED; shared Ptah runtime correction MERGED. No Ptah-side second caller approval. Prime OS integration LAST.
 **Current phase:** Programme E release qualification, Programme F non-activating preparation
 **Active work unit:** E07 post-restart execution evidence CLOSED: 7 matching native dispatch/completions, latest fence 7, exit 0. Programme E has no defined E08; next distinct programme is Prime OS F04–F07 integration LAST.

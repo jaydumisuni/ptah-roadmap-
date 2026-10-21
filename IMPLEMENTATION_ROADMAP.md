@@ -1,3 +1,34 @@
+## Binding Node-local independence / optional distributed execution correction (2026-10-22)
+
+The canonical [Node-local independence and conditional placement clarification](planning/NODE-LOCAL-INDEPENDENCE-AND-CONDITIONAL-PLACEMENT-2026-10-22.md)
+controls interpretation of Programme E and consumer workspace routing.
+**Every Ptah Node is independently useful.** Work is assigned to KRATOS,
+ATHENA or another capable machine *before* execution by its human or
+product-owning caller; ordinary development and testing stay in that
+machine's persistent local workspace. The other machine being offline
+must not stop unrelated work.
+
+A real shortage is described precisely as missing compute, RAM, GPU,
+software, operating system, connected device or other capability.
+Deliberately parked GT502/GDX Spark/hardware-intensive tests are
+`PLANNED_HARDWARE_DEPENDENCY`, not blockers to ordinary development.
+AI reasoning/models are currently online, so no heavy local AI compute
+requirement is presumed. Do not impose an artificial 25/30-second limit
+on Cookpit's existing local build/test workflows.
+
+E01–E07 distributed and KRATOS-to-ATHENA execution remain **optional
+capabilities**, used only for an expressly selected remote workflow or
+demonstrated resource/platform requirement. E07 on-demand Oracle-carried
+proof is real but does **not** make cross-Node transport a prerequisite
+for local Ptah usage or justify silently moving jobs between Nodes.
+The generic Cookpit integration is **reuse of persistent Node-local
+Ptah workspaces without replacing Cookpit's already-working local
+workers**. This is a priority/interpretation correction only: no new
+milestone, no runtime redesign, no authority transfer and no mutation
+of frozen contracts. Keep all dated proof evidence; Prime OS LAST.
+
+---
+
 ## Consumer-workflow clarification — Hardware Studio / Cookpit / Creative Studio (2026-10-22)
 
 **Scope:** This is a private **consumer-workspace mapping**, not a new Ptah milestone or an extra Ptah login/release condition. The definitive integration note is [Hardware Studio / Cookpit / Creative Studio Ptah mapping](planning/HARDWARE-STUDIO-COOKPIT-CREATIVE-STUDIO-PTAH-CONSUMER-MAPPING-2026-10-22.md).
