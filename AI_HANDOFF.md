@@ -1,3 +1,20 @@
+# CURRENT Ptah work order — hardware planned, independent Nodes (2026-10-22)
+
+This supersedes prior attempts to build a permanent distributed forwarding system as a condition for finishing Ptah. **Do not revisit E07 permanent Oracle packet forwarding** unless the caller explicitly requests that *distinct* optional capability. Ptah is a workspace, not a permission authority, scheduler, always-on transport or a substitute for planned future compute.
+
+**Current truth:** E06 DONE, E07 native Control/Node merged and physical E02 → A05 execution demonstrated on KRATOS/ATHENA; F01–F03 merged. PR #157 MERGED at `9375b8f9fac9a429df38510d101c002e4228ba0b`. Oracle-carried remote transport was caller-mediated. Unattended cross-network forwarding remains unproven but **does not block** independent Node operation or the next stage.
+
+For the *specific requested task* on the *selected Node*, report:
+`READY`: run now;
+`CAPABILITY_MISSING`: that Node lacks a capability the current operation truly needs;
+`PLANNED_HARDWARE_DEPENDENCY`: the relevant GPU-intensive/specialized test is intentionally parked for designated GT502, GDX Spark or another planned Node.
+
+Use existing KRATOS/ATHENA to design, code and test normally. Park only heavyweight tests genuinely requiring future hardware. Every Node remains independently useful; never invent extra always-on distributed services, relays, owner logins or Ptah approval gates. Oracle transports only on request. Knights and Railway stay untouched.
+
+**Next and LAST integration: Prime OS F04–F07**, with OS-owned boot/kernel/install/update/recovery/desktop contracts. Begin interface/integration engineering now with existing machines; defer only hardware-dependent qualification. Contradictory historical dated notes below are evidence snapshots, not controlling work requirements.
+
+---
+
 # E07 Oracle-first real E02/A05 proof, 2026-10-21
 
 The native cross-host result is now **PHYSICALLY VERIFIED** via
