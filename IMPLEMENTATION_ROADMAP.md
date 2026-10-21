@@ -1,3 +1,14 @@
+## Consumer-workflow clarification — Hardware Studio / Cookpit / Creative Studio (2026-10-22)
+
+**Scope:** This is a private **consumer-workspace mapping**, not a new Ptah milestone or an extra Ptah login/release condition. The definitive integration note is [Hardware Studio / Cookpit / Creative Studio Ptah mapping](planning/HARDWARE-STUDIO-COOKPIT-CREATIVE-STUDIO-PTAH-CONSUMER-MAPPING-2026-10-22.md).
+
+- **Hardware Studio** owns its Product Graph, electrical/mechanical CAD/EDA correctness, manufacturing BOM/Gerber/CPL/STEP outputs and G1–G5 acceptance. Its roadmap records **C0 Cookpit intake as READY but not yet registered/active**.
+- **Cookpit's existing five rotating supervisors** coordinate and prove engineering implementation once a Hardware Studio-specific profile and canonical registry entry are actually qualified. Cookpit does not become a CAD designer or new product Director.
+- **Creative Studio** already owns 3D PBR/cinematic presentation rendering and its own scene/execution Director. Hardware Studio's V1 handoff of **read-only, revision-pinned real CAD-derived geometry** into Creative Studio is a future integration proof, not completed and not required for G1 or manufacturing release.
+- **Ptah** supplies neutral persistent workspace/Activities, hosted tools, execution, sources, artifacts and evidence for whatever supported Facilities are available. Ptah does not implement a competing CAD/rendering tool or decide job intent; work on KRATOS can remain local, with ATHENA optional when particular compute/execution is needed. The generic Ptah workspace is usable independently of any E07 unattended forwarding limitation.
+- Preserve Ptah public neutrality and the project-owned Director boundaries. If a real consumer run uncovers an absent **generic workspace capability**, track that precisely; do not widen Ptah's programme based on untested integration assumptions.
+- **Prime OS F04–F07 integration remains LAST**. This addendum changes no E07 physical-proof status, security policy, node control or production activation.
+
 ## E07 Oracle-first physical remote execution verified (2026-10-21)
 
 **Ptah PR #157**: existing Oracle RPC carried opaque native TLS byte
@@ -14,8 +25,9 @@ an active Oracle caller to exchange packet batches. Do not claim
 autonomous/unattended permanent roaming forwarding or silently
 install a third-party relay. Unsupported raw TCP tunnels must not be
 invented. The pre-existing persistent ATHENA worker is independent
-and untouched. The PR is pushed but review/merge remains a repository
-matter, never a Ptah workspace login/Grant/access gate.
+and untouched. The Ptah-space PR #157 is **MERGED** as
+`9375b8f9fac9a429df38510d101c002e4228ba0b` (2026-10-21).
+That repository promotion is not a Ptah workspace login/Grant/access gate.
 
 No Railway, Knights, firewall, public port, host-network or extra
 account changes. Retire the earlier PR #155 relay direction as
