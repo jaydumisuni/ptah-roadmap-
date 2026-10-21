@@ -1,3 +1,29 @@
+## E07 Oracle-first physical remote execution verified (2026-10-21)
+
+**Ptah PR #157**: existing Oracle RPC carried opaque native TLS byte
+batches between loopback-only KRATOS Control and ATHENA Windows Node.
+Real E01 handshake, E02 native Reservation/Lease/Dispatch and native
+A05 process COMPLETED (exit 0), matching durable dispatch and attempt
+IDs, both SQLite integrity checks OK, independently matched stdout
+digest. Corrected E02 lease expiry to start after transport TLS
+handshake. Node ACK remains liveness; Control effect witnessing stays
+separate. The Windows binary was compiled by hosted GitHub workflow.
+
+**Native on-demand roaming transport VERIFIED.** This test required
+an active Oracle caller to exchange packet batches. Do not claim
+autonomous/unattended permanent roaming forwarding or silently
+install a third-party relay. Unsupported raw TCP tunnels must not be
+invented. The pre-existing persistent ATHENA worker is independent
+and untouched. The PR is pushed but review/merge remains a repository
+matter, never a Ptah workspace login/Grant/access gate.
+
+No Railway, Knights, firewall, public port, host-network or extra
+account changes. Retire the earlier PR #155 relay direction as
+superseded; preserve dated historical observations for audit.
+Prime OS integration LAST.
+
+---
+
 ## E07 roaming correction — ATHENA travels (2026-10-21)
 
 **Binding requirement:** E07 native E02/A05 must operate when ATHENA is away
