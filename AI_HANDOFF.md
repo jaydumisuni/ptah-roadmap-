@@ -1,3 +1,39 @@
+# E07 roaming requirement overrides same-LAN qualification
+
+## E07 roaming correction — ATHENA travels (2026-10-21)
+
+**Binding requirement:** E07 native E02/A05 must operate when ATHENA is away
+from KRATOS, on unrelated home, hotspot, work or mobile networks.
+The successful seventh LAN dispatch establishes actual native execution
+but is NOT cross-Internet, NAT traversal or ATHENA roaming proof.
+Do not certify E07 roaming from an equal-subnet test.
+
+**Ptah-only implementation:** [Ptah-space PR #155](https://github.com/jaydumisuni/Ptah-space/pull/155)
+(commit 00083094a1f992c0f87870b540181d119e04abe7) adds a small opaque
+outbound TCP rendezvous relay, outbound Control and Node sockets, and
+backward-compatible direct LAN mode. Existing TLS 1.3 mutual
+authentication remains strictly end-to-end; the relay cannot grant
+permissions, select A05 work or forge completion evidence. ATHENA's
+Node worker can be configured with a public relay endpoint instead of
+a fixed private KRATOS IP. Linux/Windows native artifact build CI was
+added. KRATOS complete Rust workspace tests, relay mTLS transport tests,
+affected strict Clippy and A01/Phase0C checks passed locally.
+
+**Not yet claimed:** PR #155 source has not necessarily merged; a
+globally reachable TCP relay has NOT been provisioned, Windows Node
+replaced or an ATHENA-off-LAN E02/A05 effect physically verified. Those
+are the remaining *transport deployment/roaming acceptance* steps,
+not Ptah-side login, Grants or permission gates. Normal workspace
+operations remain available during an E07 relay transport outage.
+Do not overwrite the working ATHENA scheduled-task config before the
+new relay and Windows binary are independently reachable and verified.
+
+**Boundaries:** Only Ptah code and Ptah roadmap changed. Knights,
+Oracle configuration, ATHENA Wi-Fi and existing services untouched.
+Prime OS integration LAST after the roaming requirement is met.
+
+---
+
 # Latest E07 post-restart A05 physical success — 2026-10-21 (READ FIRST)
 
 E07's last measured runtime gap is CLOSED. KRATOS and ATHENA are back on
