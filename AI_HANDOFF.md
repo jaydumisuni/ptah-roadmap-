@@ -1,3 +1,26 @@
+# E07 Oracle-first real E02/A05 proof, 2026-10-21
+
+The native cross-host result is now **PHYSICALLY VERIFIED** via
+the existing Oracle terminal-RPC transport. Ptah PR #157 implements
+a bounded opaque-TLS loopback carrier plus post-E01 dispatch TTL fix.
+KRATOS native E01/TLS and E02 -> ATHENA native A05 cmd.exe exit 0.
+Both journals integrity=ok; exact dispatch
+01a15e28-646a-7023-a574-c5b28b885826 matches both systems;
+ATHENA stdout SHA-256 independently reproduced:
+sha256:2344e34e044bc52acc3bc4f659ad04a8a8437db66e42b1913d7cb246b639bb6e.
+
+**Do not overclaim permanent unattended transport:** Oracle exposes
+authenticated terminal RPC, not a documented raw TCP tunnel. An
+upstream tool invoker relayed native bytes during the passing test.
+Without such an active invoker, autonomous cross-network forwarding
+is unproven. This is a narrow E07 capability limit, NOT a general
+Ptah workspace blocker. Production ATHENA worker and Knights were
+unchanged. External Railway relay PR #155 is superseded, not
+required. PR #157 pushed but unmerged until GitHub acceptance.
+Prime OS integration LAST.
+
+---
+
 # E07 roaming requirement overrides same-LAN qualification
 
 ## E07 roaming correction — ATHENA travels (2026-10-21)
